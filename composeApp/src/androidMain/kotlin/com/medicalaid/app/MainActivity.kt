@@ -14,6 +14,7 @@ class MainActivity : ComponentActivity() {
             navigationBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
         )
         super.onCreate(savedInstanceState)
+        com.medicalaid.app.platform.Prefs.init(this)
         setContent { App() }
     }
 }

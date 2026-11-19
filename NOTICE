@@ -1,0 +1,19 @@
+Medicalaid
+Copyright 2026 The Medicalaid contributors
+
+LICENSING
+- Source code: Apache License 2.0 (see LICENSE).
+- Original written content (the summaries in composeApp/src/commonMain/kotlin/com/medicalaid/app/content/):
+  Creative Commons Attribution 4.0 International (see CONTENT-LICENSE.md and licenses/CC-BY-4.0.txt).
+  The underlying facts belong to, and are attributed to, the cited guideline bodies and regulators.
+
+THIRD-PARTY MATERIAL
+- Inter typeface by Rasmus Andersson — SIL Open Font License 1.1 (licenses/Inter-OFL.txt).
+- iosApp/ Xcode host project adapted from JetBrains "KMP-App-Template" — Apache License 2.0.
+- Drug label information summarised from US FDA prescribing information published on DailyMed
+  (US National Library of Medicine) — US government public information.
+
+CITED SOURCES
+Guidelines and labels are cited, summarised in our own words, and linked to their official pages.
+No guideline text, tables or images are reproduced. Organisation names appear only in citations;
+no logos or trademarks are used, and no endorsement by any cited organisation is implied.

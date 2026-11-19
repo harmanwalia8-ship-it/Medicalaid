@@ -12,6 +12,13 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.medicalaid.app.content.Conditions
 import com.medicalaid.app.content.Population
+import com.medicalaid.app.content.drugs.Drugs
+import com.medicalaid.app.ui.drugs.DrugScreen
+import com.medicalaid.app.ui.drugs.DrugsScreen
+import com.medicalaid.app.ui.home.AboutScreen
+import com.medicalaid.app.ui.home.CalculatorsScreen
+import com.medicalaid.app.ui.home.HomeScreen
+import com.medicalaid.app.ui.home.IntendedUseDialog
 import com.medicalaid.app.pregnancy.Trimester
 import com.medicalaid.app.tools.Thyroid
 import com.medicalaid.app.ui.medicines.ConditionScreen
@@ -90,5 +97,13 @@ class Screenshots {
         shot("14-condition-diabetes-general", heightDp = 2600) { ConditionScreen(Conditions.byId("diabetes-general")!!, null, null, {}, pad) }
         shot("15-sources", heightDp = 1600) { SourcesScreen(pad) }
         shot("16-condition-hypertension-dark", heightDp = 2000, dark = true) { ConditionScreen(Conditions.byId("hypertension")!!, "Labetalol IV (order set)", null, {}, pad) }
+        shot("20-home") { HomeScreen("", {}, {}, {}, {}, {}, pad) }
+        shot("21-home-search", heightDp = 1200) { HomeScreen("metf", {}, {}, {}, {}, {}, pad) }
+        shot("22-drugs", heightDp = 1600) { DrugsScreen("", {}, {}, {}, pad) }
+        shot("23-drug-metformin", heightDp = 3400) { DrugScreen(Drugs.byId("metformin")!!, {}, pad) }
+        shot("24-drug-metformin-dark", dark = true) { DrugScreen(Drugs.byId("metformin")!!, {}, pad) }
+        shot("25-calculators", heightDp = 1400) { CalculatorsScreen(null, {}, {}, pad) }
+        shot("26-about", heightDp = 1400) { AboutScreen({}, pad) }
+        shot("27-intro") { IntendedUseDialog {} }
     }
 }

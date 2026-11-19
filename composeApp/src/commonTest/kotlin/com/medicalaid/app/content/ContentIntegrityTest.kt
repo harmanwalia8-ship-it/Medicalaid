@@ -69,6 +69,7 @@ class ContentIntegrityTest {
                 c.tiers.forEach { t -> t.drugs.forEach { d -> d.citations.forEach { add(it.sourceId) } } }
             }
             Schedule.items.forEach { i -> i.citations.forEach { add(it.sourceId) } }
+            com.medicalaid.app.content.drugs.Drugs.all.forEach { d -> d.allCitations().forEach { add(it.sourceId) } }
             // Cited directly by UI components (dating card, calculators).
             addAll(UI_CITED)
         }

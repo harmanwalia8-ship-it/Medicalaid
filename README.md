@@ -8,18 +8,27 @@ Works fully offline and stores no patient data.
 
 ## What's in it
 
-**Pregnancy tab**
+Navigation is a side menu: **Home** (search everything), **Pregnancy**, **Treatment**, **Drugs**, **Calculators**,
+**Sources**, **About**. A one-time "for clinicians" notice explains the intended use.
+
+**Pregnancy**
 - LMP → EDD (Naegele, +280 days), gestational age (weeks + days), trimester, term category.
 - Optional dating ultrasound: compares with LMP using the ACOG CO 700 redating table and redates when the
   discrepancy exceeds the threshold (bands are by LMP gestational age, as the table specifies).
 - Antenatal schedule — tests, scans, vaccines, supplements and visits — with calendar dates and status
   (due now / coming up / first visit / window passed). Filter by **India (MoHFW, ICMR)** or **ACOG / CDC**.
 
-**Medicines tab** — browse or search (synonyms work: "vomiting", "itching", "pre-eclampsia", drug names)
+**Treatment** — browse or search (synonyms work: "vomiting", "itching", "pre-eclampsia", drug names)
 - *In pregnancy:* nausea & vomiting, fever & pain, headache, heartburn, high BP & pre-eclampsia,
   itching & cholestasis, UTI, vaginal infections, anaemia, diabetes (GDM & pre-existing), hypothyroidism, asthma.
 - *General adult:* diabetes (type 2), hypothyroidism, asthma.
 - Doses as written by the source; weight-based doses calculate from an entered weight.
+
+**Drugs** — searchable database summarising official US FDA labels (DailyMed): uses, dose, tests before
+starting, monitoring, kidney and liver dosing, common vs serious side effects, pharmacokinetics (absorption,
+distribution, metabolism, elimination, half-life), key interactions, pregnancy and breastfeeding. Every section
+cites the label section it came from. "Look up elsewhere" links open DailyMed, LiverTox, LactMed, BNF, Medscape,
+Drugs.com and UpToDate in the browser — linked, never copied. Condition pages link to the drug profile.
 
 **Calculators**
 - Glucose ↔ HbA1c (ADAG equation, as used by the ADA eAG calculator) with ADA diagnostic band and the
@@ -54,9 +63,11 @@ Works fully offline and stores no patient data.
 composeApp/src/
   commonMain/kotlin/com/medicalaid/app/
     content/      Sources.kt, Schedule.kt, PregnancyConditions.kt, ChronicConditions.kt, Search.kt, Model.kt
+    content/drugs/  DrugModel.kt, Drugs.kt (registry + search), ExternalRefs.kt, data/ (one file per drug group)
     pregnancy/    Dating.kt            (EDD, GA, ACOG redating)
     tools/        Glycemia.kt, Thyroid.kt
-    ui/           theme, components, pregnancy, medicines, tools, sources screens
+    platform/     Prefs (settings only — never patient data)
+    ui/           theme, components, home, pregnancy, medicines, drugs, tools, sources screens
   commonTest/     dating, calculators, search and content-integrity tests
   androidMain/    MainActivity, launcher icon
   iosMain/        MainViewController (entry point for Swift)
@@ -88,7 +99,13 @@ Create a real upload key before publishing to the Play Store.
 2. Add the entry to the right `Condition` or to `Schedule.items`, with `cite("source-id", "Table/section")`.
 3. Run the tests — the integrity test catches missing or unknown citations.
 
-## Licences
+Drug profiles: add a `DrugMonograph` to the right file in `content/drugs/data/` (see `Metabolic.kt` for the
+template), with a `Source` for the DailyMed label and a section-level citation on every block.
 
-Inter typeface: SIL Open Font License (`licenses/Inter-OFL.txt`). The iOS host project is adapted from
-JetBrains' Kotlin/KMP-App-Template (Apache 2.0).
+## Licences and legal
+
+- Code: Apache License 2.0 (`LICENSE`). Written content: CC BY 4.0 (`CONTENT-LICENSE.md`). Third-party: `NOTICE`.
+- Medical disclaimer and intended use: `DISCLAIMER.md` (also shown in the app). Contribution rules,
+  including clinical review of content changes: `CONTRIBUTING.md`.
+- Facts from guidelines and labels are stated in our own words with a citation; no third-party text, tables or
+  images are reproduced, and no logos are used.

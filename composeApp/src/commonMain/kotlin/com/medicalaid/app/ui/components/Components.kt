@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -228,9 +229,11 @@ fun ScreenTitle(
     subtitle: String? = null,
     onBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    onMenu: (() -> Unit)? = null,
 ) {
     Column(modifier.fillMaxWidth().padding(horizontal = Gutter).padding(top = 12.dp, bottom = 8.dp)) {
-        if (onBack != null) {
+        val action = onBack ?: onMenu
+        if (action != null) {
             Box(
                 Modifier
                     .padding(bottom = 14.dp)
@@ -238,10 +241,14 @@ fun ScreenTitle(
                     .clip(CircleShape)
                     .background(Theme.colors.surface)
                     .border(1.dp, Theme.colors.hairline, CircleShape)
-                    .clickable(onClick = onBack),
+                    .clickable(onClick = action),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Theme.colors.text, modifier = Modifier.size(20.dp))
+                if (onBack != null) {
+                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Theme.colors.text, modifier = Modifier.size(20.dp))
+                } else {
+                    Icon(Icons.Outlined.Menu, "Menu", tint = Theme.colors.text, modifier = Modifier.size(20.dp))
+                }
             }
         }
         Text(title, style = Theme.type.title, color = Theme.colors.text)

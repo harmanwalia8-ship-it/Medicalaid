@@ -43,3 +43,6 @@ fun formatNumber(value: Double): String {
     return if (kotlin.math.abs(value - rounded) < 0.05) rounded.toString()
     else ((kotlin.math.round(value * 10)) / 10.0).toString()
 }
+
+/** "1 drug", "12 drugs". */
+fun plural(n: Int, word: String): String = "$n ${if (n == 1) word else word + "s"}"

@@ -54,13 +54,13 @@ private val authorityNames = mapOf(
 )
 
 @Composable
-fun SourcesScreen(contentPadding: PaddingValues) {
+fun SourcesScreen(contentPadding: PaddingValues, onMenu: (() -> Unit)? = null) {
     val c = Theme.colors
     val uri = LocalUriHandler.current
     val grouped = Sources.all.groupBy { it.authority }.toList().sortedBy { it.first.ordinal }
 
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
-        item { ScreenTitle("Sources", "Every recommendation in the app links to one of these documents.") }
+        item { ScreenTitle("Sources", "Every recommendation in the app links to one of these documents.", onMenu = onMenu) }
         item {
             SurfaceCard(Modifier.padding(horizontal = Gutter).padding(top = 12.dp)) {
                 Text("How content is chosen", style = Theme.type.headline, color = c.text)

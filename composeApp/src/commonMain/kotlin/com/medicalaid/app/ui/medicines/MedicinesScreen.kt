@@ -55,12 +55,13 @@ fun MedicinesScreen(
     onPopulationChange: (Population) -> Unit,
     onOpen: (conditionId: String, drugName: String?) -> Unit,
     contentPadding: PaddingValues,
+    onMenu: (() -> Unit)? = null,
 ) {
     val hits = remember(query) { Search.run(query) }
     val focus = LocalFocusManager.current
 
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
-        item { ScreenTitle("Medicines", "Treatment by complaint — with doses and the guideline behind each") }
+        item { ScreenTitle("Treatment", "By complaint — doses as the guideline states them, with the source behind each", onMenu = onMenu) }
         item {
             SearchField(
                 query, onQueryChange, onDone = { focus.clearFocus() },
@@ -163,6 +164,7 @@ fun SearchField(
     onValueChange: (String) -> Unit,
     onDone: () -> Unit,
     modifier: Modifier = Modifier,
+    placeholder: String = "Search vomiting, itching, labetalol…",
 ) {
     val c = Theme.colors
     androidx.compose.foundation.layout.Row(
@@ -174,7 +176,7 @@ fun SearchField(
         Spacer(Modifier.width(10.dp))
         Box(Modifier.weight(1f).padding(vertical = 14.dp)) {
             if (value.isEmpty()) {
-                Text("Search vomiting, itching, labetalol…", style = Theme.type.body, color = c.textTertiary)
+                Text(placeholder, style = Theme.type.body, color = c.textTertiary)
             }
             BasicTextField(
                 value = value,

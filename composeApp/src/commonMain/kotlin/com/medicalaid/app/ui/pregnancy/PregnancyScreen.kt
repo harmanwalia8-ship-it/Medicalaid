@@ -83,13 +83,13 @@ import kotlinx.datetime.daysUntil
 private enum class PickerTarget { Lmp, Scan }
 
 @Composable
-fun PregnancyScreen(state: PregnancyState, today: LocalDate, contentPadding: PaddingValues) {
+fun PregnancyScreen(state: PregnancyState, today: LocalDate, contentPadding: PaddingValues, onMenu: (() -> Unit)? = null) {
     var picker by remember { mutableStateOf<PickerTarget?>(null) }
     val outcome = state.outcome(today)
     val result = (outcome as? DatingOutcome.Ok)?.result
 
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
-        item { ScreenTitle("Pregnancy", "Dating, due date and the antenatal schedule") }
+        item { ScreenTitle("Pregnancy", "Dating, due date and the antenatal schedule", onMenu = onMenu) }
 
         item {
             InputCard(
@@ -333,7 +333,7 @@ private fun ResultCard(result: DatingResult, today: LocalDate, modifier: Modifie
                     .padding(14.dp),
             ) {
                 Text(
-                    if (r.redate) "Redate to ultrasound" else "Keep LMP dating",
+                    if (r.redate) "Meets ACOG criteria for redating" else "Within ACOG limits — LMP dating retained",
                     style = Theme.type.bodyStrong,
                     color = if (r.redate) c.caution else c.text,
                 )
@@ -341,7 +341,7 @@ private fun ResultCard(result: DatingResult, today: LocalDate, modifier: Modifie
                 Text(
                     "Scan ${r.ultrasoundGa.label} vs LMP ${r.lmpGaAtScan.label} on the scan date — " +
                         "${r.discrepancyDays} day${if (r.discrepancyDays == 1) "" else "s"} apart. " +
-                        "Redate if the difference is more than ${r.thresholdDays} days at ${r.bandLabel}.",
+                        "ACOG: redate if the difference is more than ${r.thresholdDays} days at ${r.bandLabel} (LMP gestational age).",
                     style = Theme.type.caption,
                     color = c.textSecondary,
                 )

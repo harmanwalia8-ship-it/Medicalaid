@@ -7,7 +7,7 @@ package com.medicalaid.app.content
 object Sources {
     const val REVIEWED = "November 2026"
 
-    val all: List<Source> = listOf(
+    private val guidelines: List<Source> = listOf(
         // ---------------------------------------------------------------- Government of India
         Source(
             "mohfw-anc-2010", Authority.MoHFW, "Guidelines",
@@ -370,6 +370,9 @@ object Sources {
             status = "Reaffirmed 2024",
         ),
     )
+
+    /** Guideline documents plus the drug labels cited by the drug database. */
+    val all: List<Source> = guidelines + com.medicalaid.app.content.drugs.Drugs.sources
 
     private val index = all.associateBy { it.id }
 

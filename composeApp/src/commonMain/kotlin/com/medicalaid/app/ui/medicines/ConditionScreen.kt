@@ -2,6 +2,7 @@ package com.medicalaid.app.ui.medicines
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import com.medicalaid.app.content.Drug
 import com.medicalaid.app.content.InfoBlock
 import com.medicalaid.app.content.Population
 import com.medicalaid.app.content.ToolKind
+import com.medicalaid.app.content.drugs.Drugs
 import com.medicalaid.app.pregnancy.Trimester
 import com.medicalaid.app.ui.components.Bullets
 import com.medicalaid.app.ui.components.Dot
@@ -61,6 +63,7 @@ fun ConditionScreen(
     trimester: Trimester?,
     onBack: () -> Unit,
     contentPadding: PaddingValues,
+    onOpenDrug: (String) -> Unit = {},
 ) {
     var weightText by remember(condition.id) { mutableStateOf("") }
     val weightKg = weightText.replace(',', '.').toDoubleOrNull()?.takeIf { it in 20.0..250.0 }
@@ -90,12 +93,17 @@ fun ConditionScreen(
         item {
             Column {
                 ScreenTitle(condition.title, condition.summary, onBack = onBack)
-                Row(Modifier.padding(horizontal = Gutter).padding(top = 4.dp)) {
+                Row(Modifier.padding(horizontal = Gutter).padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                     Tag(
                         condition.population.label,
                         fg = if (condition.population == Population.Pregnancy) Theme.colors.accent else Theme.colors.positive,
                         bg = if (condition.population == Population.Pregnancy) Theme.colors.accentSoft else Theme.colors.positiveSoft,
                     )
+                    Spacer(Modifier.width(10.dp))
+                    val authorities = (condition.citations + condition.info.flatMap { it.citations } +
+                        condition.tiers.flatMap { t -> t.drugs.flatMap { it.citations } })
+                        .map { com.medicalaid.app.content.Sources.byId(it.sourceId).authority.short }.distinct()
+                    Text("Based on " + authorities.joinToString(" · "), style = Theme.type.caption, color = Theme.colors.textTertiary)
                 }
             }
         }
@@ -154,6 +162,7 @@ fun ConditionScreen(
                     DrugCard(
                         drug, weightKg,
                         highlighted = drug.name == highlightDrug,
+                        onOpenDrug = onOpenDrug,
                         modifier = Modifier.padding(horizontal = Gutter).padding(bottom = 8.dp),
                     )
                 }
@@ -204,12 +213,24 @@ private fun InfoCard(block: InfoBlock, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun DrugCard(drug: Drug, weightKg: Double?, highlighted: Boolean, modifier: Modifier = Modifier) {
+private fun DrugCard(drug: Drug, weightKg: Double?, highlighted: Boolean, onOpenDrug: (String) -> Unit, modifier: Modifier = Modifier) {
     val c = Theme.colors
+    val monograph = remember(drug.name) { Drugs.forConditionDrug(drug.name) }
     SurfaceCard(
         modifier.then(if (highlighted) Modifier.border(1.5.dp, c.accent, Radius.card) else Modifier),
     ) {
-        Text(drug.name, style = Theme.type.headline, color = c.text)
+        Row(verticalAlignment = Alignment.Top) {
+            Text(drug.name, style = Theme.type.headline, color = c.text, modifier = Modifier.weight(1f))
+            if (monograph != null) {
+                Text(
+                    "Drug profile ›",
+                    style = Theme.type.label,
+                    color = c.accent,
+                    modifier = Modifier.padding(start = 8.dp, top = 2.dp).clip(Radius.pill).clickable { onOpenDrug(monograph.id) }
+                        .padding(horizontal = 6.dp, vertical = 2.dp),
+                )
+            }
+        }
         Spacer(Modifier.height(6.dp))
         Text(drug.regimen, style = Theme.type.body, color = c.text)
         if (drug.maxDose != null) {
