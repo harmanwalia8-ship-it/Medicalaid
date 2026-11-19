@@ -566,7 +566,7 @@ internal val respiratoryGiDrugs = listOf(
         clearance = setOf(Clearance.Hepatic, Clearance.Biliary),
         boxedWarning = Facts(
             listOf(
-                "Serious neuropsychiatric events (agitation, aggression, depression, sleep disturbance, suicidal thoughts and behaviour incl. suicide). In allergic rhinitis reserve for inadequate response or intolerance to alternatives.",
+                "Serious neuropsychiatric events (agitation, aggression, depression, sleep disturbance, suicidal thoughts/behaviour incl. suicide); in allergic rhinitis reserve for failure of or intolerance to alternatives.",
                 "Discuss risks; stop and contact a provider if behaviour changes, new neuropsychiatric symptoms or suicidal thoughts occur.",
             ),
             listOf(cite(SRC_MONTELUKAST, "Boxed Warning; 5.1")),
@@ -773,11 +773,11 @@ internal val respiratoryGiDrugs = listOf(
             listOf(
                 "Symptom response does not exclude gastric malignancy.",
                 "Acute tubulointerstitial nephritis — stop and evaluate.",
-                "Clostridioides difficile-associated diarrhoea.",
+                "Clostridium difficile-associated diarrhoea.",
                 "Osteoporosis-related hip, wrist or spine fractures with long-term or multiple daily dosing.",
                 "Severe cutaneous adverse reactions; cutaneous or systemic lupus — discontinue.",
                 "Vitamin B12 deficiency with daily use >3 years.",
-                "Hypomagnesaemia (tetany, arrhythmias, seizures), usually after ≥3 months; may cause hypocalcaemia or hypokalaemia.",
+                "Hypomagnesaemia (tetany, arrhythmias, seizures) after ≥3 months, mostly after a year; may cause hypocalcaemia or hypokalaemia.",
                 "Fundic gland polyps with long-term use (esp. >1 year) — use the shortest suitable duration.",
             ),
             listOf(cite(SRC_OMEPRAZOLE, "5.1–5.13 Warnings and Precautions")),
@@ -858,11 +858,11 @@ internal val respiratoryGiDrugs = listOf(
             listOf(
                 "Symptom response does not exclude gastric malignancy.",
                 "Acute tubulointerstitial nephritis — stop and evaluate.",
-                "Clostridioides difficile-associated diarrhoea.",
+                "Clostridium difficile-associated diarrhoea.",
                 "Osteoporosis-related hip, wrist or spine fractures with long-term or multiple daily dosing.",
                 "Severe cutaneous adverse reactions; cutaneous or systemic lupus — discontinue.",
                 "Vitamin B12 deficiency with daily use >3 years.",
-                "Hypomagnesaemia (tetany, arrhythmias, seizures), usually after ≥3 months; may cause hypocalcaemia or hypokalaemia.",
+                "Hypomagnesaemia (tetany, arrhythmias, seizures) after ≥3 months, mostly after a year; may cause hypocalcaemia or hypokalaemia.",
                 "Fundic gland polyps with long-term use (esp. >1 year) — use the shortest suitable duration.",
             ),
             listOf(cite(SRC_PANTOPRAZOLE, "5.1–5.10 Warnings and Precautions")),
@@ -1021,7 +1021,7 @@ internal val respiratoryGiDrugs = listOf(
         ),
         seriousEffects = Facts(
             listOf(
-                "Symptomatic hypophosphataemia, osteomalacia, fractures (boxed). Risk factors: malabsorption, IBD, hyperparathyroidism, vitamin D deficiency, malnutrition, HHT, drugs affecting proximal renal tubules.",
+                "Symptomatic hypophosphataemia with osteomalacia and fractures (boxed); risk factors include malabsorption, IBD, hyperparathyroidism, vitamin D deficiency, malnutrition, HHT, drugs affecting renal tubules.",
                 "Serious hypersensitivity incl. life-threatening or fatal anaphylactic-type reactions (serious anaphylaxis 0.1% in trials).",
                 "Hypertension (4%); transient systolic rises with flushing, dizziness or nausea (6%).",
                 "Laboratory interference: serum iron overestimated for 24 h after dosing.",
