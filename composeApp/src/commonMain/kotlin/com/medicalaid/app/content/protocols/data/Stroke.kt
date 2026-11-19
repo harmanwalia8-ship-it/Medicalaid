@@ -214,7 +214,7 @@ internal val strokeProtocols = listOf(
                 title = "After thrombolysis",
                 timing = "First 24 h after IVT",
                 points = listOf(
-                    "AHA/ASA 2026 and ESO 2025: keep BP below 180/105 mm Hg for the first 24 h after IVT. MoHFW 2022: BP goal <180/105 mm Hg during and after IVT.",
+                    "AHA/ASA 2026 and ESO 2025: BP <180/105 mm Hg for the first 24 h after IVT. MoHFW 2022: goal <180/105 mm Hg during and after IVT.",
                     "AHA/ASA 2026: BP and neurological checks every 15 min for 2 h, every 30 min for 6 h, then hourly until 24 h.",
                     "AHA/ASA 2026: severe headache, acute hypertension, nausea, vomiting or worsening — stop alteplase infusion and obtain emergency head CT.",
                     "AHA/ASA 2026: follow-up CT or MRI at 24 h before starting antiplatelets or anticoagulants; no IV aspirin within 90 min of starting IVT.",
@@ -270,7 +270,7 @@ internal val strokeProtocols = listOf(
                 points = listOf(
                     "AHA/ASA 2022: mild–moderate ICH with SBP 150–220 mm Hg — lowering to a target of 140 mm Hg (range 130–150) is safe and may be reasonable.",
                     "AHA/ASA 2022: titrate smoothly, avoiding peaks and variability; lowering SBP to <130 mm Hg is potentially harmful.",
-                    "NICE: within 6 h and SBP 150–220 — aim ≤140 mm Hg, fall not exceeding 60 mm Hg in 1 h. Not if GCS <6, structural cause, early surgery or massive haematoma.",
+                    "NICE: within 6 h, SBP 150–220 — aim ≤140 mm Hg, fall ≤60 mm Hg in 1 h. Not if GCS <6, structural cause, early surgery or massive haematoma.",
                     "MoHFW 2022: target SBP 140–150 mm Hg for at least 7 days. ESO 2025: early SBP <140 mm Hg in small-to-moderate haematomas (expert consensus).",
                     "AHA/ASA 2022: stop the anticoagulant and reverse as soon as possible. Warfarin with INR ≥2.0 — 4-factor PCC over FFP, then IV vitamin K.",
                     "AHA/ASA 2022: factor Xa inhibitor — andexanet alfa reasonable, or 4F-PCC/aPCC may be considered; dabigatran — idarucizumab; unfractionated heparin — protamine.",
