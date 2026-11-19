@@ -55,7 +55,7 @@ private data class Section(val key: String, val chip: String, val content: @Comp
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingValues) {
+fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingValues, onOpenRenalCalculator: () -> Unit = {}) {
     val c = Theme.colors
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
@@ -77,7 +77,17 @@ fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingV
             add(
                 Section("organ", "Kidney & liver") {
                     SurfaceCard {
-                        drug.renal?.let { FactsBlock("Kidney", it) }
+                        drug.renal?.let {
+                            FactsBlock("Kidney", it)
+                            Spacer(Modifier.height(10.dp))
+                            Text(
+                                "eGFR / CrCl calculator ›",
+                                style = Theme.type.label,
+                                color = c.accent,
+                                modifier = Modifier.clip(Radius.pill).background(c.accentSoft)
+                                    .clickable(onClick = onOpenRenalCalculator).padding(horizontal = 12.dp, vertical = 7.dp),
+                            )
+                        }
                         if (drug.renal != null && drug.hepatic != null) Spacer(Modifier.height(16.dp))
                         drug.hepatic?.let { FactsBlock("Liver", it) }
                     }

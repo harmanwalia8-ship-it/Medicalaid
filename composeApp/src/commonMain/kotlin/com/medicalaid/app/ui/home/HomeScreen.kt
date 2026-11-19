@@ -98,7 +98,7 @@ fun HomeScreen(
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Tile(Destination.Drugs, "${plural(Drugs.all.size, "drug")} · side effects, kinetics", Modifier.weight(1f), onNavigate)
-                    Tile(Destination.Calculators, "HbA1c, TSH, due date", Modifier.weight(1f), onNavigate)
+                    Tile(Destination.Calculators, "eGFR, HbA1c, TSH, due date", Modifier.weight(1f), onNavigate)
                 }
             }
         }

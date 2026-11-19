@@ -25,7 +25,9 @@ import com.medicalaid.app.ui.components.ScreenTitle
 import com.medicalaid.app.ui.components.SectionHeader
 import com.medicalaid.app.ui.components.SurfaceCard
 import com.medicalaid.app.ui.theme.Theme
+import com.medicalaid.app.content.ToolKind
 import com.medicalaid.app.ui.tools.GlycemiaTool
+import com.medicalaid.app.ui.tools.RenalTool
 import com.medicalaid.app.ui.tools.TshGeneralTool
 import com.medicalaid.app.ui.tools.TshPregnancyTool
 
@@ -51,11 +53,31 @@ fun CalculatorsScreen(
                 }
             }
         }
+        item { SectionHeader("Kidney", Modifier.padding(horizontal = Gutter)) }
+        item { Box(Modifier.padding(horizontal = Gutter)) { RenalTool() } }
         item { SectionHeader("Diabetes", Modifier.padding(horizontal = Gutter)) }
         item { Box(Modifier.padding(horizontal = Gutter)) { GlycemiaTool() } }
         item { SectionHeader("Thyroid · pregnancy", Modifier.padding(horizontal = Gutter)) }
         item { Box(Modifier.padding(horizontal = Gutter)) { TshPregnancyTool(trimester) } }
         item { SectionHeader("Thyroid · non-pregnant adult", Modifier.padding(horizontal = Gutter)) }
         item { Box(Modifier.padding(horizontal = Gutter)) { TshGeneralTool() } }
+    }
+}
+
+/** A single calculator opened on top of another page (e.g. from a drug's kidney section). */
+@Composable
+fun ToolScreen(kind: ToolKind, trimester: Trimester?, onBack: () -> Unit, contentPadding: PaddingValues) {
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
+        item { ScreenTitle("Calculator", onBack = onBack) }
+        item {
+            Box(Modifier.padding(horizontal = Gutter).padding(top = 8.dp)) {
+                when (kind) {
+                    ToolKind.Renal -> RenalTool()
+                    ToolKind.Glycemia -> GlycemiaTool()
+                    ToolKind.TshPregnancy -> TshPregnancyTool(trimester)
+                    ToolKind.TshGeneral -> TshGeneralTool()
+                }
+            }
+        }
     }
 }

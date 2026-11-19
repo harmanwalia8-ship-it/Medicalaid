@@ -105,5 +105,8 @@ class Screenshots {
         shot("25-calculators", heightDp = 1400) { CalculatorsScreen(null, {}, {}, pad) }
         shot("26-about", heightDp = 1400) { AboutScreen({}, pad) }
         shot("27-intro") { IntendedUseDialog {} }
+        shot("28-tool-renal", heightDp = 1500) {
+            Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.RenalTool("1.4", "68", com.medicalaid.app.tools.Renal.Sex.Male, "72", "168") }
+        }
     }
 }

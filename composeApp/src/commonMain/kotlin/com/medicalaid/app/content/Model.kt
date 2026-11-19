@@ -18,6 +18,9 @@ enum class Authority(val short: String, val india: Boolean = false) {
     ATA("ATA"),
     GINA("GINA"),
     NHLBI("NHLBI (NAEPP)"),
+    KDIGO("KDIGO"),
+    NKF("NKF"),
+    Paper("Original paper"),
     NICE("NICE"),
     RCOG("RCOG"),
     WHO("WHO"),
@@ -37,6 +40,8 @@ enum class ToolKind {
     TshPregnancy,
     /** TSH interpretation for non-pregnant adults. */
     TshGeneral,
+    /** eGFR (CKD-EPI 2021), non-indexed eGFR and Cockcroft–Gault CrCl. */
+    Renal,
 }
 
 /** A titled block of guideline statements (diagnostic criteria, targets, thresholds…). */

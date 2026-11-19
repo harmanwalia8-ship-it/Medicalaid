@@ -95,6 +95,7 @@ enum class Destination(val label: String, val icon: ImageVector) {
 sealed interface Detail {
     data class ConditionPage(val id: String, val drug: String?) : Detail
     data class DrugPage(val id: String) : Detail
+    data class ToolPage(val kind: com.medicalaid.app.content.ToolKind) : Detail
 }
 
 private const val INTRO_KEY = "intro_ack"
@@ -159,7 +160,13 @@ fun App() {
                                 onOpenDrug = { push(Detail.DrugPage(it)) },
                             )
                         }
-                        is Detail.DrugPage -> Drugs.byId(detail.id)?.let { DrugScreen(it, onBack = { pop() }, contentPadding = padding) }
+                        is Detail.DrugPage -> Drugs.byId(detail.id)?.let {
+                            DrugScreen(
+                                it, onBack = { pop() }, contentPadding = padding,
+                                onOpenRenalCalculator = { push(Detail.ToolPage(com.medicalaid.app.content.ToolKind.Renal)) },
+                            )
+                        }
+                        is Detail.ToolPage -> com.medicalaid.app.ui.home.ToolScreen(detail.kind, trimester, onBack = { pop() }, contentPadding = padding)
                         null -> when (currentRoot) {
                             Destination.Home -> HomeScreen(
                                 query = homeQuery,

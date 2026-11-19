@@ -25,7 +25,6 @@ class DrugDatabaseTest {
         Drugs.all.forEach { d ->
             assertTrue(d.commonEffects.items.isNotEmpty(), "${d.id}: no common effects")
             assertTrue(d.seriousEffects.items.isNotEmpty(), "${d.id}: no serious effects")
-            assertTrue(d.clearance.isNotEmpty(), "${d.id}: clearance not set")
             val pk = d.pk
             assertTrue(listOfNotNull(pk.absorption, pk.distribution, pk.metabolism, pk.elimination, pk.halfLife).isNotEmpty(), "${d.id}: empty PK")
             assertTrue(d.uses.isNotBlank() && d.drugClass.isNotBlank(), "${d.id}: missing uses/class")

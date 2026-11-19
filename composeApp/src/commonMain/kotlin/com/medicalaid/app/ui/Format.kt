@@ -46,3 +46,13 @@ fun formatNumber(value: Double): String {
 
 /** "1 drug", "12 drugs". */
 fun plural(n: Int, word: String): String = "$n ${if (n == 1) word else word + "s"}"
+
+/** Fixed decimals without platform formatting, e.g. formatDecimals(1.8183, 2) = "1.82". */
+fun formatDecimals(value: Double, decimals: Int): String {
+    var factor = 1L
+    repeat(decimals) { factor *= 10 }
+    val n = kotlin.math.round(kotlin.math.abs(value) * factor).toLong()
+    val sign = if (value < 0 && n != 0L) "-" else ""
+    if (decimals == 0) return sign + n
+    return sign + (n / factor) + "." + (n % factor).toString().padStart(decimals, '0')
+}

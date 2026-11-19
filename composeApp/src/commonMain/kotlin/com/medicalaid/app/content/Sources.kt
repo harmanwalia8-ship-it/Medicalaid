@@ -344,6 +344,26 @@ object Sources {
             "https://www.icmr.gov.in/icmrobject/uploads/STWs/1726567243_hypothyroidism.pdf",
         ),
         Source(
+            "nkf-ckd-epi-2021", Authority.NKF, "Equation",
+            "CKD-EPI Creatinine Equation", "2021",
+            "https://www.kidney.org/ckd-epi-creatinine-equation-2021",
+        ),
+        Source(
+            "kdigo-ckd-2024", Authority.KDIGO, "Clinical Practice Guideline",
+            "Evaluation and Management of Chronic Kidney Disease", "2024",
+            "https://kdigo.org/guidelines/ckd-evaluation-and-management/",
+        ),
+        Source(
+            "fda-renal-guidance-2024", Authority.FDA, "Guidance for Industry",
+            "Pharmacokinetics in Patients with Impaired Renal Function — Impact on Dosing", "2024",
+            "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/pharmacokinetics-patients-impaired-renal-function-study-design-data-analysis-and-impact-dosing",
+        ),
+        Source(
+            "cockcroft-gault-1976", Authority.Paper, "Nephron 1976;16:31–41",
+            "Prediction of Creatinine Clearance from Serum Creatinine (Cockcroft & Gault)", "1976",
+            "https://doi.org/10.1159/000180580",
+        ),
+        Source(
             "gina-2026", Authority.GINA, "Strategy Report",
             "Global Strategy for Asthma Management and Prevention", "2026",
             "https://ginasthma.org/2026-gina-strategy-report/",

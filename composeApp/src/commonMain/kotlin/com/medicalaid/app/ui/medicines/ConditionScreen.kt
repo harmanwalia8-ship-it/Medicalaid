@@ -115,6 +115,7 @@ fun ConditionScreen(
                         ToolKind.Glycemia -> GlycemiaTool()
                         ToolKind.TshPregnancy -> TshPregnancyTool(trimester)
                         ToolKind.TshGeneral -> TshGeneralTool()
+                        ToolKind.Renal -> com.medicalaid.app.ui.tools.RenalTool()
                     }
                 }
             }
