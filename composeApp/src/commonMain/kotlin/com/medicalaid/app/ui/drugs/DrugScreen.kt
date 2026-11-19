@@ -234,6 +234,10 @@ private fun PkCard(drug: DrugMonograph) {
     SurfaceCard {
         Text("Pharmacokinetics", style = Theme.type.headline, color = c.text)
         Spacer(Modifier.height(12.dp))
+        if (tiles.isEmpty()) {
+            Text("The cited label does not state pharmacokinetic values.", style = Theme.type.body, color = c.textSecondary)
+            Spacer(Modifier.height(12.dp))
+        }
         tiles.chunked(2).forEach { row ->
             Row(Modifier.fillMaxWidth().padding(bottom = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 row.forEach { (label, value) ->
