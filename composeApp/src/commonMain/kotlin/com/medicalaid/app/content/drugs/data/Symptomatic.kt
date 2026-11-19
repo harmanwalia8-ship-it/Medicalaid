@@ -115,7 +115,7 @@ internal val symptomaticDrugs = listOf(
         dose = Facts(
             listOf(
                 "Delayed-release 10 mg/10 mg tablets: start 2 tablets at bedtime (Day 1).",
-                "If symptoms persist into the afternoon of Day 2: 3 tablets from Day 3 (1 morning, 2 bedtime); if still uncontrolled, 4 tablets from Day 4 (1 morning, 1 mid-afternoon, 2 bedtime). Max 4 tablets/day.",
+                "Symptoms into Day 2 afternoon: 3 tablets from Day 3 (1 morning, 2 bedtime); if needed, 4 from Day 4 (1 morning, 1 mid-afternoon, 2 bedtime). Max 4 tablets/day.",
                 "Take daily (not as needed) on an empty stomach with water; swallow whole — do not crush, chew or split.",
             ),
             listOf(cite(DOX, "2.1 Dosage Information")),
@@ -239,7 +239,7 @@ internal val symptomaticDrugs = listOf(
             listOf(cite(OND, "4 Contraindications; 5.2; 7.1–7.3 Drug Interactions")),
         ),
         pregnancy = Facts(
-            listOf("Epidemiological studies on birth defects are inconsistent and methodologically limited, precluding conclusions; postmarketing data show no drug-associated risk of miscarriage or adverse maternal outcomes."),
+            listOf("Studies on birth defects are inconsistent and too limited for conclusions; postmarketing data show no drug-associated risk of miscarriage or adverse maternal outcomes."),
             listOf(cite(OND, "8.1 Pregnancy")),
         ),
         lactation = Facts(
@@ -257,7 +257,8 @@ internal val symptomaticDrugs = listOf(
         clearance = setOf(Clearance.Renal, Clearance.Hepatic),
         boxedWarning = Facts(
             listOf(
-                "Tardive dyskinesia, potentially irreversible; risk rises with duration and cumulative dose. Contraindicated with prior TD. Use the shortest duration, reassess need, stop at first signs. GERD: max 12 weeks; gastroparesis: avoid >12 weeks.",
+                "Tardive dyskinesia, potentially irreversible; risk rises with treatment duration and cumulative dose. Contraindicated with a history of TD.",
+                "Use the shortest duration, reassess need periodically, stop at first signs of TD. GERD: max 12 weeks; diabetic gastroparesis: avoid >12 weeks.",
             ),
             listOf(cite(MCP, "Boxed Warning; 5.1")),
         ),
@@ -515,7 +516,7 @@ internal val symptomaticDrugs = listOf(
                 "Adults: 10–50 mg IV (rate not exceeding 25 mg/min) or deep IM; 100 mg if required. Max 400 mg/day.",
                 "For IV or IM use only — not subcutaneous, intradermal or as a local anaesthetic.",
             ),
-            listOf(cite(DPH, "Dosage and Administration; Contraindications")),
+            listOf(cite(DPH, "Dosage and Administration; Contraindications; Warnings")),
         ),
         commonEffects = Facts(
             listOf(
@@ -578,9 +579,9 @@ internal val symptomaticDrugs = listOf(
         ),
         dose = Facts(
             listOf(
-                "Nausea and vomiting: 10–25 mg every 4–6 h as needed, increased if necessary.",
-                "Psychiatric outpatients: 10 mg three or four times daily or 25 mg two or three times daily; increase gradually. Hospitalised: 500 mg/day generally suffices; little gain from >1,000 mg/day for extended periods.",
-                "Intractable hiccups: 25–50 mg three or four times daily. Elderly, emaciated or debilitated: lower doses, increase more gradually.",
+                "Nausea and vomiting: 10–25 mg every 4–6 h as needed, increased if necessary. Intractable hiccups: 25–50 mg three or four times daily.",
+                "Psychotic disorders, outpatients: 10 mg three or four times daily or 25 mg two or three times daily, increased gradually; lower and slower in elderly or debilitated.",
+                "Hospitalised: 500 mg/day generally suffices; little gain from >1,000 mg/day for extended periods. No fixed maximum stated.",
             ),
             listOf(cite(CPZ, "Dosage and Administration — Adults")),
         ),
@@ -661,7 +662,8 @@ internal val symptomaticDrugs = listOf(
         clearance = setOf(Clearance.Hepatic),
         boxedWarning = Facts(
             listOf(
-                "Medication errors and hepatotoxicity: avoid mg/mL confusion, dose by weight if <50 kg, program pumps correctly, and keep total daily acetaminophen from all sources within limits. Acute liver failure (transplant, death) mostly with excess doses or multiple products.",
+                "Medication errors: avoid mg/mL confusion, dose by weight if <50 kg, program pumps correctly, keep total daily acetaminophen from all sources within limits.",
+                "Hepatotoxicity: acute liver failure, at times with transplant or death, mostly at doses above daily limits and often with more than one acetaminophen product.",
             ),
             listOf(cite(PCM, "Boxed Warning; 5.1; 5.3")),
         ),
@@ -794,7 +796,7 @@ internal val symptomaticDrugs = listOf(
                 "Fetal toxicity: premature ductus closure (≥30 weeks); oligohydramnios/neonatal renal impairment (≥20 weeks).",
                 "Severe hepatic reactions (rare); ALT/AST ≥3× ULN in ~1%.",
             ),
-            listOf(cite(IBU, "Boxed Warning; Warnings; Precautions — Hepatic Effects")),
+            listOf(cite(IBU, "Boxed Warning; Contraindications; Warnings; Precautions — Hepatic Effects")),
         ),
         pk = Pharmacokinetics(
             absorption = "Rapidly absorbed; peak 1–2 h. Taken after a meal: slower rate, no appreciable loss of extent.",

@@ -115,7 +115,7 @@ internal val anticoagEndoDrugs = listOf(
         dose = Facts(
             listOf(
                 "Individualise to INR. Genotype unknown: usually start 2–5 mg once daily; typical maintenance 2–10 mg once daily. Routine loading doses not recommended.",
-                "Target INR 2.0–3.0 for VTE, non-valvular AF and aortic bileaflet valves; 2.5–3.5 for mitral mechanical or caged-ball/caged-disk valves. INR >4.0 adds bleeding, not benefit.",
+                "Target INR 2.0–3.0 for VTE, non-valvular AF, post-MI and aortic bileaflet/tilting-disk valves (sinus rhythm); 2.5–3.5 for mitral mechanical or caged-ball/disk valves. INR >4.0: more bleeding, no benefit.",
                 "Consider lower starting and maintenance doses in elderly, debilitated and Asian patients.",
             ),
             listOf(cite(AE_WARFARIN, "2.2–2.3 Target INR and Dosing")),
@@ -341,7 +341,7 @@ internal val anticoagEndoDrugs = listOf(
         ),
         renal = Facts(
             listOf(
-                "AF: CrCl >50 mL/min 20 mg daily; CrCl ≤50 mL/min 15 mg daily (also expected to suit CrCl <30 and ESRD on haemodialysis; outcomes not studied).",
+                "AF: CrCl >50 mL/min 20 mg daily; CrCl ≤50 mL/min 15 mg daily (at CrCl <30 and in ESRD on haemodialysis, 15 mg gives similar exposure; outcomes unknown).",
                 "DVT/PE treatment, recurrence reduction and VTE prophylaxis: avoid if CrCl <15 mL/min; observe closely at CrCl 15–<30.",
                 "CAD/PAD: no dose adjustment based on CrCl.",
             ),
@@ -368,7 +368,7 @@ internal val anticoagEndoDrugs = listOf(
             listOf(
                 "Thrombotic events, including stroke, after premature discontinuation (boxed).",
                 "Spinal/epidural haematoma with neuraxial procedures (boxed).",
-                "Serious or fatal bleeding; no specific reversal agent stated; not dialysable.",
+                "Serious or fatal bleeding; label states no specific reversal agent is available; not dialysable.",
                 "Pregnancy-related haemorrhage and emergent delivery.",
                 "Prosthetic heart valves: not recommended (more deaths and bleeding after TAVR).",
                 "Haemodynamically unstable PE or candidates for thrombolysis/embolectomy: not a substitute for unfractionated heparin.",
@@ -469,7 +469,7 @@ internal val anticoagEndoDrugs = listOf(
             listOf(
                 "Thrombotic events after premature discontinuation (boxed).",
                 "Spinal/epidural haematoma with neuraxial procedures (boxed).",
-                "Significant, sometimes fatal, bleeding; idarucizumab reverses the effect in adults; haemodialysis removes dabigatran.",
+                "Significant, sometimes fatal, bleeding; idarucizumab reverses the effect in adults; haemodialysis removes dabigatran (limited experience).",
                 "Mechanical prosthetic valves: contraindicated (more thromboembolism and bleeding than warfarin); bioprosthetic valves: not recommended.",
                 "P-gp inducers ↓ exposure; P-gp inhibitors, especially with renal impairment, ↑ exposure.",
                 "Triple-positive antiphospholipid syndrome: not recommended.",
@@ -699,11 +699,11 @@ internal val anticoagEndoDrugs = listOf(
                 "Infection (24% type 1; 17% type 2)",
                 "Nasopharyngitis (16% type 1; 6% type 2)",
                 "Upper respiratory tract infection (8% type 1; 5% type 2)",
-                "Injection-site reactions, allergic reactions, pruritus, rash",
+                "Injection-site reactions, allergic reactions, pruritus, rash (≥5% with insulin glargine products)",
                 "Lipodystrophy",
                 "Oedema and weight gain",
             ),
-            listOf(cite(AE_GLARGINE, "6.1 Clinical Trial Experience — Tables 1–2")),
+            listOf(cite(AE_GLARGINE, "6 Adverse Reactions; 6.1 — Tables 1–2")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -834,7 +834,7 @@ internal val anticoagEndoDrugs = listOf(
     DrugMonograph(
         id = "premixed-human-insulin-70-30",
         name = "Premixed human insulin 70/30",
-        aliases = listOf("NPH/regular 70/30", "isophane insulin"),
+        aliases = listOf("NPH/regular 70/30"),
         drugClass = "Premixed human insulin (70% NPH / 30% regular)",
         uses = "Glycaemic control in adults with diabetes mellitus (fixed-ratio premix).",
         clearance = setOf(Clearance.Renal, Clearance.Hepatic),
@@ -927,7 +927,7 @@ internal val anticoagEndoDrugs = listOf(
         dose = Facts(
             listOf(
                 "Once daily on an empty stomach, ½–1 h before breakfast; at least 4 h apart from drugs that impair absorption.",
-                "Adults: full replacement 1.6 mcg/kg/day; titrate by 12.5–25 mcg every 4–6 weeks. Elderly, cardiac disease or AF risk: start lower, titrate every 6–8 weeks.",
+                "Adults: full replacement 1.6 mcg/kg/day; titrate by 12.5–25 mcg every 4–6 weeks. Elderly: start lower. Cardiac disease or AF risk: start lower, titrate every 6–8 weeks.",
                 "Doses >200 mcg/day seldom needed; poor response above 300 mcg/day is rare (check compliance, malabsorption, interactions). Full effect may take 4–6 weeks.",
             ),
             listOf(cite(AE_LEVOTHYROXINE, "2.1–2.3 Dosage")),
@@ -982,7 +982,7 @@ internal val anticoagEndoDrugs = listOf(
             listOf(
                 "Calcium carbonate, ferrous sulfate, phosphate binders, bile-acid sequestrants, ion-exchange resins: ↓ absorption — separate by at least 4 h.",
                 "PPIs, sucralfate, antacids: may ↓ absorption — monitor.",
-                "Phenobarbital, rifampin ↑ T4 metabolism — higher dose may be needed; phenytoin and carbamazepine lower measured T4.",
+                "Phenobarbital, rifampin ↑ T4 metabolism — higher dose may be needed; phenytoin, carbamazepine may lower total/free T4 by 20–40% (TSH usually normal).",
                 "Oral anticoagulants: response ↑ — anticoagulant dose may need lowering; monitor coagulation.",
                 "Tricyclic antidepressants, sympathomimetics, ketamine: ↑ cardiac/toxic effects; antidiabetic requirements may rise.",
             ),
@@ -1024,13 +1024,12 @@ internal val anticoagEndoDrugs = listOf(
         ),
         commonEffects = Facts(
             listOf(
-                "Most common (≥1%, clinical and postmarketing):",
-                "Abdominal discomfort or pain",
-                "Diarrhoea",
-                "Nausea",
-                "Pruritus",
-                "Rash",
-                "Alopecia",
+                "Abdominal discomfort or pain (≥1%)",
+                "Diarrhoea (≥1%)",
+                "Nausea (≥1%)",
+                "Pruritus (≥1%)",
+                "Rash (≥1%)",
+                "Alopecia (≥1%)",
                 "Leukopenia (2.6% vs 0 placebo at 24 months)",
             ),
             listOf(cite(AE_UDCA, "6 Adverse Reactions; 6.1")),
