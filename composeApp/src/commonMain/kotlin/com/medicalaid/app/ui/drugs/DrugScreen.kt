@@ -126,6 +126,14 @@ fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingV
             Column {
                 ScreenTitle(drug.name, drug.drugClass, onBack = onBack)
                 Text(drug.uses, style = Theme.type.body, color = c.text, modifier = Modifier.padding(horizontal = Gutter).padding(top = 4.dp))
+                val labelForm = drug.allCitations().firstOrNull()?.let { com.medicalaid.app.content.Sources.byId(it.sourceId).title.substringBefore(" — ") }
+                if (labelForm != null) {
+                    Text(
+                        "US label: $labelForm",
+                        style = Theme.type.caption, color = c.textSecondary,
+                        modifier = Modifier.padding(horizontal = Gutter).padding(top = 6.dp),
+                    )
+                }
                 if (drug.aliases.isNotEmpty()) {
                     Text(
                         "Also: " + drug.aliases.joinToString(", "),
@@ -139,8 +147,8 @@ fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingV
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     drug.clearance.forEach { Tag("Cleared: ${it.label.lowercase()}") }
-                    if (drug.renal != null) Tag("Renal dosing", fg = c.accent, bg = c.accentSoft)
-                    if (drug.hepatic != null) Tag("Hepatic", fg = c.caution, bg = c.cautionSoft)
+                    if (drug.renal != null) Tag("Kidney guidance", fg = c.accent, bg = c.accentSoft)
+                    if (drug.hepatic != null) Tag("Liver guidance", fg = c.caution, bg = c.cautionSoft)
                 }
             }
         }

@@ -88,18 +88,18 @@ internal val antihypertensiveSources = listOf(
     ),
 )
 
-private const val SRC_LABETALOL = "fda-label-labetalol"
-private const val SRC_NIFEDIPINE = "fda-label-nifedipine"
-private const val SRC_METHYLDOPA = "fda-label-methyldopa"
-private const val SRC_HYDRALAZINE = "fda-label-hydralazine"
-private const val SRC_HCTZ = "fda-label-hydrochlorothiazide"
-private const val SRC_CHLORTHALIDONE = "fda-label-chlorthalidone"
-private const val SRC_AMLODIPINE = "fda-label-amlodipine"
-private const val SRC_TELMISARTAN = "fda-label-telmisartan"
-private const val SRC_LOSARTAN = "fda-label-losartan"
-private const val SRC_ENALAPRIL = "fda-label-enalapril"
-private const val SRC_RAMIPRIL = "fda-label-ramipril"
-private const val SRC_METOPROLOL = "fda-label-metoprolol"
+private const val AHT_LABETALOL = "fda-label-labetalol"
+private const val AHT_NIFEDIPINE = "fda-label-nifedipine"
+private const val AHT_METHYLDOPA = "fda-label-methyldopa"
+private const val AHT_HYDRALAZINE = "fda-label-hydralazine"
+private const val AHT_HCTZ = "fda-label-hydrochlorothiazide"
+private const val AHT_CHLORTHALIDONE = "fda-label-chlorthalidone"
+private const val AHT_AMLODIPINE = "fda-label-amlodipine"
+private const val AHT_TELMISARTAN = "fda-label-telmisartan"
+private const val AHT_LOSARTAN = "fda-label-losartan"
+private const val AHT_ENALAPRIL = "fda-label-enalapril"
+private const val AHT_RAMIPRIL = "fda-label-ramipril"
+private const val AHT_METOPROLOL = "fda-label-metoprolol"
 
 internal val antihypertensiveDrugs = listOf(
     // ---------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Severe hypertension: may need 1,200–2,400 mg/day; titrate in steps not exceeding 200 mg twice daily.",
                 "Elderly: start 100 mg twice daily; many need only 100–200 mg twice daily.",
             ),
-            listOf(cite(SRC_LABETALOL, "2.1–2.3 Dosage and Administration")),
+            listOf(cite(AHT_LABETALOL, "2.1–2.3 Dosage and Administration")),
         ),
         monitoring = Facts(
             listOf(
@@ -125,7 +125,7 @@ internal val antihypertensiveDrugs = listOf(
                 "After stopping: watch for new or worsening angina — do not stop abruptly.",
                 "Signs or symptoms of liver injury: investigate; do not restart without another explanation.",
             ),
-            listOf(cite(SRC_LABETALOL, "5.1; 5.2; 5.4; 5.8")),
+            listOf(cite(AHT_LABETALOL, "5.1; 5.2; 5.4; 5.8")),
         ),
         commonEffects = Facts(
             listOf(
@@ -138,7 +138,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Dyspnoea (2%)",
                 "Vertigo (2%)",
             ),
-            listOf(cite(SRC_LABETALOL, "6.1 Clinical Trials Experience — Table 1")),
+            listOf(cite(AHT_LABETALOL, "6.1 Clinical Trials Experience — Table 1")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -151,7 +151,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Hepatic injury, usually reversible; hepatic necrosis and death reported.",
                 "Paradoxical hypertension in phaeochromocytoma; poor response to epinephrine in anaphylaxis; floppy iris syndrome at cataract surgery.",
             ),
-            listOf(cite(SRC_LABETALOL, "4 Contraindications; 5.1–5.11 Warnings and Precautions")),
+            listOf(cite(AHT_LABETALOL, "4 Contraindications; 5.1–5.11 Warnings and Precautions")),
         ),
         pk = Pharmacokinetics(
             absorption = "Peak 1–2 h; absolute bioavailability 25% (extensive first-pass), increased by food.",
@@ -159,7 +159,7 @@ internal val antihypertensiveDrugs = listOf(
             metabolism = "Mainly conjugation to glucuronide metabolites.",
             elimination = "55–60% in urine (conjugates or unchanged) within 24 h; metabolites also via bile into faeces. Dialysis removes <1%.",
             halfLife = "6–8 h (oral); not altered in renal or hepatic impairment, though bioavailability rises in hepatic impairment.",
-            citations = listOf(cite(SRC_LABETALOL, "12.3 Pharmacokinetics")),
+            citations = listOf(cite(AHT_LABETALOL, "12.3 Pharmacokinetics")),
         ),
         interactions = Facts(
             listOf(
@@ -169,15 +169,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Halothane: synergistic hypotension — do not use concentrations of 3% or above.",
                 "Lab tests: falsely high urinary catecholamines, metanephrines and VMA (fluorimetric/photometric); false-positive amphetamine screen.",
             ),
-            listOf(cite(SRC_LABETALOL, "7.1–7.5 Drug Interactions")),
+            listOf(cite(AHT_LABETALOL, "7.1–7.5 Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("Extensive experience has not identified a drug-associated risk of major birth defects, miscarriage or adverse outcomes; exposed neonates may have hypotension, bradycardia, hypoglycaemia or respiratory depression."),
-            listOf(cite(SRC_LABETALOL, "8.1 Pregnancy")),
+            listOf(cite(AHT_LABETALOL, "8.1 Pregnancy")),
         ),
         lactation = Facts(
             listOf("Present in human milk at low levels; no data on effects on the breastfed infant or on milk production."),
-            listOf(cite(SRC_LABETALOL, "8.2 Lactation")),
+            listOf(cite(AHT_LABETALOL, "8.2 Lactation")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -193,7 +193,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Swallow whole — do not bite or divide. Angina: doses above 90 mg only with caution.",
                 "From capsules: switch at the nearest equivalent total daily dose (e.g. 10 mg three times daily → 30 mg once daily).",
             ),
-            listOf(cite(SRC_NIFEDIPINE, "Dosage and Administration")),
+            listOf(cite(AHT_NIFEDIPINE, "Dosage and Administration")),
         ),
         monitoring = Facts(
             listOf(
@@ -201,7 +201,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Digoxin levels when starting, adjusting or stopping nifedipine.",
                 "In heart failure, distinguish dependent oedema from worsening left ventricular dysfunction.",
             ),
-            listOf(cite(SRC_NIFEDIPINE, "Precautions — General, Drug Interactions")),
+            listOf(cite(AHT_NIFEDIPINE, "Precautions — General, Drug Interactions")),
         ),
         commonEffects = Facts(
             listOf(
@@ -212,7 +212,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Constipation (3.3% vs 2.3%)",
                 "Nausea (3.3% vs 1.9%)",
             ),
-            listOf(cite(SRC_NIFEDIPINE, "Adverse Reactions; Precautions — Peripheral Edema")),
+            listOf(cite(AHT_NIFEDIPINE, "Adverse Reactions; Precautions — Peripheral Edema")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -223,7 +223,7 @@ internal val antihypertensiveDrugs = listOf(
                 "GI obstruction or bezoars needing surgery (rare), even without known GI disease; GI ulceration from tablet adherence.",
                 "Rare raised liver enzymes, cholestasis, allergic hepatitis; rare reversible BUN/creatinine rises in chronic renal insufficiency.",
             ),
-            listOf(cite(SRC_NIFEDIPINE, "Warnings; Precautions — Laboratory Tests")),
+            listOf(cite(AHT_NIFEDIPINE, "Warnings; Precautions — Laboratory Tests")),
         ),
         pk = Pharmacokinetics(
             absorption = "Completely absorbed; plateau ≈6 h after the first dose; bioavailability 86% of capsules; food does not affect extent.",
@@ -232,8 +232,8 @@ internal val antihypertensiveDrugs = listOf(
             elimination = "60–80% as inactive metabolites in urine (<0.1% unchanged); rest in faeces, likely via bile. Renal impairment does not significantly alter kinetics.",
             halfLife = "≈2 h; longer (with higher bioavailability) in cirrhosis.",
             citations = listOf(
-                cite(SRC_NIFEDIPINE, "Clinical Pharmacology — Pharmacokinetics and Metabolism"),
-                cite(SRC_NIFEDIPINE, "Precautions — Drug Interactions"),
+                cite(AHT_NIFEDIPINE, "Clinical Pharmacology — Pharmacokinetics and Metabolism"),
+                cite(AHT_NIFEDIPINE, "Precautions — Drug Interactions"),
             ),
         ),
         interactions = Facts(
@@ -244,15 +244,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Beta-blockers: occasional heart failure, severe hypotension or worse angina.",
                 "Digoxin: levels may rise (mean 45% in one study) — monitor.",
             ),
-            listOf(cite(SRC_NIFEDIPINE, "Precautions — Drug Interactions")),
+            listOf(cite(AHT_NIFEDIPINE, "Precautions — Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("Teratogenic and embryo/fetotoxic in animals; no adequate studies in pregnant women — use only if the potential benefit justifies the potential risk."),
-            listOf(cite(SRC_NIFEDIPINE, "Precautions — Pregnancy")),
+            listOf(cite(AHT_NIFEDIPINE, "Precautions — Pregnancy")),
         ),
         lactation = Facts(
             listOf("Transferred into breast milk; use while breastfeeding only if the potential benefit justifies the potential risk."),
-            listOf(cite(SRC_NIFEDIPINE, "Precautions — Lactation")),
+            listOf(cite(AHT_NIFEDIPINE, "Precautions — Lactation")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -269,11 +269,11 @@ internal val antihypertensiveDrugs = listOf(
                 "Maintenance 500 mg–2 g/day in 2–4 doses; maximum 3 g/day.",
                 "With antihypertensives other than thiazides: limit the initial dose to 500 mg/day in divided doses.",
             ),
-            listOf(cite(SRC_METHYLDOPA, "Dosage and Administration")),
+            listOf(cite(AHT_METHYLDOPA, "Dosage and Administration")),
         ),
         beforeStarting = Facts(
             listOf("Blood count (haematocrit, haemoglobin or red cell count), direct Coombs test and liver function tests."),
-            listOf(cite(SRC_METHYLDOPA, "Warnings; Precautions — Laboratory Tests")),
+            listOf(cite(AHT_METHYLDOPA, "Warnings; Precautions — Laboratory Tests")),
         ),
         monitoring = Facts(
             listOf(
@@ -282,21 +282,21 @@ internal val antihypertensiveDrugs = listOf(
                 "Before transfusion: both direct and indirect Coombs tests.",
                 "Elderly: monitoring renal function may be useful.",
             ),
-            listOf(cite(SRC_METHYLDOPA, "Warnings; Precautions — Laboratory Tests, Geriatric Use")),
+            listOf(cite(AHT_METHYLDOPA, "Warnings; Precautions — Laboratory Tests, Geriatric Use")),
         ),
         renal = Facts(
             listOf(
                 "Largely excreted by the kidney — patients with impaired renal function may respond to smaller doses.",
                 "Removed by dialysis; hypertension has occasionally recurred after dialysis.",
             ),
-            listOf(cite(SRC_METHYLDOPA, "Dosage and Administration; Precautions — General")),
+            listOf(cite(AHT_METHYLDOPA, "Dosage and Administration; Precautions — General")),
         ),
         hepatic = Facts(
             listOf(
                 "Contraindicated in active hepatic disease (acute hepatitis, active cirrhosis) and in liver disorders previously linked to methyldopa.",
                 "Use with caution with a history of liver disease or dysfunction.",
             ),
-            listOf(cite(SRC_METHYLDOPA, "Contraindications; Precautions — General")),
+            listOf(cite(AHT_METHYLDOPA, "Contraindications; Precautions — General")),
         ),
         commonEffects = Facts(
             listOf(
@@ -304,7 +304,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Headache (early, transient)",
                 "Asthenia or weakness (early, transient)",
             ),
-            listOf(cite(SRC_METHYLDOPA, "Adverse Reactions — frequencies not stated")),
+            listOf(cite(AHT_METHYLDOPA, "Adverse Reactions — frequencies not stated")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -314,14 +314,14 @@ internal val antihypertensiveDrugs = listOf(
                 "Oedema or weight gain — stop if oedema progresses or heart failure appears.",
                 "Involuntary choreoathetotic movements in severe bilateral cerebrovascular disease — stop therapy.",
             ),
-            listOf(cite(SRC_METHYLDOPA, "Warnings; Precautions — General")),
+            listOf(cite(AHT_METHYLDOPA, "Warnings; Precautions — General")),
         ),
         pk = Pharmacokinetics(
             distribution = "Crosses the placenta; appears in cord blood and breast milk.",
             metabolism = "Extensively metabolised (e.g. mono-O-sulfate, α-methyldopamine, conjugates); effect probably via α-methylnorepinephrine.",
             elimination = "≈70% of absorbed drug excreted in urine as methyldopa and its mono-O-sulfate; renal clearance ≈130 mL/min, reduced in renal insufficiency.",
             halfLife = "105 minutes (plasma); excretion essentially complete in 36 h.",
-            citations = listOf(cite(SRC_METHYLDOPA, "Clinical Pharmacology — Pharmacokinetics and Metabolism")),
+            citations = listOf(cite(AHT_METHYLDOPA, "Clinical Pharmacology — Pharmacokinetics and Metabolism")),
         ),
         interactions = Facts(
             listOf(
@@ -331,15 +331,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Other antihypertensives: potentiation. Anaesthetics: reduced doses may be needed.",
                 "Lab tests: falsely high urinary catecholamines (confounds phaeochromocytoma work-up); interferes with uric acid, creatinine (alkaline picrate) and SGOT (colorimetric) assays.",
             ),
-            listOf(cite(SRC_METHYLDOPA, "Contraindications; Precautions — Drug Interactions, Drug/Laboratory Test Interactions")),
+            listOf(cite(AHT_METHYLDOPA, "Contraindications; Precautions — Drug Interactions, Drug/Laboratory Test Interactions")),
         ),
         pregnancy = Facts(
             listOf("Published reports across all trimesters indicate the possibility of fetal harm appears remote; no adequate first-trimester studies — use only if clearly needed."),
-            listOf(cite(SRC_METHYLDOPA, "Precautions — Pregnancy")),
+            listOf(cite(AHT_METHYLDOPA, "Precautions — Pregnancy")),
         ),
         lactation = Facts(
             listOf("Appears in breast milk — use with caution in nursing women."),
-            listOf(cite(SRC_METHYLDOPA, "Precautions — Nursing Mothers")),
+            listOf(cite(AHT_METHYLDOPA, "Precautions — Nursing Mothers")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -355,11 +355,11 @@ internal val antihypertensiveDrugs = listOf(
                 "Start 10 mg four times daily for 2–4 days, then 25 mg four times daily for the rest of week 1; from week 2, 50 mg four times daily.",
                 "Maintenance: lowest effective dose. Resistant patients may need up to 300 mg/day; toxic reactions (especially LE cell syndrome) are more frequent at high doses.",
             ),
-            listOf(cite(SRC_HYDRALAZINE, "Dosage and Administration")),
+            listOf(cite(AHT_HYDRALAZINE, "Dosage and Administration")),
         ),
         beforeStarting = Facts(
             listOf("Complete blood count and antinuclear antibody (ANA) titre."),
-            listOf(cite(SRC_HYDRALAZINE, "Precautions — Laboratory Tests")),
+            listOf(cite(AHT_HYDRALAZINE, "Precautions — Laboratory Tests")),
         ),
         monitoring = Facts(
             listOf(
@@ -367,11 +367,11 @@ internal val antihypertensiveDrugs = listOf(
                 "Repeat if arthralgia, fever, chest pain, continued malaise or other unexplained symptoms develop.",
                 "Stop if blood dyscrasias develop.",
             ),
-            listOf(cite(SRC_HYDRALAZINE, "Precautions — Laboratory Tests")),
+            listOf(cite(AHT_HYDRALAZINE, "Precautions — Laboratory Tests")),
         ),
         renal = Facts(
             listOf("Use with caution in advanced renal damage."),
-            listOf(cite(SRC_HYDRALAZINE, "Precautions — General")),
+            listOf(cite(AHT_HYDRALAZINE, "Precautions — General")),
         ),
         commonEffects = Facts(
             listOf(
@@ -384,7 +384,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Tachycardia",
                 "Angina pectoris",
             ),
-            listOf(cite(SRC_HYDRALAZINE, "Adverse Reactions — listed as common; frequencies not stated")),
+            listOf(cite(AHT_HYDRALAZINE, "Adverse Reactions — listed as common; frequencies not stated")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -395,7 +395,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Peripheral neuritis (paraesthesia, numbness, tingling) — add pyridoxine if symptoms develop.",
                 "Postural hypotension; use with caution after cerebrovascular accident.",
             ),
-            listOf(cite(SRC_HYDRALAZINE, "Contraindications; Warnings; Precautions — General, Laboratory Tests")),
+            listOf(cite(AHT_HYDRALAZINE, "Contraindications; Warnings; Precautions — General, Laboratory Tests")),
         ),
         pk = Pharmacokinetics(
             absorption = "Rapidly absorbed; peak 1–2 h; food increases plasma levels.",
@@ -404,8 +404,8 @@ internal val antihypertensiveDrugs = listOf(
             elimination = "Mainly as metabolites in urine.",
             halfLife = "3–7 h.",
             citations = listOf(
-                cite(SRC_HYDRALAZINE, "Clinical Pharmacology"),
-                cite(SRC_HYDRALAZINE, "Precautions — Drug/Food Interactions"),
+                cite(AHT_HYDRALAZINE, "Clinical Pharmacology"),
+                cite(AHT_HYDRALAZINE, "Precautions — Drug/Food Interactions"),
             ),
         ),
         interactions = Facts(
@@ -415,15 +415,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Epinephrine: pressor response may be reduced.",
                 "Food: higher hydralazine plasma levels.",
             ),
-            listOf(cite(SRC_HYDRALAZINE, "Precautions — General, Drug/Drug and Drug/Food Interactions")),
+            listOf(cite(AHT_HYDRALAZINE, "Precautions — General, Drug/Drug and Drug/Food Interactions")),
         ),
         pregnancy = Facts(
             listOf("Teratogenic in mice (possibly rabbits) at high doses; no adequate human studies — use only if the expected benefit justifies the potential fetal risk."),
-            listOf(cite(SRC_HYDRALAZINE, "Precautions — Pregnancy")),
+            listOf(cite(AHT_HYDRALAZINE, "Precautions — Pregnancy")),
         ),
         lactation = Facts(
             listOf("Excreted in breast milk."),
-            listOf(cite(SRC_HYDRALAZINE, "Precautions — Nursing Mothers")),
+            listOf(cite(AHT_HYDRALAZINE, "Precautions — Nursing Mothers")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -439,7 +439,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Hypertension: start 25 mg once daily; may increase to 50 mg/day as one or two doses. Doses above 50 mg often cause marked potassium falls.",
                 "Oedema: 25–100 mg daily as a single or divided dose; intermittent dosing (alternate days or 3–5 days a week) is often effective.",
             ),
-            listOf(cite(SRC_HCTZ, "Dosage and Administration")),
+            listOf(cite(AHT_HCTZ, "Dosage and Administration")),
         ),
         monitoring = Facts(
             listOf(
@@ -448,18 +448,18 @@ internal val antihypertensiveDrugs = listOf(
                 "If progressive renal impairment appears, consider withholding or stopping.",
                 "Advise sun protection and regular skin cancer screening.",
             ),
-            listOf(cite(SRC_HCTZ, "Precautions — General, Laboratory Tests, Information for Patients")),
+            listOf(cite(AHT_HCTZ, "Precautions — General, Laboratory Tests, Information for Patients")),
         ),
         renal = Facts(
             listOf(
                 "Contraindicated in anuria.",
                 "Severe renal disease: use with caution — may precipitate azotaemia; cumulative effects with impaired renal function.",
             ),
-            listOf(cite(SRC_HCTZ, "Contraindications; Warnings")),
+            listOf(cite(AHT_HCTZ, "Contraindications; Warnings")),
         ),
         hepatic = Facts(
             listOf("Use with caution in impaired hepatic function or progressive liver disease — minor fluid/electrolyte shifts may precipitate hepatic coma."),
-            listOf(cite(SRC_HCTZ, "Warnings")),
+            listOf(cite(AHT_HCTZ, "Warnings")),
         ),
         commonEffects = Facts(
             listOf(
@@ -472,7 +472,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Photosensitivity, rash, urticaria",
                 "Impotence",
             ),
-            listOf(cite(SRC_HCTZ, "Adverse Reactions — frequencies not stated")),
+            listOf(cite(AHT_HCTZ, "Adverse Reactions — frequencies not stated")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -484,14 +484,14 @@ internal val antihypertensiveDrugs = listOf(
                 "Sensitivity reactions; exacerbation or activation of SLE.",
                 "Reported: aplastic anaemia, agranulocytosis, pancreatitis, Stevens-Johnson syndrome, toxic epidermal necrolysis.",
             ),
-            listOf(cite(SRC_HCTZ, "Warnings; Precautions — General; Adverse Reactions incl. Postmarketing")),
+            listOf(cite(AHT_HCTZ, "Warnings; Precautions — General; Adverse Reactions incl. Postmarketing")),
         ),
         pk = Pharmacokinetics(
             distribution = "Crosses the placenta but not the blood–brain barrier; excreted in breast milk.",
             metabolism = "Not metabolised.",
             elimination = "Rapidly eliminated by the kidney; ≥61% of an oral dose unchanged within 24 h.",
             halfLife = "5.6–14.8 h.",
-            citations = listOf(cite(SRC_HCTZ, "Clinical Pharmacology — Pharmacokinetics and Metabolism")),
+            citations = listOf(cite(AHT_HCTZ, "Clinical Pharmacology — Pharmacokinetics and Metabolism")),
         ),
         interactions = Facts(
             listOf(
@@ -501,15 +501,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Corticosteroids, ACTH: intensified electrolyte depletion, especially hypokalaemia.",
                 "Antidiabetic drugs: dose adjustment may be needed. Alcohol, barbiturates, narcotics: ↑ orthostatic hypotension.",
             ),
-            listOf(cite(SRC_HCTZ, "Precautions — Drug Interactions")),
+            listOf(cite(AHT_HCTZ, "Precautions — Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("No adequate human studies — use only if clearly needed; crosses the placenta (risk of fetal/neonatal jaundice, thrombocytopenia). Routine use in normal pregnancy is inappropriate."),
-            listOf(cite(SRC_HCTZ, "Precautions — Pregnancy; Indications — Use in Pregnancy")),
+            listOf(cite(AHT_HCTZ, "Precautions — Pregnancy; Indications — Use in Pregnancy")),
         ),
         lactation = Facts(
             listOf("Excreted in breast milk; because of potential serious infant reactions, discontinue nursing or the drug."),
-            listOf(cite(SRC_HCTZ, "Precautions — Nursing Mothers")),
+            listOf(cite(AHT_HCTZ, "Precautions — Nursing Mothers")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -525,11 +525,11 @@ internal val antihypertensiveDrugs = listOf(
                 "Start 12.5 mg or 25 mg once daily with food.",
                 "Double every 2–4 weeks as needed; maximum 100 mg once daily (higher doses usually add no benefit).",
             ),
-            listOf(cite(SRC_CHLORTHALIDONE, "2.1 Recommended Dosage")),
+            listOf(cite(AHT_CHLORTHALIDONE, "2.1 Recommended Dosage")),
         ),
         beforeStarting = Facts(
             listOf("Check and correct serum electrolytes."),
-            listOf(cite(SRC_CHLORTHALIDONE, "5.2 Electrolyte Abnormalities")),
+            listOf(cite(AHT_CHLORTHALIDONE, "5.2 Electrolyte Abnormalities")),
         ),
         monitoring = Facts(
             listOf(
@@ -539,7 +539,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Serum lithium if co-prescribed.",
                 "Hepatic impairment: fluid and electrolyte balance.",
             ),
-            listOf(cite(SRC_CHLORTHALIDONE, "5.1–5.3; 7; 8.6")),
+            listOf(cite(AHT_CHLORTHALIDONE, "5.1–5.3; 7; 8.6")),
         ),
         renal = Facts(
             listOf(
@@ -547,11 +547,11 @@ internal val antihypertensiveDrugs = listOf(
                 "CKD, heart failure or volume depletion: higher risk of acute kidney injury.",
                 "Substantially renally excreted — take care with dose selection in renal impairment.",
             ),
-            listOf(cite(SRC_CHLORTHALIDONE, "4 Contraindications; 5.1; 8.5")),
+            listOf(cite(AHT_CHLORTHALIDONE, "4 Contraindications; 5.1; 8.5")),
         ),
         hepatic = Facts(
             listOf("Minor fluid/electrolyte shifts may precipitate hepatic coma in hepatic impairment or progressive liver disease — monitor."),
-            listOf(cite(SRC_CHLORTHALIDONE, "8.6 Hepatic Impairment")),
+            listOf(cite(AHT_CHLORTHALIDONE, "8.6 Hepatic Impairment")),
         ),
         commonEffects = Facts(
             listOf(
@@ -563,7 +563,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Photosensitivity, rash, urticaria",
                 "Muscle spasm, weakness, restlessness, impotence",
             ),
-            listOf(cite(SRC_CHLORTHALIDONE, "6 Adverse Reactions — frequencies not stated")),
+            listOf(cite(AHT_CHLORTHALIDONE, "6 Adverse Reactions — frequencies not stated")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -573,14 +573,14 @@ internal val antihypertensiveDrugs = listOf(
                 "Possible SLE exacerbation or activation (reported with thiazides, not with chlorthalidone).",
                 "Rare: agranulocytosis, aplastic anaemia, cholestatic jaundice, pancreatitis, toxic epidermal necrolysis, necrotising vasculitis.",
             ),
-            listOf(cite(SRC_CHLORTHALIDONE, "5.1–5.4 Warnings and Precautions; 6")),
+            listOf(cite(AHT_CHLORTHALIDONE, "5.1–5.4 Warnings and Precautions; 6")),
         ),
         pk = Pharmacokinetics(
             distribution = "≈75% protein bound (58% to albumin); high affinity for red-cell carbonic anhydrase.",
             metabolism = "Not characterised (no data on unchanged vs metabolite fractions).",
             elimination = "Mainly unchanged in urine; non-renal routes not clarified.",
             halfLife = "≈40–60 h.",
-            citations = listOf(cite(SRC_CHLORTHALIDONE, "12.3 Pharmacokinetics")),
+            citations = listOf(cite(AHT_CHLORTHALIDONE, "12.3 Pharmacokinetics")),
         ),
         interactions = Facts(
             listOf(
@@ -589,15 +589,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Tubocurarine: responsiveness may increase.",
                 "Norepinephrine: arterial responsiveness may decrease (not enough to preclude use).",
             ),
-            listOf(cite(SRC_CHLORTHALIDONE, "7 Drug Interactions")),
+            listOf(cite(AHT_CHLORTHALIDONE, "7 Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("No identified risk of major birth defects, but fetal/neonatal jaundice, thrombocytopenia, hypoglycaemia and electrolyte abnormalities are reported with thiazides; not first-line for hypertension in pregnancy."),
-            listOf(cite(SRC_CHLORTHALIDONE, "8.1 Pregnancy")),
+            listOf(cite(AHT_CHLORTHALIDONE, "8.1 Pregnancy")),
         ),
         lactation = Facts(
             listOf("Present in human milk; breastfeeding not recommended because of possible accumulation and serious infant reactions."),
-            listOf(cite(SRC_CHLORTHALIDONE, "8.2 Lactation")),
+            listOf(cite(AHT_CHLORTHALIDONE, "8.2 Lactation")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -614,7 +614,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Titrate every 7–14 days (faster if warranted, with frequent assessment).",
                 "Angina or CAD: 5–10 mg once daily (lower dose in elderly or hepatic insufficiency); most need 10 mg.",
             ),
-            listOf(cite(SRC_AMLODIPINE, "2.1 Adults")),
+            listOf(cite(AHT_AMLODIPINE, "2.1 Adults")),
         ),
         monitoring = Facts(
             listOf(
@@ -622,18 +622,18 @@ internal val antihypertensiveDrugs = listOf(
                 "With cyclosporine or tacrolimus: frequent trough levels.",
                 "With sildenafil: monitor for hypotension.",
             ),
-            listOf(cite(SRC_AMLODIPINE, "7.1–7.2 Drug Interactions")),
+            listOf(cite(AHT_AMLODIPINE, "7.1–7.2 Drug Interactions")),
         ),
         renal = Facts(
             listOf("Renal failure: usual initial dose — pharmacokinetics not significantly affected by renal impairment."),
-            listOf(cite(SRC_AMLODIPINE, "12.3 Pharmacokinetics")),
+            listOf(cite(AHT_AMLODIPINE, "12.3 Pharmacokinetics")),
         ),
         hepatic = Facts(
             listOf(
                 "Hepatic insufficiency: consider starting 2.5 mg; clearance reduced (AUC ↑40–60%).",
                 "Severe hepatic impairment: half-life 56 h — titrate slowly.",
             ),
-            listOf(cite(SRC_AMLODIPINE, "2.1; 5.3; 12.3")),
+            listOf(cite(AHT_AMLODIPINE, "2.1; 5.3; 12.3")),
         ),
         commonEffects = Facts(
             listOf(
@@ -646,7 +646,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Abdominal pain (1.6% vs 0.3%)",
                 "Somnolence (1.4% vs 0.6%)",
             ),
-            listOf(cite(SRC_AMLODIPINE, "6.1 Clinical Trials Experience")),
+            listOf(cite(AHT_AMLODIPINE, "6.1 Clinical Trials Experience")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -654,7 +654,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Worsening angina or acute MI after starting or increasing the dose, especially with severe obstructive CAD.",
                 "Slower elimination in severe hepatic impairment — titrate slowly.",
             ),
-            listOf(cite(SRC_AMLODIPINE, "5.1–5.3 Warnings and Precautions")),
+            listOf(cite(AHT_AMLODIPINE, "5.1–5.3 Warnings and Precautions")),
         ),
         pk = Pharmacokinetics(
             absorption = "Peak 6–12 h; absolute bioavailability 64–90%; not affected by food.",
@@ -662,7 +662,7 @@ internal val antihypertensiveDrugs = listOf(
             metabolism = "≈90% converted to inactive metabolites by hepatic metabolism.",
             elimination = "10% of parent drug and 60% of metabolites excreted in urine.",
             halfLife = "30–50 h (56 h in hepatic impairment); steady state after 7–8 days.",
-            citations = listOf(cite(SRC_AMLODIPINE, "12.3 Pharmacokinetics"), cite(SRC_AMLODIPINE, "5.3")),
+            citations = listOf(cite(AHT_AMLODIPINE, "12.3 Pharmacokinetics"), cite(AHT_AMLODIPINE, "5.3")),
         ),
         interactions = Facts(
             listOf(
@@ -672,15 +672,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Cyclosporine, tacrolimus: exposure may rise — monitor trough levels, adjust dose.",
                 "Sildenafil: monitor for hypotension.",
             ),
-            listOf(cite(SRC_AMLODIPINE, "7.1–7.2 Drug Interactions; 12.3")),
+            listOf(cite(AHT_AMLODIPINE, "7.1–7.2 Drug Interactions; 12.3")),
         ),
         pregnancy = Facts(
             listOf("Limited post-marketing data are insufficient to inform risk of major birth defects or miscarriage; poorly controlled hypertension carries maternal and fetal risk."),
-            listOf(cite(SRC_AMLODIPINE, "8.1 Pregnancy")),
+            listOf(cite(AHT_AMLODIPINE, "8.1 Pregnancy")),
         ),
         lactation = Facts(
             listOf("Present in human milk (median relative infant dose 4.2%); no adverse effects in breastfed infants observed."),
-            listOf(cite(SRC_AMLODIPINE, "8.2 Lactation")),
+            listOf(cite(AHT_AMLODIPINE, "8.2 Lactation")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -692,18 +692,18 @@ internal val antihypertensiveDrugs = listOf(
         clearance = setOf(Clearance.Biliary),
         boxedWarning = Facts(
             listOf("Fetal toxicity: drugs acting on the renin-angiotensin system can cause fetal injury and death — discontinue as soon as pregnancy is detected."),
-            listOf(cite(SRC_TELMISARTAN, "Boxed Warning; 5.1")),
+            listOf(cite(AHT_TELMISARTAN, "Boxed Warning; 5.1")),
         ),
         dose = Facts(
             listOf(
                 "Start 40 mg once daily; range 40–80 mg once daily, with or without food.",
                 "Most effect within 2 weeks, maximal by 4 weeks; if more lowering is needed beyond 80 mg, add a diuretic.",
             ),
-            listOf(cite(SRC_TELMISARTAN, "2.1 Hypertension")),
+            listOf(cite(AHT_TELMISARTAN, "2.1 Hypertension")),
         ),
         beforeStarting = Facts(
             listOf("Correct volume or salt depletion (e.g. high-dose diuretics) first, or start a reduced dose under close supervision."),
-            listOf(cite(SRC_TELMISARTAN, "5.2 Hypotension")),
+            listOf(cite(AHT_TELMISARTAN, "5.2 Hypotension")),
         ),
         monitoring = Facts(
             listOf(
@@ -713,15 +713,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Dialysis: monitor BP closely (orthostatic hypotension).",
                 "Digoxin and lithium levels; renal function with NSAIDs.",
             ),
-            listOf(cite(SRC_TELMISARTAN, "2.1; 5.3; 5.5; 5.6; 7")),
+            listOf(cite(AHT_TELMISARTAN, "2.1; 5.3; 5.5; 5.6; 7")),
         ),
         renal = Facts(
             listOf("No initial dose adjustment needed, including haemodialysis (not removed by haemofiltration)."),
-            listOf(cite(SRC_TELMISARTAN, "2.1; 12.3")),
+            listOf(cite(AHT_TELMISARTAN, "2.1; 12.3")),
         ),
         hepatic = Facts(
             listOf("Biliary obstruction or hepatic insufficiency: reduced clearance (bioavailability approaches 100%) — start low, titrate slowly, monitor carefully."),
-            listOf(cite(SRC_TELMISARTAN, "5.4; 8.6; 12.3")),
+            listOf(cite(AHT_TELMISARTAN, "5.4; 8.6; 12.3")),
         ),
         commonEffects = Facts(
             listOf(
@@ -731,7 +731,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Diarrhoea (3% vs 2%)",
                 "Pharyngitis (1% vs 0%)",
             ),
-            listOf(cite(SRC_TELMISARTAN, "6.1 Clinical Trials Experience — Table 1")),
+            listOf(cite(AHT_TELMISARTAN, "6.1 Clinical Trials Experience — Table 1")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -742,7 +742,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Dual RAS blockade: more hypotension, hyperkalaemia and renal failure without added benefit (ONTARGET).",
                 "Angioedema (post-marketing, including fatal); contraindicated after hypersensitivity or angioedema to telmisartan.",
             ),
-            listOf(cite(SRC_TELMISARTAN, "Boxed Warning; 4; 5.1–5.6; 6.2")),
+            listOf(cite(AHT_TELMISARTAN, "Boxed Warning; 4; 5.1–5.6; 6.2")),
         ),
         pk = Pharmacokinetics(
             absorption = "Peak 0.5–1 h; bioavailability dose-dependent (42% at 40 mg, 58% at 160 mg); food slightly lowers AUC.",
@@ -750,7 +750,7 @@ internal val antihypertensiveDrugs = listOf(
             metabolism = "Conjugated to an inactive acyl glucuronide; CYP450 not involved.",
             elimination = ">97% unchanged in faeces via biliary excretion; <1% in urine.",
             halfLife = "≈24 h.",
-            citations = listOf(cite(SRC_TELMISARTAN, "12.3 Pharmacokinetics")),
+            citations = listOf(cite(AHT_TELMISARTAN, "12.3 Pharmacokinetics")),
         ),
         interactions = Facts(
             listOf(
@@ -760,15 +760,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Digoxin: peak ↑49%, trough ↑20% — monitor levels when starting, adjusting or stopping.",
                 "Lithium: ↑ levels and toxicity — monitor. NSAIDs/COX-2 inhibitors: renal deterioration, blunted BP effect — monitor renal function.",
             ),
-            listOf(cite(SRC_TELMISARTAN, "5.3; 5.6; 7 Drug Interactions")),
+            listOf(cite(AHT_TELMISARTAN, "5.3; 5.6; 7 Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("Can cause fetal harm: RAS drugs in the 2nd/3rd trimester reduce fetal renal function and increase fetal and neonatal morbidity and death — stop when pregnancy is detected."),
-            listOf(cite(SRC_TELMISARTAN, "8.1 Pregnancy")),
+            listOf(cite(AHT_TELMISARTAN, "8.1 Pregnancy")),
         ),
         lactation = Facts(
             listOf("No human data (present in rat milk); advise not to breastfeed — risk of infant hypotension, hyperkalaemia and renal impairment."),
-            listOf(cite(SRC_TELMISARTAN, "8.2 Lactation")),
+            listOf(cite(AHT_TELMISARTAN, "8.2 Lactation")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -781,7 +781,7 @@ internal val antihypertensiveDrugs = listOf(
         clearance = setOf(Clearance.Hepatic, Clearance.Biliary),
         boxedWarning = Facts(
             listOf("Fetal toxicity: drugs acting on the renin-angiotensin system can cause fetal injury and death — discontinue as soon as pregnancy is detected."),
-            listOf(cite(SRC_LOSARTAN, "Boxed Warning; 5.1")),
+            listOf(cite(AHT_LOSARTAN, "Boxed Warning; 5.1")),
         ),
         dose = Facts(
             listOf(
@@ -789,11 +789,11 @@ internal val antihypertensiveDrugs = listOf(
                 "Hypertension with LVH: 50 mg; add hydrochlorothiazide 12.5 mg and/or increase to 100 mg, then hydrochlorothiazide 25 mg, by BP response.",
                 "Diabetic nephropathy: 50 mg once daily, increased to 100 mg by BP response.",
             ),
-            listOf(cite(SRC_LOSARTAN, "2.1–2.3 Dosage and Administration")),
+            listOf(cite(AHT_LOSARTAN, "2.1–2.3 Dosage and Administration")),
         ),
         beforeStarting = Facts(
             listOf("Correct volume or salt depletion before starting."),
-            listOf(cite(SRC_LOSARTAN, "5.2 Hypotension in Volume- or Salt-Depleted Patients")),
+            listOf(cite(AHT_LOSARTAN, "5.2 Hypotension in Volume- or Salt-Depleted Patients")),
         ),
         monitoring = Facts(
             listOf(
@@ -802,15 +802,15 @@ internal val antihypertensiveDrugs = listOf(
                 "With other RAS agents: closely monitor BP, renal function and electrolytes.",
                 "Serum lithium if co-prescribed; renal function with NSAIDs.",
             ),
-            listOf(cite(SRC_LOSARTAN, "5.3; 5.4; 7.1–7.4")),
+            listOf(cite(AHT_LOSARTAN, "5.3; 5.4; 7.1–7.4")),
         ),
         renal = Facts(
             listOf("No dose adjustment needed unless also volume depleted (plasma levels of losartan and its active metabolite are higher)."),
-            listOf(cite(SRC_LOSARTAN, "8.7 Renal Impairment")),
+            listOf(cite(AHT_LOSARTAN, "8.7 Renal Impairment")),
         ),
         hepatic = Facts(
             listOf("Mild-to-moderate impairment: start 25 mg once daily (losartan levels 5×, active metabolite 1.7×). Not studied in severe impairment."),
-            listOf(cite(SRC_LOSARTAN, "2.4; 8.8 Hepatic Impairment")),
+            listOf(cite(AHT_LOSARTAN, "2.4; 8.8 Hepatic Impairment")),
         ),
         commonEffects = Facts(
             listOf(
@@ -820,7 +820,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Back pain (2% vs 1%)",
                 "Diabetic nephropathy trial (≥4%, ≥2% over placebo): asthenia/fatigue, hypotension, diarrhoea, anaemia, hyperkalaemia, hypoglycaemia, UTI",
             ),
-            listOf(cite(SRC_LOSARTAN, "6.1 Clinical Trials Experience")),
+            listOf(cite(AHT_LOSARTAN, "6.1 Clinical Trials Experience")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -830,7 +830,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Hyperkalaemia.",
                 "Angioedema (larynx, face, intestine), some after prior ACE-inhibitor angioedema; anaphylaxis (post-marketing).",
             ),
-            listOf(cite(SRC_LOSARTAN, "Boxed Warning; 5.1–5.4; 6.2")),
+            listOf(cite(AHT_LOSARTAN, "Boxed Warning; 5.1–5.4; 6.2")),
         ),
         pk = Pharmacokinetics(
             absorption = "Bioavailability ≈33% (first-pass); peak 1 h, active metabolite 3–4 h; food has minor effect on AUC.",
@@ -838,7 +838,7 @@ internal val antihypertensiveDrugs = listOf(
             metabolism = "CYP2C9 and CYP3A4; ≈14% converted to the active carboxylic acid metabolite, which gives most of the effect.",
             elimination = "≈35% in urine, ≈60% in faeces (biliary excretion contributes); 4% unchanged and 6% as active metabolite in urine.",
             halfLife = "≈2 h (losartan); 6–9 h (active metabolite).",
-            citations = listOf(cite(SRC_LOSARTAN, "12.3 Pharmacokinetics")),
+            citations = listOf(cite(AHT_LOSARTAN, "12.3 Pharmacokinetics")),
         ),
         interactions = Facts(
             listOf(
@@ -848,15 +848,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Dual RAS blockade (ACE inhibitor, ARB, aliskiren): ↑ hypotension, syncope, hyperkalaemia, renal failure — generally avoid.",
                 "Aliskiren: contraindicated in diabetes; avoid if GFR <60 mL/min.",
             ),
-            listOf(cite(SRC_LOSARTAN, "4; 7.1–7.4 Drug Interactions")),
+            listOf(cite(AHT_LOSARTAN, "4; 7.1–7.4 Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("Can cause fetal harm: RAS drugs in the 2nd/3rd trimester reduce fetal renal function and increase fetal and neonatal morbidity and death — stop when pregnancy is detected."),
-            listOf(cite(SRC_LOSARTAN, "8.1 Pregnancy")),
+            listOf(cite(AHT_LOSARTAN, "8.1 Pregnancy")),
         ),
         lactation = Facts(
             listOf("Unknown whether excreted in human milk (significant levels in rat milk); decide whether to stop nursing or the drug."),
-            listOf(cite(SRC_LOSARTAN, "8.2 Lactation")),
+            listOf(cite(AHT_LOSARTAN, "8.2 Lactation")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -869,7 +869,7 @@ internal val antihypertensiveDrugs = listOf(
         clearance = setOf(Clearance.Renal),
         boxedWarning = Facts(
             listOf("Fetal toxicity: drugs acting on the renin-angiotensin system can cause fetal injury and death — discontinue as soon as pregnancy is detected."),
-            listOf(cite(SRC_ENALAPRIL, "Boxed Warning; Warnings — Fetal Toxicity")),
+            listOf(cite(AHT_ENALAPRIL, "Boxed Warning; Warnings — Fetal Toxicity")),
         ),
         dose = Facts(
             listOf(
@@ -877,14 +877,14 @@ internal val antihypertensiveDrugs = listOf(
                 "On a diuretic: stop it 2–3 days before if possible; otherwise start 2.5 mg under supervision for ≥2 h and until BP is stable ≥1 h more.",
                 "Heart failure: start 2.5 mg; usual 2.5–20 mg twice daily, titrated over days to weeks; maximum 40 mg/day in divided doses.",
             ),
-            listOf(cite(SRC_ENALAPRIL, "Dosage and Administration")),
+            listOf(cite(AHT_ENALAPRIL, "Dosage and Administration")),
         ),
         beforeStarting = Facts(
             listOf(
                 "Assess renal function in all patients with hypertension or heart failure.",
                 "At risk of excessive hypotension (heart failure, hyponatraemia, high-dose diuretics, dialysis, volume/salt depletion): consider stopping or reducing the diuretic, or cautiously increasing salt intake.",
             ),
-            listOf(cite(SRC_ENALAPRIL, "Precautions — Impaired Renal Function; Warnings — Hypotension")),
+            listOf(cite(AHT_ENALAPRIL, "Precautions — Impaired Renal Function; Warnings — Hypotension")),
         ),
         monitoring = Facts(
             listOf(
@@ -894,7 +894,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Consider periodic WBC counts with collagen vascular disease plus renal disease.",
                 "With other RAS agents: closely monitor BP, renal function and electrolytes; serum lithium frequently.",
             ),
-            listOf(cite(SRC_ENALAPRIL, "Warnings — Hypotension, Neutropenia/Agranulocytosis; Precautions — Impaired Renal Function, Drug Interactions")),
+            listOf(cite(AHT_ENALAPRIL, "Warnings — Hypotension, Neutropenia/Agranulocytosis; Precautions — Impaired Renal Function, Drug Interactions")),
         ),
         renal = Facts(
             listOf(
@@ -903,7 +903,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Dialysis: 2.5 mg on dialysis days; adjust non-dialysis days to BP. Enalaprilat is dialysable.",
                 "Heart failure with serum creatinine >1.6 mg/dL or sodium <130 mEq/L: start 2.5 mg daily under close supervision.",
             ),
-            listOf(cite(SRC_ENALAPRIL, "Dosage and Administration — Renal Impairment; Clinical Pharmacology")),
+            listOf(cite(AHT_ENALAPRIL, "Dosage and Administration — Renal Impairment; Clinical Pharmacology")),
         ),
         commonEffects = Facts(
             listOf(
@@ -916,7 +916,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Orthostatic effects (1.2% vs 0%)",
                 "Heart failure patients: hypotension 6.7%, syncope 2.2%",
             ),
-            listOf(cite(SRC_ENALAPRIL, "Adverse Reactions — Hypertension and Heart Failure")),
+            listOf(cite(AHT_ENALAPRIL, "Adverse Reactions — Hypertension and Heart Failure")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -929,14 +929,14 @@ internal val antihypertensiveDrugs = listOf(
                 "Hyperkalaemia (>5.7 mEq/L in ~1% with hypertension, 3.8% with heart failure); renal function changes.",
                 "Persistent non-productive cough (resolves on stopping).",
             ),
-            listOf(cite(SRC_ENALAPRIL, "Boxed Warning; Contraindications; Warnings; Precautions — Impaired Renal Function, Hyperkalemia, Cough")),
+            listOf(cite(AHT_ENALAPRIL, "Boxed Warning; Contraindications; Warnings; Precautions — Impaired Renal Function, Hyperkalemia, Cough")),
         ),
         pk = Pharmacokinetics(
             absorption = "≈60% absorbed; peak 1 h (enalaprilat 3–4 h); food has no effect.",
             metabolism = "Prodrug hydrolysed to the active enalaprilat; no other metabolites.",
             elimination = "Primarily renal; ≈94% recovered in urine and faeces as enalaprilat or enalapril.",
             halfLife = "Enalaprilat effective accumulation half-life 11 h; prolonged when GFR ≤30 mL/min.",
-            citations = listOf(cite(SRC_ENALAPRIL, "Clinical Pharmacology — Pharmacokinetics and Metabolism")),
+            citations = listOf(cite(AHT_ENALAPRIL, "Clinical Pharmacology — Pharmacokinetics and Metabolism")),
         ),
         interactions = Facts(
             listOf(
@@ -946,15 +946,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Lithium: toxicity reported — monitor lithium frequently.",
                 "NSAIDs incl. COX-2 inhibitors: renal deterioration if elderly, volume-depleted or renal impairment; may blunt BP effect.",
             ),
-            listOf(cite(SRC_ENALAPRIL, "Contraindications; Precautions — Drug Interactions")),
+            listOf(cite(AHT_ENALAPRIL, "Contraindications; Precautions — Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("RAS drugs in the 2nd/3rd trimester reduce fetal renal function and increase fetal and neonatal morbidity and death — stop as soon as pregnancy is detected."),
-            listOf(cite(SRC_ENALAPRIL, "Warnings — Fetal Toxicity")),
+            listOf(cite(AHT_ENALAPRIL, "Warnings — Fetal Toxicity")),
         ),
         lactation = Facts(
             listOf("Enalapril and enalaprilat are detected in human milk; decide whether to stop nursing or the drug."),
-            listOf(cite(SRC_ENALAPRIL, "Precautions — Nursing Mothers")),
+            listOf(cite(AHT_ENALAPRIL, "Precautions — Nursing Mothers")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -966,7 +966,7 @@ internal val antihypertensiveDrugs = listOf(
         clearance = setOf(Clearance.Renal),
         boxedWarning = Facts(
             listOf("Fetal toxicity: drugs acting on the renin-angiotensin system can cause fetal injury and death — discontinue as soon as pregnancy is detected."),
-            listOf(cite(SRC_RAMIPRIL, "Boxed Warning; 5.6")),
+            listOf(cite(AHT_RAMIPRIL, "Boxed Warning; 5.6")),
         ),
         dose = Facts(
             listOf(
@@ -974,14 +974,14 @@ internal val antihypertensiveDrugs = listOf(
                 "CV risk reduction: 2.5 mg once daily for 1 week, 5 mg for 3 weeks, then 10 mg once daily as tolerated.",
                 "Heart failure post-MI: 2.5 mg twice daily (1.25 mg twice daily if hypotensive); target 5 mg twice daily, increasing about every 3 weeks.",
             ),
-            listOf(cite(SRC_RAMIPRIL, "2.1–2.3 Dosage and Administration")),
+            listOf(cite(AHT_RAMIPRIL, "2.1–2.3 Dosage and Administration")),
         ),
         beforeStarting = Facts(
             listOf(
                 "Establish baseline renal function.",
                 "Correct volume and salt depletion; on diuretics, reduce or stop the diuretic or increase salt intake first — otherwise use a lower starting dose.",
             ),
-            listOf(cite(SRC_RAMIPRIL, "2.5; 5.5; 7.1")),
+            listOf(cite(AHT_RAMIPRIL, "2.5; 5.5; 7.1")),
         ),
         monitoring = Facts(
             listOf(
@@ -991,7 +991,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Consider WBC counts in collagen-vascular disease, especially with renal impairment.",
                 "With other RAS agents: monitor BP, renal function and electrolytes; serum lithium frequently; renal function with NSAIDs.",
             ),
-            listOf(cite(SRC_RAMIPRIL, "2.3; 5.3–5.5; 5.7; 5.8; 7")),
+            listOf(cite(AHT_RAMIPRIL, "2.3; 5.3–5.5; 5.7; 5.8; 7")),
         ),
         renal = Facts(
             listOf(
@@ -1000,11 +1000,11 @@ internal val antihypertensiveDrugs = listOf(
                 "Heart failure post-MI with renal impairment: start 1.25 mg once daily; maximum 2.5 mg twice daily.",
                 "Suspected volume depletion or renal artery stenosis: start 1.25 mg once daily.",
             ),
-            listOf(cite(SRC_RAMIPRIL, "2.5 Dosage Adjustment; 8.6")),
+            listOf(cite(AHT_RAMIPRIL, "2.5 Dosage Adjustment; 8.6")),
         ),
         hepatic = Facts(
             listOf("Hepatic impairment slows activation; ramipril levels may be markedly raised (≈3-fold), ramiprilat peaks unchanged. Not formally studied in hypertensive patients."),
-            listOf(cite(SRC_RAMIPRIL, "5.2; 12.3")),
+            listOf(cite(AHT_RAMIPRIL, "5.2; 12.3")),
         ),
         commonEffects = Facts(
             listOf(
@@ -1013,7 +1013,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Cough (almost 12% in a 1-year study; ~4% stopped)",
                 "Heart failure post-MI: hypotension (11% vs 5%), cough (8% vs 4%), dizziness (4% vs 3%), angina (3% vs 2%)",
             ),
-            listOf(cite(SRC_RAMIPRIL, "6.1 Clinical Trials Experience")),
+            listOf(cite(AHT_RAMIPRIL, "6.1 Clinical Trials Experience")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -1026,7 +1026,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Symptomatic hypotension (volume/salt depletion, heart failure); hyperkalaemia (>5.7 mEq/L in ~1%).",
                 "Persistent non-productive cough.",
             ),
-            listOf(cite(SRC_RAMIPRIL, "Boxed Warning; 4; 5.1–5.9 Warnings and Precautions")),
+            listOf(cite(AHT_RAMIPRIL, "Boxed Warning; 4; 5.1–5.9 Warnings and Precautions")),
         ),
         pk = Pharmacokinetics(
             absorption = "Peak 1 h (ramiprilat 2–4 h); absorption ≥50–60%; food slows the rate but not the extent.",
@@ -1034,7 +1034,7 @@ internal val antihypertensiveDrugs = listOf(
             metabolism = "Ester cleavage, mainly in the liver, to active ramiprilat (≈6× more active); other metabolites inactive.",
             elimination = "≈60% in urine, ≈40% in faeces; <2% unchanged in urine.",
             halfLife = "Ramiprilat 13–17 h on repeated dosing (terminal phase >50 h from ACE binding).",
-            citations = listOf(cite(SRC_RAMIPRIL, "12.3 Pharmacokinetics")),
+            citations = listOf(cite(AHT_RAMIPRIL, "12.3 Pharmacokinetics")),
         ),
         interactions = Facts(
             listOf(
@@ -1044,15 +1044,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Lithium: toxicity — monitor serum lithium frequently (higher risk with a diuretic).",
                 "NSAIDs incl. COX-2 inhibitors: renal deterioration and reduced BP effect — monitor renal function.",
             ),
-            listOf(cite(SRC_RAMIPRIL, "4; 5.7; 7 Drug Interactions")),
+            listOf(cite(AHT_RAMIPRIL, "4; 5.7; 7 Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("RAS drugs in the 2nd/3rd trimester reduce fetal renal function and increase fetal and neonatal morbidity and death — discontinue when pregnancy is detected."),
-            listOf(cite(SRC_RAMIPRIL, "8.1 Pregnancy")),
+            listOf(cite(AHT_RAMIPRIL, "8.1 Pregnancy")),
         ),
         lactation = Facts(
             listOf("Undetectable in milk after a single 10 mg dose, but repeated doses may give unpredictable low levels — do not use in nursing mothers."),
-            listOf(cite(SRC_RAMIPRIL, "8.3 Nursing Mothers")),
+            listOf(cite(AHT_RAMIPRIL, "8.3 Nursing Mothers")),
         ),
     ),
     // ---------------------------------------------------------------------------------------------
@@ -1069,14 +1069,14 @@ internal val antihypertensiveDrugs = listOf(
                 "Angina: start 100 mg, increase weekly (>400 mg/day not studied). Heart failure: 25 mg (NYHA II) or 12.5 mg (more severe), doubling every 2 weeks up to 200 mg.",
                 "Scored tablets may be halved but not crushed or chewed. Switching from immediate-release: same total daily dose.",
             ),
-            listOf(cite(SRC_METOPROLOL, "2.1–2.4 Dosage and Administration")),
+            listOf(cite(AHT_METOPROLOL, "2.1–2.4 Dosage and Administration")),
         ),
         beforeStarting = Facts(
             listOf(
                 "Heart failure: stabilise doses of other heart-failure drugs first.",
                 "Phaeochromocytoma: use only after an alpha blocker has been started.",
             ),
-            listOf(cite(SRC_METOPROLOL, "2.3; 5.5")),
+            listOf(cite(AHT_METOPROLOL, "2.3; 5.5")),
         ),
         monitoring = Facts(
             listOf(
@@ -1086,15 +1086,15 @@ internal val antihypertensiveDrugs = listOf(
                 "With CYP2D6 inhibitors or catecholamine depleters: monitor closely (hypotension, marked bradycardia).",
                 "Hepatic impairment: monitor closely for adverse events.",
             ),
-            listOf(cite(SRC_METOPROLOL, "2.3; 5.1; 5.2; 5.4; 7.1–7.2; 8.6")),
+            listOf(cite(AHT_METOPROLOL, "2.3; 5.1; 5.2; 5.4; 7.1–7.2; 8.6")),
         ),
         renal = Facts(
             listOf("No dose reduction needed in chronic renal failure."),
-            listOf(cite(SRC_METOPROLOL, "8.7 Renal Impairment")),
+            listOf(cite(AHT_METOPROLOL, "8.7 Renal Impairment")),
         ),
         hepatic = Facts(
             listOf("Not studied; blood levels likely to rise substantially — start below usual doses and increase gradually."),
-            listOf(cite(SRC_METOPROLOL, "8.6 Hepatic Impairment")),
+            listOf(cite(AHT_METOPROLOL, "8.6 Hepatic Impairment")),
         ),
         commonEffects = Facts(
             listOf(
@@ -1107,7 +1107,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Rash",
                 "Heart failure (MERIT-HF): dizziness/vertigo 1.8% vs 1.0%, bradycardia 1.5% vs 0.4%",
             ),
-            listOf(cite(SRC_METOPROLOL, "6.1 Clinical Trials Experience — most common (>2%) in hypertension and angina")),
+            listOf(cite(AHT_METOPROLOL, "6.1 Clinical Trials Experience — most common (>2%) in hypertension and angina")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -1120,7 +1120,7 @@ internal val antihypertensiveDrugs = listOf(
                 "Severe or prolonged hypoglycaemia with masked warning signs; masks thyrotoxicosis (abrupt withdrawal may cause thyroid storm).",
                 "Aggravates peripheral arterial insufficiency; anaphylaxis may not respond to usual epinephrine doses.",
             ),
-            listOf(cite(SRC_METOPROLOL, "4 Contraindications; 5.1–5.10 Warnings and Precautions")),
+            listOf(cite(AHT_METOPROLOL, "4 Contraindications; 5.1–5.10 Warnings and Precautions")),
         ),
         pk = Pharmacokinetics(
             absorption = "Bioavailability 77% of conventional metoprolol; peaks ¼–½ of immediate-release; food has no significant effect.",
@@ -1128,7 +1128,7 @@ internal val antihypertensiveDrugs = listOf(
             metabolism = "Mainly CYP2D6 (stereoselective, phenotype-dependent).",
             elimination = "Mainly hepatic biotransformation; <5% unchanged in urine, the rest as inactive metabolites.",
             halfLife = "≈3–7 h.",
-            citations = listOf(cite(SRC_METOPROLOL, "12.3 Pharmacokinetics")),
+            citations = listOf(cite(AHT_METOPROLOL, "12.3 Pharmacokinetics")),
         ),
         interactions = Facts(
             listOf(
@@ -1137,15 +1137,15 @@ internal val antihypertensiveDrugs = listOf(
                 "Clonidine: withdraw the beta-blocker several days before gradually stopping clonidine (rebound hypertension).",
                 "Catecholamine depleters (reserpine, MAO inhibitors): additive — watch for hypotension or marked bradycardia.",
             ),
-            listOf(cite(SRC_METOPROLOL, "7.1–7.3 Drug Interactions")),
+            listOf(cite(AHT_METOPROLOL, "7.1–7.3 Drug Interactions")),
         ),
         pregnancy = Facts(
             listOf("Observational data show no drug-associated risk of major birth defects or miscarriage; inconsistent reports of growth restriction and preterm birth; observe neonates for bradycardia, hypoglycaemia, hypotension."),
-            listOf(cite(SRC_METOPROLOL, "8.1 Pregnancy")),
+            listOf(cite(AHT_METOPROLOL, "8.1 Pregnancy")),
         ),
         lactation = Facts(
             listOf("Present in milk (relative infant dose 0.5–2%); no infant adverse reactions identified — monitor the infant for bradycardia and listlessness."),
-            listOf(cite(SRC_METOPROLOL, "8.2 Lactation")),
+            listOf(cite(AHT_METOPROLOL, "8.2 Lactation")),
         ),
     ),
 )

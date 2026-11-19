@@ -27,7 +27,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.medicalaid.app.content.drugs.Clearance
 import com.medicalaid.app.content.drugs.DrugMonograph
 import com.medicalaid.app.content.drugs.Drugs
 import com.medicalaid.app.ui.components.Gutter
@@ -113,7 +112,6 @@ private fun DrugGroup(drugs: List<DrugMonograph>, onOpen: (String) -> Unit) {
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     if (d.boxedWarning != null) Tag("Boxed", fg = c.danger, bg = c.dangerSoft)
-                    if (d.hasRenalAdjustment || Clearance.Renal in d.clearance) Tag("Kidney")
                 }
                 Spacer(Modifier.width(6.dp))
                 Icon(Icons.Outlined.ChevronRight, null, tint = c.textTertiary, modifier = Modifier.size(20.dp))
