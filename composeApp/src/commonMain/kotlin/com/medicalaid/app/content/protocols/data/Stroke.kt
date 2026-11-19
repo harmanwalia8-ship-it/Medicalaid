@@ -17,6 +17,12 @@ import com.medicalaid.app.content.protocols.Step
 
 internal val strokeProtocolSources = listOf(
     Source(
+        "st-aha-target-stroke", Authority.AHA, "Target: Stroke Phase III (quality programme)",
+        "Target: Stroke — door-to-needle and door-to-device goals", "2019",
+        "https://www.heart.org/en/professional/quality-improvement/target-stroke/introducing-target-stroke-phase-iii",
+        status = "Quality-improvement goals, not guideline recommendations",
+    ),
+    Source(
         "st-aha-ais-2026", Authority.AHA, "Guideline (Stroke 2026;57:e316–e436)",
         "2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke", "2026",
         "https://doi.org/10.1161/STR.0000000000000513",
@@ -73,6 +79,7 @@ internal val strokeProtocolSources = listOf(
     ),
 )
 
+private const val TARGET = "st-aha-target-stroke"
 private const val AHA = "st-aha-ais-2026"
 private const val ICH = "st-aha-ich-2022"
 private const val SP = "st-aha-secondary-2021"
@@ -159,6 +166,7 @@ internal val strokeProtocols = listOf(
                 title = "IV thrombolysis",
                 timing = "Within 4.5 h of onset or last known well",
                 points = listOf(
+                    "AHA Target: Stroke (quality goal, not a guideline recommendation): door-to-needle within 60 minutes in ≥85% of patients treated with IV thrombolytics.",
                     "AHA/ASA 2026: within 4.5 h of onset or last known well — tenecteplase 0.25 mg/kg (max 25 mg) or alteplase 0.9 mg/kg (max 90 mg).",
                     "AHA/ASA 2026: alteplase over 60 min with 10% of the dose as a bolus over 1 min; tenecteplase as a single bolus. Tenecteplase 0.4 mg/kg not recommended.",
                     "ESO 2023: tenecteplase 0.25 mg/kg is a safe, effective alternative to alteplase 0.9 mg/kg; recommended over alteplase for LVO within 4.5 h.",
@@ -183,6 +191,7 @@ internal val strokeProtocols = listOf(
                 ),
                 tool = ProtocolTool.ThrombolysisDose,
                 citations = listOf(
+                    cite(TARGET, "Phase III goals"),
                     cite(AHA, "§4.6.2 Rec 1–2; Table 7"),
                     cite(AHA, "Table 8 (absolute contraindications); §4.3 Rec 5; §4.6.1 Rec 8; §4.6.3 Rec 2"),
                     cite(ESO_TNK, "Recommendations (tenecteplase 0.25 mg/kg; 0.40 mg/kg; LVO)"),
@@ -195,6 +204,7 @@ internal val strokeProtocols = listOf(
                 title = "Mechanical thrombectomy",
                 timing = "Up to 24 h from last known well in selected patients",
                 points = listOf(
+                    "AHA Target: Stroke (quality goal): door-to-device within 90 min for direct arrivals and 60 min for transfers, in ≥50% of patients treated.",
                     "AHA/ASA 2026: ICA or M1 occlusion within 6 h, NIHSS ≥6, pre-stroke mRS 0–1, ASPECTS 3–10 — thrombectomy recommended.",
                     "AHA/ASA 2026: ICA or M1 at 6–24 h, NIHSS ≥6, mRS 0–1 — recommended with ASPECTS ≥6, or ASPECTS 3–5 if age <80 without significant mass effect.",
                     "AHA/ASA 2026: basilar occlusion with mRS 0–1, NIHSS ≥10 and PC-ASPECTS ≥6 — thrombectomy within 24 h recommended.",
@@ -203,6 +213,7 @@ internal val strokeProtocols = listOf(
                     "MoHFW 2022: ICA or proximal MCA occlusion with disabling deficit — refer where arterial puncture can begin within 24 h. ICMR STW 2024: DAWN/DEFUSE criteria beyond 6 h.",
                 ),
                 citations = listOf(
+                    cite(TARGET, "Phase III goals"),
                     cite(AHA, "§4.7.1 Rec 1–2; §4.7.2 Rec 1–3, 8; §4.7.3 Rec 1"),
                     cite(NICE, "Rec 1.4.5–1.4.8"),
                     cite(MOHFW, "§5.4(a)"),
