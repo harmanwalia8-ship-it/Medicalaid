@@ -164,7 +164,7 @@ fun GuidelineBasis(citations: List<Citation>, modifier: Modifier = Modifier, com
             ) {
                 Column(Modifier.weight(1f)) {
                     Text(
-                        "${source.authority.short} ${source.document} · ${source.title} (${source.year})",
+                        "${sourceLabel(source)} · ${source.title} (${source.year})",
                         style = Theme.type.caption,
                         color = c.textSecondary,
                     )
@@ -183,6 +183,11 @@ fun GuidelineBasis(citations: List<Citation>, modifier: Modifier = Modifier, com
         }
     }
 }
+
+/** "NICE Guideline NG201", without repeating the body when the document name already includes it. */
+fun sourceLabel(source: com.medicalaid.app.content.Source): String =
+    if (source.document.startsWith(source.authority.short, ignoreCase = true)) source.document
+    else "${source.authority.short} ${source.document}"
 
 /** Small source lines at the foot of a card: "ⓘ ACOG Practice Bulletin No. 189 · Figure 1 ↗". */
 @Composable
@@ -206,7 +211,7 @@ private fun CompactBasis(citations: List<Citation>, modifier: Modifier = Modifie
                 Spacer(Modifier.width(7.dp))
                 Text(
                     buildString {
-                        append(source.authority.short).append(' ').append(source.document)
+                        append(sourceLabel(source))
                         if (citation.locator != null) append(" · ").append(citation.locator)
                     },
                     style = Theme.type.caption,

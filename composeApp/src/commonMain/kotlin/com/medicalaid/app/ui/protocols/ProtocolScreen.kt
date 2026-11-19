@@ -24,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.outlined.CheckBox
 import androidx.compose.material.icons.outlined.CheckBoxOutlineBlank
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.medicalaid.app.content.Citation
@@ -64,19 +66,7 @@ fun ProtocolScreen(
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
         item { ScreenTitle(protocol.title, protocol.summary, onBack = onBack) }
         if (protocol.notes.isNotEmpty()) {
-            item {
-                Column(
-                    Modifier.padding(horizontal = Gutter).padding(top = 12.dp).fillMaxWidth()
-                        .clip(Radius.card).background(c.cautionSoft).padding(16.dp),
-                ) {
-                    protocol.notes.forEachIndexed { i, n ->
-                        if (i > 0) Spacer(Modifier.height(10.dp))
-                        Text(n.text, style = Theme.type.caption, color = c.text)
-                        Spacer(Modifier.height(4.dp))
-                        GuidelineBasis(n.citations, compact = true)
-                    }
-                }
-            }
+            item { NotesCard(protocol) }
         }
         item { Spacer(Modifier.height(16.dp)) }
         itemsIndexed(protocol.steps, key = { i, s -> "$i-${s.title}" }) { index, step ->
@@ -89,6 +79,40 @@ fun ProtocolScreen(
                 val all = (protocol.citations + protocol.steps.flatMap { it.citations } + protocol.notes.flatMap { it.citations })
                     .map { it.sourceId }.distinct().map { Citation(it) }
                 GuidelineBasis(all)
+            }
+        }
+    }
+}
+
+@Composable
+private fun NotesCard(protocol: Protocol) {
+    val c = Theme.colors
+    var open by remember(protocol.id) { mutableStateOf(false) }
+    Column(
+        Modifier.padding(horizontal = Gutter).padding(top = 12.dp).fillMaxWidth()
+            .clip(Radius.card).background(c.cautionSoft),
+    ) {
+        Row(
+            Modifier.fillMaxWidth().clickable { open = !open }.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(Modifier.weight(1f)) {
+                Text("Where guidelines differ", style = Theme.type.bodyStrong, color = c.caution)
+                Text("${protocol.notes.size} notes · India and international", style = Theme.type.caption, color = c.textSecondary)
+            }
+            Icon(
+                Icons.Outlined.ExpandMore, if (open) "Collapse" else "Expand", tint = c.caution,
+                modifier = Modifier.size(20.dp).rotate(if (open) 180f else 0f),
+            )
+        }
+        if (open) {
+            Column(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
+                protocol.notes.forEachIndexed { i, n ->
+                    if (i > 0) Spacer(Modifier.height(12.dp))
+                    Text(n.text, style = Theme.type.caption, color = c.text)
+                    Spacer(Modifier.height(4.dp))
+                    GuidelineBasis(n.citations, compact = true)
+                }
             }
         }
     }
@@ -214,7 +238,14 @@ private fun OnsetClock() {
                     }
                 }
             }
+            Spacer(Modifier.height(6.dp))
+            Text("Windows are eligibility limits, not decisions — imaging and criteria apply.", style = Theme.type.caption, color = c.textTertiary)
         }
+        Spacer(Modifier.height(8.dp))
+        GuidelineBasis(
+            listOf(Citation("st-aha-ais-2026", "§4.6.2–4.6.3; §4.7.2"), Citation("st-nice-ng128", "1.4.1; 1.4.5–1.4.8"), Citation("st-mohfw-stroke-2022")),
+            compact = true,
+        )
     }
 }
 
@@ -231,21 +262,29 @@ private fun ThrombolysisDose() {
             NumberField(wText, { wText = it }, placeholder = "kg", suffix = "kg", modifier = Modifier.width(110.dp))
         }
         if (weight != null) {
-            val d = StrokeTools.thrombolysis(weight)
+            val a = StrokeTools.alteplase(weight)
             Spacer(Modifier.height(10.dp))
             DoseLine(
-                "Alteplase ${formatNumber(d.alteplaseTotalMg)} mg",
-                "Bolus ${formatNumber(d.alteplaseBolusMg)} mg over 1 min, then ${formatNumber(d.alteplaseInfusionMg)} mg over ${StrokeTools.ALTEPLASE_INFUSION_MINUTES} min " +
-                    "(${formatNumber(StrokeTools.ALTEPLASE_MG_PER_KG)} mg/kg, max ${formatNumber(StrokeTools.ALTEPLASE_MAX_MG)} mg)",
+                "Alteplase ${formatNumber(a.totalMg)} mg",
+                "Bolus ${formatNumber(a.bolusMg)} mg over 1 min, then ${formatNumber(a.infusionMg)} mg over ${StrokeTools.ALTEPLASE_INFUSION_MINUTES} min. " +
+                    "AHA/ASA 2026 and MoHFW: 0.9 mg/kg, max 90 mg.",
             )
             Spacer(Modifier.height(8.dp))
             DoseLine(
-                "Tenecteplase ${formatNumber(d.tenecteplaseMg)} mg",
-                "Single IV bolus (${formatNumber(StrokeTools.TENECTEPLASE_MG_PER_KG)} mg/kg, max ${formatNumber(StrokeTools.TENECTEPLASE_MAX_MG)} mg)",
+                "Tenecteplase ${formatNumber(StrokeTools.tenecteplaseAhaBandMg(weight))} mg",
+                "AHA/ASA 2026 Table 7 weight band (0.25 mg/kg, max 25 mg), single IV bolus.",
+            )
+            Spacer(Modifier.height(8.dp))
+            val (lo, hi) = StrokeTools.tenecteplaseIndiaRangeMg(weight)
+            DoseLine(
+                if (lo == hi) "Tenecteplase ${formatNumber(lo)} mg · India" else "Tenecteplase ${formatNumber(lo)}–${formatNumber(hi)} mg · India",
+                "MoHFW 2022: 0.2–0.25 mg/kg, max 20 mg, within 0–3 h (CDSCO-approved 0.2 mg/kg).",
             )
             Spacer(Modifier.height(6.dp))
-            Text("Use actual or estimated weight; check product strength and local protocol.", style = Theme.type.caption, color = c.textTertiary)
+            Text("Check product strength, local protocol and eligibility before giving.", style = Theme.type.caption, color = c.textTertiary)
         }
+        Spacer(Modifier.height(8.dp))
+        GuidelineBasis(listOf(Citation("st-aha-ais-2026", "§4.6.2 Rec 1; Table 7"), Citation("st-mohfw-stroke-2022", "Annexure VI")), compact = true)
     }
 }
 

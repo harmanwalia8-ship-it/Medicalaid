@@ -322,6 +322,10 @@ internal val strokeProtocols = listOf(
         ),
         notes = listOf(
             ProtocolNote(
+                "AHA/ASA published a correction to its 2026 guideline (Stroke 2026;57:e461–e467) that has not yet been reviewed here — check the current guideline text.",
+                listOf(cite(AHA, "Correction, July 2026")),
+            ),
+            ProtocolNote(
                 "Tenecteplase differs: AHA/ASA 2026 and ESO 2023 — 0.25 mg/kg (max 25 mg) within 4.5 h. MoHFW 2022 — 0.2–0.25 mg/kg (max 20 mg) at 0–3 h only, alteplase at 3–4.5 h.",
                 listOf(cite(AHA, "§4.6.2 Rec 1; Table 7"), cite(ESO_TNK, "Recommendations"), cite(MOHFW, "Annexure VI")),
             ),

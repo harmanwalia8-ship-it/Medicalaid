@@ -108,6 +108,20 @@ class Screenshots {
         shot("29-drugs-list", heightDp = 2400) { DrugsScreen("", {}, {}, {}, pad) }
         shot("30-drug-telmisartan", heightDp = 3600) { DrugScreen(Drugs.byId("telmisartan")!!, {}, pad) }
         shot("31-drug-apixaban") { DrugScreen(Drugs.byId("apixaban")!!, {}, pad) }
+        shot("32-protocol-stroke", heightDp = 5200) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("acute-stroke")!!, {}, {}, pad)
+        }
+        shot("33-score-wells-pe") {
+            com.medicalaid.app.ui.scores.ScoreScreen(
+                com.medicalaid.app.content.scores.Scores.byId("wells-pe")!!, {}, pad,
+                initialAnswers = com.medicalaid.app.content.scores.Scores.byId("wells-pe")!!.items.take(2).associate { it.id to 1 },
+            )
+        }
+        shot("34-score-heart", heightDp = 1500) {
+            com.medicalaid.app.ui.scores.ScoreScreen(com.medicalaid.app.content.scores.Scores.byId("heart")!!, {}, pad)
+        }
+        shot("35-scores-list", heightDp = 1500) { com.medicalaid.app.ui.scores.ScoresScreen("", {}, {}, {}, pad) }
+        shot("36-home-v3") { HomeScreen("", {}, {}, {}, {}, {}, pad) }
         shot("28-tool-renal", heightDp = 1500) {
             Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.RenalTool("1.4", "68", com.medicalaid.app.tools.Renal.Sex.Male, "72", "168") }
         }
