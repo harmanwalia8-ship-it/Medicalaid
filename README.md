@@ -1,0 +1,94 @@
+# Medicalaid
+
+A quick-reference app for clinicians — **decision support, not a replacement for clinical judgement.**
+Every recommendation shows the guideline it comes from and links to the official document.
+
+Built with Kotlin Multiplatform + Compose Multiplatform: one shared codebase for Android, iOS and desktop.
+Works fully offline and stores no patient data.
+
+## What's in it
+
+**Pregnancy tab**
+- LMP → EDD (Naegele, +280 days), gestational age (weeks + days), trimester, term category.
+- Optional dating ultrasound: compares with LMP using the ACOG CO 700 redating table and redates when the
+  discrepancy exceeds the threshold (bands are by LMP gestational age, as the table specifies).
+- Antenatal schedule — tests, scans, vaccines, supplements and visits — with calendar dates and status
+  (due now / coming up / first visit / window passed). Filter by **India (MoHFW, ICMR)** or **ACOG / CDC**.
+
+**Medicines tab** — browse or search (synonyms work: "vomiting", "itching", "pre-eclampsia", drug names)
+- *In pregnancy:* nausea & vomiting, fever & pain, headache, heartburn, high BP & pre-eclampsia,
+  itching & cholestasis, UTI, vaginal infections, anaemia, diabetes (GDM & pre-existing), hypothyroidism, asthma.
+- *General adult:* diabetes (type 2), hypothyroidism, asthma.
+- Doses as written by the source; weight-based doses calculate from an entered weight.
+
+**Calculators**
+- Glucose ↔ HbA1c (ADAG equation, as used by the ADA eAG calculator) with ADA diagnostic band and the
+  ICMR therapy band. Clearly marked as a rough estimate; not offered in pregnancy (ADA 2026, rec 15.13).
+- TSH in pregnancy — shows **ATA 2026** and **MoHFW 2014** verdicts side by side (they differ).
+- TSH in non-pregnant adults — NICE NG145, ATA 2014, ATA/AACE 2012, ICMR; levothyroxine starting dose by weight.
+
+## Content rules
+
+1. Government of India (MoHFW, ICMR) and ACOG first. Where they are silent: CDC, SMFM, USPSTF, FDA, ADA, ATA,
+   GINA, NHLBI, NICE, RCOG, IDSA.
+2. No source, no entry. `ContentIntegrityTest` fails the build if any drug, caution, info block or schedule item
+   lacks a citation, cites an unknown source, or if a source is unused.
+3. Where guidelines disagree, both are shown and labelled — never silently merged.
+4. Sources were checked against the issuing body's own page in **November 2026** (`Sources.REVIEWED`).
+
+### Known gaps — review before clinical release
+- **Headache (ACOG CPG No. 3):** full text is paywalled; doses were taken from published summaries of the
+  guideline and need checking against the original.
+- **ACOG PB 190 / PB 201 (diabetes in pregnancy):** paywalled, so not used for clinical content; ADA 2026 Section 15
+  and MoHFW 2018 are used instead.
+- **Heartburn:** NICE NG201 recommends a trial of antacid/alginate but gives no dose.
+- **IV iron per-dose amounts:** in a separate MoHFW IV-iron guideline not yet incorporated.
+- **Not yet covered:** constipation, haemorrhoids, cough/cold/allergic rhinitis (NICE CKS dosing pages are
+  geo-restricted; an alternative authoritative dose source is needed).
+- **COVID-19 vaccine in pregnancy:** US federal guidance changed in 2025 and remains contested; ACOG's position is shown.
+- ADA publishes a new Standards of Care each December — re-check the 2027 edition.
+
+## Project layout
+
+```
+composeApp/src/
+  commonMain/kotlin/com/medicalaid/app/
+    content/      Sources.kt, Schedule.kt, PregnancyConditions.kt, ChronicConditions.kt, Search.kt, Model.kt
+    pregnancy/    Dating.kt            (EDD, GA, ACOG redating)
+    tools/        Glycemia.kt, Thyroid.kt
+    ui/           theme, components, pregnancy, medicines, tools, sources screens
+  commonTest/     dating, calculators, search and content-integrity tests
+  androidMain/    MainActivity, launcher icon
+  iosMain/        MainViewController (entry point for Swift)
+  desktopMain/    desktop window (also used for screenshots)
+  desktopTest/    Screenshots.kt — renders key screens to PNG
+iosApp/           Xcode project (SwiftUI host)
+```
+
+## Build
+
+Requirements: JDK 17+, Android SDK (API 36).
+
+```bash
+./gradlew :composeApp:testDebugUnitTest          # all shared tests
+./gradlew :composeApp:assembleRelease            # Android APK → composeApp/build/outputs/apk/release/
+./gradlew :composeApp:run                        # desktop window
+./gradlew :composeApp:desktopTest -Pscreenshots  # PNGs → composeApp/build/screenshots/
+```
+
+The release build is currently signed with the local debug key so it can be side-loaded for testing.
+Create a real upload key before publishing to the Play Store.
+
+**iOS** (needs a Mac with Xcode): set `TEAM_ID` in `iosApp/Configuration/Config.xcconfig`, open
+`iosApp/iosApp.xcodeproj`, and run. The Xcode build phase calls `./gradlew :composeApp:embedAndSignAppleFrameworkForXcode`.
+
+## Adding content
+
+1. Add the document to `Sources.kt` (official URL, document number, year, status).
+2. Add the entry to the right `Condition` or to `Schedule.items`, with `cite("source-id", "Table/section")`.
+3. Run the tests — the integrity test catches missing or unknown citations.
+
+## Licences
+
+Inter typeface: SIL Open Font License (`licenses/Inter-OFL.txt`). The iOS host project is adapted from
+JetBrains' Kotlin/KMP-App-Template (Apache 2.0).

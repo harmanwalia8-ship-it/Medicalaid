@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.Medicalaid" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/launch_background</item>
+    </style>
+</resources>
