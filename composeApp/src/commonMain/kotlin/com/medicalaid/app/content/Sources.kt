@@ -392,7 +392,8 @@ object Sources {
     )
 
     /** Guideline documents plus the drug labels cited by the drug database. */
-    val all: List<Source> = guidelines + com.medicalaid.app.content.drugs.Drugs.sources
+    val all: List<Source> = guidelines + com.medicalaid.app.content.drugs.Drugs.sources +
+        com.medicalaid.app.content.scores.Scores.sources + com.medicalaid.app.content.protocols.Protocols.sources
 
     private val index = all.associateBy { it.id }
 

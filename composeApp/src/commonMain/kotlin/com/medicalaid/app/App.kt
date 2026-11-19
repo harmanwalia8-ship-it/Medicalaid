@@ -29,6 +29,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Calculate
+import androidx.compose.material.icons.outlined.Checklist
+import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.MedicalServices
@@ -86,6 +88,8 @@ enum class Destination(val label: String, val icon: ImageVector) {
     Pregnancy("Pregnancy", Icons.Outlined.PregnantWoman),
     Treatment("Treatment", Icons.Outlined.MedicalServices),
     Drugs("Drugs", Icons.Outlined.Medication),
+    Scores("Scores", Icons.Outlined.Checklist),
+    Protocols("Protocols", Icons.Outlined.Emergency),
     Calculators("Calculators", Icons.Outlined.Calculate),
     Sources("Sources", Icons.AutoMirrored.Outlined.MenuBook),
     About("About", Icons.Outlined.Info),
@@ -96,6 +100,8 @@ sealed interface Detail {
     data class ConditionPage(val id: String, val drug: String?) : Detail
     data class DrugPage(val id: String) : Detail
     data class ToolPage(val kind: com.medicalaid.app.content.ToolKind) : Detail
+    data class ScorePage(val id: String) : Detail
+    data class ProtocolPage(val id: String) : Detail
 }
 
 private const val INTRO_KEY = "intro_ack"
@@ -109,6 +115,7 @@ fun App() {
         var homeQuery by remember { mutableStateOf("") }
         var treatmentQuery by remember { mutableStateOf("") }
         var drugQuery by remember { mutableStateOf("") }
+        var scoreQuery by remember { mutableStateOf("") }
         var population by remember { mutableStateOf(Population.Pregnancy) }
         var introAccepted by remember { mutableStateOf(Prefs.getInt(INTRO_KEY, 0) >= INTRO_VERSION) }
         val today = remember { today() }
@@ -167,6 +174,12 @@ fun App() {
                             )
                         }
                         is Detail.ToolPage -> com.medicalaid.app.ui.home.ToolScreen(detail.kind, trimester, onBack = { pop() }, contentPadding = padding)
+                        is Detail.ScorePage -> com.medicalaid.app.content.scores.Scores.byId(detail.id)?.let {
+                            com.medicalaid.app.ui.scores.ScoreScreen(it, onBack = { pop() }, contentPadding = padding)
+                        }
+                        is Detail.ProtocolPage -> com.medicalaid.app.content.protocols.Protocols.byId(detail.id)?.let {
+                            com.medicalaid.app.ui.protocols.ProtocolScreen(it, onBack = { pop() }, onOpenScore = { id -> push(Detail.ScorePage(id)) }, contentPadding = padding)
+                        }
                         null -> when (currentRoot) {
                             Destination.Home -> HomeScreen(
                                 query = homeQuery,
@@ -176,6 +189,8 @@ fun App() {
                                 onOpenDrug = { push(Detail.DrugPage(it)) },
                                 onMenu = openMenu,
                                 contentPadding = padding,
+                                onOpenScore = { push(Detail.ScorePage(it)) },
+                                onOpenProtocol = { push(Detail.ProtocolPage(it)) },
                             )
                             Destination.Pregnancy -> PregnancyScreen(pregnancy, today, padding, onMenu = openMenu)
                             Destination.Treatment -> MedicinesScreen(
@@ -193,6 +208,12 @@ fun App() {
                                 onOpen = { push(Detail.DrugPage(it)) },
                                 onMenu = openMenu,
                                 contentPadding = padding,
+                            )
+                            Destination.Scores -> com.medicalaid.app.ui.scores.ScoresScreen(
+                                scoreQuery, { scoreQuery = it }, onOpen = { push(Detail.ScorePage(it)) }, onMenu = openMenu, contentPadding = padding,
+                            )
+                            Destination.Protocols -> com.medicalaid.app.ui.scores.ProtocolsScreen(
+                                onOpen = { push(Detail.ProtocolPage(it)) }, onMenu = openMenu, contentPadding = padding,
                             )
                             Destination.Calculators -> CalculatorsScreen(trimester, { navigate(it) }, openMenu, padding)
                             Destination.Sources -> SourcesScreen(padding, onMenu = openMenu)

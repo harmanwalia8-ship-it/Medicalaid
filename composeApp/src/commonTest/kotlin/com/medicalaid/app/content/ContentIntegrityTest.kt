@@ -49,6 +49,23 @@ class ContentIntegrityTest {
     }
 
     @Test
+    fun scoresAndProtocolsAreCited() {
+        com.medicalaid.app.content.scores.Scores.all.forEach { sc ->
+            checkCitations("Score ${sc.id}", sc.citations)
+            sc.caveats.forEach { checkCitations("Score ${sc.id} caveat", it.citations) }
+            assertTrue(sc.items.isNotEmpty() && sc.bands.isNotEmpty(), "Score ${sc.id} incomplete")
+        }
+        com.medicalaid.app.content.protocols.Protocols.all.forEach { p ->
+            checkCitations("Protocol ${p.id}", p.citations)
+            p.steps.forEach { checkCitations("Protocol ${p.id} step '${it.title}'", it.citations) }
+            p.notes.forEach { checkCitations("Protocol ${p.id} note", it.citations) }
+            p.steps.flatMap { it.scoreIds }.forEach {
+                assertTrue(com.medicalaid.app.content.scores.Scores.byId(it) != null, "Protocol ${p.id} links unknown score $it")
+            }
+        }
+    }
+
+    @Test
     fun idsAreUnique() {
         assertEquals(Conditions.all.size, Conditions.all.map { it.id }.toSet().size, "Duplicate condition id")
         assertEquals(Schedule.items.size, Schedule.items.map { it.id }.toSet().size, "Duplicate schedule id")
@@ -71,6 +88,15 @@ class ContentIntegrityTest {
             }
             Schedule.items.forEach { i -> i.citations.forEach { add(it.sourceId) } }
             com.medicalaid.app.content.drugs.Drugs.all.forEach { d -> d.allCitations().forEach { add(it.sourceId) } }
+            com.medicalaid.app.content.scores.Scores.all.forEach { sc ->
+                sc.citations.forEach { add(it.sourceId) }
+                sc.caveats.forEach { cv -> cv.citations.forEach { add(it.sourceId) } }
+            }
+            com.medicalaid.app.content.protocols.Protocols.all.forEach { p ->
+                p.citations.forEach { add(it.sourceId) }
+                p.notes.forEach { n -> n.citations.forEach { add(it.sourceId) } }
+                p.steps.forEach { st -> st.citations.forEach { add(it.sourceId) } }
+            }
             // Cited directly by UI components (dating card, calculators).
             addAll(UI_CITED)
         }

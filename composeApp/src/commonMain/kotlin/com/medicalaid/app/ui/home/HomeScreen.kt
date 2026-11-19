@@ -52,8 +52,12 @@ fun HomeScreen(
     onOpenDrug: (String) -> Unit,
     onMenu: () -> Unit,
     contentPadding: PaddingValues,
+    onOpenScore: (String) -> Unit = {},
+    onOpenProtocol: (String) -> Unit = {},
 ) {
     val focus = LocalFocusManager.current
+    val scoreHits = remember(query) { if (query.isBlank()) emptyList() else com.medicalaid.app.content.scores.Scores.search(query) }
+    val protocolHits = remember(query) { if (query.isBlank()) emptyList() else com.medicalaid.app.content.protocols.Protocols.search(query) }
     val conditionHits = remember(query) { Search.run(query).filter { it.drug == null }.map { it.condition } }
     val drugHits = remember(query) { if (query.isBlank()) emptyList() else Drugs.search(query) }
 
@@ -62,13 +66,13 @@ fun HomeScreen(
         item {
             SearchField(
                 query, onQueryChange, onDone = { focus.clearFocus() },
-                placeholder = "Search conditions and drugs…",
+                placeholder = "Search conditions, drugs, scores…",
                 modifier = Modifier.padding(horizontal = Gutter).padding(top = 12.dp),
             )
         }
 
         if (query.isNotBlank()) {
-            if (conditionHits.isEmpty() && drugHits.isEmpty()) {
+            if (conditionHits.isEmpty() && drugHits.isEmpty() && scoreHits.isEmpty() && protocolHits.isEmpty()) {
                 item {
                     Text(
                         "Nothing matches “$query”.",
@@ -87,6 +91,14 @@ fun HomeScreen(
                 item { SectionHeader("Drugs", Modifier.padding(horizontal = Gutter), trailing = "${drugHits.size}") }
                 item { RowGroup(drugHits.map { Triple(it.name, it.drugClass) { onOpenDrug(it.id) } }) }
             }
+            if (protocolHits.isNotEmpty()) {
+                item { SectionHeader("Protocols", Modifier.padding(horizontal = Gutter), trailing = "${protocolHits.size}") }
+                item { RowGroup(protocolHits.map { Triple(it.title, it.summary) { onOpenProtocol(it.id) } }) }
+            }
+            if (scoreHits.isNotEmpty()) {
+                item { SectionHeader("Scores", Modifier.padding(horizontal = Gutter), trailing = "${scoreHits.size}") }
+                item { RowGroup(scoreHits.map { Triple(it.name, it.purpose) { onOpenScore(it.id) } }) }
+            }
             return@LazyColumn
         }
 
@@ -98,6 +110,10 @@ fun HomeScreen(
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Tile(Destination.Drugs, "${plural(Drugs.all.size, "drug")} · side effects, kinetics", Modifier.weight(1f), onNavigate)
+                    Tile(Destination.Scores, "${plural(com.medicalaid.app.content.scores.Scores.all.size, "score")} · Wells, CURB-65…", Modifier.weight(1f), onNavigate)
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Tile(Destination.Protocols, "Step-by-step emergencies", Modifier.weight(1f), onNavigate)
                     Tile(Destination.Calculators, "eGFR, HbA1c, TSH, due date", Modifier.weight(1f), onNavigate)
                 }
             }
