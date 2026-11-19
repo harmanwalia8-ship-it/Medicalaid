@@ -52,7 +52,7 @@ private val authorityNames = mapOf(
     Authority.NKF to "National Kidney Foundation (US)",
     Authority.Paper to "Original publications",
     Authority.SSC to "Surviving Sepsis Campaign (SCCM / ESICM)",
-    Authority.AHA to "American Heart Association / American Stroke Association",
+    Authority.AHA to "American Heart Association (with ASA / ACC)",
     Authority.ESO to "European Stroke Organisation",
     Authority.NICE to "National Institute for Health and Care Excellence (UK)",
     Authority.RCOG to "Royal College of Obstetricians and Gynaecologists",

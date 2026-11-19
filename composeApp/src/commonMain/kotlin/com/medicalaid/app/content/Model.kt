@@ -22,7 +22,7 @@ enum class Authority(val short: String, val india: Boolean = false) {
     NKF("NKF"),
     Paper("Original paper"),
     SSC("Surviving Sepsis Campaign"),
-    AHA("AHA/ASA"),
+    AHA("AHA"),
     ESO("ESO"),
     NICE("NICE"),
     RCOG("RCOG"),

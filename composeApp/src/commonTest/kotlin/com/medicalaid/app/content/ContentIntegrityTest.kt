@@ -70,6 +70,10 @@ class ContentIntegrityTest {
         assertEquals(Conditions.all.size, Conditions.all.map { it.id }.toSet().size, "Duplicate condition id")
         assertEquals(Schedule.items.size, Schedule.items.map { it.id }.toSet().size, "Duplicate schedule id")
         assertEquals(Sources.all.size, Sources.all.map { it.id }.toSet().size, "Duplicate source id")
+        val scoreIds = com.medicalaid.app.content.scores.Scores.all.map { it.id }
+        assertEquals(scoreIds.size, scoreIds.toSet().size, "Duplicate score id")
+        val protocolIds = com.medicalaid.app.content.protocols.Protocols.all.map { it.id }
+        assertEquals(protocolIds.size, protocolIds.toSet().size, "Duplicate protocol id")
     }
 
     @Test
