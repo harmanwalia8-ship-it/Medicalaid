@@ -107,7 +107,8 @@ internal val antibioticDrugs = listOf(
         monitoring = Facts(
             listOf(
                 "Repeat urine culture after completing therapy; if bacteriuria persists or recurs, use an agent with broader tissue distribution.",
-                "Long-term therapy: close monitoring of pulmonary condition, periodic liver biochemistry and periodic renal function.",
+                "Periodic liver biochemistry — chronic active hepatitis may be insidious.",
+                "Long-term therapy: close monitoring of pulmonary condition and periodic renal function.",
                 "Elderly: monitoring renal function may be useful.",
             ),
             listOf(cite(ABX_NITRO, "Indications and Usage; Warnings; Precautions — Geriatric Use")),
@@ -144,8 +145,7 @@ internal val antibioticDrugs = listOf(
             listOf(cite(ABX_NITRO, "Warnings")),
         ),
         pk = Pharmacokinetics(
-            absorption = "25% macrocrystals (slow dissolution) + 75% monohydrate (gel matrix release); food increases bioavailability by ~40%.",
-            distribution = "Plasma levels low (peak usually <1 mcg/mL); highly soluble in urine.",
+            absorption = "25% macrocrystals (slow dissolution) + 75% monohydrate (gel-matrix release); food raises bioavailability ~40%; plasma peak usually <1 mcg/mL.",
             elimination = "20–25% of a dose recovered unchanged in urine over 24 h; may colour urine brown.",
             citations = listOf(cite(ABX_NITRO, "Clinical Pharmacology")),
         ),
@@ -177,7 +177,7 @@ internal val antibioticDrugs = listOf(
             listOf(
                 "ENT, skin, genitourinary: 500 mg every 12 h or 250 mg every 8 h; severe infection 875 mg every 12 h or 500 mg every 8 h.",
                 "Lower respiratory tract: 875 mg every 12 h or 500 mg every 8 h. Take at the start of a meal.",
-                "H. pylori: 1 g + clarithromycin 500 mg + lansoprazole 30 mg, all twice daily for 14 days (dual: 1 g + lansoprazole 30 mg three times daily).",
+                "H. pylori, 14 days: 1 g + clarithromycin 500 mg + lansoprazole 30 mg twice daily, or 1 g + lansoprazole 30 mg three times daily.",
             ),
             listOf(cite(ABX_AMOX, "2.1–2.4 Dosage and Administration")),
         ),
@@ -513,7 +513,7 @@ internal val antibioticDrugs = listOf(
             listOf(
                 "Adults: 1–2 g once daily (or in two divided doses); total daily dose must not exceed 4 g. Usually 4–14 days.",
                 "Uncomplicated gonorrhoea: single 250 mg IM dose. Surgical prophylaxis: single 1 g IV, ½–2 h before surgery.",
-                "IV infusion over 30 minutes. Never give simultaneously with calcium-containing IV solutions, even via separate lines at Y-site.",
+                "IV infusion over 30 min (60 min in neonates). Never simultaneously with calcium-containing IV solutions (incl. Y-site); non-neonates may receive them sequentially if the line is flushed.",
             ),
             listOf(cite(ABX_CEFTRI, "Dosage and Administration")),
         ),
@@ -560,7 +560,7 @@ internal val antibioticDrugs = listOf(
         seriousEffects = Facts(
             listOf(
                 "Anaphylaxis — serious, occasionally fatal; caution in penicillin/β-lactam allergy.",
-                "Ceftriaxone–calcium precipitation; fatal lung/kidney deposits in neonates. Contraindicated in premature and hyperbilirubinaemic neonates.",
+                "Ceftriaxone–calcium precipitates (fatal lung/kidney deposits in neonates). Contraindicated in premature neonates (≤41 weeks postmenstrual age); do not treat hyperbilirubinaemic neonates.",
                 "Encephalopathy, seizures, myoclonus, non-convulsive status epilepticus — reversible on stopping.",
                 "C. difficile-associated diarrhoea, up to 2 months after use.",
                 "Immune haemolytic anaemia, including fatal cases.",
@@ -646,7 +646,7 @@ internal val antibioticDrugs = listOf(
                 "Hepatotoxicity, incl. hepatic failure, sometimes fatal — stop if hepatitis signs occur.",
                 "Infantile hypertrophic pyloric stenosis after use in neonates (≤42 days).",
                 "QT prolongation and torsades de pointes; elderly more susceptible.",
-                "~Two-fold increased short-term cardiovascular death risk vs other antibacterials in observational studies.",
+                "About two-fold higher short-term risk of cardiovascular death vs other antibacterials in observational studies.",
                 "C. difficile-associated diarrhoea, up to 2 months after use.",
                 "Exacerbation of myasthenia gravis.",
             ),
@@ -688,7 +688,7 @@ internal val antibioticDrugs = listOf(
         clearance = setOf(Clearance.Renal, Clearance.Biliary),
         dose = Facts(
             listOf(
-                "200 mg on day 1 (100 mg every 12 h), then 100 mg daily (once, or 50 mg every 12 h); severe infections 100 mg every 12 h.",
+                "200 mg on day 1 (100 mg every 12 h), then 100 mg daily; severe infections 100 mg every 12 h.",
                 "Malaria prophylaxis: 100 mg daily, from 1–2 days before travel until 4 weeks after leaving the area.",
                 "Take with plenty of fluid; may take with food or milk if gastric irritation occurs.",
             ),
@@ -712,7 +712,7 @@ internal val antibioticDrugs = listOf(
                 "Urticaria",
                 "Oesophagitis/oesophageal ulcer, mostly when taken just before bed",
             ),
-            listOf(cite(ABX_DOXY, "6 Adverse Reactions (no frequencies given)")),
+            listOf(cite(ABX_DOXY, "6 Adverse Reactions")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -810,7 +810,7 @@ internal val antibioticDrugs = listOf(
                 "Sharp metallic taste",
                 "Furry tongue, glossitis, stomatitis (Candida overgrowth)",
             ),
-            listOf(cite(ABX_METRO, "Adverse Reactions (no frequencies given)")),
+            listOf(cite(ABX_METRO, "Adverse Reactions")),
         ),
         seriousEffects = Facts(
             listOf(
@@ -908,7 +908,7 @@ internal val antibioticDrugs = listOf(
                 "Abdominal pain",
                 "Unpleasant or metallic taste",
             ),
-            listOf(cite(ABX_CLINDA, "Adverse Reactions (no frequencies given)")),
+            listOf(cite(ABX_CLINDA, "Adverse Reactions")),
         ),
         seriousEffects = Facts(
             listOf(
