@@ -122,6 +122,12 @@ class Screenshots {
         }
         shot("35-scores-list", heightDp = 1500) { com.medicalaid.app.ui.scores.ScoresScreen("", {}, {}, {}, pad) }
         shot("36-home-v3") { HomeScreen("", {}, {}, {}, {}, {}, pad) }
+        shot("37-treatment-general", heightDp = 1300) { MedicinesScreen("", {}, Population.General, {}, { _, _ -> }, pad) }
+        shot("38-hypertension", heightDp = 4200) { ConditionScreen(Conditions.byId("hypertension-general")!!, null, null, {}, pad) }
+        shot("40-hypertension-india", heightDp = 2600) {
+            ConditionScreen(Conditions.byId("hypertension-general")!!, null, null, {}, pad, initialGuideline = com.medicalaid.app.ui.medicines.GuidelineGroup.India)
+        }
+        shot("39-heart-failure") { ConditionScreen(Conditions.byId("heart-failure")!!, null, null, {}, pad) }
         shot("28-tool-renal", heightDp = 1500) {
             Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.RenalTool("1.4", "68", com.medicalaid.app.tools.Renal.Sex.Male, "72", "168") }
         }

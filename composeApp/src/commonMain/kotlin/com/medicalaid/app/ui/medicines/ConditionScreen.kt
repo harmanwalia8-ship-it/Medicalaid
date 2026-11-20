@@ -3,7 +3,9 @@ package com.medicalaid.app.ui.medicines
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -64,8 +66,15 @@ fun ConditionScreen(
     onBack: () -> Unit,
     contentPadding: PaddingValues,
     onOpenDrug: (String) -> Unit = {},
+    initialGuideline: GuidelineGroup? = null,
 ) {
     var weightText by remember(condition.id) { mutableStateOf("") }
+    var filter by remember(condition.id) { mutableStateOf(initialGuideline) }
+    val groupsOnPage = remember(condition.id) {
+        (condition.info.flatMap { it.points } + condition.tiers.map { it.label } +
+            condition.tiers.flatMap { t -> t.drugs.flatMap { it.cautions } } + condition.escalate)
+            .mapNotNull { GuidelineGroup.of(it) }.distinct().sortedBy { it.ordinal }
+    }
     val weightKg = weightText.replace(',', '.').toDoubleOrNull()?.takeIf { it in 20.0..250.0 }
     val hasWeightDosing = condition.tiers.any { t -> t.drugs.any { it.weightDose != null } }
     val listState = rememberLazyListState()
@@ -105,6 +114,15 @@ fun ConditionScreen(
                         .map { com.medicalaid.app.content.Sources.byId(it.sourceId).authority.short }.distinct()
                     Text("Based on " + authorities.joinToString(" · "), style = Theme.type.caption, color = Theme.colors.textTertiary)
                 }
+                if (groupsOnPage.size >= 2) {
+                    Row(
+                        Modifier.padding(top = 14.dp).horizontalScroll(rememberScrollState()).padding(horizontal = Gutter),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        FilterChip("All guidelines", filter == null) { filter = null }
+                        groupsOnPage.forEach { g -> FilterChip(g.label, filter == g) { filter = g } }
+                    }
+                }
             }
         }
 
@@ -143,10 +161,14 @@ fun ConditionScreen(
         }
 
         condition.info.forEach { block ->
-            item(key = "info-" + block.title) { InfoCard(block, Modifier.padding(horizontal = Gutter).padding(top = 16.dp)) }
+            val points = block.points.filter { GuidelineGroup.shows(it, filter) }
+            if (points.isNotEmpty()) {
+                item(key = "info-" + block.title) { InfoCard(block.copy(points = points, citations = GuidelineGroup.filterCitations(block.citations, filter)), Modifier.padding(horizontal = Gutter).padding(top = 16.dp)) }
+            }
         }
 
         condition.tiers.forEachIndexed { tIndex, tier ->
+            if (!GuidelineGroup.shows(tier.label, filter)) return@forEachIndexed
             item(key = "tier-$tIndex") {
                 Column(Modifier.padding(horizontal = Gutter)) {
                     SectionHeader(tier.label)
@@ -161,7 +183,11 @@ fun ConditionScreen(
             tier.drugs.forEachIndexed { dIndex, drug ->
                 item(key = "drug-$tIndex-$dIndex") {
                     DrugCard(
-                        drug, weightKg,
+                        drug.copy(
+                            cautions = drug.cautions.filter { GuidelineGroup.shows(it, filter) },
+                            citations = GuidelineGroup.filterCitations(drug.citations, filter),
+                        ),
+                        weightKg,
                         highlighted = drug.name == highlightDrug,
                         onOpenDrug = onOpenDrug,
                         modifier = Modifier.padding(horizontal = Gutter).padding(bottom = 8.dp),
@@ -181,9 +207,9 @@ fun ConditionScreen(
             item { SectionHeader("Escalate or refer", Modifier.padding(horizontal = Gutter)) }
             item {
                 SurfaceCard(Modifier.padding(horizontal = Gutter)) {
-                    Bullets(condition.escalate)
+                    Bullets(condition.escalate.filter { GuidelineGroup.shows(it, filter) })
                     Spacer(Modifier.height(14.dp))
-                    GuidelineBasis(condition.citations, compact = true)
+                    GuidelineBasis(GuidelineGroup.filterCitations(condition.citations, filter), compact = true)
                 }
             }
         }
@@ -200,6 +226,21 @@ fun ConditionScreen(
             }
         }
     }
+}
+
+@Composable
+private fun FilterChip(label: String, active: Boolean, onClick: () -> Unit) {
+    val c = Theme.colors
+    Text(
+        label,
+        style = Theme.type.label,
+        color = if (active) c.onAccent else c.textSecondary,
+        modifier = Modifier.clip(Radius.pill)
+            .background(if (active) c.accent else c.surface)
+            .border(1.dp, if (active) c.accent else c.hairline, Radius.pill)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 14.dp, vertical = 7.dp),
+    )
 }
 
 @Composable
