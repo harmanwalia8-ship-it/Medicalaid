@@ -17,7 +17,17 @@ data class StepDose(
     val note: String? = null,
     /** Absolute cap, in the same unit as [dose], if the source gives one. */
     val maxTotal: Double? = null,
-)
+) {
+    /** Lowest applicable cap for [weightKg] (absolute max or per-kg ceiling), or null. */
+    fun cap(weightKg: Double): Double? = listOfNotNull(maxTotal, dose.ceilingPerKg?.let { it * weightKg }).minOrNull()
+
+    /** (low, high) total for [weightKg], each limited by [cap]. */
+    fun range(weightKg: Double): Pair<Double, Double> {
+        val c = cap(weightKg)
+        fun lim(x: Double) = if (c != null) minOf(x, c) else x
+        return lim(dose.minPerKg * weightKg) to lim(dose.maxPerKg * weightKg)
+    }
+}
 
 /** Interactive helpers that a protocol step can embed. */
 enum class ProtocolTool {

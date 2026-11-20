@@ -69,14 +69,30 @@ fun ScoresScreen(
 }
 
 @Composable
-fun ProtocolsScreen(onOpen: (String) -> Unit, onMenu: () -> Unit, contentPadding: PaddingValues) {
+fun ProtocolsScreen(
+    onOpen: (String) -> Unit,
+    onMenu: () -> Unit,
+    contentPadding: PaddingValues,
+    query: String = "",
+    onQueryChange: (String) -> Unit = {},
+) {
+    val focus = LocalFocusManager.current
+    val results = remember(query) { Protocols.search(query) }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
-        item { ScreenTitle("Protocols", "Time-critical pathways, step by step, with the guideline behind each step", onMenu = onMenu) }
-        item { SectionHeader("Emergencies", Modifier.padding(horizontal = Gutter), trailing = "${Protocols.all.size}") }
-        if (Protocols.all.isEmpty()) {
-            item { Text("Coming soon.", style = Theme.type.body, color = Theme.colors.textSecondary, modifier = Modifier.padding(horizontal = Gutter)) }
-        } else {
-            item { Rows(Protocols.all.map { p: Protocol -> Triple(p.title, p.summary) { onOpen(p.id) } }) }
+        item { ScreenTitle("Protocols", "Time-critical pathways and poisoning, step by step, with the source behind each step", onMenu = onMenu) }
+        item {
+            SearchField(
+                query, onQueryChange, onDone = { focus.clearFocus() },
+                placeholder = "Search stroke, snakebite, Celphos…",
+                modifier = Modifier.padding(horizontal = Gutter).padding(top = 12.dp),
+            )
+        }
+        if (results.isEmpty()) {
+            item { Text("No protocols match “$query”.", style = Theme.type.body, color = Theme.colors.textSecondary, modifier = Modifier.padding(horizontal = Gutter).padding(top = 28.dp)) }
+        }
+        results.groupBy { it.category }.toSortedMap(compareBy { it.ordinal }).forEach { (cat, list) ->
+            item(key = "h-${cat.name}") { SectionHeader(cat.label, Modifier.padding(horizontal = Gutter), trailing = "${list.size}") }
+            item(key = "g-${cat.name}") { Rows(list.sortedBy { it.title }.map { p: Protocol -> Triple(p.title, p.summary) { onOpen(p.id) } }) }
         }
     }
 }

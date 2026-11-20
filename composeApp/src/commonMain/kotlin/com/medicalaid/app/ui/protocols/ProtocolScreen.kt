@@ -63,14 +63,30 @@ fun ProtocolScreen(
     contentPadding: PaddingValues,
 ) {
     val c = Theme.colors
+    var weightText by remember(protocol.id) { mutableStateOf("") }
+    val weightKg = weightText.toDecimalOrNull()?.takeIf { it in 2.0..250.0 }
+    val hasDoses = protocol.steps.any { it.doses.isNotEmpty() }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
         item { ScreenTitle(protocol.title, protocol.summary, onBack = onBack) }
+        if (hasDoses) {
+            item {
+                SurfaceCard(Modifier.padding(horizontal = Gutter).padding(top = 12.dp), padding = PaddingValues(horizontal = 18.dp, vertical = 12.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("Patient weight", style = Theme.type.bodyStrong, color = c.text)
+                            Text("Calculates the weight-based doses below", style = Theme.type.caption, color = c.textSecondary)
+                        }
+                        NumberField(weightText, { weightText = it }, placeholder = "kg", suffix = "kg", modifier = Modifier.width(110.dp))
+                    }
+                }
+            }
+        }
         if (protocol.notes.isNotEmpty()) {
             item { NotesCard(protocol) }
         }
         item { Spacer(Modifier.height(16.dp)) }
         itemsIndexed(protocol.steps, key = { i, s -> "$i-${s.title}" }) { index, step ->
-            StepRow(index + 1, step, isLast = index == protocol.steps.lastIndex, onOpenScore = onOpenScore)
+            StepRow(index + 1, step, isLast = index == protocol.steps.lastIndex, onOpenScore = onOpenScore, weightKg = weightKg)
         }
         item {
             Column(Modifier.padding(horizontal = Gutter).padding(top = 20.dp)) {
@@ -119,7 +135,7 @@ private fun NotesCard(protocol: Protocol) {
 }
 
 @Composable
-private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (String) -> Unit) {
+private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (String) -> Unit, weightKg: Double?) {
     val c = Theme.colors
     Row(Modifier.padding(horizontal = Gutter).height(IntrinsicSize.Min)) {
         // Timeline rail
@@ -152,6 +168,13 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
                 if (step.checklist.isNotEmpty()) {
                     Spacer(Modifier.height(12.dp))
                     Checklist(step.checklistTitle ?: "Checklist", step.checklist)
+                }
+                if (step.doses.isNotEmpty()) {
+                    Spacer(Modifier.height(12.dp))
+                    step.doses.forEach { d ->
+                        StepDoseLine(d, weightKg)
+                        Spacer(Modifier.height(6.dp))
+                    }
                 }
                 when (step.tool) {
                     ProtocolTool.OnsetClock -> { Spacer(Modifier.height(12.dp)); OnsetClock() }
@@ -285,6 +308,29 @@ private fun ThrombolysisDose() {
         }
         Spacer(Modifier.height(8.dp))
         GuidelineBasis(listOf(Citation("st-aha-ais-2026", "§4.6.2 Rec 1; Table 7"), Citation("st-mohfw-stroke-2022", "Annexure VI")), compact = true)
+    }
+}
+
+@Composable
+private fun StepDoseLine(d: com.medicalaid.app.content.protocols.StepDose, weightKg: Double?) {
+    val c = Theme.colors
+    val w = d.dose
+    val perKg = if (w.minPerKg == w.maxPerKg) "${formatNumber(w.minPerKg)} ${w.unit}/kg" else "${formatNumber(w.minPerKg)}–${formatNumber(w.maxPerKg)} ${w.unit}/kg"
+    Column(Modifier.fillMaxWidth().clip(Radius.inner).background(c.accentSoft).padding(12.dp)) {
+        Text(d.label, style = Theme.type.bodyStrong, color = c.text)
+        if (weightKg == null) {
+            Text("$perKg ${w.per}. Enter weight above to calculate.", style = Theme.type.caption, color = c.accent)
+        } else {
+            val cap = d.cap(weightKg)
+            val (lo, hi) = d.range(weightKg)
+            val value = if (lo == hi) formatNumber(lo) else "${formatNumber(lo)}–${formatNumber(hi)}"
+            Text("$value ${w.unit} ${w.per}", style = Theme.type.bodyStrong, color = c.accent)
+            Text(
+                "$perKg × ${formatNumber(weightKg)} kg" + (cap?.let { " · capped at ${formatNumber(it)} ${w.unit}" } ?: ""),
+                style = Theme.type.caption, color = c.textSecondary,
+            )
+        }
+        if (d.note != null) Text(d.note, style = Theme.type.caption, color = c.textSecondary)
     }
 }
 

@@ -113,7 +113,7 @@ fun HomeScreen(
                     Tile(Destination.Scores, "${plural(com.medicalaid.app.content.scores.Scores.all.size, "score")} · Wells, CURB-65…", Modifier.weight(1f), onNavigate)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Tile(Destination.Protocols, "Step-by-step emergencies", Modifier.weight(1f), onNavigate)
+                    Tile(Destination.Protocols, "Stroke, poisoning, snakebite", Modifier.weight(1f), onNavigate)
                     Tile(Destination.Calculators, "eGFR, HbA1c, TSH, due date", Modifier.weight(1f), onNavigate)
                 }
             }

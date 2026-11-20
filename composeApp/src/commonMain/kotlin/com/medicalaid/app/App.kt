@@ -116,6 +116,7 @@ fun App() {
         var treatmentQuery by remember { mutableStateOf("") }
         var drugQuery by remember { mutableStateOf("") }
         var scoreQuery by remember { mutableStateOf("") }
+        var protocolQuery by remember { mutableStateOf("") }
         var population by remember { mutableStateOf(Population.Pregnancy) }
         var introAccepted by remember { mutableStateOf(Prefs.getInt(INTRO_KEY, 0) >= INTRO_VERSION) }
         val today = remember { today() }
@@ -214,6 +215,7 @@ fun App() {
                             )
                             Destination.Protocols -> com.medicalaid.app.ui.scores.ProtocolsScreen(
                                 onOpen = { push(Detail.ProtocolPage(it)) }, onMenu = openMenu, contentPadding = padding,
+                                query = protocolQuery, onQueryChange = { protocolQuery = it },
                             )
                             Destination.Calculators -> CalculatorsScreen(trimester, { navigate(it) }, openMenu, padding)
                             Destination.Sources -> SourcesScreen(padding, onMenu = openMenu)
