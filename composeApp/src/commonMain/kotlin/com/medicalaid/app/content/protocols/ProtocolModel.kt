@@ -1,6 +1,23 @@
 package com.medicalaid.app.content.protocols
 
 import com.medicalaid.app.content.Citation
+import com.medicalaid.app.content.WeightDose
+
+enum class ProtocolCategory(val label: String) {
+    Emergency("Emergencies"),
+    Poisoning("Poisoning & envenomation"),
+}
+
+/** A weight-based dose shown with a calculator when the clinician enters a weight. */
+data class StepDose(
+    /** e.g. "Pralidoxime — loading dose". */
+    val label: String,
+    val dose: WeightDose,
+    /** Route / rate / dilution as the source states it. */
+    val note: String? = null,
+    /** Absolute cap, in the same unit as [dose], if the source gives one. */
+    val maxTotal: Double? = null,
+)
 
 /** Interactive helpers that a protocol step can embed. */
 enum class ProtocolTool {
@@ -22,6 +39,8 @@ data class Step(
     val tool: ProtocolTool? = null,
     /** Ids of scores to link from this step (e.g. "nihss"). */
     val scoreIds: List<String> = emptyList(),
+    /** Weight-based antidote/drug doses for this step. */
+    val doses: List<StepDose> = emptyList(),
     val citations: List<Citation>,
 )
 
@@ -32,6 +51,7 @@ data class Protocol(
     val title: String,
     val summary: String,
     val keywords: List<String> = emptyList(),
+    val category: ProtocolCategory = ProtocolCategory.Emergency,
     val steps: List<Step>,
     /** Where guidelines differ, or scope notes. */
     val notes: List<ProtocolNote> = emptyList(),

@@ -1,12 +1,25 @@
 package com.medicalaid.app.content.protocols
 
 import com.medicalaid.app.content.Source
+import com.medicalaid.app.content.protocols.data.drugToxSources
+import com.medicalaid.app.content.protocols.data.drugToxProtocols
+import com.medicalaid.app.content.protocols.data.envenomationSources
+import com.medicalaid.app.content.protocols.data.envenomationProtocols
+import com.medicalaid.app.content.protocols.data.householdToxSources
+import com.medicalaid.app.content.protocols.data.householdToxProtocols
+import com.medicalaid.app.content.protocols.data.pesticideSources
+import com.medicalaid.app.content.protocols.data.pesticideProtocols
 import com.medicalaid.app.content.protocols.data.strokeProtocolSources
 import com.medicalaid.app.content.protocols.data.strokeProtocols
+import com.medicalaid.app.content.protocols.data.toxAlcoholProtocols
+import com.medicalaid.app.content.protocols.data.toxAlcoholSources
 
 object Protocols {
-    val all: List<Protocol> = strokeProtocols
-    val sources: List<Source> = strokeProtocolSources
+    val all: List<Protocol> =
+        strokeProtocols + householdToxProtocols + pesticideProtocols + envenomationProtocols + drugToxProtocols + toxAlcoholProtocols
+
+    val sources: List<Source> =
+        strokeProtocolSources + householdToxSources + pesticideSources + envenomationSources + drugToxSources + toxAlcoholSources
 
     private val index = all.associateBy { it.id }
 
@@ -15,6 +28,10 @@ object Protocols {
     fun search(query: String): List<Protocol> {
         val q = query.lowercase().trim()
         if (q.isEmpty()) return all
-        return all.filter { p -> (listOf(p.title, p.summary) + p.keywords).any { it.lowercase().contains(q) } }
+        val tokens = q.split(Regex("\\s+"))
+        return all.filter { p ->
+            val hay = (listOf(p.title, p.summary) + p.keywords).joinToString(" ").lowercase()
+            tokens.all { hay.contains(it) }
+        }
     }
 }
