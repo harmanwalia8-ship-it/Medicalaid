@@ -263,11 +263,11 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 title = "Naloxone: dose and route",
                 timing = "Improvement expected within 2–3 min (IPS 2023)",
                 points = listOf(
-                    "AHA 2025 (COR 1): give an opioid antagonist in respiratory arrest with a pulse. Table 4: 0.2–2 mg IV/IO/IM or 2–4 mg intranasal, repeat every 2–3 min.",
+                    "AHA 2025 (COR 1): give naloxone in respiratory arrest with a pulse. Table 4: 0.2–2 mg IV/IO/IM or 2–4 mg intranasal, every 2–3 min as needed.",
                     "FDA injection label: 0.4–2 mg IV, repeat every 2–3 min; if no response after 10 mg, question the diagnosis. IM or SC if IV unavailable.",
                     "IPS 2023: 0.2–0.4 mg, or 1–2 mg with apnoea or cardiorespiratory arrest; repeat every 2–3 min to a maximum of 10 mg.",
                     "WHO 2014: initial 0.4–2 mg; 0.4–0.8 mg is usually effective; doses above 0.8 mg IM/IV/SC are more likely to precipitate significant withdrawal.",
-                    "FDA Narcan label: one 4 mg spray into one nostril; repeat every 2–3 min with a new device, alternating nostrils. AHA 2025: IN/IM may need minutes and repeat doses.",
+                    "FDA Narcan label: one 4 mg spray in one nostril; repeat every 2–3 min with a new device, alternating nostrils. AHA 2025: IN/IM may need repeat doses.",
                     "AHA 2025 Table 4: titrate to reversal of respiratory depression and protective airway reflexes. AHA 2025: non-opioid sedatives are typically not reversed.",
                 ),
                 doses = listOf(
@@ -390,7 +390,7 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "AHA 2025 (COR 1): after response, observe in a health-care setting until low risk of recurrence, normal consciousness and normal vital signs.",
                     "AHA 2025: abbreviated observation may suffice for fentanyl, morphine or heroin; long-acting or sustained-release opioids may need longer.",
-                    "WHO 2014 (strong): at least 2 h after short-acting opioids such as heroin, longer for long-acting; 'fully recovered' means baseline consciousness 2 h after the last dose.",
+                    "WHO 2014 (strong): at least 2 h after short-acting opioids such as heroin, longer for long-acting; 'fully recovered' = baseline consciousness 2 h after last dose.",
                     "IPS 2023: observe 4–6 h after a naloxone infusion is stopped. WHO mhGAP 2016: after response, observe 1–2 h and repeat naloxone as needed.",
                     "FDA naloxone labels: monitor an opioid-intoxicated child for at least 24 h — relapse may occur as naloxone is metabolised.",
                     "ISCCM 2024 (strong): observe all poisonings at least 24 h after symptoms resolve; neuropsychiatric assessment before discharge if intentional (moderate).",
@@ -778,9 +778,9 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 title = "Flumazenil dosing and resedation",
                 timing = "Do not rush — secure airway and IV access first (FDA label)",
                 points = listOf(
-                    "FDA label (adult overdose): 0.2 mg IV over 30 s; after 30 s, 0.3 mg over 30 s; then 0.5 mg over 30 s at 1-min intervals to cumulative 3 mg.",
-                    "FDA label: most respond to 1–3 mg; rarely titrate to 5 mg. No response 5 min after 5 mg — sedation is likely not due to benzodiazepines.",
-                    "FDA label: for resedation repeat at 20-min intervals — no more than 1 mg at a time (0.5 mg/min) and no more than 3 mg in any hour.",
+                    "FDA label (adult overdose): 0.2 mg IV over 30 s; if needed 0.3 mg 30 s later; then 0.5 mg over 30 s at 1-min intervals to a cumulative 3 mg.",
+                    "FDA label: most respond to 1–3 mg; rarely up to 5 mg. No response 5 min after 5 mg — sedation likely not from benzodiazepines.",
+                    "FDA label: resedation — repeat at 20-min intervals; at most 1 mg at a time (given at 0.5 mg/min) and 3 mg in any hour.",
                     "AHA 2025 Table 4: adult 0.2 mg titrated up to 1 mg; paediatric 0.01 mg/kg; 'many contraindications'. IPS 2023: maximum 1–2 mg.",
                     "IPS 2023: arousal 30–60 s after IV dose, peak 5–10 min, lasts 1–2 h; continuous infusion may be needed to prevent resedation.",
                     "FDA label: monitor overdose cases for resedation until stable — flumazenil (1 mg or less) may wear off before many benzodiazepines.",
