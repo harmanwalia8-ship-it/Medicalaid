@@ -13,7 +13,7 @@ import com.medicalaid.app.content.protocols.StepDose
 /*
  * Cocaine toxicity pathway. Rules:
  * - Doses, thresholds and classes of recommendation exactly as the cited document states them.
- * - Every point is attributed ("AHA 2023: …", "ACC/AHA 2014: …", "IPS 2023: …", "ISCCM 2024: …").
+ * - Every point is attributed ("AHA 2023: …", "AHA/ACC 2014: …", "IPS 2023: …", "ISCCM 2024: …").
  * - AHA/ACC locators are section + recommendation numbers (COR, LOE); ISCCM locators are question numbers.
  * - The 2008 AHA scientific statement could not be accessed in full and is cited only in a scope note.
  */
@@ -172,7 +172,9 @@ internal val cocaineProtocols = listOf(
                     "AHA 2023: cocaine causes a sympathomimetic toxidrome — tachycardia, hypertension, hyperthermia, diaphoresis, psychomotor agitation, seizures — plus sodium-channel (local anaesthetic) cardiac effects.",
                     "IPS 2023 (AIIMS NDDTC authors): cocaine use, traditionally uncommon in India, is rising in bigger cities; expect euphoria, severe agitation, paranoia, hallucinations and skin picking.",
                     "ISCCM 2024: urine immunoassay detects benzoylecgonine (PPV 100%); passive inhalation, unless prolonged and heavy, is not detected. AHA/ACC 2021: positive 1–4 h after use, for 2–4 days.",
+                    "ISCCM 2024: after acute massive overdose the metabolite may take longer to appear in urine. Beckley 2009, citing an earlier study: immunoassay positive in only 11 of 30 urine samples from patients with positive abdominal radiographs — urinalysis alone may be insufficient.",
                     "IPS 2023: suspect polysubstance use — stimulant paranoia may be accentuated by cannabis. Dtsch Arztebl 2025: ECG, blood gas, ethanol, possibly paracetamol and salicylate, pregnancy test.",
+                    "Dtsch Arztebl 2025: cocaine taken with alcohol forms cocaethylene, which is more toxic and longer acting (half-life 2–2.5 h vs 1–1.5 h for cocaine).",
                     "WHO mhGAP 2016: chest pain, tachyarrhythmia or other neurological signs after stimulant use — transfer to hospital.",
                 ),
                 checklistTitle = "Sympathomimetic toxidrome (ISCCM 2024, IPS 2023, AHA 2023)",
@@ -191,8 +193,9 @@ internal val cocaineProtocols = listOf(
                     cite(IPS, "Table 1; Challenges (polysubstance use); Cocaine and other stimulants"),
                     cite(ISCCM, "Annexure 4 Table A1 (toxidromes); Annexure 8 (urine drug screen)"),
                     cite(CP21, "§4.1.6 Recommendation-specific supportive text"),
-                    cite(DAE, "Table 2, step 6"),
+                    cite(DAE, "Pharmacology; Table 2, step 6"),
                     cite(MHGAP, "SUB Emergency presentations, Step 2B (p. 111)"),
+                    cite(HILL, "Discussion"),
                 ),
             ),
             // 2 ------------------------------------------------------------------------------------
@@ -202,17 +205,22 @@ internal val cocaineProtocols = listOf(
                 points = listOf(
                     "AHA 2023: benzodiazepines remain the mainstay of initial management of blood pressure and psychomotor agitation in acute cocaine poisoning.",
                     "IPS 2023: quiet room; lorazepam 2 mg PO, IM or IV, repeated as necessary. WHO mhGAP 2016: diazepam 5–10 mg PO, IV or PR, titrated until calm and lightly sedated.",
-                    "Dtsch Arztebl 2025: diazepam 5–10 mg, lorazepam 1–2.5 mg or midazolam 5–10 mg, repeated every 10 min (IV/IN) or 45 min (PO/SL/IM); high doses are typically required.",
+                    "Dtsch Arztebl 2025: diazepam 5–10 mg (PO/IV/IM), lorazepam 1–2.5 mg (SL/PO/IV/IM) or midazolam 5–10 mg (IN/SL/IM), titrated every 10 min when given IN/IV or every 45 min when given SL/PO/IM; high doses are typically required.",
+                    "WHO mhGAP 2016: diazepam can cause sedation and respiratory depression which can be life threatening — do not use in people who are sedated; beware of combining with other sedatives. " +
+                        "IPS 2023 (polysubstance): monitor vital signs with serial ECG, prevent aspiration (left lateral) and provide ventilator support when required.",
                     "ISCCM 2024: benzodiazepines are the first antiseizure drug in poisoning; recommends against phenytoin as the first drug.",
                     "AHA 2023 (COR 1): rapid external cooling for life-threatening hyperthermia — evaporative or immersion cooling works faster than cooling blankets, cold packs or endovascular devices.",
+                    "Dtsch Arztebl 2025: neuromuscular blockade in severe hyperthermia; escalation (intubation, anaesthesia, muscle relaxants) decided by staff experienced in such patients. " +
+                        "Arh Hig Rada Toksikol 2019: hyperthermia uncontrolled by benzodiazepines and cooling sometimes calls for neuromuscular paralysis.",
                     "Dtsch Arztebl 2025: restraint only if unavoidable, with about 5 staff; risks asphyxia, stress cardiomyopathy, arrhythmia. AHA 2023 (sympathomimetics): prolonged restraint without sedation is potentially harmful (3: Harm).",
                 ),
                 citations = listOf(
                     cite(AHA23, "§6 Introduction; §6 Rec 1 (COR 1, LOE C-LD) and supportive text; §14 Introduction and Rec 5 (3: Harm, C-LD)"),
-                    cite(IPS, "Cocaine and other stimulants"),
-                    cite(MHGAP, "SUB Emergency presentations, Step 2B and Step 3C (pp. 111–112)"),
-                    cite(DAE, "Table 2, steps 4–5"),
+                    cite(IPS, "Cocaine and other stimulants; Polysubstance use"),
+                    cite(MHGAP, "SUB Emergency presentations, Step 2B (p. 111) and Step 3C (p. 113); SUB 2 Table 1 (p. 126)"),
+                    cite(DAE, "Table 2, steps 4–6"),
                     cite(ISCCM, "Q19"),
+                    cite(STUFF, "Standard treatment"),
                 ),
             ),
             // 3 ------------------------------------------------------------------------------------
@@ -221,9 +229,9 @@ internal val cocaineProtocols = listOf(
                 points = listOf(
                     "AHA/ACC 2021 (2a, B-NR): consider cocaine or methamphetamine use as a cause of acute chest pain; ACS occurs in <10% in most studies and death is rare.",
                     "IPS 2023: ECG or troponin T to look for ischaemic changes; aspirin and nitroglycerine are given for cocaine-related chest pain.",
-                    "ACC/AHA 2014 (Class I): NSTE-ACS after recent cocaine use — treat as other NSTE-ACS, except beta-blockers during acute intoxication unless on coronary vasodilator therapy.",
-                    "ACC/AHA 2014 (IIa): benzodiazepines alone or with nitroglycerin for hypertension and tachycardia in acute intoxication. AHA 2023 (2a): nitrates, phentolamine or calcium-channel blockers for vasospasm.",
-                    "ACC/AHA 2014 (III: Harm): no beta-blockers in ACS with signs of acute cocaine intoxication (euphoria, tachycardia, hypertension) — risk of coronary spasm. See note.",
+                    "AHA/ACC 2014 (Class I): NSTE-ACS after recent cocaine use — treat as other NSTE-ACS, except beta-blockers during acute intoxication unless on coronary vasodilator therapy.",
+                    "AHA/ACC 2014 (IIa): benzodiazepines alone or with nitroglycerin for hypertension and tachycardia in acute intoxication. AHA 2023 (2a): nitrates, phentolamine or calcium-channel blockers for vasospasm.",
+                    "AHA/ACC 2014 (III: Harm): no beta-blockers in ACS with signs of acute cocaine intoxication (euphoria, tachycardia, hypertension) — risk of coronary spasm. See note.",
                     "AHA/ACC 2021: cocaine may provoke aortic dissection even without other risk factors. The 2025 ACC/AHA ACS guideline makes no cocaine-specific recommendation.",
                 ),
                 citations = listOf(
@@ -245,6 +253,7 @@ internal val cocaineProtocols = listOf(
                     "AHA 2023 (2a): vasodilators (nitrates, phentolamine, calcium-channel blockers) for hypertensive emergency. Arh Hig Rada Toksikol 2019: phentolamine 1–5 mg if benzodiazepines fail.",
                     "ISCCM 2024: benzodiazepine for hypertension in an agitated poisoned patient; labetalol for poisoning-related hypertension. Dtsch Arztebl 2025: avoid beta- and combined alpha/beta-blockers — see note.",
                     "Dtsch Arztebl 2025: cocaine use roughly doubles the odds of haemorrhagic (OR 2.33) and ischaemic stroke (OR 2.03) — see the Acute stroke protocol.",
+                    "AHA 2023: timely consultation with a medical toxicologist, clinical toxicologist or regional poison centre facilitates rapid and effective therapy.",
                 ),
                 doses = listOf(
                     StepDose(
@@ -257,11 +266,13 @@ internal val cocaineProtocols = listOf(
                     StepDose(
                         label = "Sodium bicarbonate — maintenance infusion (AHA 2023)",
                         dose = WeightDose(1.0, 3.0, unit = "mL", per = "per hour of a 150 mEq/L solution"),
-                        note = "AHA 2023 Table 2. Watch for hypernatraemia, alkalaemia, hypokalaemia and hypochloraemia.",
+                        note = "AHA 2023 Table 2. Watch for hypernatraemia, alkalaemia, hypokalaemia and hypochloraemia. " +
+                            "AHA 2023 §13 sodium-channel blockers (extrapolated; cocaine is covered in §6): titrate boluses to resolution of hypotension and QRS prolongation; " +
+                            "infusion versus repeat boluses is unsettled; experts advise serum sodium not above 150–155 mEq/L and pH not above 7.50–7.55; monitor and treat hypokalaemia.",
                     ),
                 ),
                 citations = listOf(
-                    cite(AHA23, "§6 Introduction; §6 Rec 2–4 (2a, C-LD) and supportive text; Table 2 (e155); Top 10 take-home message 4 (e150)"),
+                    cite(AHA23, "§6 Introduction; §6 Rec 2–4 (2a, C-LD) and supportive text; Table 2 (e155); §13 Rec 1–2 supportive text (e176); Top 10 take-home messages 1 (e149) and 4 (e150)"),
                     cite(STUFF, "Standard treatment"),
                     cite(ISCCM, "Q20"),
                     cite(DAE, "Table 2, step 5; Primary management"),
@@ -291,11 +302,14 @@ internal val cocaineProtocols = listOf(
                 title = "Body packers and body stuffers",
                 timing = "Surgery if cocaine toxicity persists or the bowel obstructs (Beckley 2009)",
                 points = listOf(
-                    "ISCCM 2024: plain abdominal radiograph for ingested drug packets. Br J Radiol 2014: radiograph sensitivity only 40–90%; a negative film does not exclude packing — non-contrast abdominopelvic CT.",
+                    "ISCCM 2024 (moderate): plain abdominal radiograph for ingestion of drug packets of certain radiopaque toxins; it cannot identify the toxin. Br J Radiol 2014: radiograph sensitivity only 40–90%; a negative film does not exclude packing — non-contrast abdominopelvic CT.",
                     "Arh Hig Rada Toksikol 2019: non-contrast abdominopelvic CT in every suspected stuffer; observe until packages pass, confirmed by repeat negative CT; 6-h observation has been criticised.",
-                    "ISCCM 2024 (weak): WBI not routine but may help with drug packets — adults 1500–2000 mL/h until effluent clear. Beckley 2009: PEG 1.5 L/h oral or NG until all packets pass.",
+                    "ISCCM 2024 (weak): WBI not routine but may help with drug packets — adults 1500–2000 mL/h until rectal effluent is clear; in body packing, radiographic studies may be useful to confirm no residual packets. " +
+                        "Beckley 2009: PEG 1.5 L/h oral or NG until all packets pass.",
                     "Beckley 2009: liquid paraffin contraindicated (degrades latex packets); no WBI with obstruction, perforation, GI bleeding, haemodynamic instability or unprotected airway.",
                     "Arh Hig Rada Toksikol 2019: WBI may be contraindicated in unstable or asymptomatic stuffers (poorly wrapped packets); single-dose activated charcoal if leakage.",
+                    "Beckley 2009 (Box 1): 4-hourly BP, HR, RR, SpO2 and temperature; IV access at all times; daily examination for intoxication or obstruction; any sign of intoxication (e.g. chest pain, tachycardia, persistent hypertension, " +
+                        "arrhythmia, agitation, hyperthermia, seizures) — resuscitate and get on-call medical and surgical review. Arh Hig Rada Toksikol 2019: ICU monitoring if severe symptoms or threat of rupture persist.",
                     "Surgery — Beckley 2009: persisting cocaine toxicity or bowel obstruction. Arh Hig Rada Toksikol 2019: obstruction, rupture, or toxicity unresponsive to drug treatment.",
                 ),
                 checklistTitle = "Packer discharge criteria — all required (Beckley 2009)",
@@ -307,7 +321,7 @@ internal val cocaineProtocols = listOf(
                     "Advice obtained from the regional poisons unit",
                 ),
                 citations = listOf(
-                    cite(ISCCM, "Q16 (weak, LOE C); Q18; Annexure 13"),
+                    cite(ISCCM, "Q16 (weak, LOE C); Q18 (moderate, LOE C) and rationale; Annexure 13"),
                     cite(PINTO, "Imaging; Conclusion"),
                     cite(STUFF, "Abstract; Observation; Diagnostic modalities; Standard treatment"),
                     cite(HILL, "Discussion; Box 1 (Hillingdon protocol)"),
@@ -318,25 +332,30 @@ internal val cocaineProtocols = listOf(
                 title = "Formication ('cocaine bugs') and cocaine-induced psychosis",
                 points = listOf(
                     "IPS 2023: cocaine intoxication can cause auditory hallucinations, paranoid ideation and picking of the skin (formication).",
-                    "Case report 2018: sensation of insects crawling under the skin; scratching caused ulcerated, scabbed and scarred arm lesions. New lesions stopped with abstinence and low-dose neuroleptic.",
-                    "Front Psychiatry 2021 review: psychotic features in 29–86.5% of cocaine users (one series: paranoid delusions 90%, hallucinations 96%); symptoms may vanish with withdrawal.",
+                    "Case report 2018 (one patient using several substances, mainly cocaine plus heroin; unclear whether symptoms followed use or occurred in abstinence): sensation of insects crawling under the skin; " +
+                        "scratching caused ulcerated, scabbed and scarred arm lesions. New lesions stopped with abstinence and low-dose neuroleptic.",
+                    "Front Psychiatry 2021 review: psychotic features in 29–86.5% of cocaine users; in one series of 55 patients, 29 had psychotic symptoms, of whom 90% had paranoid delusions and 96% hallucinations. " +
+                        "Symptoms may vanish with withdrawal.",
                     "WHO mhGAP 2016: if psychotic symptoms do not respond to diazepam, consider haloperidol 1–2.5 mg PO or IM; if they persist, manage as psychosis.",
-                    "IPS 2023: short-term injectable antipsychotic for acute agitation and paranoia; not needed without a psychotic disorder. Dtsch Arztebl 2025: olanzapine or haloperidol 5–10 mg added to benzodiazepines.",
+                    "IPS 2023: short-term injectable antipsychotic for acute agitation and paranoia; not needed without a psychotic disorder. " +
+                        "Dtsch Arztebl 2025: add an antipsychotic (olanzapine 5–10 mg or haloperidol 5–10 mg) only if high doses of benzodiazepines have no effect or psychotic symptoms are present.",
+                    "WHO mhGAP 2016: haloperidol can prolong QT and cause NMS — caution in cardiac disease, long QT or with QT-prolonging drugs; monitor ECG if possible. AHA 2023: cocaine itself can prolong QT.",
                     "Dtsch Arztebl 2025: stimulant psychosis can appear days after stopping — inpatient observation may be needed. WHO mhGAP 2016: watch for suicidal thoughts after intoxication.",
                 ),
                 citations = listOf(
                     cite(IPS, "Cocaine and other stimulants"),
                     cite(FORM, "Case description and discussion"),
                     cite(PSY, "Cocaine section"),
-                    cite(MHGAP, "SUB Emergency presentations, Step 2B and Step 3C (pp. 111–112)"),
+                    cite(MHGAP, "SUB Emergency presentations, Step 2B (p. 111) and Step 3C (p. 113); PSY 2 Table 1 (p. 42)"),
                     cite(DAE, "Table 2, steps 5 and 8"),
+                    cite(AHA23, "§6 Introduction (e160)"),
                 ),
             ),
             // 8 ------------------------------------------------------------------------------------
             Step(
                 title = "Disposition and referral",
                 points = listOf(
-                    "ISCCM 2024 (strong): observe every poisoning for at least 24 h after symptoms resolve; neuropsychiatric assessment before discharge if poisoning may be intentional.",
+                    "ISCCM 2024: observe every poisoning for at least 24 h after symptoms resolve (strong); neuropsychiatric assessment before discharge if suicidal or intentional poisoning is suspected (moderate).",
                     "IPS 2023: cocaine intoxication usually resolves over hours to within a day; afterwards refer for treatment of cocaine or stimulant use disorder.",
                     "Dtsch Arztebl 2025: mild agitation with improved vital signs — discharge to outpatient aftercare; assess danger to self and others; inform the patient they are unfit to drive.",
                     "Dtsch Arztebl 2025 (Germany): dependence care is weeks of withdrawal treatment then months of rehabilitation; no approved drug; CBT, contingency management and exercise support abstinence.",
@@ -351,8 +370,8 @@ internal val cocaineProtocols = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "Beta-blockers are contested. ACC/AHA 2014: not in ACS with signs of acute cocaine intoxication (III: Harm). AHA 2023: safety is 'controversial, with studies showing both benefit and harm'. " +
-                    "Dtsch Arztebl 2025 and Arh Hig Rada Toksikol 2019: avoid (Dtsch Arztebl also combined alpha/beta-blockers). ISCCM 2024: labetalol for poisoning-related hypertension generally.",
+                "Beta-blockers are contested. AHA/ACC 2014: not in ACS with signs of acute cocaine intoxication (III: Harm). AHA 2023: safety is 'controversial, with studies showing both benefit and harm'. " +
+                    "Dtsch Arztebl 2025: avoid beta-blockers and combined alpha/beta-blockers. Arh Hig Rada Toksikol 2019: beta-blockers are contraindicated. ISCCM 2024: labetalol for poisoning-related hypertension generally.",
                 listOf(
                     cite(NSTE14, "§7.10 Class III: Harm"),
                     cite(AHA23, "§6 Rec 4 supportive text"),
@@ -382,6 +401,16 @@ internal val cocaineProtocols = listOf(
                 listOf(cite(ISCCM, "Q23"), cite(IPS, "Cocaine and other stimulants"), cite(DAE, "Table 2, step 8"), cite(STUFF, "Observation")),
             ),
             ProtocolNote(
+                "Clearance imaging differs: Beckley 2009 discharge uses a negative plain abdominal radiograph (contrast films if equivocal), though its discussion calls a single radiograph insufficiently sensitive; " +
+                    "Br J Radiol 2014: a negative plain film does not rule out body packing — non-contrast abdominopelvic CT must be performed; " +
+                    "Arh Hig Rada Toksikol 2019 (stuffers): expulsion confirmed by repeated negative abdominopelvic CT.",
+                listOf(
+                    cite(HILL, "Box 1; Discussion"),
+                    cite(PINTO, "Summary"),
+                    cite(STUFF, "Results — Trends in body stuffing"),
+                ),
+            ),
+            ProtocolNote(
                 "Whole bowel irrigation differs: Beckley 2009 calls PEG irrigation the current treatment of choice for packers; Arh Hig Rada Toksikol 2019 says it may be contraindicated in unstable or asymptomatic stuffers.",
                 listOf(cite(HILL, "Discussion"), cite(STUFF, "Standard treatment")),
             ),
@@ -390,7 +419,7 @@ internal val cocaineProtocols = listOf(
                 listOf(cite(ACMT, "Position statement")),
             ),
             ProtocolNote(
-                "Scope: the 2008 AHA scientific statement on cocaine-associated chest pain and myocardial infarction was not reviewed here; chest-pain content comes from ACC/AHA 2014, AHA/ACC 2021 and AHA 2023. " +
+                "Scope: the 2008 AHA scientific statement on cocaine-associated chest pain and myocardial infarction was not reviewed here; chest-pain content comes from AHA/ACC 2014, AHA/ACC 2021 and AHA 2023. " +
                     "AHA 2023 §14 (sympathomimetics) covers amphetamines and cathinones; cocaine is handled in its §6.",
                 listOf(cite(AHA08, "Not reviewed"), cite(AHA23, "§6; §14 Introduction")),
             ),

@@ -78,7 +78,7 @@ internal val paraquatSources: List<Source> = listOf(
         "tx-paraquat-yang-annmed-2026", Authority.Paper, "Narrative review (Ann Med 2026;58(1):2621498)",
         "Extracorporeal therapies in the management of paraquat poisoning: a comprehensive review of current evidence", "2026",
         "https://doi.org/10.1080/07853890.2026.2621498",
-        status = "Yang B et al.; overall certainty described as low",
+        status = "Yang B et al.; narrative review with no formal certainty grading; evidence mostly observational and limited",
     ),
 )
 
@@ -134,6 +134,8 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                     "Gawarammana & Buckley 2011: pharyngeal, oesophageal and gastric mucosal lesions are very common and 'much more sinister'; they can perforate.",
                     "Sukumar 2019: GI ulceration, pancreatitis and myocarditis feature in fulminant poisoning.",
                     "Gawarammana & Buckley 2011: gastric lavage is not recommended because it is contraindicated in caustic injury.",
+                    "Sukumar 2019: as paraquat is corrosive, the patient is kept nil by mouth; nasogastric tube placement can be difficult with severe ulceration and friable mucosa and may lead to perforation; routine endoscopy is not warranted; painful oral lesions may need anticholinergics, viscous lidocaine and an antacid or mucosal coating agent.",
+                    "Sukumar 2019: skin exposure can cause irritation, blistering and full-thickness burns; dermal exposure is life-threatening mainly with pre-existing skin lesions or prolonged contact, such as clothes soaked in spray.",
                 ),
                 checklistTitle = "Signs reported (tick as found)",
                 checklist = listOf(
@@ -144,7 +146,7 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                 ),
                 citations = listOf(
                     cite(GB, "Local corrosive effects; Decontamination"),
-                    cite(SUK, "Clinical presentation, Table 1"),
+                    cite(SUK, "Clinical presentation, Table 1; Treatment: Initial management in ICU"),
                 ),
             ),
             // 3 ------------------------------------------------------------------------------------
@@ -171,7 +173,7 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                     "Senarathna 2009 (451 Sri Lankan patients): five published plasma-concentration methods performed similarly within their ranges; all predicted death better than survival.",
                     "Gawarammana & Buckley 2011: adverse signs include early hypotension, hypoxia, acidosis, low GCS, renal failure, chest radiograph changes and GI lesions.",
                     "Sukumar 2019: SIPP score = time from ingestion to intensive treatment × admission plasma paraquat; no cut-offs given in the review.",
-                    "Goyal 2024: delay to presentation had the strongest association with death (median 14 h in survivors vs 48 h in non-survivors; OR 1.08 per hour); acidosis, renal failure and hepatic dysfunction at presentation were also associated with death.",
+                    "Goyal 2024: survivors presented earlier (median 14 h vs 48 h in non-survivors); in the survival logistic regression, duration of presentation (OR 1.08, 95% CI 1.02–1.15; reported against survival, a direction inconsistent with the univariate data) and lactate (OR 18.81) were retained; acidosis, renal failure and hepatic dysfunction at presentation were also associated with death.",
                 ),
                 citations = listOf(
                     cite(EDD, "Discussion: Proudfoot nomogram"),
@@ -186,13 +188,13 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                 title = "Decontamination",
                 timing = "Activated charcoal or Fuller's earth within 2–4 h (Gawarammana & Buckley 2011)",
                 points = listOf(
-                    "Sukumar 2019: if conscious and not vomiting, consider activated charcoal or Fuller's earth at 1–2 g/kg; lavage without an adsorbent should be avoided; cathartics have no definite indication.",
-                    "Gawarammana & Buckley 2011: activated charcoal or Fuller's earth for consenting patients with a protected airway, within 2–4 h; gastric lavage not recommended.",
+                    "Sukumar 2019: if conscious and not vomiting, consider gastric lavage with activated charcoal (1–2 g/kg) or Fuller's earth (1–2 g/kg); lavage without an adsorbent should be avoided; cathartics have no definite indication.",
+                    "Gawarammana & Buckley 2011: activated charcoal or Fuller's earth for consenting patients with a protected airway, within 2–4 h; gastric lavage not recommended (the two reviews differ on lavage; see notes).",
                     "Eddleston 2003: measures to reduce absorption (lavage, Fuller's earth, bentonite, charcoal) lacked proof of improved survival and rested on case reports or small series.",
                     "Sukumar 2019: forced diuresis is not recommended.",
                 ),
                 citations = listOf(
-                    cite(SUK, "Treatment: Initial management in ICU, Decontamination; Haemodialysis"),
+                    cite(SUK, "Treatment: Initial management in ICU, Airway management and decontamination; Hemodialysis and hemofiltration"),
                     cite(GB, "Decontamination; Table 1"),
                     cite(EDD, "Discussion: decontamination and elimination"),
                 ),
@@ -205,11 +207,12 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                     "Sukumar 2019 and Goyal 2024: there is no antidote; management is supportive.",
                     "Gawarammana & Buckley 2011: mild to moderate hypoxia should not be treated routinely with oxygen because it worsens oxidative stress; oxygen is reserved for palliative use.",
                     "Sukumar 2019: supplemental oxygen is not advocated because oxygen free-radical injury may worsen alveolar infiltrates; the review notes no clinical data supporting limited FiO₂ specifically.",
+                    "Goyal 2024 lists oxygenation among supportive measures; Sukumar 2019 says that once ARDS develops, oxygenation and ventilation follow the standard ARDS protocol (lung-protective strategy), and that limiting FiO₂ to the minimum for PaO₂ of about 60–65 mm Hg or SpO₂ 88–90% may be of some benefit. The sources therefore differ on oxygen; the cited reviews restrict it for mild to moderate hypoxia only (see notes).",
                     "Gawarammana & Buckley 2011: for hypotension, boluses of 15–20 mL/kg; daily fluid balance; creatinine and cystatin C in the first day to identify the renal-failure group.",
                     "Sukumar 2019: rehydration with IV fluids with monitoring for overload and electrolyte imbalance.",
                 ),
                 citations = listOf(
-                    cite(SUK, "Initial management in ICU: Oxygen; Haemodialysis"),
+                    cite(SUK, "Treatment: Initial management in ICU, Airway management and decontamination; Ventilation; Hemodialysis and hemofiltration"),
                     cite(GB, "Oxygen; Renal function and fluids; Resuscitation"),
                     cite(GOY, "Conclusions"),
                 ),
@@ -220,8 +223,8 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "Cochrane 2021 (4 RCTs, 463 participants; searches to Sept 2020): glucocorticoid + cyclophosphamide may slightly reduce in-hospital death, RR 0.82 (95% CI 0.68–0.99; 2 studies, 322 participants; I² 77%; GRADE low).",
                     "Cochrane 2021: death at 3 months after discharge RR 0.98 (0.85–1.13; 1 study, 293 participants; low); infection evidence very low certainty.",
-                    "Gawarammana 2018 (placebo-controlled, 299 patients): in-hospital mortality 53% with immunosuppression vs 62% with placebo, not significant; 3-month mortality 69% vs 71%; no evidence of survival benefit.",
-                    "Sukumar 2019, describing the same trial: cyclophosphamide 750–1,000 mg over 2 days plus methylprednisolone 1 g over 3 days, then oral dexamethasone 8 mg three times daily for 14 days.",
+                    "Gawarammana 2018 (placebo-controlled, 299 patients): in-hospital mortality 53% with immunosuppression vs 62% with placebo, not significant; 3-month mortality 69% vs 71%; no evidence of survival benefit from high-dose immunosuppression. A Cox model did not support benefit from the high-dose immunosuppression but suggested potential benefit from the subsequent two weeks of dexamethasone; the authors call for further research.",
+                    "Gawarammana 2018 regimen: IV cyclophosphamide up to 1 g/day for two days and methylprednisolone 1 g/day for three days, then oral dexamethasone 8 mg three times daily for 14 days (Sukumar 2019 summarises this as cyclophosphamide 750–1,000 mg for 2 days and methylprednisolone 1 g for 3 days).",
                     "Koh 2014 (non-randomised, historical controls): overall survival 52% vs 46%, not significant; a subgroup with eGFR <50 and leucocytosis had survival 35.3% vs 5.6%.",
                     "Goyal 2024 (Ludhiana): steroids, cyclophosphamide, N-acetylcysteine and vitamin C showed no significant association with mortality.",
                 ),
@@ -238,14 +241,14 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                 title = "Haemoperfusion and haemodialysis — evidence status",
                 timing = "Haemoperfusion described as ideally within 4 h (Sukumar 2019)",
                 points = listOf(
-                    "Sukumar 2019: haemoperfusion is the earliest removal modality, ideally within 4 h; one proposal is up to seven sessions of 6–8 h until plasma paraquat <0.2 mg/L; not useful after a lethal dose.",
-                    "Nasr Isfahani 2019 (meta-analysis, 12 studies): haemoperfusion vs conventional therapy OR 0.20 (0.11–0.40) for death; haemoperfusion with other treatments gave lower mortality than haemoperfusion alone.",
-                    "Yang 2026 (narrative review): overall certainty low; some studies found no survival link for haemoperfusion within 5 h; haemodialysis meta-analysis OR 2.84 (1.22–6.64) for death, with confounding by indication.",
+                    "Sukumar 2019: haemoperfusion is the earliest removal modality, ideally within 4 h; one proposal is up to seven sessions of 6–8 h until plasma paraquat <0.2 mg/L; \"in cases of lethal dose ingestion, hemoperfusion is not useful\" (borderline lethal dose with presentation within 4 h is the setting described).",
+                    "Nasr Isfahani 2019 (meta-analysis, 12 studies): haemoperfusion alone vs conventional therapy OR 0.20 (0.11–0.40) for death (5 of the 12 articles, 1,311 patients, made this comparison; the other 7 compared haemoperfusion with haemoperfusion plus an additional treatment); haemoperfusion with other treatments gave lower mortality than haemoperfusion alone.",
+                    "Yang 2026 (narrative review, no formal certainty grading): conclusions describe early and repeated haemoperfusion, especially within 4–6 h, as improving survival, while one multicentre retrospective study found no survival link for haemoperfusion within 5 h; haemodialysis appears ineffective for paraquat elimination and 'should not be the primary detoxification method' but remains important for supportive care (meta-analysis OR 2.84, 1.22–6.64 for death, possibly confounding by indication); further randomised trials are needed.",
                     "Gawarammana & Buckley 2011: tissue levels stay high despite high clearance; case fatality remains above 50% in centres using these techniques; dialysis may be considered for symptomatic renal failure but is unlikely to change outcome.",
-                    "Goyal 2024 (Ludhiana): of 12 patients presenting within 4 h, 4 survived with haemoperfusion; not significant in regression (p = 0.094); renal replacement therapy was not associated with mortality.",
+                    "Goyal 2024 (Ludhiana): 12 patients (11%) presented within 4 h and were eligible for haemoperfusion; 4 (33.3%) survived (chi-square p = 0.015; the abstract states 36% survived, p = 0.03, a discrepancy within the paper); in the multivariable model haemoperfusion was not significant (OR 0.08, p = 0.094); renal replacement therapy was not associated with mortality.",
                 ),
                 citations = listOf(
-                    cite(SUK, "Treatment: Haemoperfusion and haemodialysis"),
+                    cite(SUK, "Treatment: Initial management in ICU, Hemodialysis and hemofiltration"),
                     cite(HPMA, "Abstract: results and conclusions"),
                     cite(YANG, "Key conclusions: HP, CRRT, HD"),
                     cite(GB, "Haemoperfusion and haemodialysis"),
@@ -268,7 +271,7 @@ internal val paraquatProtocols: List<Protocol> = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "Immunosuppression evidence conflicts: the Cochrane review (low certainty) reports a possible slight reduction in in-hospital death, while the largest placebo-controlled trial (Sri Lanka, 299 patients) found no survival benefit. The Cochrane main analysis excluded studies without baseline plasma paraquat testing and had high heterogeneity.",
+                "Immunosuppression evidence conflicts: the Cochrane review (low certainty) reports a possible slight reduction in in-hospital death, while the largest placebo-controlled trial (Sri Lanka, 299 patients) found no survival benefit. The Cochrane RR 0.82 comes from a sensitivity analysis excluding studies without baseline plasma paraquat assessment, and heterogeneity was high (I² 77%).",
                 listOf(
                     cite(COCH, "Abstract: Main results"),
                     cite(RCT, "Abstract: results"),
@@ -282,10 +285,25 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                 ),
             ),
             ProtocolNote(
-                "Dexamethasone dosing is reported differently: Sukumar 2019 gives 8 mg three times daily for 14 days for the Sri Lankan trial, whereas the Cochrane review lists 8 mg daily for 14 days. Consult the trial protocol before relying on either.",
+                "Dexamethasone dosing: the trial publication (Gawarammana 2018) and Sukumar 2019 both give oral dexamethasone 8 mg three times a day for 14 days.",
                 listOf(
                     cite(SUK, "Treatment: Immunosuppressants"),
-                    cite(COCH, "Abstract: Regimens"),
+                    cite(RCT, "Abstract: materials and methods"),
+                ),
+            ),
+            ProtocolNote(
+                "Lavage differs between sources: Sukumar 2019 says to consider gastric lavage with activated charcoal or Fuller's earth (lavage without an adsorbent to be avoided), whereas Gawarammana & Buckley 2011 do not recommend lavage because it is contraindicated in caustic injury.",
+                listOf(
+                    cite(SUK, "Treatment: Initial management in ICU, Airway management and decontamination"),
+                    cite(GB, "Decontamination"),
+                ),
+            ),
+            ProtocolNote(
+                "Oxygen advice differs between sources: Gawarammana & Buckley 2011 and Sukumar 2019 advise against routine supplemental oxygen in mild to moderate hypoxia, while Goyal 2024 lists oxygenation as supportive treatment and Sukumar 2019 describes standard ARDS ventilation once ARDS develops.",
+                listOf(
+                    cite(GB, "Oxygen"),
+                    cite(SUK, "Treatment: Initial management in ICU, Airway management and decontamination; Ventilation"),
+                    cite(GOY, "Conclusions"),
                 ),
             ),
             ProtocolNote(
@@ -297,7 +315,7 @@ internal val paraquatProtocols: List<Protocol> = listOf(
                 ),
             ),
             ProtocolNote(
-                "Plasma-level prognostic methods: Eddleston 2003 states none had been prospectively validated in a large cohort; Senarathna 2009 later found five methods performed comparably within their ranges.",
+                "Plasma-level prognostic methods: Eddleston 2003 states that of 16 prognostic systems none had been independently validated in a large cohort; Senarathna 2009 later found five methods performed comparably within their ranges.",
                 listOf(
                     cite(EDD, "Discussion: prognostic indicators"),
                     cite(SEN, "Abstract: results"),

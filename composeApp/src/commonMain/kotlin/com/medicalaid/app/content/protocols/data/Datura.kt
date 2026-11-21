@@ -15,7 +15,7 @@ import com.medicalaid.app.content.protocols.StepDose
  * - Doses, thresholds and windows exactly as the cited document states them.
  * - Every point is attributed ("Pillay & Sasidharan 2019: …", "FDA label: …", "Burns 2000 (retrospective): …").
  * - Pillay & Sasidharan 2019 (tx-oleander-pillay-ijccm-2019) and the AACT/EAPCCT 2005 charcoal paper
- *   (tx-hh-aact-sdac-2005) are defined in Oleander.kt / HouseholdTox.kt and cited here by id.
+ *   (tx-hh-aact-sdac-2005) and the AACT/EAPCCT 2013 lavage update (tx-hh-aact-lavage-2013) are defined in Oleander.kt / HouseholdTox.kt and cited here by id.
  * - Physostigmine labels are US labels (DailyMed); availability in India was not verified.
  */
 
@@ -66,6 +66,7 @@ internal val daturaSources: List<Source> = listOf(
 
 private const val PILLAY = "tx-oleander-pillay-ijccm-2019"
 private const val SDAC = "tx-hh-aact-sdac-2005"
+private const val LAVAGE = "tx-hh-aact-lavage-2013"
 private const val FDA_PHY = "tx-datura-fda-physostigmine-label"
 private const val ANTICH = "tx-datura-anticholium-label"
 private const val BURNS = "tx-datura-burns-2000"
@@ -111,7 +112,7 @@ internal val daturaProtocols: List<Protocol> = listOf(
                     "Myoclonus or seizures; coma in severe cases",
                 ),
                 citations = listOf(
-                    cite(PILLAY, "Datura poisoning - toxic principles, clinical features, diagnosis"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                     cite(FDA_PHY, "Clinical Pharmacology"),
                 ),
             ),
@@ -128,7 +129,7 @@ internal val daturaProtocols: List<Protocol> = listOf(
                 citations = listOf(
                     cite(FDA_PHY, "How Supplied - drugs and plants that produce the anticholinergic syndrome"),
                     cite(ANTICH, "Indications"),
-                    cite(PILLAY, "Datura poisoning - exposure and management"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                     cite(ARENS, "Abstract - results by primary ingestant"),
                 ),
             ),
@@ -144,7 +145,7 @@ internal val daturaProtocols: List<Protocol> = listOf(
                     "Pillay & Sasidharan 2019: haemodialysis or haemoperfusion does not remove Datura alkaloids; pilocarpine is ineffective as treatment.",
                 ),
                 citations = listOf(
-                    cite(PILLAY, "Datura poisoning - management"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                 ),
             ),
             // 4 ------------------------------------------------------------------------------------
@@ -154,23 +155,25 @@ internal val daturaProtocols: List<Protocol> = listOf(
                     "Pillay & Sasidharan 2019: agitation - adults IV diazepam 0.1-0.3 mg/kg; where sedation is safe, 10-20 mg in adults and 0.25 mg/kg in children.",
                     "Pillay & Sasidharan 2019: in children sedation is not recommended immediately; exclude other causes first.",
                     "Burns 2000 (retrospective, 52 patients): benzodiazepines controlled agitation in 24% and did not reverse delirium; physostigmine controlled agitation in 96% and reversed delirium in 87%.",
-                    "Wang 2021 (RCT, ages 10-17, mostly diphenhydramine): lorazepam 0.05 mg/kg bolus then 4-hour saline infusion; delirium persisted in 100% at bolus and at 4 hours versus 44% and 22% with physostigmine.",
+                    "Wang 2021 (RCT, ages 10-17, mostly diphenhydramine): lorazepam 0.05 mg/kg bolus then 4-hour saline infusion; delirium persisted in 100% at bolus and at 4 hours versus 44% and 22% with physostigmine. Agitation scores fell more with physostigmine after the bolus but did not differ at the 4th hour (p > 0.99).",
+                    "Pillay & Sasidharan 2019: drugs to be avoided in Datura poisoning include antihistamines, phenothiazines, tricyclics, quinidine, disopyramide, procainamide and morphine.",
                     "Source gives no separate anticonvulsant regimen for Datura seizures beyond the benzodiazepine doses above (Pillay & Sasidharan 2019).",
                 ),
                 doses = listOf(
                     StepDose(
                         label = "Diazepam IV for agitation - adults (Pillay & Sasidharan 2019)",
-                        dose = WeightDose(minPerKg = 0.1, maxPerKg = 0.3, unit = "mg", per = "IV, per dose"),
-                        note = "Same source also gives 10-20 mg for sedation in adults where safe.",
+                        dose = WeightDose(minPerKg = 0.1, maxPerKg = 0.3, unit = "mg", per = "IV"),
+                        note = "Pillay: 0.1-0.3 mg/kg IV; separately 10-20 mg in adults where sedation is safe.",
+                        maxTotal = 20.0,
                     ),
                     StepDose(
                         label = "Diazepam - children, when sedation is judged safe (Pillay & Sasidharan 2019)",
-                        dose = WeightDose(minPerKg = 0.25, maxPerKg = 0.25, unit = "mg", per = "per dose"),
+                        dose = WeightDose(minPerKg = 0.25, maxPerKg = 0.25, unit = "mg", per = "as stated by source (route not specified)"),
                         note = "Source: not recommended immediately in children; exclude other causes first.",
                     ),
                 ),
                 citations = listOf(
-                    cite(PILLAY, "Datura poisoning - management (agitation, sedation)"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                     cite(BURNS, "Abstract - results"),
                     cite(WANG, "Abstract - methods and results"),
                 ),
@@ -181,14 +184,16 @@ internal val daturaProtocols: List<Protocol> = listOf(
                 timing = "Charcoal: AACT/EAPCCT - consider only if within 1 hour of a toxic ingestion",
                 points = listOf(
                     "Pillay & Sasidharan 2019: lavage followed by activated charcoal; reduced GI motility means decontamination may help several hours after ingestion.",
+                    "AACT/EAPCCT 2013 (lavage): there is no evidence that gastric lavage should be used routinely; it should not be performed routinely, if at all, and only by trained individuals; recent publications show it may cause serious complications. Pillay & Sasidharan 2019's recommendation of lavage differs from this position.",
                     "AACT/EAPCCT 2005: single-dose charcoal not to be given routinely; may be considered for a potentially toxic amount ingested up to one hour previously; no evidence it improves clinical outcome.",
                     "AACT/EAPCCT 2005: unless the airway is intact or protected, charcoal is contraindicated - relevant to agitated or drowsy patients.",
                     "Pillay & Sasidharan 2019 give charcoal doses (50 g adults, 1 g/kg children, within 4 h) in the oleander section only, not for Datura.",
-                    "Anticholium label: measures to prevent absorption (lavage, medicinal charcoal, laxatives) are started immediately in intoxication.",
+                    "Anticholium label: measures to prevent absorption (lavage, medicinal charcoal, laxatives) are started immediately in intoxication. Laxatives are listed by this label only; no other source here supports them, and the toxidrome includes reduced bowel sounds.",
                 ),
                 citations = listOf(
-                    cite(PILLAY, "Datura poisoning - management (decontamination); oleander section for charcoal doses"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                     cite(SDAC, "Abstract and conclusions"),
+                    cite(LAVAGE, "Abstract - conclusions"),
                     cite(ANTICH, "Overdosage"),
                 ),
             ),
@@ -198,10 +203,14 @@ internal val daturaProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "Pillay & Sasidharan 2019: indicated in serious poisoning with at least one of arrhythmias, hallucinations, severe hypertension, convulsions or coma; some investigators suggest use only as a diagnostic agent.",
                     "Pillay & Sasidharan 2019: adults 2 mg slow IV, repeatable after 20 minutes; children 0.5 mg slow IV every 5 minutes to a maximum of 2 mg; effect lasts about 20-60 minutes.",
-                    "FDA label: IV at no more than 1 mg per minute; rapid injection can cause bradycardia, hypersalivation, respiratory difficulty and convulsions; overdose causes cholinergic crisis, antidote atropine - keep atropine at hand.",
+                    "FDA label: IV at no more than 1 mg per minute; rapid injection can cause bradycardia, hypersalivation, respiratory difficulty and convulsions; overdose causes cholinergic crisis, antidote atropine - keep atropine at hand (Precautions: atropine sulfate injection should always be at hand).",
+                    "Pillay & Sasidharan 2019: physostigmine is an effective but dangerous antidote and can lead to convulsions, asystole, hypotension, hypersalivation and bradyarrhythmias if administered without caution.",
+                    "FDA label: for overdose of drugs causing anticholinergic syndrome, 2.0 mg IM or slow IV at a slow controlled rate, which may be repeated if life-threatening signs such as arrhythmia, convulsions or coma occur.",
                     "FDA label contraindications: asthma, gangrene, diabetes, cardiovascular disease, mechanical intestinal or urogenital obstruction, vagotonic states, choline esters or depolarising blockers (succinylcholine).",
+                    "FDA label: contains sodium bisulfite (sulfite allergic-type reactions, including anaphylaxis); if excessive salivation, emesis, urination or defecation occur, terminate physostigmine; if excessive sweating or nausea occur, reduce the dose. The Anticholium label also lists sodium bisulfite.",
                     "Anticholium label: adults 0.04 mg/kg (2 mg) slow IV then 1-4 mg every 20 minutes if symptoms recur; contraindicated in coronary heart disease, asthma, closed traumatic brain injury, organophosphate or barbiturate intoxication.",
-                    "Suchard 2003: tricyclic ingestion or QRS prolongation is commonly cited as a contraindication, but the review found little evidence to support it; Pillay & Sasidharan 2019 list tricyclics among drugs to avoid.",
+                    "Suchard 2003: tricyclic ingestion or QRS prolongation is commonly cited as a contraindication, but the review found little evidence to support it; the contraindication seems to stem from a few cases in which physostigmine was temporally associated with asystole. Pillay & Sasidharan 2019: drugs to be avoided include antihistamines, phenothiazines, tricyclics, quinidine, disopyramide, procainamide and morphine.",
+                    "Anticholium label: acute cardiac arrest may be possible during treatment with tricyclic antidepressants; use continuous ECG monitoring. Obtain an ECG (QRS) before giving physostigmine and monitor continuously; no source sets a QRS cut-off.",
                 ),
                 doses = listOf(
                     StepDose(
@@ -211,9 +220,9 @@ internal val daturaProtocols: List<Protocol> = listOf(
                         maxTotal = 2.0,
                     ),
                     StepDose(
-                        label = "Physostigmine - adults by weight (Anticholium label)",
+                        label = "Physostigmine - adults by weight, initial dose (Anticholium label)",
                         dose = WeightDose(minPerKg = 0.04, maxPerKg = 0.04, unit = "mg", per = "slow IV, about 1 mg/min"),
-                        note = "Label: 0.04 mg/kg (2 mg); then 1-4 mg every 20 minutes; may be given as a brief infusion in 50 mL saline over 10-15 minutes.",
+                        note = "Initial dose, cap 2 mg; label then allows 1-4 mg every 20 minutes if intoxication symptoms recur (the 2 mg cap does not apply to those repeat doses); may be given as a brief infusion in 50 mL saline over 10-15 minutes.",
                         maxTotal = 2.0,
                     ),
                     StepDose(
@@ -223,9 +232,9 @@ internal val daturaProtocols: List<Protocol> = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(PILLAY, "Datura poisoning - physostigmine"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                     cite(FDA_PHY, "Dosage and Administration; Contraindications; Warnings; Overdosage"),
-                    cite(ANTICH, "Dosage and Administration; Contraindications"),
+                    cite(ANTICH, "Dosage and Administration; Contraindications; Warnings"),
                     cite(SUCHARD, "Abstract"),
                     cite(WANG, "Abstract - methods"),
                 ),
@@ -239,7 +248,7 @@ internal val daturaProtocols: List<Protocol> = listOf(
                     "Pillay & Sasidharan 2019: pilocarpine is ineffective as treatment, although it is described as a bedside diagnostic drop test.",
                 ),
                 citations = listOf(
-                    cite(PILLAY, "Datura poisoning - neostigmine and pyridostigmine"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                     cite(FDA_PHY, "Clinical Pharmacology"),
                 ),
             ),
@@ -251,11 +260,12 @@ internal val daturaProtocols: List<Protocol> = listOf(
                     "Pillay & Sasidharan 2019: signs can persist 24-48 hours because alkaloids delay GI motility; physostigmine effect lasts only 20-60 minutes, so lasting reversal is generally not achieved.",
                     "Anticholium label: repeat the effective dose if intoxication symptoms recur; adequate dosing is judged by recovery of mental abilities and responsiveness.",
                     "Islam 2022 (47 children): 31.9% needed intensive care and 1 died; adverse prognostic features were more than 3.15 h from ingestion to treatment (RR 9.4), age under 9.5 years (RR 3.5) and seizure (RR 2.8).",
-                    "Arens 2018: after physostigmine 57.6% were admitted to ICU and 18.8% discharged from the ED; response was partial in 68.7% with anticholinergic plants; 1 death 6 hours after physostigmine.",
+                    "Arens 2018 (retrospective): after physostigmine 57.6% were admitted to ICU and 18.8% discharged from the ED; response was partial in 68.7% with anticholinergic plants (100% in non-diphenhydramine antihistamine, antipsychotic and tricyclic groups); 1 death 6 hours after physostigmine.",
+                    "Arens 2018: 182/191 (95.3%) had no documented adverse effects; 2 seizures, 2 QTc prolongation, 4 emesis; improvement or resolution often occurred at doses under 2 mg (retrospective).",
                     "No source reviewed gives a fixed minimum observation period for Datura; monitor until toxidrome resolves (Pillay & Sasidharan 2019).",
                 ),
                 citations = listOf(
-                    cite(PILLAY, "Datura poisoning - onset, duration, physostigmine"),
+                    cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
                     cite(ANTICH, "Dosage and Administration"),
                     cite(ISLAM, "Abstract"),
                     cite(ARENS, "Abstract - results and discussion"),
@@ -264,24 +274,24 @@ internal val daturaProtocols: List<Protocol> = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                text = "Physostigmine versus benzodiazepines is contested. Burns 2000 is retrospective (52 patients) and calls for a prospective trial; the only RCT found (Wang 2021) had 19 adolescents, mostly diphenhydramine. Arens 2018 found only partial response in 68.7% of plant cases, and Pillay & Sasidharan 2019 note some investigators use it only diagnostically.",
-                citations = listOf(cite(BURNS, "Abstract"), cite(WANG, "Abstract"), cite(ARENS, "Abstract"), cite(PILLAY, "Physostigmine")),
+                text = "Physostigmine versus benzodiazepines is contested. Burns 2000 is retrospective (52 patients) and calls for a prospective trial; the only RCT found (Wang 2021) had 19 adolescents, mostly diphenhydramine. Arens 2018 (retrospective) found partial response in 68.7% of plant cases but 95.3% with no documented adverse effects; Wang 2021 found no agitation difference at the 4th hour. Pillay & Sasidharan 2019 note some investigators use it only diagnostically.",
+                citations = listOf(cite(BURNS, "Abstract"), cite(WANG, "Abstract"), cite(ARENS, "Abstract"), cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)")),
             ),
             ProtocolNote(
-                text = "Tricyclic co-ingestion and QRS widening: FDA-format and Indian review sources advise caution or avoidance, whereas Suchard 2003 found little evidence supporting the contraindication; the Anticholium label even lists tricyclic antidepressants among indications. The sources differ; none sets a QRS cut-off.",
-                citations = listOf(cite(SUCHARD, "Abstract"), cite(ANTICH, "Indications"), cite(FDA_PHY, "Contraindications"), cite(PILLAY, "Datura - drugs to avoid")),
+                text = "Tricyclic co-ingestion and QRS widening: FDA-format and Indian review sources advise caution or avoidance, and the Anticholium label warns of cardiac arrest with tricyclics and advises continuous ECG monitoring; Suchard 2003 found little evidence supporting the contraindication but it arose from asystole cases. The Anticholium label even lists tricyclic antidepressants among indications. The sources differ; none sets a QRS cut-off, so obtain an ECG before and monitor continuously during physostigmine.",
+                citations = listOf(cite(SUCHARD, "Abstract"), cite(ANTICH, "Indications"), cite(FDA_PHY, "Contraindications"), cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)")),
             ),
             ProtocolNote(
                 text = "India versus international: no ICMR Standard Treatment Workflow for Datura or anticholinergic poisoning was found in searches. The Indian review (Pillay & Sasidharan 2019) gives diazepam doses; US labels give physostigmine doses. Availability of physostigmine in Indian hospitals was not verified.",
-                citations = listOf(cite(PILLAY, "Datura poisoning - management"), cite(FDA_PHY, "Dosage and Administration")),
+                citations = listOf(cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"), cite(FDA_PHY, "Dosage and Administration")),
             ),
             ProtocolNote(
-                text = "Adult physostigmine doses differ between sources: 2 mg slow IV repeated after 20 minutes (Pillay), 2 mg then 1-4 mg every 20 minutes (Anticholium label), 0.5-1.0 mg with repeats every 10-30 minutes in the US label's post-anaesthesia section.",
-                citations = listOf(cite(PILLAY, "Physostigmine"), cite(ANTICH, "Dosage and Administration"), cite(FDA_PHY, "Dosage and Administration")),
+                text = "Adult physostigmine doses differ between sources: 2 mg slow IV repeated after 20 minutes (Pillay), 2 mg then 1-4 mg every 20 minutes (Anticholium label); US label (HealthFirst): 2.0 mg IM or slow IV for overdose of drugs causing anticholinergic syndrome, repeated if life-threatening signs such as arrhythmia, convulsions or coma occur. Its 0.5-1.0 mg dose (repeat every 10-30 minutes) is for post-anaesthesia care and is not a poisoning dose.",
+                citations = listOf(cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"), cite(ANTICH, "Dosage and Administration"), cite(FDA_PHY, "Dosage and Administration")),
             ),
         ),
         citations = listOf(
-            cite(PILLAY, "Datura poisoning"),
+            cite(PILLAY, "Datura section, pp. S252-S254 (Indian J Crit Care Med 2019;23 Suppl 4)"),
             cite(FDA_PHY, "Prescribing information"),
             cite(ANTICH, "Prescribing information"),
             cite(BURNS, "Abstract"),
