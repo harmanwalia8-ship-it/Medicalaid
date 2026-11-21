@@ -57,6 +57,7 @@ enum class Authority(val short: String, val india: Boolean = false) {
     ACSCOT("ACS COT"),
     WSES("WSES"),
     EAST("EAST"),
+    JTS("Joint Trauma System"),
 }
 
 /** Which patients a page is written for. */

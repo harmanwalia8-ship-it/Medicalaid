@@ -87,6 +87,7 @@ private val authorityNames = mapOf(
     Authority.ACSCOT to "American College of Surgeons Committee on Trauma",
     Authority.WSES to "World Society of Emergency Surgery",
     Authority.EAST to "Eastern Association for the Surgery of Trauma",
+    Authority.JTS to "Joint Trauma System, US Department of Defense",
 )
 
 @Composable

@@ -318,7 +318,7 @@ internal val drugToxProtocols: List<Protocol> = listOf(
             Step(
                 title = "Tramadol: seizures and serotonin toxicity",
                 points = listOf(
-                    "FDA tramadol label: overdose causes respiratory depression, coma, seizures, QT prolongation, hypotension and death; fatal risk rises with alcohol or other CNS depressants.",
+                    "FDA tramadol label: overdose may cause respiratory depression, coma, seizures, QT prolongation, hypotension and death; fatal risk rises with alcohol or other CNS depressants.",
                     "FDA tramadol label: reversal agents reverse some but not all effects and increase seizure risk; in animals, benzodiazepines suppressed tramadol convulsions, naloxone increased them.",
                     "IPS 2023: tramadol and dextropropoxyphene lower the seizure threshold. ISCCM 2024 (moderate): benzodiazepines are the first antiseizure drug in poisoning, not phenytoin.",
                     "FDA tramadol label: serotonin syndrome may occur, particularly with SSRIs, SNRIs, tricyclics, MAO inhibitors, linezolid or IV methylene blue — stop tramadol if suspected.",
@@ -345,7 +345,7 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                     "FDA Suboxone label: overdose causes pinpoint pupils, sedation, hypotension, hypoglycaemia and respiratory depression; re-establishing ventilation is the primary management.",
                     "FDA Suboxone label: naloxone may help, but higher than normal and repeated doses may be needed; monitor for the long duration of action.",
                     "FDA Narcan label: buprenorphine reversal is gradual in onset and may be incomplete; larger or repeat naloxone doses may be required.",
-                    "FDA Suboxone label: accidental exposure can cause severe, possibly fatal, respiratory depression in children; deaths reported in opioid-naïve adults after 2 mg.",
+                    "FDA Suboxone label: accidental exposure can cause severe, possibly fatal, respiratory depression in children; deaths reported in opioid-naïve people given 2 mg sublingually.",
                     "AHA 2025 (2a): suspected combined opioid and benzodiazepine poisoning — give naloxone first. FDA Suboxone label lists gabapentinoids among CNS depressants raising overdose risk.",
                     "IPS 2023: at the same dose, fentanyl is likely to act more intensely and buprenorphine much longer than heroin.",
                 ),

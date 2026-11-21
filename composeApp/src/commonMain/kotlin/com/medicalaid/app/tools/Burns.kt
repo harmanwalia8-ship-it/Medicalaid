@@ -6,9 +6,14 @@ package com.medicalaid.app.tools
  * - Region values per age column and the adult anterior/posterior split: JTS Burn Care CPG 2025,
  *   Appendix B (adult: one side anterior/posterior) and Appendix C (birth–1 y, 1–4, 5–9, 10–14, 15 y).
  *   Hands are 2.5% each (1.25% per side), so every column sums to 100%.
- * - 4 and 2 mL/kg/%TBSA starting rates: ABA 2024 burn shock resuscitation guideline, Question 3.
+ * - Adults: 4 and 2 mL/kg/%TBSA starting rates: ABA 2024 burn shock resuscitation guideline, Question 3
+ *   (adults with burns ≥20% TBSA only).
+ * - Children: 3 mL/kg/%TBSA plus D5LR maintenance by the 4-2-1 rule (JTS CPG, Considerations for pediatric patients,
+ *   p. 18); Ringer's lactate 2 mL/kg/%TBSA plus N/2 DNS or Isolyte P at 4-2-1 mL/kg/h (MoHFW 2025 STG, section E, p. 32).
+ * - Formula IV resuscitation above 15% TBSA in adults and from 10% in children: MoHFW 2025 STG, section E, p. 30.
  * - Half of the 24 h volume in the first 8 h, the rest over the next 16 h: MoHFW 2025 burns STG, section E;
  *   hours are counted from the injury, not from arrival (JTS CPG, Appendix D).
+ * - Over 250 mL/kg in the first 24 h: high risk of compartment syndromes (JTS CPG, Acute resuscitation, p. 9).
  */
 object Burns {
     /** Age columns of the Lund–Browder chart (JTS Appendix C: birth–1 yr, 1–4, 5–9, 10–14, 15 years; Appendix B: adult). */
@@ -67,19 +72,74 @@ object Burns {
         val total24hMl: Double,
         val first8hMl: Double,
         val next16hMl: Double,
+        /** Rate that delivers [first8hMl] by 8 h after the burn only if the infusion starts at the time of the burn. */
         val first8hRateMlPerH: Double,
         val next16hRateMlPerH: Double,
-    )
+        /** 24 h resuscitation volume per kg (= rate × %TBSA). */
+        val mlPerKg24h: Double,
+    ) {
+        /** JTS CPG p. 9: over 250 mL/kg in the first 24 h → increased risk of abdominal and extremity compartment syndromes. */
+        val exceedsJtsHighRisk: Boolean get() = mlPerKg24h > Burns.JTS_HIGH_RISK_ML_PER_KG_24H
+    }
 
     /** total = rate × weight × %TBSA; half in the first 8 h from the burn, half over the next 16 h. */
     fun fluids(mlPerKgPerPct: Double, weightKg: Double, tbsaPct: Double): FluidPlan {
         val total = mlPerKgPerPct * weightKg * tbsaPct
         val half = total / 2
-        return FluidPlan(mlPerKgPerPct, total, half, half, half / 8, half / 16)
+        return FluidPlan(mlPerKgPerPct, total, half, half, half / 8, half / 16, mlPerKgPerPct * tbsaPct)
     }
 
-    /** Parkland (Baxter) starting rate: 4 mL/kg/%TBSA (ABA 2024, Question 3 comparator). */
+    /** Parkland (Baxter) starting rate: 4 mL/kg/%TBSA (ABA 2024, Question 3 comparator). Adults only. */
     const val PARKLAND_ML = 4.0
     /** ABA 2024 recommended starting rate for adults with burns ≥20% TBSA: 2 mL/kg/%TBSA (Question 3). */
     const val ABLS_ADULT_ML = 2.0
+    /** ABA 2024 population: adults with burns ≥20% TBSA. */
+    const val ABA_MIN_TBSA_PCT = 20.0
+    /** Children: 3 × weight (kg) × %TBSA in the first 24 h, half in the first 8 h (JTS CPG, p. 18). */
+    const val JTS_CHILD_ML = 3.0
+    /** Children: Ringer's lactate 2 mL/kg/%TBSA in the first 24 h, with dextrose maintenance (MoHFW 2025, section E, p. 32). */
+    const val MOHFW_CHILD_RL_ML = 2.0
+    /** MoHFW 2025 section E (p. 30): formula IV resuscitation for burns MORE than 15% TBSA in adults. */
+    const val MOHFW_ADULT_IV_ABOVE_PCT = 15.0
+    /** MoHFW 2025 section E (p. 30): formula IV resuscitation for burns of 10% TBSA OR MORE in children. */
+    const val MOHFW_CHILD_IV_FROM_PCT = 10.0
+    /** JTS CPG p. 9: 24 h volume above which compartment-syndrome risk is high (all infused fluids count, worksheet p. 32). */
+    const val JTS_HIGH_RISK_ML_PER_KG_24H = 250.0
+    /** JTS CPG p. 18: children under 10% TBSA may be given 1.5 × the 4-2-1 maintenance rate instead of a calculated resuscitation. */
+    const val JTS_SMALL_BURN_CHILD_MAINTENANCE_FACTOR = 1.5
+
+    /** Every Lund–Browder column except the adult one uses the paediatric fluid plans. */
+    fun isChild(age: AgeBand): Boolean = age != AgeBand.Adult
+
+    /** MoHFW 2025 section E: IV formula above 15% TBSA in adults, ≥10% in children. */
+    fun formulaIndicated(age: AgeBand, tbsaPct: Double): Boolean =
+        if (isChild(age)) tbsaPct >= MOHFW_CHILD_IV_FROM_PCT else tbsaPct > MOHFW_ADULT_IV_ABOVE_PCT
+
+    /**
+     * Maintenance by the 4-2-1 rule (mL/h): 4 mL/kg/h for the first 10 kg + 2 mL/kg/h for the next 10 kg + 1 mL/kg/h
+     * for every kg above 20 kg (JTS CPG p. 18: D5LR for children <13 y, not titrated; MoHFW 2025 p. 32: N/2 DNS or Isolyte P).
+     */
+    fun maintenance421MlPerH(weightKg: Double): Double =
+        4.0 * minOf(weightKg, 10.0) +
+            2.0 * (minOf(weightKg, 20.0) - 10.0).coerceAtLeast(0.0) +
+            1.0 * (weightKg - 20.0).coerceAtLeast(0.0)
+
+    /** A starting resuscitation regimen shown as a card. */
+    data class Regimen(val name: String, val mlPerKgPerPct: Double)
+
+    /**
+     * Regimens to show for this age column and burn size: none below the MoHFW threshold; JTS and MoHFW paediatric
+     * formulas for every child column; Parkland for adults, plus ABA 2024 2 mL/kg/%TBSA from 20% TBSA.
+     */
+    fun regimens(age: AgeBand, tbsaPct: Double): List<Regimen> = when {
+        !formulaIndicated(age, tbsaPct) -> emptyList()
+        isChild(age) -> listOf(
+            Regimen("Children · JTS 2025", JTS_CHILD_ML),
+            Regimen("Children · MoHFW 2025", MOHFW_CHILD_RL_ML),
+        )
+        else -> listOfNotNull(
+            Regimen("Adults only · Parkland", PARKLAND_ML),
+            if (tbsaPct >= ABA_MIN_TBSA_PCT) Regimen("Adults only · ABA 2024 start (≥20% TBSA)", ABLS_ADULT_ML) else null,
+        )
+    }
 }

@@ -3,6 +3,7 @@ package com.medicalaid.app.tools
 import kotlin.math.abs
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -42,6 +43,45 @@ class BurnsAcidBaseTest {
         close(4200.0, p.first8hMl)
         close(525.0, p.first8hRateMlPerH)
         close(262.5, p.next16hRateMlPerH)
+        close(120.0, p.mlPerKg24h)
+        assertFalse(p.exceedsJtsHighRisk)
+        // JTS p. 9: over 250 mL/kg in 24 h (Parkland above 62.5% TBSA).
+        assertTrue(Burns.fluids(Burns.PARKLAND_ML, 70.0, 70.0).exceedsJtsHighRisk)
+        assertFalse(Burns.fluids(Burns.PARKLAND_ML, 70.0, 62.5).exceedsJtsHighRisk)
+    }
+
+    @Test
+    fun paediatricFormulasFollowJtsAndMohfw() {
+        // JTS p. 18: 3 × kg × %TBSA, half in 8 h → starting rate %TBSA × kg × 1.5 / 8 (30 kg, 50% → 4,500 mL, 281 mL/h).
+        val j = Burns.fluids(Burns.JTS_CHILD_ML, 30.0, 50.0)
+        close(4500.0, j.total24hMl)
+        close(50.0 * 30.0 * 1.5 / 8, j.first8hRateMlPerH)
+        // MoHFW p. 32: Ringer's lactate 2 mL/kg/%TBSA.
+        close(400.0, Burns.fluids(Burns.MOHFW_CHILD_RL_ML, 10.0, 20.0).total24hMl)
+        // 4-2-1 rule: 4 mL/kg/h first 10 kg, 2 mL/kg/h next 10 kg, 1 mL/kg/h above 20 kg.
+        close(20.0, Burns.maintenance421MlPerH(5.0))
+        close(40.0, Burns.maintenance421MlPerH(10.0))
+        close(50.0, Burns.maintenance421MlPerH(15.0))
+        close(60.0, Burns.maintenance421MlPerH(20.0))
+        close(65.0, Burns.maintenance421MlPerH(25.0))
+    }
+
+    @Test
+    fun regimensDependOnAgeAndBurnSize() {
+        val adult = Burns.AgeBand.Adult
+        // MoHFW section E: IV formula above 15% in adults; ABA 2024 only from 20%.
+        assertTrue(Burns.regimens(adult, 15.0).isEmpty())
+        assertEquals(listOf(Burns.PARKLAND_ML), Burns.regimens(adult, 18.0).map { it.mlPerKgPerPct })
+        assertEquals(listOf(Burns.PARKLAND_ML, Burns.ABLS_ADULT_ML), Burns.regimens(adult, 20.0).map { it.mlPerKgPerPct })
+        // Children (every non-adult column): from 10%, JTS 3 and MoHFW 2 mL/kg/%TBSA; never Parkland or ABA 2024.
+        Burns.AgeBand.entries.filter { it != adult }.forEach { age ->
+            assertTrue(Burns.isChild(age))
+            assertTrue(Burns.regimens(age, 9.5).isEmpty())
+            val r = Burns.regimens(age, 40.0)
+            assertEquals(listOf(Burns.JTS_CHILD_ML, Burns.MOHFW_CHILD_RL_ML), r.map { it.mlPerKgPerPct })
+            assertTrue(r.none { it.name.contains("Parkland") || it.name.contains("ABA") })
+        }
+        assertEquals(2, Burns.regimens(Burns.AgeBand.Infant, 10.0).size)
     }
 
     @Test
@@ -90,16 +130,42 @@ class BurnsAcidBaseTest {
         // Metabolic alkalosis: 0.7 × (HCO3 − 24) + 40 ± 2
         val m = AcidBase.alkalosisPco2(36.0)
         close(48.4, m.value); close(46.4, m.low); close(50.4, m.high)
-        // Respiratory acidosis: +1 (acute) or +4–5 (chronic) per 10 mm Hg, ±2
+        // Respiratory acidosis: +1 (acute) or +4–5 (chronic) per 10 mm Hg, no added tolerance
         val aa = AcidBase.respAcidosisHco3(60.0, chronic = false)
-        close(26.0, aa.value); close(24.0, aa.low); close(28.0, aa.high)
+        close(26.0, aa.value); close(26.0, aa.low); close(26.0, aa.high)
         val ca = AcidBase.respAcidosisHco3(60.0, chronic = true)
-        close(30.0, ca.low); close(36.0, ca.high); close(33.0, ca.value)
-        // Respiratory alkalosis: −2 (acute) or −4–5 (chronic) per 10 mm Hg, ±2
+        close(32.0, ca.low); close(34.0, ca.high); close(33.0, ca.value)
+        // Respiratory alkalosis: −2 (acute) or −4–5 (chronic) per 10 mm Hg, no added tolerance
         val al = AcidBase.respAlkalosisHco3(30.0, chronic = false)
-        close(22.0, al.value); close(20.0, al.low); close(24.0, al.high)
+        close(22.0, al.value); close(22.0, al.low); close(22.0, al.high)
         val cl = AcidBase.respAlkalosisHco3(30.0, chronic = true)
-        close(17.0, cl.low); close(22.0, cl.high); close(19.5, cl.value)
+        close(19.0, cl.low); close(20.0, cl.high); close(19.5, cl.value)
+        val cl20 = AcidBase.respAlkalosisHco3(20.0, chronic = true)
+        close(14.0, cl20.low); close(16.0, cl20.high)
+    }
+
+    @Test
+    fun respiratoryResponsesUseBerendFigureBands() {
+        fun acid(pco2: Double, hco3: Double) = AcidBase.respAcidosisResponse(pco2, hco3)
+        fun alk(pco2: Double, hco3: Double) = AcidBase.respAlkalosisResponse(pco2, hco3)
+        // Figure 1, per 10 mm Hg rise: <1 metabolic acidosis, 1 acute, 4–5 chronic, >5 metabolic alkalosis.
+        assertEquals(AcidBase.RespResponse.AdditionalMetabolicAcidosis, acid(50.0, 23.0))
+        assertEquals(AcidBase.RespResponse.Acute, acid(60.0, 26.0))
+        assertEquals(AcidBase.RespResponse.Acute, acid(47.0, 24.7))
+        assertEquals(AcidBase.RespResponse.BetweenAcuteAndChronic, acid(60.0, 30.0))
+        assertEquals(AcidBase.RespResponse.Chronic, acid(60.0, 32.0))
+        assertEquals(AcidBase.RespResponse.Chronic, acid(60.0, 34.0))
+        assertEquals(AcidBase.RespResponse.AdditionalMetabolicAlkalosis, acid(60.0, 35.5))
+        close(-1.0, AcidBase.respAcidosisRisePer10(50.0, 23.0))
+        // Figure 2, per 10 mm Hg fall: <2 metabolic alkalosis, 2 acute, 4–5 chronic, >5 metabolic acidosis.
+        assertEquals(AcidBase.RespResponse.AdditionalMetabolicAlkalosis, alk(30.0, 23.0))
+        assertEquals(AcidBase.RespResponse.Acute, alk(30.0, 22.0))
+        assertEquals(AcidBase.RespResponse.BetweenAcuteAndChronic, alk(20.0, 18.0))
+        assertEquals(AcidBase.RespResponse.Chronic, alk(20.0, 15.0))
+        assertEquals(AcidBase.RespResponse.AdditionalMetabolicAcidosis, alk(20.0, 13.0))
+        close(5.5, AcidBase.respAlkalosisFallPer10(20.0, 13.0))
+        assertTrue(AcidBase.respResponseText(AcidBase.RespResponse.AdditionalMetabolicAcidosis, acidosis = true).startsWith("less than 1"))
+        assertTrue(AcidBase.respResponseText(AcidBase.RespResponse.AdditionalMetabolicAcidosis, acidosis = false).startsWith("more than 5"))
     }
 
     @Test
@@ -107,13 +173,28 @@ class BurnsAcidBaseTest {
         val ag = AcidBase.anionGap(140.0, 100.0, 10.0)
         close(30.0, ag)
         close(35.0, AcidBase.correctedAnionGap(ag, 2.0))
-        close((30.0 - 12.0) / 14.0, AcidBase.deltaRatio(30.0, 10.0)!!)
-        assertNull(AcidBase.deltaRatio(14.0, 24.0))
-        // Normal anion gap: Δ–Δ does not apply.
-        assertNull(AcidBase.deltaRatio(12.0, 15.0))
-        assertTrue(AcidBase.deltaRatioMeaning(0.8).startsWith("below 1"))
-        assertTrue(AcidBase.deltaRatioMeaning(1.0).startsWith("between 1"))
-        assertTrue(AcidBase.deltaRatioMeaning(1.6).startsWith("between 1"))
-        assertTrue(AcidBase.deltaRatioMeaning(1.7).startsWith("above about 1.7"))
+        // Berend describes a correction for albumin decreases only: none at or above 4.0 g/dL.
+        close(30.0, AcidBase.correctedAnionGap(ag, 4.0))
+        close(30.0, AcidBase.correctedAnionGap(ag, 5.0))
+        val dd = AcidBase.deltaDelta(30.0, 10.0)!!
+        close(18.0, dd.deltaAg); close(14.0, dd.deltaHco3)
+        close(4.0, dd.keto); close(0.6 * 18.0 - 14.0, dd.lactic)
+        // AG 40, HCO3 4: ketoacidosis difference +8 (with metabolic alkalosis), lactic −3.2 (alone).
+        val d2 = AcidBase.deltaDelta(40.0, 4.0)!!
+        close(8.0, d2.keto); close(-3.2, d2.lactic, 1e-9)
+        assertTrue(AcidBase.deltaDeltaMeaning(d2.keto).startsWith("above +5"))
+        assertTrue(AcidBase.deltaDeltaMeaning(d2.lactic).startsWith("−5 to +5"))
+        assertTrue(AcidBase.deltaDeltaMeaning(5.0).startsWith("−5 to +5"))
+        assertTrue(AcidBase.deltaDeltaMeaning(-5.0).startsWith("−5 to +5"))
+        assertTrue(AcidBase.deltaDeltaMeaning(-5.1).startsWith("below −5"))
+        // Δ–Δ is for a high anion gap acidosis: not with HCO3 ≥ 24 or a normal anion gap.
+        assertNull(AcidBase.deltaDelta(14.0, 24.0))
+        assertNull(AcidBase.deltaDelta(12.0, 15.0))
+        // A raised anion gap is still flagged when HCO3 is not low.
+        assertTrue(AcidBase.highAnionGapNotes(12.0, 24.0).isEmpty())
+        val masked = AcidBase.highAnionGapNotes(24.0, 26.0)
+        assertTrue(masked.any { it.contains("organic acidosis") })
+        assertTrue(masked.any { it.contains("Δ–Δ is not calculated") })
+        assertTrue(AcidBase.highAnionGapNotes(14.0, 15.0).any { it.contains("minor increase") })
     }
 }

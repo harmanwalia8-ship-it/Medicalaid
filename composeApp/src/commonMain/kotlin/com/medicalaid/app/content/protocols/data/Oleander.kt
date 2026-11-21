@@ -156,7 +156,7 @@ internal val oleanderProtocols = listOf(
                     "Eddleston et al. 2000 (Heart, 351 patients): most symptomatic patients had sinus-node and/or AV-node conduction defects; tachyarrhythmias and ectopics typical of digoxin poisoning were relatively few.",
                     "Eddleston et al. 2000 (Heart): serious arrhythmias were associated with higher serum glycoside concentrations and hyperkalaemia, but not with magnesium disturbances.",
                     "Pillay & Sasidharan 2019 (IJCCM): also dizziness, lethargy and hypotension; mydriasis; seizures and coma in severe cases; mouth numbness or burning after chewing seeds.",
-                    "CMC Vellore 2020 (30 patients): vomiting in 80%, metabolic acidosis in 29; second-degree AV block the commonest ECG abnormality; seed number (2–30) not associated with mortality.",
+                    "CMC Vellore 2020 (30 patients): vomiting in 80%, metabolic acidosis (defined as bicarbonate <24 mmol/L) in 29 of 30; second-degree AV block the commonest ECG abnormality; seed number (2–30) not associated with mortality.",
                     "Pillay & Sasidharan 2019: oleander glycosides cross-react with digoxin immunoassays — an elevated level may help confirm suspected poisoning.",
                 ),
                 checklistTitle = "Toxidrome signs",
@@ -186,7 +186,7 @@ internal val oleanderProtocols = listOf(
                     "Rajapakse 2009 (Clin Toxicol review): continuous ECG monitoring for at least 24 h to detect arrhythmias, longer in severe poisoning; no definite risk-stratification criteria exist.",
                     "Pillay & Sasidharan 2019: baseline ECG, electrolytes and 24-hour ICU observation; repeat 12-lead ECGs, especially if symptomatic — check rhythm, QRS duration and QT.",
                     "Pillay & Sasidharan 2019: urea, electrolytes, magnesium and creatinine in all patients; serum potassium is among the most important tests, correlating with cardiotoxicity.",
-                    "Eddleston et al. 2008 (Lancet RCT): 87% of oleander deaths occurred within 24 h of admission, most of them after 12 h.",
+                    "Eddleston et al. 2008 (Lancet RCT): 87% of oleander deaths occurred within 24 h of admission; the authors also state that most oleander deaths occurred after 12 h (data not shown).",
                     "Roberts et al. 2006 (pharmacokinetics): erratic, prolonged absorption of Thevetia glycosides; apparent terminal half-life highly variable, median 42.9 h.",
                 ),
                 citations = listOf(
@@ -204,6 +204,7 @@ internal val oleanderProtocols = listOf(
                     "Pillay & Sasidharan 2019: activated charcoal 50 g in adults or 1 g/kg in children presenting within 4 h of ingestion.",
                     "de Silva et al. 2003 (Lancet RCT, 401 patients): one dose, then 50 g 6-hourly for 3 days — deaths 2.5% vs 8% with placebo.",
                     "Eddleston et al. 2008 (Lancet RCT, 4632 patients, 1647 oleander): 50 g 4-hourly for six doses — no mortality benefit; authors: MDAC not indicated for oleander.",
+                    "Eddleston et al. 2008: no benefit from single-dose charcoal; in oleander patients it was worse than no charcoal (Figure 3). Few patients presented within 2 h, so early single-dose charcoal could not be assessed.",
                     "Rajapakse 2009: no firm recommendation for or against multiple-dose charcoal; single-dose charcoal probably beneficial; activated charcoal is clearly safe.",
                     "Cochrane 2006: some evidence that MDAC may be effective in yellow oleander poisoning — searches ran before the 2008 trial reported.",
                     "Pillay & Sasidharan 2019: gastric lavage is of limited benefit (seeds are large relative to the tube) and may worsen bradycardia through vagal stimulation.",
@@ -212,13 +213,13 @@ internal val oleanderProtocols = listOf(
                     StepDose(
                         label = "Activated charcoal — children (Pillay & Sasidharan 2019)",
                         dose = WeightDose(minPerKg = 1.0, maxPerKg = 1.0, unit = "g", per = "single oral dose, if within 4 h of ingestion"),
-                        note = "Adults: 50 g (same source). Multiple-dose regimens differed between the two RCTs — see notes.",
+                        note = "Adults: 50 g (same source). Eddleston 2008 RCT: no benefit from single-dose charcoal. Multiple-dose regimens differed between the two RCTs — see notes.",
                     ),
                 ),
                 citations = listOf(
                     cite(OL_PILLAY, "Yellow oleander — management (decontamination)"),
                     cite(OL_DESILVA, "Abstract"),
-                    cite(OL_MDAC_2008, "Abstract; Discussion"),
+                    cite(OL_MDAC_2008, "Abstract; Results; Discussion; Figure 3"),
                     cite(OL_RAJAPAKSE, "Abstract — Gastric decontamination"),
                     cite(OL_COCHRANE, "Main results; Authors' conclusions"),
                 ),
@@ -230,10 +231,10 @@ internal val oleanderProtocols = listOf(
                 points = listOf(
                     "Rajapakse 2009: hypokalaemia worsens glycoside toxicity and hyperkalaemia is life-threatening — both must be corrected; hypomagnesaemia should also be corrected.",
                     "Rajapakse 2009: hyperkalaemia reflects extracellular potassium shift rather than raised total-body potassium, and is best treated with insulin–dextrose infusion.",
-                    "Pillay & Sasidharan 2019: adults — 10 units short-acting insulin with 50 mL 50% dextrose (or 100 mL 20%) IV over 5 min while Fab is obtained.",
-                    "Pillay & Sasidharan 2019: K⁺ >6.5 mEq/L is normally an indication for Fab. FDA DigiFab label (digoxin): K⁺ >5.5 mEq/L in adults with rapidly progressive toxicity.",
+                    "Pillay & Sasidharan 2019: adults — 10 units short-acting insulin with 50 mL 50% dextrose (or 100 mL 20%) IV over 5 min while Fab is obtained. Same source: potassium can fall steeply after Fab, especially if glucose, insulin and bicarbonate were also given — use that combination only if Fab is unavailable.",
+                    "Pillay & Sasidharan 2019: K⁺ >6.5 mEq/L is normally an indication for Fab; Fab is also indicated if K⁺ exceeds the upper limit of normal (5 mEq/L) with other severe symptoms. FDA DigiFab label (digoxin): K⁺ >5.5 mEq/L in adults with rapidly progressive toxicity.",
                     "FDA DigiFab label: potassium may fall rapidly after Fab — monitor frequently over the first several hours; give cautious supplementation when necessary.",
-                    "Rajapakse 2009: IV calcium increases arrhythmia risk and is not recommended for hyperkalaemia. AHA 2023 (mostly digoxin data): calcium appears neither harmful nor beneficial.",
+                    "Rajapakse 2009: IV calcium increases arrhythmia risk and is not recommended for hyperkalaemia. AHA 2023: animal, ex vivo and case-report data raise concern that calcium might cause cardiac arrest ('stone heart'); a cohort (mostly chronic digoxin poisoning) and a porcine study suggest it is neither harmful nor beneficial; harm not quantified, no evidence of benefit.",
                 ),
                 citations = listOf(
                     cite(OL_RAJAPAKSE, "Abstract — Electrolytes"),
@@ -251,7 +252,7 @@ internal val oleanderProtocols = listOf(
                     "AHA 2023 Table 2 (listed for digoxin): atropine 0.5–1.0 mg IV every 3–5 min up to 3 mg; children 0.02 mg/kg.",
                     "Pillay & Sasidharan 2019: atropine 1 mg IV for sinus bradycardia and AV block; 3 mg (0.04 mg/kg) is generally considered fully vagolytic in most adults.",
                     "Fonseka et al. 2002 (Sri Lanka, 168 patients): IV atropine boluses and isoprenaline infusions — 80 of 90 treated received only these; 10 also needed pacing.",
-                    "Rajapakse 2009: atropine and isoprenaline lack trial evidence of survival benefit; raising the heart rate theoretically increases tachyarrhythmia risk.",
+                    "Rajapakse 2009: atropine and isoprenaline lack trial evidence of survival benefit or adequate evaluation of risks; raising the heart rate theoretically increases tachyarrhythmia risk, and it has been claimed that atropine increases tachyarrhythmic deaths.",
                     "ICMR STW (bradyarrhythmia, 2025): look for digoxin as a reversible cause; in unstable patients, IV dopamine or isoprenaline may be given until temporary pacing is placed.",
                 ),
                 doses = listOf(
@@ -297,7 +298,7 @@ internal val oleanderProtocols = listOf(
                     "Eddleston et al. 2000: sinus rhythm at 8 h in 24 vs 5; with Fab, heart rate 49.1→66.8/min and mean potassium 4.9→4.1 mmol/L at 2 h.",
                     "Eddleston et al. 2000: outcomes were arrhythmia reversal, heart rate and potassium; authors state further study is required to confirm a reduction in deaths.",
                     "AHA 2023: Fab reasonable for yellow oleander (COR 2a, LOE C-LD); may be reasonable for other cardiac glycosides, e.g. common oleander (COR 2b; case reports only).",
-                    "Pillay & Sasidharan 2019: Fab is the treatment of choice for atropine-unresponsive bradyarrhythmia with hypotension, life-threatening ventricular arrhythmia, or K⁺ >6.5 mEq/L.",
+                    "Pillay & Sasidharan 2019: Fab is the treatment of choice for atropine-unresponsive bradyarrhythmia with hypotension, life-threatening ventricular arrhythmia, or K⁺ >6.5 mEq/L; also for K⁺ >5 mEq/L with other severe symptoms.",
                     "Cochrane 2006: adverse effects in 13% of Fab-treated trial patients (bronchospasm in 2, mild angioedema in 1); all responded promptly to standard treatment.",
                 ),
                 citations = listOf(
@@ -311,7 +312,7 @@ internal val oleanderProtocols = listOf(
             Step(
                 title = "Anti-digoxin Fab: dose, product and availability",
                 points = listOf(
-                    "AHA 2023 Table 2: yellow oleander — initial adult dose 1200 mg (30 vials), the dose used in the RCT; paediatric dose unknown.",
+                    "AHA 2023 Table 2: yellow oleander — initial adult dose 1200 mg (30 vials); paediatric dose unknown. Eddleston et al. 2000 (RCT) used 1200 mg.",
                     "Pillay & Sasidharan 2019: plant poisoning likely needs far larger Fab doses than digoxin poisoning — 10–20 vials (400–800 mg) in severe cases, repeated if necessary.",
                     "FDA DigiFab label: 40 mg Fab per vial, binding about 0.5 mg digoxin; IV infusion over at least 30 min, or bolus if cardiac arrest is imminent.",
                     "FDA DigiFab label: anaphylaxis possible, especially with papain, papaya, bromelain or sheep-protein allergy; draw digoxin levels before Fab if at all possible — immunoassays may mislead afterwards.",
@@ -320,6 +321,7 @@ internal val oleanderProtocols = listOf(
                 ),
                 citations = listOf(
                     cite(OL_AHA, "Table 2"),
+                    cite(OL_FAB_RCT, "Abstract — Methods"),
                     cite(OL_PILLAY, "Yellow oleander — digoxin-specific antibodies"),
                     cite(OL_FDA, "§2.1; §2.2; §5.2; §5.4; §11"),
                     cite(OL_COST, "Abstract"),
@@ -380,9 +382,14 @@ internal val oleanderProtocols = listOf(
                 ),
             ),
             ProtocolNote(
-                "Fab dose differs: AHA 2023 — 1200 mg (30 vials), the RCT dose; Pillay & Sasidharan 2019 — 10–20 vials (400–800 mg); " +
+                "Fab dose differs: AHA 2023 — 1200 mg (30 vials), also the dose used in the Eddleston 2000 RCT; Pillay & Sasidharan 2019 — 10–20 vials (400–800 mg); " +
                     "FDA label for acute digoxin ingestion of unknown amount — 20 vials (10, then 10 more if needed).",
-                listOf(cite(OL_AHA, "Table 2"), cite(OL_PILLAY, "Yellow oleander — digoxin-specific antibodies"), cite(OL_FDA, "§2 Dosing table")),
+                listOf(
+                    cite(OL_AHA, "Table 2"),
+                    cite(OL_FAB_RCT, "Abstract — Methods"),
+                    cite(OL_PILLAY, "Yellow oleander — digoxin-specific antibodies"),
+                    cite(OL_FDA, "§2 Dosing table"),
+                ),
             ),
             ProtocolNote(
                 "Calcium for hyperkalaemia differs: Pillay & Sasidharan 2019 (IJCCM) list IV calcium with insulin–dextrose, and the ICMR bradyarrhythmia STW " +
@@ -405,9 +412,15 @@ internal val oleanderProtocols = listOf(
                 ),
             ),
             ProtocolNote(
-                "Both RCTs studied yellow oleander. Cochrane 2006: results cannot be readily translated to other cardenolides. AHA 2023 grades Fab lower " +
+                "The two RCTs in the Cochrane review (Fab 2000, MDAC 2003) both studied yellow oleander; the 2008 charcoal RCT enrolled mixed self-poisoning " +
+                    "(1647 of 4632 yellow oleander). Cochrane 2006: results cannot be readily translated to other cardenolides. AHA 2023 grades Fab lower " +
                     "for glycosides other than digoxin, digitoxin, Bufo venom and yellow oleander (COR 2b, case reports). Bandara 2010: Fab effective for either oleander.",
-                listOf(cite(OL_COCHRANE, "Authors' conclusions"), cite(OL_AHA, "§8 Rec 3"), cite(OL_BANDARA, "Abstract")),
+                listOf(
+                    cite(OL_COCHRANE, "Main results; Authors' conclusions"),
+                    cite(OL_MDAC_2008, "Abstract"),
+                    cite(OL_AHA, "§8 Rec 3"),
+                    cite(OL_BANDARA, "Abstract"),
+                ),
             ),
             ProtocolNote(
                 "India: these sources do not establish whether anti-digoxin Fab is registered or stocked in India. CMC Vellore 2020 managed patients " +
@@ -422,7 +435,7 @@ internal val oleanderProtocols = listOf(
             ProtocolNote(
                 "Scope: the ICMR STW cited covers symptomatic bradyarrhythmia in general, not poisoning; Indian oleander-specific content comes from " +
                     "peer-reviewed sources (IJCCM 2019 review, CMC Vellore 2020 cohort). Sri Lankan trials supply the randomised evidence.",
-                listOf(cite(OL_ICMR, "Scope"), cite(OL_PILLAY), cite(OL_CMC), cite(OL_FAB_RCT), cite(OL_DESILVA), cite(OL_MDAC_2008)),
+                listOf(cite(OL_ICMR, "Title; When to suspect"), cite(OL_PILLAY), cite(OL_CMC), cite(OL_FAB_RCT), cite(OL_DESILVA), cite(OL_MDAC_2008)),
             ),
         ),
         citations = listOf(
