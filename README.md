@@ -102,6 +102,18 @@ Create a real upload key before publishing to the Play Store.
 Drug profiles: add a `DrugMonograph` to the right file in `content/drugs/data/` (see `Metabolic.kt` for the
 template), with a `Source` for the DailyMed label and a section-level citation on every block.
 
+## Before any public release
+
+- **ESC guidelines:** content summarised from European Society of Cardiology guidelines is kept for private use.
+  Request permission from ESC (customerservices@escardio.org / help.escardio.org) before publishing. If permission
+  is refused, remove it: ESC sources use `Authority.Paper` with a `document` starting "ESC", and ESC statements
+  start with "ESC" (search the `content/` folder).
+- **AHA/ASA 2026 stroke guideline correction** (Stroke 2026;57:e461–e467): review and update the stroke protocol.
+- **Clinical review** of every page by a second clinician (see CONTRIBUTING.md), especially items flagged as
+  summarised from secondary sources (ACOG CPG 3 headache doses, TIMI criteria).
+- **Release signing key** for Play Store / F-Droid; check whether Apple's non-profit fee waiver applies.
+- **Regulatory check** (CDSCO medical-device software rules) before store release.
+
 ## Licences and legal
 
 - Code: Apache License 2.0 (`LICENSE`). Written content: CC BY 4.0 (`CONTENT-LICENSE.md`). Third-party: `NOTICE`.
