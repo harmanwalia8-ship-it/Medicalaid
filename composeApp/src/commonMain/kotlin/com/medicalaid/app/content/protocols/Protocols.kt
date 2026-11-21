@@ -16,6 +16,8 @@ import com.medicalaid.app.content.protocols.data.daturaProtocols
 import com.medicalaid.app.content.protocols.data.daturaSources
 import com.medicalaid.app.content.protocols.data.oleanderProtocols
 import com.medicalaid.app.content.protocols.data.oleanderSources
+import com.medicalaid.app.content.protocols.data.cocaineProtocols
+import com.medicalaid.app.content.protocols.data.cocaineSources
 import com.medicalaid.app.content.protocols.data.strokeProtocols
 import com.medicalaid.app.content.protocols.data.toxAlcoholProtocols
 import com.medicalaid.app.content.protocols.data.toxAlcoholSources
@@ -23,11 +25,11 @@ import com.medicalaid.app.content.protocols.data.toxAlcoholSources
 object Protocols {
     val all: List<Protocol> =
         strokeProtocols + householdToxProtocols + pesticideProtocols + envenomationProtocols + drugToxProtocols + toxAlcoholProtocols +
-            paraquatProtocols + daturaProtocols + oleanderProtocols
+            paraquatProtocols + daturaProtocols + oleanderProtocols + cocaineProtocols
 
     val sources: List<Source> =
         strokeProtocolSources + householdToxSources + pesticideSources + envenomationSources + drugToxSources + toxAlcoholSources +
-            paraquatSources + daturaSources + oleanderSources
+            paraquatSources + daturaSources + oleanderSources + cocaineSources
 
     private val index = all.associateBy { it.id }
 
