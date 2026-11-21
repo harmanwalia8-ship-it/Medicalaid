@@ -11,8 +11,10 @@ package com.medicalaid.app.content
  *  - Doses labelled “trial doses” come from ASAM/AAAP Appendix K, which says it is not a dosing guide.
  *  - No ICMR, MoHFW or Indian Psychiatric Society guideline on treating stimulant use disorder was found;
  *    the IPS 2023 guideline covers intoxication in the emergency department only.
- *  - India statements start with “India” so the guideline filter groups them; the full cocaine
- *    toxicity steps live in the cocaine toxicity protocol (protocols/data/Cocaine.kt).
+ *  - India statements start with “India” so the guideline filter groups them.
+ *  - The cocaine toxicity protocol (protocols/data/Cocaine.kt) is still in review and not shown, so the
+ *    toxicity block here must not point readers to it; add that pointer back to the block title only
+ *    once the cocaine group is moved to `released` in Protocols.kt.
  */
 
 internal val substanceConditionSources: List<Source> = listOf(
@@ -130,11 +132,11 @@ private val sudCocaineUseDisorder = Condition(
                 "ASAM/AAAP: levamisole, a common cocaine adulterant, can cause neutropenia and small-vessel vasculitis — check the neutrophil count.",
                 "NICE CG51 1.3.1.1: advise on reducing sexual and injecting risk behaviours; consider offering blood-borne virus testing.",
                 "NICE CG51 1.4.2.1: consider small incentives to encourage hepatitis B/C and HIV testing, hepatitis B immunisation and TB testing.",
-                "ASAM/AAAP: offer HIV PrEP with risky sex or injecting; with risky sexual behaviour, STI testing every 3–6 months.",
+                "ASAM/AAAP: offer HIV PrEP with risky sex or injecting; with risky sexual behaviour, STI testing at least every 3–6 months, more often if risk is higher.",
                 "ASAM/AAAP: provide naloxone (or say where to get it) when stimulants come from non-medical sources; give safer-injection education and supplies.",
                 "ASAM/AAAP: encourage oral hygiene, dental care and nutritious food — stimulant use carries high risk of caries, abscesses and malnutrition.",
             ),
-            listOf(cite(SUD_ASAM, "Appendix I; Recs 50, 85, 88–92"), cite(SUD_CG51, "1.3.1.1, 1.4.2.1")),
+            listOf(cite(SUD_ASAM, "Appendix I; Comprehensive Assessment; Recs 50, 85, 88–92"), cite(SUD_CG51, "1.3.1.1, 1.4.2.1")),
         ),
         InfoBlock(
             "Withdrawal (“crash”) — features",
@@ -159,7 +161,7 @@ private val sudCocaineUseDisorder = Condition(
                 "WHO (mhGAP, quoted in WHO/UNODC Standards): manage cocaine withdrawal in a supportive environment; no specific medication is recommended.",
                 "WHO: symptomatic medicines may relieve agitation or sleep disturbance; if depression or psychosis occurs, monitor closely and seek specialist advice.",
                 "WHO/UNODC: prescribe psychoactive medicines cautiously and for short periods only, watching for tolerance and misuse.",
-                "ASAM/AAAP: standard care treats presenting symptoms and minimises risk in a calm setting; a Cochrane review found no effective medicine for stimulant withdrawal.",
+                "ASAM/AAAP: standard care treats presenting symptoms and minimises risk in a calm setting; a 2009 Cochrane review of amphetamine withdrawal (4 RCTs, 125 participants) found no effective medicine for general stimulant withdrawal.",
                 "ASAM/AAAP: post-acute insomnia — sleep hygiene may suffice; severe or persistent insomnia may need medicine; use sedative-hypnotics cautiously, reassessing regularly.",
                 "SAMHSA TIP 33: cocaine-induced depression usually dissipates within hours to days.",
                 "ASAM/AAAP: watch for breakthrough psychosis and suicidality, which may rise as intoxication wanes and acute withdrawal begins.",
@@ -180,7 +182,7 @@ private val sudCocaineUseDisorder = Condition(
                 "TIP 33: clinicians report cocaine psychosis usually clears in 1–3 days, versus up to 2–3 weeks after methamphetamine.",
                 "Freudenmann & Lepping: itching, scratching and skin damage maintain the belief — lesions are reinterpreted as proof of infestation.",
                 "ASAM/AAAP: skin complications of stimulant use include picking, neurodermatitis, cellulitis, abscesses and other soft-tissue infections.",
-                "TIP 33 (DSM-5): consider a primary psychotic disorder if psychosis preceded use, exceeds expected effects, lasts ≥1 month after stopping, or earlier episodes were non-substance-induced.",
+                "TIP 33 (DSM-5): consider a primary psychotic disorder if psychosis preceded use, exceeds expected effects, lasts ≥1 month after intoxication or withdrawal has ended, or earlier episodes were non-substance-induced.",
             ),
             listOf(
                 cite(SUD_DI, "Inset 2; Inset 10; Course and duration of illness; Cleaning, self-therapy, and injuries"),
@@ -195,7 +197,7 @@ private val sudCocaineUseDisorder = Condition(
                 "Freudenmann & Lepping work-up: CBC, ESR, CRP, creatinine, electrolytes, liver tests, TSH, fasting glucose, urinalysis, pregnancy test.",
                 "Freudenmann & Lepping: drug-induced infestation — mainstay is abstinence plus an antipsychotic for a limited period; no generally accepted guideline exists.",
                 "Freudenmann & Lepping: antipsychotics are for recurring or persistent psychotic symptoms; simple formication is not an indication.",
-                "Freudenmann & Lepping: secondary infestation responded in about 3 weeks (range 0.5–8); treat for at least 3 weeks.",
+                "Freudenmann & Lepping: with atypical antipsychotics, secondary infestation reached maximum response at a median of 3 weeks (range 0.5–8); treat for at least 3 weeks before switching for poor response.",
                 "Freudenmann & Lepping: treat skin lesions topically (light dressings if needed); consider non-sedating antihistamines (e.g., loratadine, levocetirizine) for itch.",
                 "Freudenmann & Lepping: acknowledge the suffering, do not argue about the belief, and ask about suicidal ideation and risk to others.",
                 "ASAM/AAAP: treat or refer skin and soft-tissue infections; serious skin infections are listed among acute complications.",
@@ -206,22 +208,25 @@ private val sudCocaineUseDisorder = Condition(
             ),
         ),
         InfoBlock(
-            "Acute cocaine toxicity — key points (full steps in the cocaine toxicity protocol)",
+            "Acute cocaine toxicity — key points",
             listOf(
-                "ASAM/AAAP: benzodiazepines are first line for stimulant-induced agitation and the hyperadrenergic state.",
+                "ASAM/AAAP: benzodiazepines can be considered first line for stimulant-induced agitation (Rec 57a, high certainty, conditional) and the hyperadrenergic state (Rec 64: treat with GABAergic agents — benzodiazepines, phenobarbital, propofol; low certainty, strong).",
                 "India (IPS 2023): quiet room; lorazepam 2 mg orally, IM or IV, repeated as necessary; IV fluids for dehydration.",
                 "WHO mhGAP: diazepam 5–10 mg orally, IV or rectally, titrated until calm and lightly sedated.",
                 "ASAM/AAAP chest pain: treat intoxication with GABAergic drugs, evaluate for ACS; calcium-channel blockers or vasodilators preferred for ischaemia.",
                 "India (IPS 2023): aspirin and nitroglycerine are given for cocaine-related chest pain.",
+                "SAMHSA TIP 33: give aspirin unless contraindicated; nitroglycerin is indicated for cocaine-induced ischaemia and chest pain.",
                 "ASAM/AAAP: QRS widening — sodium bicarbonate. Seizures — benzodiazepines; phenobarbital or propofol if refractory.",
                 "ASAM/AAAP hypertensive emergency: short-acting nitroprusside, phentolamine or dihydropyridine CCB; avoid long-acting agents; nitroglycerin if ischaemia.",
+                "ASAM/AAAP hyperthermia (manage by best practice): severe (generally >40.5 °C) — immersion in a cooling water bath, which may be combined with sedatives or neuromuscular blockers; less severe — evaporative cooling (mist, fan).",
+                "SAMHSA TIP 33: in a stimulant overdose where opioid involvement (including fentanyl) is suspected, giving naloxone is critical.",
                 "ASAM/AAAP tests as indicated: CBC, metabolic panel, liver tests, CK and lactate, troponin.",
                 "ASAM/AAAP: intoxication can be managed in lower-acuity settings if cooperative, at most mildly hyperadrenergic, and vital signs and suicidality can be monitored.",
                 "India (IPS 2023): cocaine or stimulant intoxication settles over hours to within a day.",
             ),
             listOf(
-                cite(SUD_ASAM, "Recs 49, 54, 57, 64, 66–70, 72"), cite(SUD_IPS, "Cocaine and other stimulants"),
-                cite(SUD_MHGAP, "SUB — emergency presentations, p. 111"),
+                cite(SUD_ASAM, "Recs 49, 54, 57, 64, 66–70, 72; Hyperthermia"), cite(SUD_IPS, "Cocaine and other stimulants"),
+                cite(SUD_MHGAP, "SUB — emergency presentations, p. 111"), cite(SUD_TIP33, "Ch. 3, p. 47"),
             ),
         ),
         InfoBlock(
@@ -245,11 +250,13 @@ private val sudCocaineUseDisorder = Condition(
                 "CBT: ASAM/AAAP — preferred alongside CM (strong). NICE CG51 — drug-focused CBT should not be offered routinely for stimulant misuse.",
                 "Medicines: ASAM/AAAP — several off-label options, psychostimulants by specialists. WHO/UNODC — none consistently efficacious; mhGAP — no dexamphetamine in non-specialist settings.",
                 "Mood symptoms: ASAM/AAAP — consider medication even if stimulant-induced. WHO mhGAP — assess comorbidity ideally after 2–3 weeks' abstinence.",
-                "Beta-blockers in intoxication: ASAM/AAAP — if used, choose one with alpha-1 blockade. SAMHSA TIP 33 — generally discouraged; an unresolved matter.",
+                "Beta-blockers in intoxication: ASAM/AAAP — CCBs or vasodilators preferred; if a beta-blocker is used, choose one with alpha-1 blockade (carvedilol, labetalol). " +
+                    "SAMHSA TIP 33 — beta-blockers generally discouraged (unresolved); propranolol should not be used (may enhance vasospasm); labetalol has shown safety in cocaine-induced hypertension and tachycardia.",
+                "Stimulant psychosis: ASAM/AAAP — treat psychotic symptoms with an antipsychotic (Rec 59). WHO mhGAP and SAMHSA TIP 33 — benzodiazepine first; add an antipsychotic if symptoms do not respond to it.",
             ),
             listOf(
-                cite(SUD_ASAM, "Recs 6, 9–19, 24, 68"), cite(SUD_CG51, "1.4.6.1"), cite(SUD_WHO_STD, "Para 243; mhGAP 2.0 box"),
-                cite(SUD_MHGAP, "SUB 2, Protocol 2"), cite(SUD_TIP33, "Ch. 3, p. 47"),
+                cite(SUD_ASAM, "Recs 6, 9–19, 24, 59, 68"), cite(SUD_CG51, "1.4.6.1"), cite(SUD_WHO_STD, "Para 243; mhGAP 2.0 box"),
+                cite(SUD_MHGAP, "SUB 2, Protocol 2; SUB — emergency presentations, p. 111"), cite(SUD_TIP33, "Ch. 3, pp. 47, 65"),
             ),
         ),
     ),
@@ -260,7 +267,7 @@ private val sudCocaineUseDisorder = Condition(
             listOf(
                 Drug(
                     "Contingency management (CM)",
-                    "ASAM/AAAP: tangible rewards (vouchers, prizes) for verified goals such as drug-negative tests or attendance; usually needs testing and contact at least twice weekly.",
+                    "ASAM/AAAP: tangible rewards (vouchers, prizes) for verified goals such as drug-negative tests or attendance; usually needs drug-testing capacity and at least twice-weekly clinical contact.",
                     cautions = listOf(
                         "ASAM/AAAP (Rec 5, high certainty, strong): CM should be a primary component, with other psychosocial treatment.",
                         "ASAM/AAAP: incentive values that are too low are unlikely to work.",
@@ -341,8 +348,9 @@ private val sudCocaineUseDisorder = Condition(
                     cautions = listOf(
                         "WHO/UNODC: medicines in use mainly treat co-occurring psychiatric disorders and withdrawal symptoms.",
                         "ASAM/AAAP: monitor symptoms, function, adherence and non-medical use, more closely for higher-risk medicines.",
+                        "ASAM/AAAP (Rec 37): in pregnancy, weigh risk versus benefit to the fetus or infant before using any medicine for stimulant use disorder, intoxication or withdrawal.",
                     ),
-                    citations = listOf(cite(SUD_ASAM, "Pharmacotherapy"), cite(SUD_WHO_STD, "Para 243")),
+                    citations = listOf(cite(SUD_ASAM, "Pharmacotherapy; Rec 37"), cite(SUD_WHO_STD, "Para 243")),
                 ),
                 Drug(
                     "Bupropion",
@@ -377,10 +385,14 @@ private val sudCocaineUseDisorder = Condition(
                     "ASAM/AAAP (Rec 18, moderate certainty, conditional): can be considered to reduce cocaine use and craving; extra consideration with alcohol use disorder or ADHD.",
                     cautions = listOf(
                         sudPsychostimulantOnly,
+                        "ASAM/AAAP: MAS-ER is an amphetamine — consider baseline cardiovascular screening (e.g., ECG), especially with risk factors; monitor blood pressure and cardiac symptoms early in treatment.",
+                        "ASAM/AAAP (topiramate): cognitive effects, paraesthesia and variable tolerability — titrate slowly; appetite suppression matters if underweight.",
                         "Trial doses (ASAM/AAAP Appendix K, not a dosing guide): topiramate up to 100–150 mg twice daily plus MAS-ER up to 60 mg/day.",
                         "ASAM/AAAP: monitor with pill counts, drug testing, frequent contact and prescription-monitoring checks.",
                     ),
-                    citations = listOf(cite(SUD_ASAM, "Recs 15–16, 18; Appendix K, Table 1")),
+                    citations = listOf(
+                        cite(SUD_ASAM, "Recs 10, 15–16, 18; Topiramate and Extended-Release Mixed Amphetamine Salts; Amphetamine Formulations; Appendix K, Table 1"),
+                    ),
                 ),
                 Drug(
                     "Long-acting amphetamine — specialist only",
@@ -448,9 +460,10 @@ private val sudCocaineUseDisorder = Condition(
                 ),
                 Drug(
                     "Benzodiazepine (agitation)",
-                    "ASAM/AAAP (Rec 57a): first line for stimulant-induced agitation or confusion. WHO mhGAP: diazepam 5–10 mg orally, IV or rectally, titrated until calm and lightly sedated.",
+                    "ASAM/AAAP (Rec 57a, high certainty, conditional): can be considered first line for stimulant-induced agitation or confusion. WHO mhGAP: diazepam 5–10 mg orally, IV or rectally, titrated until calm and lightly sedated.",
                     cautions = listOf(
-                        "ASAM/AAAP Appendix N examples: lorazepam 1–2 mg IV; diazepam 5–10 mg orally; midazolam 5 mg IM.",
+                        "ASAM/AAAP Appendix N examples: lorazepam 1–2 mg IV; diazepam 5–10 mg orally for less severe symptoms; midazolam 5 mg IM or 0.01–0.05 mg/kg IV for acute agitation in adults.",
+                        "ASAM/AAAP Appendix N: lorazepam has very slow IM onset (15–30 min); midazolam has a relatively fast IM onset; IM allows dosing in agitated patients without IV access.",
                         "India (IPS 2023): lorazepam 2 mg orally, IM or IV, repeated as necessary.",
                     ),
                     citations = listOf(
@@ -464,7 +477,7 @@ private val sudCocaineUseDisorder = Condition(
                     cautions = listOf(
                         "ASAM/AAAP Appendix N examples: olanzapine 5 mg orally; quetiapine 50–100 mg at night; haloperidol or droperidol 5 mg IM for agitation with psychosis.",
                         "WHO mhGAP: haloperidol 1–2.5 mg orally or IM if psychotic symptoms do not respond to diazepam.",
-                        "India (IPS 2023): acute agitation and paranoia may need a short-term injectable antipsychotic; not required without a psychotic disorder, including cocaine-induced.",
+                        "India (IPS 2023): acute agitation and paranoia may need a short-term injectable antipsychotic; antipsychotics are not required unless there is a psychotic disorder (primary, or stimulant/cocaine-induced).",
                         "SAMHSA TIP 33: olanzapine, haloperidol, aripiprazole, risperidone or quetiapine may help; choose by each patient's risk–benefit profile.",
                         "ASAM/AAAP: avoid chlorpromazine and clozapine (seizure risk); consider QT prolongation.",
                         "SAMHSA TIP 33: haloperidol may precipitate or worsen acute dystonic reactions after recent cocaine use.",
@@ -506,7 +519,8 @@ private val sudCocaineUseDisorder = Condition(
         ),
         Caution(
             "Unopposed beta-blockers during cocaine intoxication",
-            "ASAM/AAAP: CCBs or vasodilators preferred for ischaemia; if a beta-blocker is used, choose one with alpha-1 blockade (carvedilol, labetalol) and consider a coronary vasodilator.",
+            "ASAM/AAAP: CCBs or vasodilators preferred for ischaemia; if a beta-blocker is used, choose one with alpha-1 blockade (carvedilol, labetalol) and consider a coronary vasodilator. " +
+                "SAMHSA TIP 33: beta-blockers such as propranolol should not be used for cocaine chest pain — they may enhance vasospasm.",
             listOf(cite(SUD_ASAM, "Rec 68"), cite(SUD_TIP33, "Ch. 3, p. 47")),
         ),
         Caution(
@@ -526,7 +540,8 @@ private val sudCocaineUseDisorder = Condition(
         ),
     ),
     escalate = listOf(
-        "ASAM/AAAP: hyperadrenergic signs (tachycardia, hypertension, hyperthermia, agitation) or overdose — identify first and treat in an appropriate higher level of care.",
+        "ASAM/AAAP: first identify overdose and complications needing a higher level of care, assessing hyperadrenergic signs (tachycardia, hypertension, hyperthermia, agitation); " +
+            "severe concerns or complications need acute care — lower-acuity care suits only at most mild hyperadrenergic symptoms, or symptoms responding to medicines manageable there.",
         "WHO mhGAP: chest pain, tachyarrhythmia or other neurological signs during stimulant intoxication — transfer to hospital.",
         "ASAM/AAAP acute complications: hyperthermia, arrhythmia, hypertensive emergency, seizures, stroke, rhabdomyolysis, GI perforation, endocarditis and other serious infections.",
         "ASAM/AAAP: moderate–severe or escalating agitation or psychosis — evaluate for life-threatening medical causes and danger to self or others; refer for emergency workup or psychiatric assessment.",
@@ -538,7 +553,7 @@ private val sudCocaineUseDisorder = Condition(
         "ASAM/AAAP: pregnancy — refer for prenatal care and coordinate it with stimulant use disorder treatment.",
     ),
     citations = listOf(
-        cite(SUD_ASAM, "Recs 1, 33–34, 45, 53, 60–62; Appendix L; Body Stuffing or Packing"),
+        cite(SUD_ASAM, "Recs 1, 33–34, 45, 53–54, 60–62; Appendix L; Body Stuffing or Packing"),
         cite(SUD_MHGAP, "SUB — emergency presentations, p. 111"), cite(SUD_CG120, "1.3.1"),
         cite(SUD_TIP33, "Ch. 3, pp. 63–66"), cite(SUD_CG51), cite(SUD_WHO_STD), cite(SUD_DI), cite(SUD_IPS),
     ),

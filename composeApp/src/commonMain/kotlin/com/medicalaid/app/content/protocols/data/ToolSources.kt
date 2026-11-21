@@ -4,26 +4,36 @@ import com.medicalaid.app.content.Authority
 import com.medicalaid.app.content.Source
 
 /**
- * Sources for the burns and acid–base calculators (cited directly by the UI).
- * DRAFT — to be verified and completed by the emergency-content review (ids must stay stable).
+ * Sources for the burns and acid–base calculators (cited directly by the UI in EmergencyTools.kt).
+ * Ids are stable; every constant in tools/Burns.kt and tools/AcidBase.kt is checked against these documents.
+ * - Lund–Browder values and front/back split: JTS Burn Care CPG, Appendices B–C (the 1944 original is not online).
+ * - Starting rates 2 and 4 mL/kg/%TBSA: ABA 2024 guideline, Question 3.
+ * - Half of the 24 h volume in the first 8 h, the rest over 16 h: MoHFW 2025 STG, section E.
+ * - ABG thresholds, secondary responses, anion gap, albumin correction, Δ–Δ: Berend et al. NEJM 2014.
  */
 internal val toolSources = listOf(
     Source(
-        "tool-lund-browder", Authority.Paper, "Surg Gynecol Obstet 1944;79:352–358",
-        "The estimation of areas of burns (Lund & Browder)", "1944",
-        "https://www.ncbi.nlm.nih.gov/search/all/?term=Lund+Browder+estimation+of+areas+of+burns",
-        status = "Draft — pending verification",
+        "tool-lund-browder", Authority.Paper, "Joint Trauma System (US DoD) clinical practice guideline",
+        "Burn Care — Appendices B–C: Lund–Browder burn estimate (after Lund & Browder, Surg Gynecol Obstet 1944;79:352–358)",
+        "2025",
+        "https://jts.health.mil/assets/docs/cpgs/Burn_Care_CPG_10_June_2025_ID12_v1.3.pdf",
+        status = "Published 10 June 2025; supersedes the 11 May 2016 CPG",
     ),
     Source(
-        "tool-burns-fluids", Authority.Paper, "American Burn Association practice guideline",
-        "Burn shock resuscitation (ABA practice guidelines)", "2008",
-        "https://ameriburn.org/",
-        status = "Draft — pending verification",
+        "tool-burns-fluids", Authority.ABA, "Clinical practice guideline — J Burn Care Res 2024;45(3):565–589",
+        "American Burn Association Clinical Practice Guidelines on Burn Shock Resuscitation", "2024",
+        "https://doi.org/10.1093/jbcr/irad125",
+        status = "Published online 5 December 2023; adults with burns ≥20% TBSA, first 48 hours",
     ),
     Source(
-        "tool-acid-base", Authority.Paper, "N Engl J Med 2014;371:1434–1445",
+        "tool-mohfw-burns-2025", Authority.MoHFW, "Standard Treatment Guidelines (Dte.GHS, Trauma and Burn Division)",
+        "Standard Treatment Guidelines for Management of Burns", "2025",
+        "https://www.dghs.mohfw.gov.in/uploads/assets/S1Ipab4025VceQpFs7Qa6THwh07NLmggStsg1cDD.pdf",
+    ),
+    Source(
+        "tool-acid-base", Authority.Paper, "Review article — N Engl J Med 2014;371:1434–1445",
         "Physiological approach to assessment of acid–base disturbances (Berend, de Vries, Gans)", "2014",
         "https://doi.org/10.1056/NEJMra1003327",
-        status = "Draft — pending verification",
+        status = "Updated online 16 October 2014",
     ),
 )

@@ -2,11 +2,16 @@ package com.medicalaid.app.tools
 
 /**
  * Burns: total body surface area (Lund–Browder chart, age-adjusted) and fluid resuscitation formulas.
- * Percentages per region are whole-region values; the chart splits each region into front and back halves.
- * Constants are checked against the cited sources (see ToolSources.kt).
+ * Percentages per region are whole-region values. Sources (ToolSources.kt):
+ * - Region values per age column and the adult anterior/posterior split: JTS Burn Care CPG 2025,
+ *   Appendix B (adult: one side anterior/posterior) and Appendix C (birth–1 y, 1–4, 5–9, 10–14, 15 y).
+ *   Hands are 2.5% each (1.25% per side), so every column sums to 100%.
+ * - 4 and 2 mL/kg/%TBSA starting rates: ABA 2024 burn shock resuscitation guideline, Question 3.
+ * - Half of the 24 h volume in the first 8 h, the rest over the next 16 h: MoHFW 2025 burns STG, section E;
+ *   hours are counted from the injury, not from arrival (JTS CPG, Appendix D).
  */
 object Burns {
-    /** Age columns of the Lund–Browder chart. */
+    /** Age columns of the Lund–Browder chart (JTS Appendix C: birth–1 yr, 1–4, 5–9, 10–14, 15 years; Appendix B: adult). */
     enum class AgeBand(val label: String) {
         Infant("<1 y"), OneToFour("1–4 y"), FiveToNine("5–9 y"), TenToFourteen("10–14 y"), Fifteen("15 y"), Adult("Adult"),
     }
@@ -18,7 +23,7 @@ object Burns {
         val id: String,
         val label: String,
         val pctByAge: List<Double>,
-        /** Which views show this region, and the share of the region each view represents. */
+        /** Which views show this region, and the share of the region each view represents (JTS Appendix B, one side anterior/posterior). */
         val shares: Map<Side, Double>,
     ) {
         fun pct(age: AgeBand): Double = pctByAge[age.ordinal]
@@ -73,8 +78,8 @@ object Burns {
         return FluidPlan(mlPerKgPerPct, total, half, half, half / 8, half / 16)
     }
 
-    /** Parkland formula: 4 mL/kg/%TBSA. */
+    /** Parkland (Baxter) starting rate: 4 mL/kg/%TBSA (ABA 2024, Question 3 comparator). */
     const val PARKLAND_ML = 4.0
-    /** ABA consensus / ABLS starting rate for adults with thermal burns: 2 mL/kg/%TBSA. */
+    /** ABA 2024 recommended starting rate for adults with burns ≥20% TBSA: 2 mL/kg/%TBSA (Question 3). */
     const val ABLS_ADULT_ML = 2.0
 }

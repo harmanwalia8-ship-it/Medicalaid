@@ -180,16 +180,23 @@ fun BurnsTool(initialMarks: Map<String, Double> = emptyMap(), initialWeight: Str
             Spacer(Modifier.height(12.dp))
             FluidPlanCard("Parkland · ${formatNumber(Burns.PARKLAND_ML)} mL/kg/%TBSA", Burns.fluids(Burns.PARKLAND_ML, weight, tbsa))
             Spacer(Modifier.height(8.dp))
-            FluidPlanCard("ABA/ABLS adult start · ${formatNumber(Burns.ABLS_ADULT_ML)} mL/kg/%TBSA", Burns.fluids(Burns.ABLS_ADULT_ML, weight, tbsa))
+            FluidPlanCard("ABA 2024 adult start · ${formatNumber(Burns.ABLS_ADULT_ML)} mL/kg/%TBSA", Burns.fluids(Burns.ABLS_ADULT_ML, weight, tbsa))
             Spacer(Modifier.height(6.dp))
             Text(
-                "Times run from the burn, not from arrival. Titrate to urine output and clinical response; see the burns protocol for thresholds and targets.",
+                "Half in the first 8 h counted from the time of burn, not arrival; the rest over the next 16 h. Starting estimates only: titrate to hourly urine output (targets in the burns protocol). " +
+                    "ABA 2024 (adults, ≥20% TBSA): consider starting at 2 rather than 4 mL/kg/%TBSA to reduce fluid volumes. " +
+                    "MoHFW 2025: IV formula above 15% TBSA in adults (≥10% in children); its adult Safdarjung (modified Brooke) formula is " +
+                    "2 mL/kg/%TBSA Ringer's lactate plus maintenance DNS (50 mL/kg/day; 2,500 mL in the text).",
                 style = Theme.type.caption, color = c.textTertiary,
             )
         }
         Spacer(Modifier.height(14.dp))
         GuidelineBasis(
-            listOf(Citation("tool-lund-browder", "Lund–Browder chart"), Citation("tool-burns-fluids", "Fluid resuscitation formulas")),
+            listOf(
+                Citation("tool-lund-browder", "Lund–Browder chart: Appendices B–C; hours counted from injury: Appendix D"),
+                Citation("tool-burns-fluids", "2 vs 4 mL/kg/%TBSA starting rate: Question 3"),
+                Citation("tool-mohfw-burns-2025", "Section E, fluid resuscitation (pp. 30–32): half in first 8 h, rest over 16 h"),
+            ),
             compact = true,
         )
     }
@@ -290,16 +297,17 @@ fun AcidBaseTool(
                     Spacer(Modifier.height(2.dp))
                     Text("${formatDecimals(ag, 1)} mmol/L" + (corrected?.let { " · albumin-corrected ${formatDecimals(it, 1)}" } ?: ""), style = Theme.type.bodyStrong, color = c.text)
                     if (dr != null) {
-                        Text("Delta ratio ${formatDecimals(dr, 2)} — ${AcidBase.deltaRatioMeaning(dr)}", style = Theme.type.caption, color = c.textSecondary)
+                        Text("Delta ratio (ΔAG/ΔHCO₃) ${formatDecimals(dr, 2)} — ${AcidBase.deltaRatioMeaning(dr)}", style = Theme.type.caption, color = c.textSecondary)
                     }
-                    Text("Reference anion gap varies by laboratory; uses 12 mmol/L here.", style = Theme.type.caption, color = c.textTertiary)
+                    Text("Anion gap reference ranges vary by analyser (3–12 up to 8.5–15 mmol/L); ΔAG uses 12 and ΔHCO₃ uses 24 mmol/L. " +
+                        "Albumin correction adds 2.5 per 1 g/dL below 4.0 g/dL (4.0 assumed normal).", style = Theme.type.caption, color = c.textTertiary)
                 }
             }
             Spacer(Modifier.height(8.dp))
-            Text("Interpret with the clinical picture; mixed disorders are common.", style = Theme.type.caption, color = c.textTertiary)
+            Text("Prediction equations are approximations. Respiratory ranges add ±2 mmol/L for the HCO₃ reference of 24 ± 2. Interpret with the clinical picture.", style = Theme.type.caption, color = c.textTertiary)
         }
         Spacer(Modifier.height(14.dp))
-        GuidelineBasis(listOf(Citation("tool-acid-base", "Compensation rules, anion gap, delta ratio")), compact = true)
+        GuidelineBasis(listOf(Citation("tool-acid-base", "Table 1 (criteria, secondary responses); Figure 1 and text (anion gap, albumin, Δ–Δ)")), compact = true)
     }
 }
 
@@ -308,21 +316,21 @@ private fun compensationLine(p: AcidBase.Primary, pco2: Double, hco3: Double, ch
     fun verdict(measured: Double, e: AcidBase.Expected, above: String, below: String) = when {
         measured > e.high -> above
         measured < e.low -> below
-        else -> "Within the expected range — appropriate compensation"
+        else -> "Within the expected range — appropriate secondary response"
     }
     fun range(e: AcidBase.Expected) = "${e.label}: ${formatDecimals(e.low, 1)}–${formatDecimals(e.high, 1)}"
     return when (p) {
         AcidBase.Primary.MetabolicAcidosis -> AcidBase.wintersPco2(hco3).let {
-            range(it) + " · measured ${formatNumber(pco2)}" to verdict(pco2, it, "PaCO₂ higher than expected — concurrent respiratory acidosis", "PaCO₂ lower than expected — concurrent respiratory alkalosis")
+            range(it) + " · measured ${formatNumber(pco2)}" to verdict(pco2, it, "PaCO₂ higher than expected — superimposed respiratory acidosis", "PaCO₂ lower than expected — superimposed respiratory alkalosis")
         }
         AcidBase.Primary.MetabolicAlkalosis -> AcidBase.alkalosisPco2(hco3).let {
-            range(it) + " · measured ${formatNumber(pco2)}" to verdict(pco2, it, "PaCO₂ higher than expected — concurrent respiratory acidosis", "PaCO₂ lower than expected — concurrent respiratory alkalosis")
+            range(it) + " · measured ${formatNumber(pco2)}" to verdict(pco2, it, "PaCO₂ higher than expected — superimposed respiratory acidosis", "PaCO₂ lower than expected — superimposed respiratory alkalosis")
         }
         AcidBase.Primary.RespiratoryAcidosis -> AcidBase.respAcidosisHco3(pco2, chronic).let {
-            range(it) + " · measured ${formatNumber(hco3)}" to verdict(hco3, it, "HCO₃ higher than expected — concurrent metabolic alkalosis", "HCO₃ lower than expected — concurrent metabolic acidosis")
+            range(it) + " · measured ${formatNumber(hco3)}" to verdict(hco3, it, "HCO₃ higher than expected — superimposed metabolic alkalosis", "HCO₃ lower than expected — superimposed metabolic acidosis")
         }
         AcidBase.Primary.RespiratoryAlkalosis -> AcidBase.respAlkalosisHco3(pco2, chronic).let {
-            range(it) + " · measured ${formatNumber(hco3)}" to verdict(hco3, it, "HCO₃ higher than expected — concurrent metabolic alkalosis", "HCO₃ lower than expected — concurrent metabolic acidosis")
+            range(it) + " · measured ${formatNumber(hco3)}" to verdict(hco3, it, "HCO₃ higher than expected — superimposed metabolic alkalosis", "HCO₃ lower than expected — superimposed metabolic acidosis")
         }
         else -> null
     }
