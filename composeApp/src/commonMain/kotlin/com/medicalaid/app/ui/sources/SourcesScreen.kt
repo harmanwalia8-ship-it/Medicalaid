@@ -79,6 +79,14 @@ private val authorityNames = mapOf(
     Authority.NDMA to "National Disaster Management Authority, Government of India",
     Authority.ISCCM to "Indian Society of Critical Care Medicine",
     Authority.CSI to "Cardiological Society of India",
+    Authority.FOGSI to "Federation of Obstetric and Gynaecological Societies of India",
+    Authority.FIGO to "International Federation of Gynecology and Obstetrics",
+    Authority.SOGC to "Society of Obstetricians and Gynaecologists of Canada",
+    Authority.BOA to "British Orthopaedic Association",
+    Authority.BTF to "Brain Trauma Foundation",
+    Authority.ACSCOT to "American College of Surgeons Committee on Trauma",
+    Authority.WSES to "World Society of Emergency Surgery",
+    Authority.EAST to "Eastern Association for the Surgery of Trauma",
 )
 
 @Composable

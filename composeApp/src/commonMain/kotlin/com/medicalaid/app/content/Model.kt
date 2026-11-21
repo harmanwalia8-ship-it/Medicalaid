@@ -49,6 +49,14 @@ enum class Authority(val short: String, val india: Boolean = false) {
     NDMA("NDMA India", india = true),
     ISCCM("ISCCM India", india = true),
     CSI("CSI India", india = true),
+    FOGSI("FOGSI India", india = true),
+    FIGO("FIGO"),
+    SOGC("SOGC"),
+    BOA("BOA"),
+    BTF("Brain Trauma Foundation"),
+    ACSCOT("ACS COT"),
+    WSES("WSES"),
+    EAST("EAST"),
 }
 
 /** Which patients a page is written for. */

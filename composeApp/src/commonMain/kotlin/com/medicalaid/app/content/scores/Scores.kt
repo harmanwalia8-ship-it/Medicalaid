@@ -7,11 +7,13 @@ import com.medicalaid.app.content.scores.data.neuroCardioScoreSources
 import com.medicalaid.app.content.scores.data.neuroCardioScores
 import com.medicalaid.app.content.scores.data.templateScoreSources
 import com.medicalaid.app.content.scores.data.templateScores
+import com.medicalaid.app.content.scores.data.traumaScoreSources
+import com.medicalaid.app.content.scores.data.traumaScores
 
 object Scores {
-    val all: List<Score> = (templateScores + neuroCardioScores + acuteCareScores).sortedBy { it.name.lowercase() }
+    val all: List<Score> = (templateScores + neuroCardioScores + acuteCareScores + traumaScores).sortedBy { it.name.lowercase() }
 
-    val sources: List<Source> = templateScoreSources + neuroCardioScoreSources + acuteCareScoreSources
+    val sources: List<Source> = templateScoreSources + neuroCardioScoreSources + acuteCareScoreSources + traumaScoreSources
 
     private val index = all.associateBy { it.id }
 

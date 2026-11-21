@@ -9,6 +9,8 @@ enum class ProtocolCategory(val label: String) {
     Neuro("Neurological"),
     Metabolic("Metabolic, endocrine & acid–base"),
     Infection("Sepsis, infection & bleeding"),
+    Obstetric("Obstetric emergencies"),
+    Trauma("Trauma"),
     Environmental("Burns & environmental"),
     Poisoning("Poisoning & envenomation"),
 }
