@@ -10,16 +10,24 @@ import com.medicalaid.app.content.protocols.data.householdToxProtocols
 import com.medicalaid.app.content.protocols.data.pesticideSources
 import com.medicalaid.app.content.protocols.data.pesticideProtocols
 import com.medicalaid.app.content.protocols.data.strokeProtocolSources
+import com.medicalaid.app.content.protocols.data.paraquatProtocols
+import com.medicalaid.app.content.protocols.data.paraquatSources
+import com.medicalaid.app.content.protocols.data.daturaProtocols
+import com.medicalaid.app.content.protocols.data.daturaSources
+import com.medicalaid.app.content.protocols.data.oleanderProtocols
+import com.medicalaid.app.content.protocols.data.oleanderSources
 import com.medicalaid.app.content.protocols.data.strokeProtocols
 import com.medicalaid.app.content.protocols.data.toxAlcoholProtocols
 import com.medicalaid.app.content.protocols.data.toxAlcoholSources
 
 object Protocols {
     val all: List<Protocol> =
-        strokeProtocols + householdToxProtocols + pesticideProtocols + envenomationProtocols + drugToxProtocols + toxAlcoholProtocols
+        strokeProtocols + householdToxProtocols + pesticideProtocols + envenomationProtocols + drugToxProtocols + toxAlcoholProtocols +
+            paraquatProtocols + daturaProtocols + oleanderProtocols
 
     val sources: List<Source> =
-        strokeProtocolSources + householdToxSources + pesticideSources + envenomationSources + drugToxSources + toxAlcoholSources
+        strokeProtocolSources + householdToxSources + pesticideSources + envenomationSources + drugToxSources + toxAlcoholSources +
+            paraquatSources + daturaSources + oleanderSources
 
     private val index = all.associateBy { it.id }
 
