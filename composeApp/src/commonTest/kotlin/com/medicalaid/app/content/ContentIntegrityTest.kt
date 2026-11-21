@@ -78,6 +78,41 @@ class ContentIntegrityTest {
         assertEquals(protocolIds.size, protocolIds.toSet().size, "Duplicate protocol id")
     }
 
+    /** Protocols still in review are hidden from the app but must already meet the same rules. */
+    @Test
+    fun inReviewProtocolsMeetTheSameRules() {
+        val known = Sources.withReview.map { it.id }.toSet()
+        fun check(where: String, citations: List<Citation>) {
+            if (citations.isEmpty()) fail("$where has no citation")
+            citations.forEach { if (it.sourceId !in known) fail("$where cites unknown source '${it.sourceId}'") }
+        }
+        val review = com.medicalaid.app.content.protocols.Protocols.reviewProtocols
+        review.forEach { p ->
+            check("Protocol ${p.id}", p.citations)
+            p.steps.forEach { check("Protocol ${p.id} step '${it.title}'", it.citations) }
+            p.notes.forEach { check("Protocol ${p.id} note", it.citations) }
+            p.steps.flatMap { it.scoreIds }.forEach {
+                assertTrue(com.medicalaid.app.content.scores.Scores.byId(it) != null, "Protocol ${p.id} links unknown score $it")
+            }
+        }
+        val ids = (com.medicalaid.app.content.protocols.Protocols.all + review).map { it.id }
+        assertEquals(ids.size, ids.toSet().size, "Duplicate protocol id (released + in review)")
+        val sourceIds = Sources.withReview.map { it.id }
+        assertEquals(sourceIds.size, sourceIds.toSet().size, "Duplicate source id (released + in review)")
+        val used = buildSet {
+            (com.medicalaid.app.content.protocols.Protocols.all + review).forEach { p ->
+                p.citations.forEach { add(it.sourceId) }
+                p.notes.forEach { n -> n.citations.forEach { add(it.sourceId) } }
+                p.steps.forEach { st -> st.citations.forEach { add(it.sourceId) } }
+            }
+        }
+        val unused = com.medicalaid.app.content.protocols.Protocols.reviewSources.map { it.id }.filterNot { it in used }
+        assertTrue(unused.isEmpty(), "Unused in-review sources: $unused")
+        com.medicalaid.app.content.protocols.Protocols.reviewSources.forEach {
+            assertTrue(it.url.startsWith("https://"), "${it.id} is not https")
+        }
+    }
+
     @Test
     fun sourcesUseHttps() {
         Sources.all.forEach { assertTrue(it.url.startsWith("https://"), "${it.id} is not https") }

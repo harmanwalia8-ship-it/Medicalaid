@@ -1,7 +1,8 @@
 # Roadmap — queued work
 
 **Do not start this queue until all current work is finished**, meaning the poisoning, medical-emergency,
-obstetric and trauma protocol workflows are done and version 0.4.0 is built, pushed and sent.
+obstetric and trauma protocol workflows are done and released (0.4.0 = poisoning + calculators;
+the emergency, obstetric and trauma protocols follow in 0.5.0).
 After that, run **one workflow at a time** so usage is spread out instead of spent in minutes.
 Each item uses the same process as before. One writer works from primary sources only, India first.
 Two independent reviewers then check it: one for every number, one for safety and attribution.
@@ -55,3 +56,21 @@ contraception (WHO MEC), PCOS, menopause, breastfeeding safety.
 - Review the AHA/ASA 2026 stroke guideline correction
 - Skin conditions with licensed photos
 - iOS build on GitHub macOS runners
+
+## 5. To discuss after 0.4: not queued, no work starts until we agree the scope
+
+- **Antibiotics in the Drugs section.** Every commonly used antibiotic, with its uses, contraindications,
+  kidney and liver dosing and monitoring. Sources: FDA labels, the ICMR antimicrobial treatment guidelines and NLEM.
+- **Infections A–Z.** Type "measles" and get a few lines on the disease, the investigation of choice (IOC),
+  other investigations, the drug of choice (DOC) and second-line options. The same layout for other infections,
+  following Indian programmes first (NCDC, NCVBDC, NTEP, ICMR), then WHO, CDC and IDSA.
+- **Fever work-up.** A guided list of differential diagnoses. The doctor ticks associated features
+  (cough, headache, neck stiffness, joint pain, rash, burning micturition, rigors and chills, relative
+  bradycardia, onset and pattern) and gets the differentials the sources list for that pattern, with the
+  next investigations. It suggests what to consider and does not make a diagnosis.
+- **Steroid misuse.**
+  - Patients on corticosteroid injections bought from a chemist: Cushing's features, adrenal suppression,
+    safe tapering, sick-day rules, infection and glucose risks.
+  - Anabolic–androgenic steroid use for bodybuilding: harms, monitoring (haematocrit, lipids, liver,
+    BP), and hypogonadism and dependence after stopping (Endocrine Society scientific statement and other
+    authoritative sources).

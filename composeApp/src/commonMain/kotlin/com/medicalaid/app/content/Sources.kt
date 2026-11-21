@@ -401,4 +401,7 @@ object Sources {
     fun byId(id: String): Source = index[id] ?: error("Unknown source id: $id")
 
     fun exists(id: String) = id in index
+
+    /** Released sources plus those cited only by protocols still in review (tests only). */
+    internal val withReview: List<Source> by lazy { all + com.medicalaid.app.content.protocols.Protocols.reviewSources }
 }

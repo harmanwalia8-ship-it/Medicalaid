@@ -4,30 +4,58 @@ import com.medicalaid.app.content.Source
 import com.medicalaid.app.content.protocols.data.*
 
 object Protocols {
-    val all: List<Protocol> = listOf(
-        strokeProtocols,
-        // Poisoning & envenomation
-        householdToxProtocols, pesticideProtocols, envenomationProtocols, drugToxProtocols, toxAlcoholProtocols,
-        paraquatProtocols, daturaProtocols, oleanderProtocols, cocaineProtocols,
-        // Medical emergencies
-        endocrineEmergencyProtocols, acidBaseProtocols, electrolyteProtocols, cardiacEmergencyProtocols,
-        resuscitationProtocols, respiratoryEmergencyProtocols, neuroEmergencyProtocols, environmentalProtocols,
-        infectionEmergencyProtocols,
-        // Obstetric emergencies and trauma
-        eclampsiaProtocols, pphProtocols, maternalCollapseProtocols, traumaProtocols, headSpineProtocols, limbAbdomenProtocols,
-        woundsBitesProtocols,
-    ).flatten()
+    /** A protocol file's protocols and the sources they cite. */
+    private class Group(val protocols: List<Protocol>, val sources: List<Source>)
 
-    val sources: List<Source> = listOf(
-        strokeProtocolSources, toolSources,
-        householdToxSources, pesticideSources, envenomationSources, drugToxSources, toxAlcoholSources,
-        paraquatSources, daturaSources, oleanderSources, cocaineSources,
-        endocrineEmergencySources, acidBaseSources, electrolyteSources, cardiacEmergencySources,
-        resuscitationSources, respiratoryEmergencySources, neuroEmergencySources, environmentalSources,
-        infectionEmergencySources,
-        eclampsiaSources, pphSources, maternalCollapseSources, traumaSources, headSpineSources, limbAbdomenSources,
-        woundsBitesSources,
-    ).flatten()
+    /**
+     * Groups that have been through the two-reviewer check (numbers; safety and attribution) with
+     * confirmed fixes applied. Only these are shown in the app.
+     */
+    private val released = listOf(
+        Group(strokeProtocols, strokeProtocolSources + toolSources),
+    )
+
+    /**
+     * Written but not yet fully reviewed. They compile and are checked by the integrity tests, but are
+     * never shown. Move a group to [released] once its review and fixes are complete.
+     */
+    private val inReview = listOf(
+        // Poisoning & envenomation
+        Group(householdToxProtocols, householdToxSources),
+        Group(pesticideProtocols, pesticideSources),
+        Group(envenomationProtocols, envenomationSources),
+        Group(drugToxProtocols, drugToxSources),
+        Group(toxAlcoholProtocols, toxAlcoholSources),
+        Group(paraquatProtocols, paraquatSources),
+        Group(daturaProtocols, daturaSources),
+        Group(oleanderProtocols, oleanderSources),
+        Group(cocaineProtocols, cocaineSources),
+        // Medical emergencies
+        Group(endocrineEmergencyProtocols, endocrineEmergencySources),
+        Group(acidBaseProtocols, acidBaseSources),
+        Group(electrolyteProtocols, electrolyteSources),
+        Group(cardiacEmergencyProtocols, cardiacEmergencySources),
+        Group(resuscitationProtocols, resuscitationSources),
+        Group(respiratoryEmergencyProtocols, respiratoryEmergencySources),
+        Group(neuroEmergencyProtocols, neuroEmergencySources),
+        Group(environmentalProtocols, environmentalSources),
+        Group(infectionEmergencyProtocols, infectionEmergencySources),
+        // Obstetric emergencies and trauma
+        Group(eclampsiaProtocols, eclampsiaSources),
+        Group(pphProtocols, pphSources),
+        Group(maternalCollapseProtocols, maternalCollapseSources),
+        Group(traumaProtocols, traumaSources),
+        Group(headSpineProtocols, headSpineSources),
+        Group(limbAbdomenProtocols, limbAbdomenSources),
+        Group(woundsBitesProtocols, woundsBitesSources),
+    )
+
+    val all: List<Protocol> = released.flatMap { it.protocols }
+    val sources: List<Source> = released.flatMap { it.sources }
+
+    /** In-review content, for tests only. */
+    internal val reviewProtocols: List<Protocol> = inReview.flatMap { it.protocols }
+    internal val reviewSources: List<Source> = inReview.flatMap { it.sources }
 
     private val index = all.associateBy { it.id }
 
