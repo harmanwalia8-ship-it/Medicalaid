@@ -275,7 +275,8 @@ internal val toxAlcoholProtocols = listOf(
                 title = "Staggered, unknown-time, late and repeated ingestions",
                 timing = "Start acetylcysteine while awaiting the level if ≥30 g or the result will return after 8 h (US/Canada 2023)",
                 points = listOf(
-                    "FDA label: unknown time, presentation after 8 h, or no level within 8 h — give the loading dose now; the level decides whether to continue.",
+                    "FDA label: unknown time or presentation after 8 h — give the loading dose now; the level decides whether to continue.",
+                    "FDA label: no level obtainable within 8 h, or clinical evidence of toxicity — give the loading dose now and complete the course (two bags over 20 h or three over 21 h).",
                     "MHRA 2012 and UK SmPC: staggered overdose (over ≥1 h) or any doubt over timing — give acetylcysteine without delay, whatever the level.",
                     "ANZ 2020: staggered over >2 h — plot from the earliest ingestion; start acetylcysteine if >8 h since the first dose or no level within 8 h.",
                     "US/Canada 2023: unknown time or >24 h — acetylcysteine if level >10 µg/mL or AST/ALT abnormal; none if ≤10 µg/mL with normal AST/ALT.",
@@ -301,6 +302,7 @@ internal val toxAlcoholProtocols = listOf(
                     "MHRA 2012: first infusion over 60 min to reduce dose-related reactions. US/Canada 2023: infuse a 150 mg/kg load over at least 1 h.",
                     "FDA label: hyperosmolar — always dilute; 0.45% saline preferred. UK SmPC: glucose 5% preferred, 0.9% saline if glucose is unsuitable.",
                     "FDA label: reduce volumes under 40 kg or with fluid restriction — fluid overload can cause hyponatraemia, seizures and death.",
+                    "FDA label: acetylcysteine overdosage has caused fatal anaphylaxis, cerebral oedema and haemolytic-uraemic syndrome — stop it if overdosage is suspected. MHRA 2012: many administration errors were reported with the complex IV regimen; use weight-based dosing tables.",
                 ),
                 doses = listOf(
                     StepDose(
@@ -323,10 +325,10 @@ internal val toxAlcoholProtocols = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(PCM_FDA, "§2.3–2.5; Table 2; §5.2"),
+                    cite(PCM_FDA, "§2.3–2.5; Table 2; §5.2; §10"),
                     cite(PCM_US, "Figure 3; Patients weighing more than 100 kg"),
                     cite(PCM_SMPC, "§4.2"),
-                    cite(PCM_MHRA, "Advice for healthcare professionals"),
+                    cite(PCM_MHRA, "Advice for healthcare professionals; Review findings"),
                 ),
             ),
             // 6 ------------------------------------------------------------------------------------
@@ -337,7 +339,8 @@ internal val toxAlcoholProtocols = listOf(
                     "FDA label: the three-bag regimen may be preferred with early signs of severe liver injury or a large ingestion.",
                     "ANZ 2020: two-bag is standard (maximum 22 g, then 11 g); adults ≥14 y dosed on actual weight rounded up to the nearest 10 kg, ceiling 110 kg.",
                     "RCEM 2023 (UK): the 12-h SNAP regimen should be default emergency-department practice. Pettie 2019: 100 mg/kg over 2 h, then 200 mg/kg over 10 h.",
-                    "Pettie 2019: stop SNAP at 12 h if INR ≤1.3, ALT <100 U/L and not doubled, and paracetamol <20 mg/L; otherwise 200 mg/kg over a further 10 h.",
+                    "Pettie 2019, Edinburgh protocol: bloods 2 h before the end; stop SNAP at 12 h if INR ≤1.3, ALT <100 U/L and not doubled, and paracetamol <20 mg/L; otherwise 200 mg/kg over a further 10 h.",
+                    "Pettie 2019, Newcastle and London: bloods at 12 h (repeated 24 h after the last paracetamol if earlier); acetylcysteine continued if paracetamol >10 mg/L, ALT >2× ULN or doubled, or INR >1.3.",
                     "FDA oral label: 140 mg/kg, then 70 mg/kg every 4 h for 17 doses, diluted to 5%; repeat a dose vomited within 1 h. US/Canada 2023: oral or IV acceptable.",
                 ),
                 doses = listOf(
@@ -361,7 +364,7 @@ internal val toxAlcoholProtocols = listOf(
                     StepDose(
                         label = "SNAP regimen — bag 2 (Pettie 2019)",
                         dose = WeightDose(minPerKg = 200.0, maxPerKg = 200.0, unit = "mg", per = "IV over 10 h"),
-                        note = "Bloods 2 h before the end; if stop criteria are not met, a further 200 mg/kg over 10 h.",
+                        note = "Edinburgh protocol: bloods 2 h before the end; if stop criteria are not met, a further 200 mg/kg over 10 h. Newcastle and London took bloods at the end of the 12 h.",
                     ),
                     StepDose(
                         label = "Oral acetylcysteine — loading (FDA oral label)",
@@ -378,7 +381,7 @@ internal val toxAlcoholProtocols = listOf(
                     cite(PCM_FDA, "§2.4; §2.5 Table 3"),
                     cite(PCM_ANZ, "Acetylcysteine infusions; Box 7"),
                     cite(PCM_RCEM, "Position statement"),
-                    cite(PCM_SNAP, "Methods — SNAP regimen and stopping criteria"),
+                    cite(PCM_SNAP, "Methods 2.1–2.2 — SNAP regimen and stopping criteria (Edinburgh; London and Newcastle)"),
                     cite(PCM_FDA_ORAL, "Dosage and administration — acetaminophen overdose"),
                     cite(PCM_US, "Administration of acetylcysteine; Figure 3"),
                 ),
@@ -392,7 +395,7 @@ internal val toxAlcoholProtocols = listOf(
                     "US/Canada 2023 stopping criteria: level <10 µg/mL, INR <2.0, AST/ALT normal or 25–50% below peak, and clinically well.",
                     "ANZ 2020: continue if level >10 mg/L or ALT >50 U/L and rising; beyond 20 h, stop when ALT/AST are falling, INR <2.0 and the patient is well.",
                     "FDA label: paracetamol still detectable, ALT/AST rising or INR elevated after the last bag — continue acetylcysteine beyond 300 mg/kg.",
-                    "FDA label: flushing at 30–60 min often settles; otherwise pause and give an antihistamine; stop for severe reactions and restart carefully once settled.",
+                    "FDA label: flushing at 30–60 min often settles; otherwise pause and give an antihistamine; stop for severe reactions and restart carefully once settled — discontinue if the reaction returns or worsens on restart. Monitor patients with asthma closely throughout.",
                     "MHRA 2012 and US/Canada 2023: a previous reaction to acetylcysteine is not a contraindication. FDA label lists prior hypersensitivity as a contraindication.",
                 ),
                 doses = listOf(
@@ -483,15 +486,15 @@ internal val toxAlcoholProtocols = listOf(
                 listOf(cite(PCM_FDA, "§2.5 Tables 2–3"), cite(PCM_US, "Patients weighing more than 100 kg"), cite(PCM_SMPC, "§4.2"), cite(PCM_ANZ, "Box 7")),
             ),
             ProtocolNote(
-                "Stopping criteria differ: US/Canada 2023 — level <10 µg/mL, INR <2.0, AST/ALT normal or 25–50% below peak; ANZ 2020 — ALT/AST falling, INR <2.0 (plus level <10 mg/L after MR or >double-line ingestions); SNAP at 12 h — INR ≤1.3, ALT <100 U/L, level <20 mg/L.",
-                listOf(cite(PCM_US, "Figure 3"), cite(PCM_ANZ, "Box 8"), cite(PCM_SNAP, "Methods")),
+                "Stopping criteria differ: US/Canada 2023 — level <10 µg/mL, INR <2.0, AST/ALT normal or 25–50% below peak; ANZ 2020 — ALT/AST falling, INR <2.0 (plus level <10 mg/L after MR or >double-line ingestions); SNAP at 12 h (Pettie 2019) — Edinburgh stopped if INR ≤1.3, ALT <100 U/L and level <20 mg/L; Newcastle and London continued if level >10 mg/L, ALT >2× ULN or doubled, or INR >1.3.",
+                listOf(cite(PCM_US, "Figure 3"), cite(PCM_ANZ, "Box 8"), cite(PCM_SNAP, "Methods 2.1–2.2")),
             ),
             ProtocolNote(
                 "Staggered overdose is defined differently: over 1 h or more in the UK (MHRA 2012, SmPC), over more than 2 h in ANZ 2020; US/Canada 2023 counts any ingestion within a 24 h period as acute.",
                 listOf(cite(PCM_MHRA, "Advice for healthcare professionals"), cite(PCM_SMPC, "§4.1"), cite(PCM_ANZ, "Box 1"), cite(PCM_US, "Figure 1")),
             ),
             ProtocolNote(
-                "Units: US sources use µg/mL and UK/ANZ sources mg/L (numerically the same); ANZ 2020 warns that many laboratories report µmol/L (150 mg/L = 1000 µmol/L on its nomogram).",
+                "Units: US sources use µg/mL and UK/ANZ sources mg/L (numerically the same); ANZ 2020 warns to check the units, as many laboratories have recently changed from µmol/L to mg/L (its nomogram now shows mg/L on the left axis; 150 mg/L = 1000 µmol/L).",
                 listOf(cite(PCM_ANZ, "Immediate release ingestion; Box 2"), cite(PCM_US, "Figure 2")),
             ),
             ProtocolNote(
@@ -533,7 +536,7 @@ internal val toxAlcoholProtocols = listOf(
                     "WHO mhGAP: check ABC, give oxygen, lay the person on their side; no oral fluids while sedated; observe until fully recovered.",
                     "IPS 2023: check glucose — oral glucose if conscious, otherwise IV 5% or 10% dextrose; give thiamine before glucose.",
                     "IPS 2023: IV fluids for dehydration; ECG in heavy intoxication ('holiday heart' arrhythmias); repeat glucose, electrolytes and blood gases while sensorium is altered.",
-                    "IPS 2023: severe intoxication — admit to high-dependency or intensive care. Agitation or violence: consider haloperidol 5 mg with promethazine 50 mg.",
+                    "IPS 2023: severe intoxication — admit to high-dependency or intensive care. Agitation or violence: consider haloperidol 5 mg with promethazine 50 mg; use sedatives judiciously to avoid over-sedation.",
                     "WHO mhGAP: sedated with normal pupils — opioid overdose less likely; consider alcohol, other sedatives, head injury, infection or hypoglycaemia.",
                 ),
                 checklistTitle = "Look for (IPS 2023)",
@@ -572,7 +575,7 @@ internal val toxAlcoholProtocols = listOf(
                     "Generalised seizures; confusion in severe cases",
                 ),
                 citations = listOf(
-                    cite(ALC_MOHFW, "Diagnosis — alcohol withdrawal (p. 12); Complicated alcohol withdrawal (p. 24)"),
+                    cite(ALC_MOHFW, "Diagnosis — alcohol withdrawal (p. 12); Simple alcohol withdrawal (pp. 23–24); Complicated alcohol withdrawal (p. 24)"),
                     cite(ALC_ICMR, "Investigations"),
                     cite(ALC_MHGAP, "SUB — Emergency presentations (p. 107)"),
                 ),
@@ -603,11 +606,12 @@ internal val toxAlcoholProtocols = listOf(
                     "MoHFW STG fixed dose: chlordiazepoxide 15–50 mg four times daily (diazepam 10–25 mg three times daily); hold 2 days, then cut 20% daily or 25% alternate days.",
                     "MoHFW STG symptom-triggered: 10–20 mg diazepam-equivalent per dose while symptoms persist; front-loading starts with 30–40 mg. NICE CG100: symptom-triggered in hospital.",
                     "ICMR STW: diazepam 20–40 mg/day in divided doses by severity, tapered 10–20% a day within 7–10 days. WHO mhGAP: in hospital up to 120 mg/day for 3 days.",
+                    "WHO mhGAP: caution when starting or increasing benzodiazepines — they can cause respiratory depression; caution in respiratory disease or hepatic encephalopathy. NICE CG115: ensure adequate supervision if high doses are given.",
                     "Liver impairment or elderly — MoHFW: lorazepam or oxazepam, doses about 50% lower. NICE CG115: lorazepam; avoid benzodiazepines in severe liver impairment.",
                     "MoHFW STG equivalents: chlordiazepoxide 25 mg ≈ diazepam 10 mg ≈ lorazepam 2 mg ≈ oxazepam 30 mg.",
                 ),
                 citations = listOf(
-                    cite(ALC_NICE115, "Rec 1.3.5.1–1.3.5.3, 1.3.5.9–1.3.5.10"),
+                    cite(ALC_NICE115, "Rec 1.3.5.1–1.3.5.4, 1.3.5.9–1.3.5.10"),
                     cite(ALC_NICE100, "Rec 1.1.3.1, 1.1.3.4"),
                     cite(ALC_MOHFW, "Medications; Table 6; Treatment regimen (pp. 25–27)"),
                     cite(ALC_ICMR, "Withdrawal management"),
@@ -778,7 +782,7 @@ internal val toxAlcoholProtocols = listOf(
                     "MSF protocol: the osmolal gap needs a freezing-point osmometer and methanol assays are rarely available; with blood gases, use base deficit or bicarbonate.",
                     "IJCCM 2019: confirming methanol by GC-MS is not timely and not required; monitor electrolytes, renal function and ECG.",
                     "FDA label: also check electrolytes, BUN, creatinine, urinalysis and ECG; in ethylene glycol poisoning, serum and urine levels and urinary oxalate crystals.",
-                    "MSF protocol (HCO₃ >10 mmol/L, no visual disturbance): 1–2 L saline with thiamine and glucose within 1 h; improvement suggests alcoholic or diabetic ketoacidosis.",
+                    "MSF protocol (HCO₃ >10 mmol/L, no visual disturbance): 1–2 L saline with thiamine and glucose within 1 h; improvement suggests alcoholic or diabetic ketoacidosis — if not improved after 1 h, give ethanol or fomepizole and bicarbonate and transfer for dialysis if possible.",
                 ),
                 tool = ProtocolTool.AcidBase,
                 citations = listOf(
@@ -795,6 +799,7 @@ internal val toxAlcoholProtocols = listOf(
                 points = listOf(
                     "FDA label: start on history, anion-gap acidosis, raised osmolar gap, visual disturbance, oxalate crystals, or a methanol or ethylene glycol level >20 mg/dL.",
                     "FDA label: 15 mg/kg, then 10 mg/kg every 12 h for 4 doses, then 15 mg/kg every 12 h; each in ≥100 mL saline or D5W over 30 min.",
+                    "FDA label: contraindicated after a documented serious hypersensitivity reaction to fomepizole or other pyrazoles; monitor for allergic reactions; safety and effectiveness in children have not been established.",
                     "FDA label: stop when the level is undetectable or <20 mg/dL and the patient is asymptomatic with a normal pH.",
                     "FDA label: dialysable — dose every 4 h during haemodialysis. MSF protocol: every 8 h during continuous renal replacement therapy.",
                     "AACT 2002: fomepizole is preferred; ethanol needs complex dosing and more monitoring and causes more adverse effects. IJCCM 2019: fomepizole is not available in India.",
@@ -824,7 +829,7 @@ internal val toxAlcoholProtocols = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(MEOH_FDA, "Indications and usage; Dosage and administration — dosing; dosage with renal dialysis; Precautions"),
+                    cite(MEOH_FDA, "Indications and usage; Contraindications; Dosage and administration — dosing; dosage with renal dialysis; Precautions, including pediatric use"),
                     cite(MEOH_AACT, "Abstract — Management; Conclusion"),
                     cite(MEOH_IJCCM, "Spurious alcohol poisoning"),
                     cite(MEOH_MSF, "§7 Suggested dosing — fomepizole"),
@@ -845,17 +850,17 @@ internal val toxAlcoholProtocols = listOf(
                 doses = listOf(
                     StepDose(
                         label = "Ethanol 40% (spirits) — loading (MSF)",
-                        dose = WeightDose(minPerKg = 2.0, maxPerKg = 2.0, unit = "mL", per = "of 40% ethanol, oral, nasogastric or IV"),
-                        note = "MSF table equivalents: 20% ethanol 4 mL/kg; 10% ethanol 7.5 mL/kg; 5% ethanol 15 mL/kg.",
+                        dose = WeightDose(minPerKg = 2.0, maxPerKg = 2.0, unit = "mL", per = "of 40% ethanol (spirits), orally or by nasogastric tube"),
+                        note = "MSF table equivalents: 20% ethanol 4 mL/kg; 10% ethanol 7.5 mL/kg; 5% ethanol 15 mL/kg. MSF gives the same dose orally or IV at each strength but does not state that 40% spirits can be infused — for IV use, dose by the strength actually prepared.",
                     ),
                     StepDose(
                         label = "Ethanol 40% — maintenance, not a regular drinker (MSF)",
-                        dose = WeightDose(minPerKg = 0.25, maxPerKg = 0.25, unit = "mL", per = "of 40% ethanol per hour"),
+                        dose = WeightDose(minPerKg = 0.25, maxPerKg = 0.25, unit = "mL", per = "of 40% ethanol per hour, orally or by nasogastric tube"),
                         note = "During haemodialysis 0.5 mL/kg/h. As 10% ethanol: 1 mL/kg/h (2 mL/kg/h during dialysis).",
                     ),
                     StepDose(
                         label = "Ethanol 40% — maintenance, regular drinker (MSF)",
-                        dose = WeightDose(minPerKg = 0.5, maxPerKg = 0.5, unit = "mL", per = "of 40% ethanol per hour"),
+                        dose = WeightDose(minPerKg = 0.5, maxPerKg = 0.5, unit = "mL", per = "of 40% ethanol per hour, orally or by nasogastric tube"),
                         note = "During haemodialysis 0.8 mL/kg/h. As 10% ethanol: 2 mL/kg/h (3 mL/kg/h during dialysis).",
                     ),
                 ),
@@ -946,7 +951,7 @@ internal val toxAlcoholProtocols = listOf(
                 title = "Outbreaks, prognosis and observation",
                 points = listOf(
                     "MSF protocol: call the referral hospital early — to start treatment and to warn the public; where there is one there are usually many.",
-                    "MSF protocol: observe suspected asymptomatic patients for up to 24 h by level of suspicion, reassessing every 1–4 h; after treatment ends, observe at least 24 h.",
+                    "MSF protocol: observe suspected asymptomatic patients — 'up to 24 hours' by level of suspicion in the §2 text, but 'minimum 24 hours' in Flow-charts 1–2 — reassessing every 1–4 h; after treatment ends, observe at least 24 h.",
                     "MSF protocol: poor prognosis — coma, pH <6.9–7.0 with HCO₃ <10 or base deficit >20, and no hyperventilation despite acidosis.",
                     "Ahmedabad 2009 outbreak (178 patients): those who died had lower pH (6.94 vs 7.23) and bicarbonate (7.5 vs 13.3 mmol/L); mean presentation 30 h after drinking.",
                     "EXTRIP 2015: when need exceeds resources in an epidemic, how to rank dialysis indications for triage is unknown.",

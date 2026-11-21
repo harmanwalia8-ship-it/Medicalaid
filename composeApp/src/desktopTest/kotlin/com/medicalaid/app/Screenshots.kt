@@ -138,6 +138,16 @@ class Screenshots {
         shot("42-tool-burns-dark", heightDp = 1250, dark = true) {
             Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.BurnsTool(burnMarks, "70") }
         }
+        shot("44-protocols-list", heightDp = 2600) { com.medicalaid.app.ui.scores.ProtocolsScreen({}, {}, pad) }
+        shot("45-protocol-organophosphate", heightDp = 4200) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("organophosphate")!!, {}, {}, pad)
+        }
+        shot("46-protocol-snakebite", heightDp = 5200) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("snakebite")!!, {}, {}, pad)
+        }
+        shot("47-protocol-celphos-dark", heightDp = 2000, dark = true) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("aluminium-phosphide")!!, {}, {}, pad)
+        }
         shot("43-tool-abg", heightDp = 1100) {
             Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.AcidBaseTool("7.21", "24", "10", "138", "100", "2.5") }
         }

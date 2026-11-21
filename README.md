@@ -8,8 +8,8 @@ Works fully offline and stores no patient data.
 
 ## What's in it
 
-Navigation is a side menu: **Home** (search everything), **Pregnancy**, **Treatment**, **Drugs**, **Calculators**,
-**Sources**, **About**. A one-time "for clinicians" notice explains the intended use.
+Navigation is a side menu: **Home** (search everything), **Pregnancy**, **Treatment**, **Drugs**, **Scores**,
+**Protocols**, **Calculators**, **Sources**, **About**. A one-time "for clinicians" notice explains the intended use.
 
 **Pregnancy**
 - LMP → EDD (Naegele, +280 days), gestational age (weeks + days), trimester, term category.
@@ -30,7 +30,30 @@ distribution, metabolism, elimination, half-life), key interactions, pregnancy a
 cites the label section it came from. "Look up elsewhere" links open DailyMed, LiverTox, LactMed, BNF, Medscape,
 Drugs.com and UpToDate in the browser — linked, never copied. Condition pages link to the drug profile.
 
+**Scores** — 23 clinical scores (Wells, HEART, CURB-65, NIHSS, ABCD², qSOFA, Glasgow-Blatchford and others), each
+with its derivation paper and endorsing guideline.
+
+**Protocols** — step-by-step pathways with timing, checklists, weight-based dose calculation and the source behind
+every step; "Where guidelines differ" notes compare India and international guidance.
+- *Neurological:* acute stroke (thrombolysis doses, onset clock).
+- *Poisoning & envenomation (0.4.0):* first steps for the poisoned patient, corrosives (Harpic, acids, alkalis),
+  carbon monoxide, kerosene/hydrocarbons, organophosphates/carbamates, aluminium phosphide (Celphos), zinc
+  phosphide, yellow phosphorus (Ratol), superwarfarin rat poison, paraquat, dhatura, oleander, snakebite,
+  scorpion sting, opioids, pregabalin/gabapentin, benzodiazepines, cannabis, paracetamol, alcohol, methanol,
+  cocaine (toxicity, formication / "cocaine bugs"; dependence treatment is on the Treatment page).
+
+**How protocol content is checked.** One writer drafts each group from primary sources (India first). Two
+independent reviewers then check it: one checks every number against the source, the other checks safety and
+attribution. A fixer re-checks each finding against the source before changing anything. Groups that have not
+finished this cycle stay in `Protocols.inReview`: they are compiled and tested but never shown.
+Medical emergencies, obstetric emergencies and trauma are written and in review for 0.5.0.
+
 **Calculators**
+- Burns: tappable Lund–Browder body chart (six age columns) → %TBSA → fluid plan. Adults: Parkland 4 and ABA 2024
+  2 mL/kg/%TBSA; children: JTS 3 and MoHFW 2 mL/kg/%TBSA plus dextrose maintenance (4-2-1). Shown only above the
+  MoHFW thresholds; warns above 250 mL/kg/24 h (JTS).
+- ABG interpreter (Berend, NEJM 2014): primary disorder, expected secondary response, anion gap with albumin
+  correction, Δ–Δ. Arterial samples only.
 - Glucose ↔ HbA1c (ADAG equation, as used by the ADA eAG calculator) with ADA diagnostic band and the
   ICMR therapy band. Clearly marked as a rough estimate; not offered in pregnancy (ADA 2026, rec 15.13).
 - TSH in pregnancy — shows **ATA 2026** and **MoHFW 2014** verdicts side by side (they differ).
@@ -56,6 +79,13 @@ Drugs.com and UpToDate in the browser — linked, never copied. Condition pages 
   geo-restricted; an alternative authoritative dose source is needed).
 - **COVID-19 vaccine in pregnancy:** US federal guidance changed in 2025 and remains contested; ACOG's position is shown.
 - ADA publishes a new Standards of Care each December — re-check the 2027 edition.
+- **ABG thresholds:** the interpreter uses Berend's Table 1 (pH 7.38–7.42, PaCO₂ 38–42 mm Hg), stricter than the
+  common 7.35–7.45. Decide which convention to show before release.
+- **MoHFW STG Burns 2025, Figure 5:** four Lund–Browder values in the government figure are wrong; the app uses the
+  US Joint Trauma System reproduction instead.
+- **Poisoning:** India-availability of physostigmine and digoxin-specific Fab, and the AHA 2008 cocaine statement,
+  could not be verified; the protocols say so. No ICMR STW exists for most poisons; Indian content comes from
+  ISCCM/IJCCM reviews and national programme documents.
 
 ## Project layout
 

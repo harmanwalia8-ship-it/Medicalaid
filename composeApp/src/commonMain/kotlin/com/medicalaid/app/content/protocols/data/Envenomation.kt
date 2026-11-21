@@ -187,7 +187,7 @@ internal val envenomationProtocols = listOf(
                     "MoHFW STG 2017: after ASV, repeat 6 h after the loading dose; in neurotoxic envenoming, repeat after 6 h.",
                 ),
                 citations = listOf(
-                    cite(SB_STG, "Lab investigations — bedside 20WBCT (p.21); Assessment (p.19); Annexure 2 (p.67)"),
+                    cite(SB_STG, "Lab investigations — bedside 20WBCT (p.21); Assessment (p.19); Annexure 2 (p.68)"),
                     cite(SB_WHO, "§6.6.1 and Recommendation (p.123–125)"),
                     cite(SB_NAPSE, "Ch. 11 Diagnostic aspects (p.68); laboratory recommendations (p.76–77)"),
                 ),
@@ -195,14 +195,14 @@ internal val envenomationProtocols = listOf(
             // 4 ------------------------------------------------------------------------------------
             Step(
                 title = "Recognise the envenoming syndrome",
-                timing = "Cobra 30 min–6 h; krait often after 6–12 h (MoHFW STG 2017)",
+                timing = "Cobra 30 min–6 h; krait often after 6–12 h, ptosis recorded as late as 36 h after hospitalisation (MoHFW STG 2017); NAPSE 2024: krait paralysis up to 16 h after the bite",
                 points = listOf(
                     "MoHFW STG 2017 neuroparalytic (cobra, krait): '5 Ds and 2 Ps' — dyspnoea, dysphonia, dysarthria, diplopia, dysphagia; ptosis, paralysis. Ptosis usually comes first.",
                     "MoHFW STG 2017 krait: often no bite mark; early-morning abdominal pain and vomiting after sleeping on the floor, then descending paralysis (Guillain–Barré is ascending).",
                     "MoHFW STG 2017 vasculotoxic (Russell's, saw-scaled viper): painful progressive swelling, blisters, bleeding, non-clotting 20WBCT, shock; AKI (not with saw-scaled viper).",
                     "MoHFW STG 2017: Russell's viper capillary leak — parotid swelling, chemosis, haemoconcentration; later pituitary failure. In some regions Russell's viper also causes paralysis.",
                     "MoHFW STG 2017: anxiety mimics envenoming (palpitations, sweating, paraesthesia). NAPSE 2024: anxiety starts within minutes; envenoming usually at least 30 min after.",
-                    "ICMR STW: fatigable weakness or affected eye movements — likely myasthenia gravis or snake bite; intubate if unable to complete sentences or single breath count low.",
+                    "ICMR STW: fatigable weakness or affected eye movements — likely myasthenia gravis or snake bite; intubate if unable to complete sentences, single breath count low and breath-holding time low and chest expansion poor.",
                 ),
                 checklistTitle = "Impending respiratory failure (MoHFW STG 2017)",
                 checklist = listOf(
@@ -229,9 +229,9 @@ internal val envenomationProtocols = listOf(
                     "MoHFW STG 2017: give ASV for signs of envenoming; spontaneous bleeding >20 min after a bite — start without waiting for 20WBCT. Purely local or hours-old swelling is not an indication.",
                     "MoHFW STG 2017 and NCDC 2024: polyvalent ASV 10 vials IV over 30 min (NAPSE 2024: 30–90 min). Never IM or at the bite site; no test dose.",
                     "MoHFW STG 2017 neurotoxic: second 10 vials after 1 h if no improvement; maximum 20 vials. WHO 2016: repeat if neurotoxic or cardiovascular signs worsen after 1 h.",
-                    "MoHFW STG 2017 vasculotoxic: 20WBCT 6-hourly, ASV 6-hourly until clotting; low-dose option 10 vials (6 for saw-scaled viper) then 2 vials 6-hourly. Reconsider after 30 vials.",
+                    "MoHFW STG 2017 vasculotoxic: 20WBCT and ASV 6-hourly until clotting. High-dose: 10 vials, then 6 vials 6-hourly until clotting normalises and/or local swelling subsides (the only regimen in NAPSE 2024). Low-dose: 10 vials (6 for saw-scaled viper), then 2 vials in 100 mL saline 6-hourly until clotting normalises or for 3 days, whichever is earlier. Reconsider after 30 vials.",
                     "WHO 2016: repeat the dose if blood is still incoagulable at 6 h, or within 1–2 h if bleeding briskly.",
-                    "MoHFW STG 2017, NAPSE 2024, WHO 2016: children and pregnant women get the same dose as adults. STG: in children dilute in 5–10 mL/kg saline.",
+                    "MoHFW STG 2017 and NAPSE 2024: children and pregnant women get the same dose as adults; WHO 2016: children get exactly the same dose as adults. STG: in children dilute in 5–10 mL/kg saline.",
                 ),
                 checklistTitle = "ASV indications (WHO 2016 §6.7.2; NAPSE 2024)",
                 checklist = listOf(
@@ -259,6 +259,7 @@ internal val envenomationProtocols = listOf(
                     "MoHFW STG 2017: no test dose — skin or conjunctival tests don't predict reactions. Doctor at the bedside; adrenaline drawn up in two syringes before starting.",
                     "MoHFW STG 2017 and WHO 2016: prophylactic adrenaline 0.25 mg SC before ASV. STG excludes BP >140/90 or cardiovascular disease; WHO excludes cerebrovascular disease.",
                     "MoHFW STG 2017 and WHO 2016: antihistamines, corticosteroids and infusion rate (10–120 min) do not change early reaction rates.",
+                    "High risk (past reaction to or exposure to equine ASV, anti-tetanus or anti-rabies serum; severe atopy or asthma): MoHFW STG 2017 and WHO 2016 — ASV only for systemic envenoming. STG premedicates with hydrocortisone 200 mg and 'chlorpheniramine maleate 22.75 mg' (as printed); WHO with SC adrenaline 0.25 mg, then IV chlorphenamine.",
                     "First sign (itch, urticaria, cough, vomiting, tachycardia, hypotension): stop ASV; adrenaline 0.5 mg IM of 1:1000 in adults (STG, WHO). WHO: repeat every 5–10 min if needed.",
                     "MoHFW STG 2017: add chlorphenamine 10 mg IV; hydrocortisone acts only after hours. After recovery, restart ASV slowly for 10–15 min and complete the full dose.",
                     "MoHFW STG 2017: serum sickness 1–12 days later — chlorphenamine 2 mg 6-hourly for 5 days; prednisolone 5 mg 6-hourly for 5 days if no response in 24–48 h.",
@@ -267,27 +268,31 @@ internal val envenomationProtocols = listOf(
                     StepDose(
                         label = "Adrenaline for ASV reaction — child (MoHFW STG 2017; WHO 2016; NCDC 2024)",
                         dose = WeightDose(minPerKg = 0.01, maxPerKg = 0.01, unit = "mg", per = "per dose IM (1 mg/mL, 1:1000)"),
-                        note = "Adults 0.5 mg IM. WHO 2016: repeat every 5–10 min if the reaction persists; NCDC 2024: repeat after 5 min.",
+                        note = "Adults 0.5 mg IM; capped at the adult dose. WHO 2016: repeat every 5–10 min if the reaction persists; NCDC 2024: repeat after 5 min.",
+                        maxTotal = 0.5,
                     ),
                     StepDose(
                         label = "Prophylactic adrenaline before ASV — child (MoHFW STG 2017; WHO 2016)",
                         dose = WeightDose(minPerKg = 0.005, maxPerKg = 0.005, unit = "mg", per = "once SC (0.1% solution) just before ASV"),
-                        note = "Adults 0.25 mg SC.",
+                        note = "Adults 0.25 mg SC; capped at the adult dose.",
+                        maxTotal = 0.25,
                     ),
                     StepDose(
                         label = "Chlorphenamine — child (MoHFW STG 2017; WHO 2016)",
                         dose = WeightDose(minPerKg = 0.2, maxPerKg = 0.2, unit = "mg", per = "per dose IV"),
-                        note = "Adults 10 mg IV.",
+                        note = "Adults 10 mg IV; capped at the adult dose.",
+                        maxTotal = 10.0,
                     ),
                     StepDose(
                         label = "Hydrocortisone — child (WHO 2016; NCDC 2024)",
                         dose = WeightDose(minPerKg = 2.0, maxPerKg = 2.0, unit = "mg", per = "per dose IV"),
-                        note = "WHO 2016 adults 100 mg IV; unlikely to act for several hours.",
+                        note = "WHO 2016 adults 100 mg IV; capped at the adult dose. Unlikely to act for several hours.",
+                        maxTotal = 100.0,
                     ),
                 ),
                 citations = listOf(
-                    cite(SB_STG, "Monitoring during ASV (p.29); ASV reaction, premedication, treatment of early and late reactions (p.31–33)"),
-                    cite(SB_WHO, "§6.7.5.1–6.7.5.4 (p.132–135); §6.7.7 (p.136)"),
+                    cite(SB_STG, "Monitoring during ASV (p.29); ASV reaction, premedication, treatment of early and late reactions; high-risk patients (p.31–33)"),
+                    cite(SB_WHO, "§6.7.5.1–6.7.5.4, incl. §6.7.5.2 high-risk patients (p.132–135); §6.7.7 (p.136)"),
                     cite(SB_PHC, "Treatment for adverse reaction"),
                 ),
             ),
@@ -301,23 +306,27 @@ internal val envenomationProtocols = listOf(
                     "MoHFW STG 2017: response = ≥50% recovery of ptosis in 1 h. Stop if no response after 3 doses, fasciculations or bradycardia; no AN in confirmed krait bite.",
                     "WHO 2016: trial in every neurotoxic patient without delaying ASV or intubation — atropine 0.6 mg IV, neostigmine 0.02 mg/kg IM; maintenance up to 10 mg/24 h.",
                     "MoHFW STG 2017: no response after 3 doses suggests krait — calcium gluconate 10 mL IV (children 1–2 mL/kg, 1:1 dilution) over 5–10 min 6-hourly.",
-                    "MoHFW STG 2017: avoid sedatives, morphine, pethidine and neuromuscular blockers. Cannot lift head or SpO₂ <90% — transfer with ventilatory support.",
+                    "MoHFW STG 2017: avoid sedatives, morphine, pethidine and neuromuscular blockers in neurotoxic envenoming — deep sedation obscures the level of paralysis. Cannot lift head or SpO₂ <90% — transfer with ventilatory support.",
+                    "WHO 2016: paralysed patients are awake and can hear; sedate them while mechanically ventilated — fentanyl 2–40 µg/h with midazolam 2–4 mg/h, or (to avoid kidney injury) morphine 1–5 mg/h with lorazepam 1–2 mg/h.",
                 ),
                 doses = listOf(
                     StepDose(
                         label = "Atropine before neostigmine — child (MoHFW STG 2017; WHO 2016)",
                         dose = WeightDose(minPerKg = 0.05, maxPerKg = 0.05, unit = "mg", per = "IV, given before each neostigmine dose"),
-                        note = "Adults 0.6 mg IV.",
+                        note = "Adults 0.6 mg IV; capped at the adult dose — neither source gives a higher child dose.",
+                        maxTotal = 0.6,
                     ),
                     StepDose(
                         label = "Neostigmine first dose — child (MoHFW STG 2017 IV; WHO 2016 IM)",
                         dose = WeightDose(minPerKg = 0.04, maxPerKg = 0.04, unit = "mg", per = "once, after atropine"),
-                        note = "Adults: 1.5 mg IV (MoHFW STG 2017) or 0.02 mg/kg IM (WHO 2016).",
+                        note = "Adults: 1.5 mg IV (MoHFW STG 2017) or 0.02 mg/kg IM (WHO 2016). Capped at the 1.5 mg STG adult dose.",
+                        maxTotal = 1.5,
                     ),
                     StepDose(
                         label = "Neostigmine repeat — child (MoHFW STG 2017)",
                         dose = WeightDose(minPerKg = 0.01, maxPerKg = 0.01, unit = "mg", per = "IV with atropine every 30 min for 5 doses"),
-                        note = "Adults 0.5 mg. Stop if no improvement after 3 doses.",
+                        note = "Adults 0.5 mg; capped at the adult dose. Stop if no improvement after 3 doses.",
+                        maxTotal = 0.5,
                     ),
                     StepDose(
                         label = "Neostigmine trial — adult (WHO 2016)",
@@ -328,12 +337,13 @@ internal val envenomationProtocols = listOf(
                     StepDose(
                         label = "Neostigmine maintenance — child (WHO 2016)",
                         dose = WeightDose(minPerKg = 0.01, maxPerKg = 0.04, unit = "mg", per = "every 2–4 h IM, IV or SC, with atropine"),
-                        note = "Only if the trial gave a convincing response.",
+                        note = "Only if the trial gave a convincing response. Capped at 2.5 mg, the WHO adult maximum per dose.",
+                        maxTotal = 2.5,
                     ),
                 ),
                 citations = listOf(
                     cite(SB_STG, "Management neurotoxic envenomation; AN dosage schedule (p.35–36); Other measures (p.45); Referral criteria (p.51)"),
-                    cite(SB_WHO, "§6.9.1 (p.144); §6.9.3 Trial of anticholinesterase (p.152–153)"),
+                    cite(SB_WHO, "§6.9.1 (p.144); §6.9.2 sedation during ventilation (p.152); §6.9.3 Trial of anticholinesterase (p.152–153)"),
                     cite(SB_PHC, "ASV dosage box — neostigmine and atropine"),
                 ),
             ),
@@ -347,7 +357,7 @@ internal val envenomationProtocols = listOf(
                     "MoHFW STG 2017: shock — crystalloid boluses up to 20 mL/kg titrated to perfusion; if crepitations or hepatomegaly develop, start dopamine or dobutamine.",
                     "MoHFW STG 2017: oliguria or dipstick blood within 24 h — trial of forced alkaline diuresis; no response to furosemide — refer for dialysis. WHO 2016: furosemide stress test.",
                     "Dialysis (MoHFW STG 2017; WHO 2016): creatinine >4 mg/dL, urea >130 mg/dL, K⁺ >7 mmol/L or ECG changes, fluid overload, uraemic encephalopathy or pericarditis.",
-                    "WHO 2016: biochemistry alone is not enough to start dialysis. Russell's viper AKI may need it for up to 3 weeks; oliguria beyond 4 weeks — refer to nephrology.",
+                    "WHO 2016: biochemistry alone is not enough to start dialysis. AKI may need dialysis for up to 3 weeks, then kidney biopsy; in India 20–25% of Russell's viper AKI patients had oliguria beyond 4 weeks (possible cortical necrosis) — refer to nephrology.",
                 ),
                 doses = listOf(
                     StepDose(
@@ -356,9 +366,9 @@ internal val envenomationProtocols = listOf(
                         note = "If coagulopathy persists after ASV; aim INR <2.0 at 6 h after ASV was started.",
                     ),
                     StepDose(
-                        label = "Crystalloid bolus for shock (MoHFW STG 2017; NCDC 2024 for children)",
+                        label = "Crystalloid bolus for shock (MoHFW STG 2017)",
                         dose = WeightDose(minPerKg = 20.0, maxPerKg = 20.0, unit = "mL", per = "up to, per bolus"),
-                        note = "STG: over 5–10 min (children over 30 min), titrated to perfusion. NCDC 2024 adults: 500–1000 mL.",
+                        note = "STG: over 5–10 min (children over 30 min), titrated to perfusion. NCDC 2024 (shock from an ASV reaction): adults 500–1000 mL, children 20 mL/kg.",
                     ),
                     StepDose(
                         label = "Furosemide stress test (WHO 2016)",
@@ -383,17 +393,19 @@ internal val envenomationProtocols = listOf(
                     "MoHFW STG 2017 and WHO 2016: fasciotomy only with clinical compartment syndrome, pressure >40 mmHg and coagulopathy corrected. Corticosteroids don't help local effects.",
                     "MoHFW STG 2017 refer: no ASV; still not clotted after 10 vials; continued bleeding; kidney injury; progressive paralysis (with ventilation). Phone the receiving centre first.",
                     "MoHFW STG 2017: warn about serum sickness (fever, joint pain) after 5–10 days; return for bleeding, worse swelling, breathlessness or urine change.",
+                    "MoHFW STG 2017: in suspected krait bite (often no bite mark), ptosis has been recorded as late as 36 h after hospitalisation.",
                 ),
                 doses = listOf(
                     StepDose(
-                        label = "Paracetamol — child (MoHFW STG 2017)",
+                        label = "Paracetamol — child (MoHFW STG 2017; WHO 2016)",
                         dose = WeightDose(minPerKg = 10.0, maxPerKg = 15.0, unit = "mg", per = "per dose orally, every 4–6 h"),
-                        note = "Adults 500–1000 mg every 4–6 h.",
+                        note = "Adults 500–1000 mg every 4–6 h, maximum 4 g in 24 h; children maximum 100 mg/kg/day (MoHFW STG 2017 Annexure 2; WHO 2016). Capped at the 1 g adult dose.",
+                        maxTotal = 1000.0,
                     ),
                 ),
                 citations = listOf(
-                    cite(SB_STG, "Other measures; surgical procedures (p.45–47); Discharge, follow-up (p.49); Referral criteria (p.51–53)"),
-                    cite(SB_WHO, "§6.11–6.13 (p.161–163)"),
+                    cite(SB_STG, "Sign & symptoms (p.11–12); Other measures; surgical procedures (p.45–47); Discharge, follow-up (p.49); Referral criteria (p.51–53); Annexure 2 (p.68)"),
+                    cite(SB_WHO, "§6.11–6.13 (p.161–163); §6.15 B — analgesia (p.165–166)"),
                     cite(SB_PHC, "ASV dosage box — tetanus toxoid; Indications for referral"),
                 ),
             ),
@@ -408,11 +420,15 @@ internal val envenomationProtocols = listOf(
                 listOf(cite(SB_STG, "AN dosage schedule (p.36)"), cite(SB_WHO, "§6.9.3 (p.153)")),
             ),
             ProtocolNote(
-                "Calcium gluconate for suspected krait bite (no AN response) appears in MoHFW STG 2017 but not in WHO 2016. NAPSE 2024: krait paralysis may begin up to 16 h after the bite.",
-                listOf(cite(SB_STG, "p.36"), cite(SB_WHO, "§6.9.1–6.9.3"), cite(SB_NAPSE, "Ch. 11 (p.67)")),
+                "Calcium gluconate for suspected krait bite (no AN response) appears in MoHFW STG 2017 but not in WHO 2016. NAPSE 2024: krait paralysis may begin up to 16 h after the bite; MoHFW STG 2017 records krait ptosis as late as 36 h after hospitalisation.",
+                listOf(cite(SB_STG, "p.12, 36"), cite(SB_WHO, "§6.9.1–6.9.3"), cite(SB_NAPSE, "Ch. 11 (p.67)")),
             ),
             ProtocolNote(
-                "Initial dose: India uses 10 vials for all species. WHO 2016 Table 1 suggests Indian polyvalent 100 mL for krait and Russell's viper, 50 mL for cobra and saw-scaled viper, and calls Indian dose evidence weak.",
+                "Sedation differs: MoHFW STG 2017 says avoid sedatives in neurotoxic envenoming, as deep sedation obscures the level of paralysis; WHO 2016 says sedate patients while they are mechanically ventilated, because they are awake.",
+                listOf(cite(SB_STG, "Other measures (p.45)"), cite(SB_WHO, "§6.9.2 (p.152)")),
+            ),
+            ProtocolNote(
+                "Initial dose: India uses 10 vials for all species, except the MoHFW STG 2017 low-dose option (6 vials for saw-scaled viper). WHO 2016 Table 1 suggests Indian polyvalent 100 mL for krait and Russell's viper, 50 mL for cobra and saw-scaled viper, and calls Indian dose evidence weak.",
                 listOf(cite(SB_STG, "ASV dose (p.28)"), cite(SB_WHO, "§6.7.8, Table 1 (p.139–141)")),
             ),
             ProtocolNote(
@@ -471,9 +487,9 @@ internal val envenomationProtocols = listOf(
                 timing = "Grade on arrival; late presentation (>4–6 h) carries higher risk",
                 points = listOf(
                     "Bawaskar 2011: grade 1 — severe local pain radiating along dermatomes, mild local oedema and sweating; no systemic involvement.",
-                    "Bawaskar 2011: grade 2 — autonomic storm: vomiting, profuse sweating, ropy salivation, priapism, bradycardia or tachycardia >120, BP >140/90, cold extremities.",
+                    "Bawaskar 2011: grade 2 — autonomic storm: vomiting, profuse sweating, ropy salivation, priapism, bradycardia or tachycardia >120, hypotension or BP >140/90, cold extremities.",
                     "Bawaskar 2011: grade 3 — cold extremities, tachycardia, hypo- or hypertension with pulmonary oedema (RR >24, basal crackles). Grade 4 — hypotension with warm extremities.",
-                    "JIPMER 2018: grade 3 also covers myocardial dysfunction (heart failure, cardiomegaly, inotrope ≥5 µg/kg/min); grade 4 also covers multi-organ dysfunction.",
+                    "JIPMER 2018: grade 3 also covers myocardial dysfunction (heart failure, cardiomegaly, inotrope ≥5 µg/kg/min) or hypotension with cold peripheries (cold shock); grade 4 also covers multi-organ dysfunction.",
                     "Kumar 2022: adults usually have local pain only; envenoming is more severe in children. Higher mortality mainly with presentation over 6 h after the sting.",
                     "JIPMER 2015: hypotension at admission and >4 h from sting to treatment independently predicted myocardial dysfunction.",
                 ),
@@ -523,7 +539,8 @@ internal val envenomationProtocols = listOf(
                     StepDose(
                         label = "Prazosin — child (JIPMER protocol)",
                         dose = WeightDose(minPerKg = 30.0, maxPerKg = 30.0, unit = "mcg", per = "per dose orally, every 3 h until extremities are warm"),
-                        note = "Children ≤12–13 years in the JIPMER studies. Bawaskar 2011 used a fixed 250 µg (under 18) or 500 µg (adults).",
+                        note = "Children ≤12–13 years in the JIPMER studies. Capped at 1 mg per dose (FDA label initial-dose limit). Adolescents and adults: Bawaskar 2011 used a fixed 250 µg (under 18) or 500 µg (adults).",
+                        maxTotal = 1000.0,
                     ),
                 ),
                 citations = listOf(
@@ -551,7 +568,7 @@ internal val envenomationProtocols = listOf(
                     cite(SC_J18, "Methods; Results"),
                     cite(SC_SR, "Results; Conclusions"),
                     cite(SC_J15, "Conclusion"),
-                    cite(SC_ED, "p.289"),
+                    cite(SC_ED, "p.289–290"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -598,15 +615,15 @@ internal val envenomationProtocols = listOf(
                     "Bawaskar 2015: steroids worsen catecholamine myocardial damage; antihistamines prolong QT (sudden death); calcium channel blockers depress the myocardium; diuretics worsen oedema.",
                     "Systematic review 2017 (Tunisian RCT, 600 patients): steroids gave no benefit. Kumar 2022: higher mortality seen in children given steroids and antihistamines.",
                 ),
-                checklistTitle = "Avoid (Bawaskar 2011, 2015; Kumar 2022)",
+                checklistTitle = "Avoid, or tried without benefit (Bawaskar 2011, 2015; Kumar 2022)",
                 checklist = listOf(
                     "Corticosteroids",
                     "Antihistamines as treatment for envenoming",
                     "Calcium channel blockers (e.g. nifedipine)",
                     "Diuretics",
-                    "Atropine",
-                    "Beta-blockers",
-                    "Lytic cocktail (pethidine + promethazine + chlorpromazine)",
+                    "Atropine — failed to reduce morbidity or mortality (Bawaskar 2011)",
+                    "Beta-blockers — failed (Bawaskar 2011); little success (Bawaskar 2015; Kumar 2022)",
+                    "Lytic cocktail (pethidine + promethazine + chlorpromazine) — failed (Bawaskar 2011); little success (Bawaskar 2015; Kumar 2022)",
                 ),
                 citations = listOf(
                     cite(SC_BMJ, "Introduction"),
@@ -640,8 +657,8 @@ internal val envenomationProtocols = listOf(
                 listOf(cite(SC_BMJ, "Introduction"), cite(SC_SR, "Discussion")),
             ),
             ProtocolNote(
-                "Prazosin dose differs: JIPMER uses 30 µg/kg per dose in children; Bawaskar 2011 used fixed 250 µg (under 18) or 500 µg (adults). Neither source states a maximum dose.",
-                listOf(cite(SC_J15, "Methods"), cite(SC_J18, "Methods"), cite(SC_BMJ, "Study treatments")),
+                "Prazosin dose differs: JIPMER uses 30 µg/kg per dose in children; Bawaskar 2011 used fixed 250 µg (under 18) or 500 µg (adults). Neither source states a maximum dose; the calculator caps the JIPMER dose at 1 mg, the FDA label's initial-dose limit.",
+                listOf(cite(SC_J15, "Methods"), cite(SC_J18, "Methods"), cite(SC_BMJ, "Study treatments"), cite(SC_FDA, "Warnings (syncope)")),
             ),
             ProtocolNote(
                 "Antihistamines conflict: Bawaskar 2015 advises avoiding them (QT prolongation), but JIPMER 2018 premedicated SAV with IV chlorphenamine and ranitidine and reported fewer major reactions afterwards.",

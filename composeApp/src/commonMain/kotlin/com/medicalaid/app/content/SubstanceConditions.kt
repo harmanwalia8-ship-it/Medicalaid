@@ -12,9 +12,7 @@ package com.medicalaid.app.content
  *  - No ICMR, MoHFW or Indian Psychiatric Society guideline on treating stimulant use disorder was found;
  *    the IPS 2023 guideline covers intoxication in the emergency department only.
  *  - India statements start with “India” so the guideline filter groups them.
- *  - The cocaine toxicity protocol (protocols/data/Cocaine.kt) is still in review and not shown, so the
- *    toxicity block here must not point readers to it; add that pointer back to the block title only
- *    once the cocaine group is moved to `released` in Protocols.kt.
+ *  - The toxicity block points to the cocaine toxicity protocol (protocols/data/Cocaine.kt), released in 0.4.0.
  */
 
 internal val substanceConditionSources: List<Source> = listOf(
@@ -208,7 +206,7 @@ private val sudCocaineUseDisorder = Condition(
             ),
         ),
         InfoBlock(
-            "Acute cocaine toxicity — key points",
+            "Acute cocaine toxicity — key points (full pathway: Protocols › Cocaine toxicity)",
             listOf(
                 "ASAM/AAAP: benzodiazepines can be considered first line for stimulant-induced agitation (Rec 57a, high certainty, conditional) and the hyperadrenergic state (Rec 64: treat with GABAergic agents — benzodiazepines, phenobarbital, propofol; low certainty, strong).",
                 "India (IPS 2023): quiet room; lorazepam 2 mg orally, IM or IV, repeated as necessary; IV fluids for dehydration.",

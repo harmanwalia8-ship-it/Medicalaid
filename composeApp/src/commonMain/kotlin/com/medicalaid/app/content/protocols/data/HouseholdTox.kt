@@ -106,13 +106,13 @@ internal val householdToxSources = listOf(
     ),
     // Corrosives ---------------------------------------------------------------------------------
     Source(
-        "tx-hh-wses-caustic-2015", Authority.Paper, "WSES consensus conference (World J Emerg Surg 2015;10:44)",
+        "tx-hh-wses-caustic-2015", Authority.WSES, "Consensus conference (World J Emerg Surg 2015;10:44)",
         "Foregut caustic injuries: results of the World Society of Emergency Surgery consensus conference", "2015",
         "https://doi.org/10.1186/s13017-015-0039-0",
         status = "Oxford 2011 levels of evidence",
     ),
     Source(
-        "tx-hh-wses-esophageal-2019", Authority.Paper, "WSES guidelines (World J Emerg Surg 2019;14:26)",
+        "tx-hh-wses-esophageal-2019", Authority.WSES, "Guidelines (World J Emerg Surg 2019;14:26)",
         "Esophageal emergencies: WSES guidelines", "2019",
         "https://doi.org/10.1186/s13017-019-0245-2",
         status = "Corrosive-ingestion section; GRADE-style grades",
@@ -139,14 +139,14 @@ internal val householdToxSources = listOf(
     ),
     // Carbon monoxide ----------------------------------------------------------------------------
     Source(
-        "tx-hh-acep-co-2025", Authority.Paper, "ACEP clinical policy (Ann Emerg Med 2025;85:e45–e59)",
+        "tx-hh-acep-co-2025", Authority.ACEP, "Clinical policy (Ann Emerg Med 2025;85:e45–e59)",
         "A critical issue in the management of adult patients presenting to the emergency department with acute carbon monoxide poisoning",
         "2025",
         "https://doi.org/10.1016/j.annemergmed.2024.12.005",
         status = "Approved by the ACEP Board 22 January 2025; revisits only the hyperbaric-oxygen question of the 2017 policy",
     ),
     Source(
-        "tx-hh-acep-co-2017", Authority.Paper, "ACEP clinical policy (Ann Emerg Med 2017;69:98–107)",
+        "tx-hh-acep-co-2017", Authority.ACEP, "Clinical policy (Ann Emerg Med 2017;69:98–107)",
         "Clinical policy: critical issues in the evaluation and management of adult patients presenting to the emergency department with acute carbon monoxide poisoning",
         "2017",
         "https://doi.org/10.1016/j.annemergmed.2016.11.003",
@@ -338,7 +338,8 @@ internal val householdToxProtocols = listOf(
                     StepDose(
                         label = "Activated charcoal — child ≤1 year (WHO)",
                         dose = WeightDose(minPerKg = 1.0, maxPerKg = 1.0, unit = "g", per = "single dose"),
-                        note = "WHO Table 5: by mouth or nasogastric tube, mixed in 8–10 volumes of water (e.g. 5 g in 40 mL). " +
+                        note = "WHO Table 5: by mouth or nasogastric tube (WHO: make sure the tube is in the stomach, not the airway or lungs), " +
+                            "mixed in 8–10 volumes of water (e.g. 5 g in 40 mL). CTRC 2026: no NG/OG tube without intubation solely to give charcoal. " +
                             "1–12 years: 25–50 g; adolescents and adults: 25–100 g.",
                     ),
                 ),
@@ -381,19 +382,22 @@ internal val householdToxProtocols = listOf(
                     "CTRC 2026: multiple-dose charcoal appropriate for carbamazepine, cardiac glycosides, colchicine, dapsone, phenobarbital, phenytoin, thallium and theophylline.",
                     "AACT/EAPCCT 2015: whole bowel irrigation can be considered for sustained-release or enteric-coated drugs, iron, lithium, potassium, or drug packets.",
                     "AACT/EAPCCT 2015: no bowel irrigation with obstruction, perforation, ileus, haemodynamic instability or a compromised unprotected airway.",
-                    "IJCCM review: urine alkalinisation for weak acids such as salicylate and phenobarbital — target urine pH 7.5–8.5; correct hypokalaemia first.",
+                    "IJCCM review: urine alkalinisation for weak acids such as salicylate and phenobarbital — target urine pH 7.5–8.5; " +
+                        "contraindicated with pre-existing fluid overload, renal impairment or hypokalaemia (correct hypokalaemia first).",
                     "IJCCM review: extracorporeal removal suits toxins with low volume of distribution (<1 L/kg), low molecular weight and low protein binding.",
                 ),
                 doses = listOf(
                     StepDose(
                         label = "Multiple-dose activated charcoal — each repeat dose (IJCCM review)",
                         dose = WeightDose(minPerKg = 0.5, maxPerKg = 0.5, unit = "g", per = "per repeat dose, after the initial standard dose"),
-                        note = "Repeat interval not stated in the source. Only for the agents listed in this step; contraindicated with intestinal obstruction (AACT/EAPCCT 1999).",
+                        note = "Repeat interval not stated in the source. Only for the agents listed in this step. " +
+                            "Contraindicated unless the airway is intact or protected, and with intestinal obstruction; no cathartics (AACT/EAPCCT 1999).",
                     ),
                     StepDose(
                         label = "Sodium bicarbonate — urine alkalinisation bolus (IJCCM review)",
                         dose = WeightDose(minPerKg = 1.0, maxPerKg = 2.0, unit = "mEq", per = "IV bolus"),
-                        note = "Correct hypokalaemia first. Then 100 mEq in 1 L 5% dextrose at 250 mL/h (20 mEq KCl may be added); " +
+                        note = "Contraindicated with pre-existing fluid overload or renal impairment; correct hypokalaemia first. " +
+                            "Then 100 mEq in 1 L 5% dextrose at 250 mL/h (20 mEq KCl may be added); " +
                             "check urine pH every 15–30 min, target 7.5–8.5.",
                     ),
                 ),
@@ -428,7 +432,12 @@ internal val householdToxProtocols = listOf(
             ProtocolNote(
                 "Charcoal timing differs: AACT/EAPCCT 2005 — consider within 1 h of ingestion; CTRC 2026 — up to 6 h for many poisons after individual risk assessment. " +
                     "CTRC 2026 was reviewed from its abstract; agent-specific time limits are in the full text.",
-                listOf(cite(HH_SDAC, "Abstract"), cite(HH_CTRC, "Abstract — Conclusions")),
+                listOf(cite(HH_SDAC, "Abstract"), cite(HH_CTRC, "Abstract — Results")),
+            ),
+            ProtocolNote(
+                "Charcoal route differs: the WHO pocket book allows a nasogastric tube, taking care that it is in the stomach and not the airway or lungs; " +
+                    "CTRC 2026 advises against nasogastric or orogastric tube insertion without endotracheal intubation solely to give charcoal.",
+                listOf(cite(HH_WHO, "§1.6.1 (p. 27)"), cite(HH_CTRC, "Abstract — good practice statements")),
             ),
             ProtocolNote(
                 "Emesis and lavage: AACT/EAPCCT 2013 and the IJCCM review advise against routine use; the WHO pocket book (2013) still allows paediatric ipecac " +
@@ -492,7 +501,7 @@ internal val householdToxProtocols = listOf(
                     "Gastric lavage (WSES 2015)",
                     "Neutralise with a weak acid or alkali — exothermic reaction (WSES 2015)",
                     "Activated charcoal (WHO)",
-                    "Nasogastric tube (WSES 2015: no proven benefit; reported to increase perforation, reflux and pneumonia)",
+                    "Nasogastric tube to prevent vomiting or stricture (WSES 2015: no proven benefit; reported to increase perforation, reflux and pneumonia)",
                     "Diluents such as milk or water (WSES 2015 — WHO advises the opposite; see notes)",
                 ),
                 citations = listOf(
@@ -540,6 +549,8 @@ internal val householdToxProtocols = listOf(
                     "WSES 2019: transmural necrosis — operate as soon as possible (Grade 1C) and resect all obvious necrosis at the first operation (Grade 2A).",
                     "WSES 2019: absence of pain or oral lesions does not rule out life-threatening injury; neck, chest and abdominal X-rays may show free air.",
                     "WSES 2019: deterioration during non-operative care — repeat CT and consider surgery (Grade 2A).",
+                    "IJCCM review: gastric or oesophageal perforation can occur any time in the first 2 weeks (most often days 3–12); " +
+                        "worsening abdominal pain or new chest pain needs immediate radiological evaluation.",
                 ),
                 checklistTitle = "Red flags (WSES)",
                 checklist = listOf(
@@ -554,6 +565,7 @@ internal val householdToxProtocols = listOf(
                 citations = listOf(
                     cite(HH_WSES15, "Management algorithm (Level 4)"),
                     cite(HH_WSES19, "Investigations (Grade 3A); non-operative management (Grade 2A); surgical treatment (Grade 1C, 2A)"),
+                    cite(HH_CORR, "Clinical features"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -611,9 +623,11 @@ internal val householdToxProtocols = listOf(
                     "WSES 2015: benefit of PPIs and H2 blockers unproven. IJCCM review: IV PPIs are usually given in higher-grade injury despite unproven efficacy.",
                     "WSES 2015: use the gut early — low-grade injury resumes oral intake as soon as the patient can swallow.",
                     "WSES 2015: severe burns — jejunostomy or nasojejunal feeding rather than gastrostomy (possible hidden gastric outlet obstruction). ISG 2025: nutritional support throughout.",
+                    "WSES 2019: oral feeding as soon as patients swallow normally; enteral feeding by nasogastric tube or jejunostomy if unable to eat.",
                 ),
                 citations = listOf(
                     cite(HH_WSES15, "Emergency department management (Level 3, 5); Nutritional approach (Level 5)"),
+                    cite(HH_WSES19, "Non-operative management"),
                     cite(HH_CORR, "Initial resuscitation"),
                     cite(HH_ISG, "Abstract"),
                 ),
@@ -654,6 +668,16 @@ internal val householdToxProtocols = listOf(
             ProtocolNote(
                 "Endoscopy timing differs: WSES 2015 — usually 3–6 h after ingestion; IJCCM review — within 48 h, avoiding days 5–15.",
                 listOf(cite(HH_WSES15, "Management algorithm"), cite(HH_CORR, "Evaluation of the grade of injury")),
+            ),
+            ProtocolNote(
+                "Nasogastric tubes differ: WSES 2015 advises avoiding them, as their value in preventing vomiting or stricture is unproven; " +
+                    "WSES 2019 recommends enteral feeding by nasogastric tube or jejunostomy in patients unable to eat; " +
+                    "the IJCCM review calls early placement an option, decided case by case.",
+                listOf(
+                    cite(HH_WSES15, "Emergency department management (Level 5)"),
+                    cite(HH_WSES19, "Non-operative management"),
+                    cite(HH_CORR, "Prevention of stricture formation"),
+                ),
             ),
             ProtocolNote(
                 "ISG 2025 (41 modified-Delphi statements, Indian Society of Gastroenterology) was reviewed from its abstract only; consult the full guideline for statement-level detail.",
@@ -710,15 +734,14 @@ internal val householdToxProtocols = listOf(
                     "ECHM 2016: give 100% oxygen immediately to anyone with CO poisoning as first aid (Type 1, Level C).",
                     "CDC: 100% oxygen until symptom-free (usually about 4–5 h) or until CO poisoning is ruled out.",
                     "ACEP 2025: COHb elimination half-life about 5 h on air, 85 min with a high-flow non-rebreather mask, 20 min with hyperbaric oxygen.",
-                    "ACEP 2017 (Level B): use hyperbaric or high-flow normobaric oxygen; unclear whether hyperbaric is superior for long-term neurocognitive outcome.",
                     "ECHM 2016: minor CO poisoning — 12 h of normobaric oxygen or HBOT is reasonable (Type 3, Level B).",
                     "WHO (children): give 100% oxygen until signs of hypoxia disappear.",
                 ),
                 citations = listOf(
                     cite(HH_ECHM, "Accepted indications — CO poisoning (Table 2)"),
                     cite(HH_CDC, "Management"),
+                    cite(HH_HAN, "Recommendations for clinicians"),
                     cite(HH_ACEP25, "Introduction"),
-                    cite(HH_ACEP17, "Critical question 2 (Level B)"),
                     cite(HH_WHO, "§1.6.4 Carbon monoxide (p. 33)"),
                 ),
             ),
@@ -729,7 +752,7 @@ internal val householdToxProtocols = listOf(
                     "CDC: measure COHb on venous or arterial blood by CO-oximetry whenever CO poisoning is suspected.",
                     "CDC: a conventional two-wavelength pulse oximeter is inaccurate when COHb is present. WHO: readings may be falsely high; the patient can look pink yet be hypoxaemic.",
                     "ACEP 2017 (Level B): do not use noninvasive pulse CO-oximetry to diagnose CO toxicity in suspected acute poisoning.",
-                    "CDC: COHb ≥2% in non-smokers or ≥9% in smokers strongly supports CO poisoning; interpret with time since exposure, as levels fall.",
+                    "CDC: an elevated COHb of 2% in non-smokers or >9% in smokers strongly supports CO poisoning; interpret with time since exposure, as levels fall.",
                     "CDC: COHb correlates poorly with severity, outcome or response to treatment; sickle cell disease can raise COHb.",
                 ),
                 citations = listOf(
@@ -747,6 +770,7 @@ internal val householdToxProtocols = listOf(
                     "CDC: cardiac injury during poisoning increases the risk of death within 10 years.",
                     "CDC: serial neurological examinations to assess progress and detect developing cerebral oedema.",
                     "CDC: pregnancy test in all women of childbearing age with suspected CO poisoning.",
+                    "CDC: seriously poisoned patients, especially with loss of consciousness or cardiopulmonary signs — chest X-ray; head CT or brain MRI.",
                 ),
                 citations = listOf(
                     cite(HH_ACEP17, "Critical question 3 (Level B)"),
@@ -756,7 +780,7 @@ internal val householdToxProtocols = listOf(
             // 5 ------------------------------------------------------------------------------------
             Step(
                 title = "Hyperbaric oxygen: who",
-                timing = "Decide early; weigh distance and transfer time (ACEP 2025)",
+                timing = "Weigh severity and availability — distance and time (ACEP 2025)",
                 points = listOf(
                     "ACEP 2025 (Level C only): in symptomatic CO poisoning, selected patients may benefit from HBO2, depending on severity and availability (distance, time).",
                     "ACEP 2025 harms: middle-ear barotrauma, oxygen-toxicity seizures, claustrophobia, deterioration during transport and long transfers.",
@@ -804,12 +828,14 @@ internal val householdToxProtocols = listOf(
                     "FDA Cyanokit label: in smoke inhalation, assess for an enclosed-space fire, soot around mouth, nose or oropharynx, and altered mental status.",
                     "FDA Cyanokit label: lactate ≥10 mmol/L suggests cyanide in smoke inhalation; hypotension is suggestive but uncommon.",
                     "FDA Cyanokit label: adults 5 g IV over 15 min via a separate line; may repeat 5 g (total 10 g) over 15 min–2 h by severity.",
-                    "FDA Cyanokit label: paediatric safety not established (70 mg/kg used outside the US); monitor BP and renal function for 7 days; interferes with colorimetric lab tests.",
-                    "FDA Nithiodote label: use sodium nitrite cautiously in smoke inhalation or CO poisoning — methaemoglobin may worsen hypoxia.",
+                    "FDA Cyanokit label: paediatric safety not established (70 mg/kg used outside the US); monitor blood pressure during treatment and renal function for 7 days.",
+                    "FDA Cyanokit label: its deep red colour interferes with colorimetric lab tests and may shut down haemodialysis machines (false 'blood leak' alarm).",
+                    "FDA Nithiodote label (boxed warning): sodium nitrite can cause life-threatening hypotension and methaemoglobin formation; consider alternative therapy in smoke-inhalation victims.",
+                    "FDA Nithiodote label §5.4: use with caution in smoke inhalation or CO poisoning — methaemoglobin may worsen hypoxia.",
                 ),
                 citations = listOf(
                     cite(HH_CYANOKIT, "§2.1 Identifying patients (smoke inhalation); §2.2; §2.4; §5.3–5.5; §8.4"),
-                    cite(HH_NITHIODOTE, "§5.4 Smoke inhalation injury"),
+                    cite(HH_NITHIODOTE, "Boxed warning; §5.4 Smoke inhalation injury"),
                 ),
             ),
             // 8 ------------------------------------------------------------------------------------
@@ -872,7 +898,7 @@ internal val householdToxProtocols = listOf(
                     "IJCCM review (PGIMER): aspiration pneumonitis is the main toxicity — low viscosity, high volatility, low surface tension; even <1 mL aspirated can be serious.",
                     "IJCCM review: aspiration occurs with coughing or gagging at ingestion, or with vomiting; ingestion without aspiration does not cause chemical pneumonitis.",
                     "WHO (children): aspirated petroleum products can cause pulmonary oedema that takes hours to develop; ingestion can cause encephalopathy.",
-                    "WHO (children): most pesticides are dissolved in petrol-based solvents — consider pesticide co-exposure.",
+                    "WHO (children): most pesticides are in petrol-based solvents — do not induce vomiting after pesticide ingestion either.",
                 ),
                 checklistTitle = "Signs of aspiration or toxicity (IJCCM review)",
                 checklist = listOf(
@@ -885,7 +911,7 @@ internal val householdToxProtocols = listOf(
                 ),
                 citations = listOf(
                     cite(HH_KERO, "Kerosene — pathophysiology; clinical manifestations"),
-                    cite(HH_WHO, "§1.6 (pp. 26–27); §1.6.1 (p. 27); §1.6.4 Petroleum compounds (p. 30)"),
+                    cite(HH_WHO, "§1.6 (pp. 26–27); §1.6.1 (p. 27); §1.6.4 Petroleum compounds; Organophosphorus and carbamate compounds (p. 30)"),
                 ),
             ),
             // 2 ------------------------------------------------------------------------------------
@@ -947,7 +973,8 @@ internal val householdToxProtocols = listOf(
                 points = listOf(
                     "WHO (children): children who ingested petroleum products should not be sent home without at least 6 h observation.",
                     "IJCCM review: respiratory symptoms usually start within 1 h and almost always within 6 h; may worsen until 24–48 h, then improve.",
-                    "IJCCM review: no aspiration symptoms and normal saturation at 6 h — discharge with advice to return if symptoms develop.",
+                    "IJCCM review: small ingestion with no aspiration symptoms (choking, coughing, vomiting, respiratory distress), normal saturation and no other features — " +
+                        "discharge after 6 h observation with advice to return if symptoms develop.",
                     "IJCCM review: admit if symptomatic at presentation or within 6 h; intensive care for respiratory compromise or hypoxaemia.",
                     "Anas 1981: only children symptomatic at presentation or during 6–8 h observation needed hospital admission.",
                 ),

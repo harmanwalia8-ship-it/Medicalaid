@@ -185,9 +185,12 @@ fun GuidelineBasis(citations: List<Citation>, modifier: Modifier = Modifier, com
 }
 
 /** "NICE Guideline NG201", without repeating the body when the document name already includes it. */
-fun sourceLabel(source: com.medicalaid.app.content.Source): String =
-    if (source.document.startsWith(source.authority.short, ignoreCase = true)) source.document
-    else "${source.authority.short} ${source.document}"
+fun sourceLabel(source: com.medicalaid.app.content.Source): String = when {
+    // Journal articles: the citation itself ("Review (J Emerg Trauma Shock 2011;4:378–384)") says what it is.
+    source.authority == com.medicalaid.app.content.Authority.Paper -> source.document
+    source.document.startsWith(source.authority.short, ignoreCase = true) -> source.document
+    else -> "${source.authority.short} ${source.document}"
+}
 
 /** Small source lines at the foot of a card: "ⓘ ACOG Practice Bulletin No. 189 · Figure 1 ↗". */
 @Composable

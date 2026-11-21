@@ -22,6 +22,13 @@ import com.medicalaid.app.content.protocols.StepDose
  */
 
 internal val drugToxSources: List<Source> = listOf(
+    // Shared with the cardiac arrest protocols (Resuscitation.kt), which cite it by id.
+    Source(
+        "em-resus-aha-special-2025", Authority.AHA, "AHA guideline — Circulation 2025;152(16 Suppl 2):S578–S672",
+        "Part 10: Adult and Pediatric Special Circumstances of Resuscitation: 2025 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+        "2025",
+        "https://doi.org/10.1161/CIR.0000000000001380",
+    ),
     // Opioids ------------------------------------------------------------------------------------
     Source(
         "tx-dt-fda-naloxone-inj", Authority.FDA, "Prescribing information (DailyMed)",
@@ -274,11 +281,13 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                     StepDose(
                         label = "Naloxone — child, initial (FDA injection label)",
                         dose = WeightDose(0.01, 0.01, unit = "mg", per = "IV; IM or SC in divided doses if IV unavailable"),
-                        note = "FDA label: if no adequate response, a subsequent dose of 0.1 mg/kg may be given. Neonates: 0.01 mg/kg IV, IM or SC.",
+                        note = "FDA label: if no adequate response, a subsequent dose of 0.1 mg/kg may be given. Neonates (opioid-induced depression): 0.01 mg/kg IV, IM or SC. " +
+                            "FDA label: give cautiously to newborns of mothers known or suspected to be opioid-dependent — abrupt reversal may precipitate acute withdrawal (convulsions).",
                     ),
                     StepDose(
                         label = "Naloxone — child, subsequent dose (FDA injection label)",
                         dose = WeightDose(0.1, 0.1, unit = "mg", per = "IV, if 0.01 mg/kg gave no adequate response"),
+                        note = "FDA label gives no maximum. AHA 2025 Table 4: maximum paediatric dose should not exceed the adult dose (0.2–2 mg).",
                     ),
                     StepDose(
                         label = "Naloxone — child (AHA 2025 Table 4)",
@@ -290,7 +299,7 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 ),
                 citations = listOf(
                     cite(DT_AHA25, "Toxicology: Opioid Overdose — Rec 3 (S651) and supportive text (S652–S653); Table 4 (S633)"),
-                    cite(NALOX_INJ, "Dosage and Administration — Usage in Adults, Usage in Children, Usage in Neonates"),
+                    cite(NALOX_INJ, "Dosage and Administration — Usage in Adults, Usage in Children, Usage in Neonates; Warnings — Drug Dependence"),
                     cite(DT_IPS, "Management of opioid intoxication in the emergency setting"),
                     cite(WHO14, "Rec 2 remarks — Dosage (p. 12)"),
                     cite(NARCAN, "§2.1–2.2"),
@@ -319,7 +328,8 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 title = "Tramadol: seizures and serotonin toxicity",
                 points = listOf(
                     "FDA tramadol label: overdose may cause respiratory depression, coma, seizures, QT prolongation, hypotension and death; fatal risk rises with alcohol or other CNS depressants.",
-                    "FDA tramadol label: reversal agents reverse some but not all effects and increase seizure risk; in animals, benzodiazepines suppressed tramadol convulsions, naloxone increased them.",
+                    "FDA tramadol label: airway and assisted ventilation come first; for clinically significant respiratory or circulatory depression give naloxone. " +
+                        "It reverses some but not all effects and increases seizure risk (in animals, benzodiazepines suppressed tramadol convulsions, naloxone increased them).",
                     "IPS 2023: tramadol and dextropropoxyphene lower the seizure threshold. ISCCM 2024 (moderate): benzodiazepines are the first antiseizure drug in poisoning, not phenytoin.",
                     "FDA tramadol label: serotonin syndrome may occur, particularly with SSRIs, SNRIs, tricyclics, MAO inhibitors, linezolid or IV methylene blue — stop tramadol if suspected.",
                     "FDA tramadol label: haemodialysis removes less than 7% of a dose in 4 h and is not expected to help.",
@@ -363,7 +373,8 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                     "FDA injection label: in opioid dependence, abrupt complete reversal precipitates withdrawal within minutes, subsiding in about 2 h; severity relates to naloxone dose.",
                     "WHO 2014: tailor the dose to avoid marked withdrawal; the panel judged doses above 2 mg a potential harm (prolonged withdrawal, seizures).",
                     "AHA 2023: naloxone can cause sudden pulmonary oedema, which may be severe but responds readily to positive-pressure ventilation.",
-                    "FDA Narcan label: abrupt postoperative reversal has caused hypertension, VT/VF, pulmonary oedema and cardiac arrest, mainly with pre-existing cardiovascular disease.",
+                    "FDA Narcan label: abrupt postoperative reversal may result in hypertension, VT/VF, pulmonary oedema and cardiac arrest, mostly in patients with pre-existing cardiovascular disease " +
+                        "(causality not established); monitor such patients in a healthcare setting.",
                     "AHA 2023: alternatives to naloxone are observation (if breathing normally, whatever the CNS depression) and ventilatory support.",
                     "FDA Narcan label: neonatal withdrawal may be life-threatening; where abrupt withdrawal should be avoided, prefer a weight-dosed, titratable naloxone product.",
                 ),
@@ -493,10 +504,10 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 title = "Recognise misuse (Punjab data)",
                 points = listOf(
                     "Aneja 2026 (974 patients with substance use disorders, Punjab and Chandigarh): 44.6% used pregabalin non-medically; 24.8% met ICD-10 dependence criteria.",
-                    "Aneja 2026: about one-third co-used opioids, mainly heroin; opioid use disorder raised the odds of pregabalin use (aOR 5.3).",
-                    "Aneja 2026: 63.6% took 300–2400 mg/day and about 12% more than 2400 mg/day. FDA Lyrica label maximum dose: 600 mg/day.",
+                    "Aneja 2026: about one-third of pregabalin users co-used opioids, mainly heroin; opioid use disorder raised the odds of pregabalin use (aOR 5.3).",
+                    "Aneja 2026 (among the 435 who used pregabalin): 63.6% took 300–2400 mg/day and about 12% more than 2400 mg/day. FDA Lyrica label maximum dose: 600 mg/day.",
                     "Indian J Psychol Med 2023 (western Punjab): 'Signature' capsules is a colloquial name for pregabalin; two users escalated from 300 to 1500–1800 mg/day for a 'high'.",
-                    "Aneja 2026: 73.5% bought pregabalin from a licensed chemist without a legible prescription; 7.8% reported a seizure linked to its use.",
+                    "Aneja 2026 (pregabalin users): 73.5% bought it from a licensed chemist without a legible prescription; 7.8% (34 patients) reported a seizure linked to its use.",
                     "MoHFW 2026: pregabalin is misused for sedative, euphoric and dissociative effects, particularly among youth.",
                 ),
                 citations = listOf(
@@ -679,7 +690,7 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "IPS 2023: short-acting — etizolam, alprazolam, lorazepam; long-acting — diazepam, nitrazepam, clonazepam. Children (accidental) and the elderly are most vulnerable.",
                     "IPS 2023: large doses — slurred speech, incoordination, slowed breathing; higher doses — confusion, coma and death. Paradoxical agitation or aggression can occur.",
-                    "AHA 2025: isolated benzodiazepine poisoning rarely causes life-threatening hypoventilation or instability; overdoses usually involve opioids, ethanol or other CNS depressants.",
+                    "AHA 2025: in adults, isolated benzodiazepine poisoning rarely causes life-threatening hypoventilation or instability; overdoses usually involve opioids, ethanol or other CNS depressants.",
                     "IPS 2023: ask about alcohol, opioids, barbiturates, tricyclics, anticonvulsants, sedating antipsychotics, antihistamines and cannabis taken with it.",
                     "IPS 2023: rule out head injury, encephalitis, hypoglycaemia, hypernatraemia, infection, acute cardiac event and stroke.",
                 ),
@@ -808,13 +819,14 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                     "ISCCM 2024 (strong): observe at least 24 h after symptoms resolve; neuropsychiatric assessment before discharge if intentional (moderate).",
                     "FDA flumazenil label: can precipitate benzodiazepine withdrawal; use with caution in alcohol and other drug dependence.",
                     "WHO mhGAP 2016: alcohol or benzodiazepine withdrawal with tremor, sweating or vital-sign changes — diazepam 10–20 mg orally, repeat as needed; transfer if possible.",
+                    "WHO mhGAP 2016 Table 1: do not give diazepam to people who are sedated; beware of combining it with other sedatives.",
                     "IPS 2023: involve addiction psychiatry once conscious — an opportunity for intervention and long-term engagement with treatment.",
                 ),
                 citations = listOf(
                     cite(DT_IPS, "Management of benzodiazepine intoxication; Polysubstance use"),
                     cite(DT_ISCCM, "Q22 (moderate); Q23 (strong)"),
                     cite(FLUM, "Precautions — Use in Drug and Alcohol Dependent Patients"),
-                    cite(DT_MHGAP, "SUB Step 3A — alcohol or benzodiazepine withdrawal (p. 110)"),
+                    cite(DT_MHGAP, "SUB Step 3A — alcohol or benzodiazepine withdrawal (p. 110); SUB Table 1 (p. 126)"),
                 ),
             ),
         ),
@@ -929,17 +941,17 @@ internal val drugToxProtocols: List<Protocol> = listOf(
             // 5 ------------------------------------------------------------------------------------
             Step(
                 title = "Children who eat cannabis",
-                timing = "Observe at least 24 h after stabilisation (IPS 2023)",
+                timing = "IPS 2023: at least 24 h observation after stabilisation for intoxicated children and adolescents (IPS does not cover accidental ingestion)",
                 points = listOf(
                     "Tweet 2023 (US poison centres, children <6 years): edible exposures rose from 207 in 2017 to 3,054 in 2021; 97.7% occurred at home.",
                     "Tweet 2023: CNS depression in 70% of cases with a known outcome; 22.7% admitted, with ICU admissions increasing.",
                     "IPS 2023: children show adult-type intoxication after much smaller amounts, with higher mortality risk; estimate the dose per kg as accurately as possible.",
-                    "IPS 2023: generally avoid emetics, gastric lavage and activated charcoal in children; avoid forced diuresis.",
+                    "IPS 2023 (substance intoxication in children and adolescents; accidental ingestion is outside the guideline's scope): generally avoid emetics, gastric lavage and activated charcoal; avoid forced diuresis.",
                     "RCEM 2023: cannabinoid hyperemesis syndrome is described in adolescents; exposure may be through passive smoking.",
                 ),
                 citations = listOf(
                     cite(TWEET, "Abstract — Results"),
-                    cite(DT_IPS, "Children and adolescents; Table 6"),
+                    cite(DT_IPS, "Introduction (scope); Children and adolescents; Table 6"),
                     cite(RCEM, "Special populations — Paediatrics"),
                 ),
             ),
@@ -958,7 +970,7 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 checklist = listOf(
                     "Stereotypical episodic vomiting resembling cyclic vomiting syndrome, 3 or more times a year",
                     "Cannabis use for more than 1 year before onset, on average more than 4 times a week",
-                    "Resolution after at least 6 months' abstinence, or at least 3 typical vomiting cycles",
+                    "Resolution after abstinence from cannabis for at least 6 months, or for at least the total duration of 3 typical vomiting cycles",
                 ),
                 citations = listOf(
                     cite(AGA, "Clinical diagnostic criteria (as reproduced by AGA, 29 April 2024)"),
@@ -972,7 +984,7 @@ internal val drugToxProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "RCEM 2023: CHS often resists cyclizine, metoclopramide, ondansetron, prochlorperazine and other antiemetics; opioid analgesia is frequently unsuccessful.",
                     "RCEM 2023: refractory symptoms — haloperidol 0.05 mg/kg IM (max 5 mg), or capsaicin 0.1% cream, 5 g applied to the abdomen.",
-                    "RCEM 2023: ECG before haloperidol; do not give if QTc is prolonged or with Parkinson's disease or Lewy body dementia; monitor for acute dystonia.",
+                    "RCEM 2023: ECG before haloperidol, and correct electrolyte abnormalities if conduction defects are present; do not give if QTc is prolonged or with Parkinson's disease or Lewy body dementia; monitor for acute dystonia.",
                     "HaVOC RCT 2021 (30 patients): IV haloperidol 0.05 or 0.1 mg/kg beat ondansetron 8 mg; two dystonia return visits, both at the higher dose.",
                     "SAEM GRACE 2024: limited direct evidence — mixed for capsaicin, potentially beneficial for dopamine antagonists.",
                     "RCEM 2023: if admitted, offer a hot shower or bath; benzodiazepines, droperidol, tricyclics and olanzapine have extremely limited evidence.",
@@ -1011,8 +1023,9 @@ internal val drugToxProtocols: List<Protocol> = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "CHS diagnosis: the AGA criteria need at least 6 months of abstinence, so RCEM 2023 notes CHS is unlikely to be definitively diagnosed in the emergency department.",
-                listOf(cite(AGA, "Clinical diagnostic criteria"), cite(RCEM, "Scope; Recognition")),
+                "CHS diagnosis: RCEM 2023 notes a confirmed diagnosis is unlikely to be made in the emergency department, because the Rome IV criteria require relief of vomiting with sustained cessation of cannabis use. " +
+                    "The AGA 2024 criteria similarly require resolution after abstinence for at least 6 months, or for at least the total duration of 3 typical vomiting cycles.",
+                listOf(cite(RCEM, "Scope; Recognition (Rome IV)"), cite(AGA, "Clinical diagnostic criteria")),
             ),
             ProtocolNote(
                 "Haloperidol route differs: RCEM 2023 suggests IM because there is no UK intravenous licence; the HaVOC trial gave it IV. " +

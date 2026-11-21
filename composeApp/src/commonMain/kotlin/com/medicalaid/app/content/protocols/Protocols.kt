@@ -13,14 +13,7 @@ object Protocols {
      */
     private val released = listOf(
         Group(strokeProtocols, strokeProtocolSources + toolSources),
-    )
-
-    /**
-     * Written but not yet fully reviewed. They compile and are checked by the integrity tests, but are
-     * never shown. Move a group to [released] once its review and fixes are complete.
-     */
-    private val inReview = listOf(
-        // Poisoning & envenomation
+        // Poisoning & envenomation — reviewed for 0.4.0
         Group(householdToxProtocols, householdToxSources),
         Group(pesticideProtocols, pesticideSources),
         Group(envenomationProtocols, envenomationSources),
@@ -30,6 +23,13 @@ object Protocols {
         Group(daturaProtocols, daturaSources),
         Group(oleanderProtocols, oleanderSources),
         Group(cocaineProtocols, cocaineSources),
+    )
+
+    /**
+     * Written but not yet fully reviewed. They compile and are checked by the integrity tests, but are
+     * never shown. Move a group to [released] once its review and fixes are complete.
+     */
+    private val inReview = listOf(
         // Medical emergencies
         Group(endocrineEmergencyProtocols, endocrineEmergencySources),
         Group(acidBaseProtocols, acidBaseSources),

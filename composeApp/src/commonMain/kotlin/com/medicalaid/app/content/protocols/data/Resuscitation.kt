@@ -39,12 +39,7 @@ internal val resuscitationSources: List<Source> = listOf(
         "2025",
         "https://doi.org/10.1161/CIR.0000000000001369",
     ),
-    Source(
-        "em-resus-aha-special-2025", Authority.AHA, "AHA guideline — Circulation 2025;152(16 Suppl 2):S578–S672",
-        "Part 10: Adult and Pediatric Special Circumstances of Resuscitation: 2025 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
-        "2025",
-        "https://doi.org/10.1161/CIR.0000000000001380",
-    ),
+    // "em-resus-aha-special-2025" (AHA 2025 Part 10) is defined in DrugTox.kt, which is released; cited here by id.
     Source(
         "em-resus-erc-als-2025", Authority.ERC, "ERC guideline — Resuscitation 2025;215(Suppl 1):110769",
         "European Resuscitation Council Guidelines 2025 Adult Advanced Life Support", "2025",
