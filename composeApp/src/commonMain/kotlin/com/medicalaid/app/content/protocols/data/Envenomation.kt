@@ -226,7 +226,7 @@ internal val envenomationProtocols = listOf(
                 title = "Anti-snake venom: indications and dose",
                 timing = "As soon as envenoming is evident — full dose, no waiting for reports (MoHFW STG 2017)",
                 points = listOf(
-                    "MoHFW STG 2017: give ASV for signs of envenoming; spontaneous bleeding >20 min after a bite needs no 20WBCT. Purely local or hours-old swelling is not an indication.",
+                    "MoHFW STG 2017: give ASV for signs of envenoming; spontaneous bleeding >20 min after a bite — start without waiting for 20WBCT. Purely local or hours-old swelling is not an indication.",
                     "MoHFW STG 2017 and NCDC 2024: polyvalent ASV 10 vials IV over 30 min (NAPSE 2024: 30–90 min). Never IM or at the bite site; no test dose.",
                     "MoHFW STG 2017 neurotoxic: second 10 vials after 1 h if no improvement; maximum 20 vials. WHO 2016: repeat if neurotoxic or cardiovascular signs worsen after 1 h.",
                     "MoHFW STG 2017 vasculotoxic: 20WBCT 6-hourly, ASV 6-hourly until clotting; low-dose option 10 vials (6 for saw-scaled viper) then 2 vials 6-hourly. Reconsider after 30 vials.",
@@ -431,7 +431,7 @@ internal val envenomationProtocols = listOf(
                 listOf(cite(SB_STG, "p.32"), cite(SB_WHO, "§6.7.5.3 (p.134)"), cite(SB_PHC, "ASV dosage box")),
             ),
             ProtocolNote(
-                "Kidney injury: MoHFW STG 2017 recommends forced alkaline diuresis cycles (furosemide, bicarbonate, potassium, mannitol) within 24 h; WHO 2016 uses a cautious fluid challenge and furosemide stress test instead.",
+                "Kidney injury: MoHFW STG 2017 recommends forced alkaline diuresis cycles (furosemide, bicarbonate, potassium, mannitol) within 24 h; WHO 2016 uses a cautious fluid challenge and furosemide stress test, alkalinising only for haemoglobin- or myoglobinuria.",
                 listOf(cite(SB_STG, "Forced alkaline diuresis (p.38)"), cite(SB_WHO, "§6.9.5.1, §6.9.5.3 (p.156–159)")),
             ),
             ProtocolNote(
