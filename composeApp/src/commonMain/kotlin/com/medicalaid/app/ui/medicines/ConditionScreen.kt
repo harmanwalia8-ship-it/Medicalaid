@@ -134,6 +134,8 @@ fun ConditionScreen(
                         ToolKind.TshPregnancy -> TshPregnancyTool(trimester)
                         ToolKind.TshGeneral -> TshGeneralTool()
                         ToolKind.Renal -> com.medicalaid.app.ui.tools.RenalTool()
+                        ToolKind.Burns -> com.medicalaid.app.ui.tools.BurnsTool()
+                        ToolKind.AcidBase -> com.medicalaid.app.ui.tools.AcidBaseTool()
                     }
                 }
             }

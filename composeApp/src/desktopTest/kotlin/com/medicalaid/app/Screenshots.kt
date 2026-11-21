@@ -131,5 +131,15 @@ class Screenshots {
         shot("28-tool-renal", heightDp = 1500) {
             Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.RenalTool("1.4", "68", com.medicalaid.app.tools.Renal.Sex.Male, "72", "168") }
         }
+        val burnMarks = mapOf("ant-trunk/Front" to 1.0, "r-upper-arm/Front" to 1.0, "r-lower-arm/Front" to 0.5, "head/Front" to 0.5, "r-thigh/Back" to 1.0)
+        shot("41-tool-burns", heightDp = 1250) {
+            Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.BurnsTool(burnMarks, "70") }
+        }
+        shot("42-tool-burns-dark", heightDp = 1250, dark = true) {
+            Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.BurnsTool(burnMarks, "70") }
+        }
+        shot("43-tool-abg", heightDp = 1100) {
+            Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.AcidBaseTool("7.21", "24", "10", "138", "100", "2.5") }
+        }
     }
 }

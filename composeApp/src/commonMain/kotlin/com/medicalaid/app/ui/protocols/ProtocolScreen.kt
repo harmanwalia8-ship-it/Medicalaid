@@ -179,6 +179,8 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
                 when (step.tool) {
                     ProtocolTool.OnsetClock -> { Spacer(Modifier.height(12.dp)); OnsetClock() }
                     ProtocolTool.ThrombolysisDose -> { Spacer(Modifier.height(12.dp)); ThrombolysisDose() }
+                    ProtocolTool.BurnsChart -> { Spacer(Modifier.height(12.dp)); com.medicalaid.app.ui.tools.BurnsTool() }
+                    ProtocolTool.AcidBase -> { Spacer(Modifier.height(12.dp)); com.medicalaid.app.ui.tools.AcidBaseTool() }
                     null -> {}
                 }
                 val scores = step.scoreIds.mapNotNull { Scores.byId(it) }

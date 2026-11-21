@@ -27,6 +27,28 @@ enum class Authority(val short: String, val india: Boolean = false) {
     NICE("NICE"),
     RCOG("RCOG"),
     WHO("WHO"),
+    ESC("ESC"),
+    ERC("ERC"),
+    RCUK("Resuscitation Council UK"),
+    JBDS("JBDS-IP"),
+    EndoSoc("Endocrine Society"),
+    ESE("ESE"),
+    GOLD("GOLD"),
+    BTS("BTS"),
+    AES("AES"),
+    ILAE("ILAE"),
+    AHS("AHS"),
+    ESCMID("ESCMID"),
+    ACG("ACG"),
+    WAO("WAO"),
+    ABA("ABA"),
+    ISBI("ISBI"),
+    WMS("WMS"),
+    UKKA("UKKA"),
+    ACEP("ACEP"),
+    NDMA("NDMA India", india = true),
+    ISCCM("ISCCM India", india = true),
+    CSI("CSI India", india = true),
 }
 
 /** Which patients a page is written for. */
@@ -45,6 +67,10 @@ enum class ToolKind {
     TshGeneral,
     /** eGFR (CKD-EPI 2021), non-indexed eGFR and Cockcroft–Gault CrCl. */
     Renal,
+    /** Burns chart (Lund–Browder) and fluid plan. */
+    Burns,
+    /** ABG interpreter. */
+    AcidBase,
 }
 
 /** A titled block of guideline statements (diagnostic criteria, targets, thresholds…). */

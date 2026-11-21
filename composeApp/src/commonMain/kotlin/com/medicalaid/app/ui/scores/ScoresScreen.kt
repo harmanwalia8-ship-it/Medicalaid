@@ -79,11 +79,11 @@ fun ProtocolsScreen(
     val focus = LocalFocusManager.current
     val results = remember(query) { Protocols.search(query) }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
-        item { ScreenTitle("Protocols", "Time-critical pathways and poisoning, step by step, with the source behind each step", onMenu = onMenu) }
+        item { ScreenTitle("Protocols", "Emergencies and poisoning, step by step, with the source behind each step", onMenu = onMenu) }
         item {
             SearchField(
                 query, onQueryChange, onDone = { focus.clearFocus() },
-                placeholder = "Search stroke, snakebite, Celphos…",
+                placeholder = "Search DKA, burns, snakebite…",
                 modifier = Modifier.padding(horizontal = Gutter).padding(top = 12.dp),
             )
         }

@@ -4,7 +4,12 @@ import com.medicalaid.app.content.Citation
 import com.medicalaid.app.content.WeightDose
 
 enum class ProtocolCategory(val label: String) {
-    Emergency("Emergencies"),
+    Cardiac("Cardiac & resuscitation"),
+    Respiratory("Respiratory & allergy"),
+    Neuro("Neurological"),
+    Metabolic("Metabolic, endocrine & acid–base"),
+    Infection("Sepsis, infection & bleeding"),
+    Environmental("Burns & environmental"),
     Poisoning("Poisoning & envenomation"),
 }
 
@@ -35,6 +40,10 @@ enum class ProtocolTool {
     OnsetClock,
     /** Weight → alteplase and tenecteplase doses for acute ischaemic stroke. */
     ThrombolysisDose,
+    /** Lund–Browder body chart → %TBSA → burns fluid plan. */
+    BurnsChart,
+    /** ABG interpreter: primary disorder, compensation, anion gap, delta ratio. */
+    AcidBase,
 }
 
 /** One step of a time-critical pathway. Every statement is attributed through [citations]. */
@@ -61,7 +70,7 @@ data class Protocol(
     val title: String,
     val summary: String,
     val keywords: List<String> = emptyList(),
-    val category: ProtocolCategory = ProtocolCategory.Emergency,
+    val category: ProtocolCategory,
     val steps: List<Step>,
     /** Where guidelines differ, or scope notes. */
     val notes: List<ProtocolNote> = emptyList(),

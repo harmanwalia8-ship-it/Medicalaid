@@ -25,7 +25,8 @@ enum class GuidelineGroup(val label: String, private val prefixes: List<String>)
             com.medicalaid.app.content.Authority.NICE -> Nice
             com.medicalaid.app.content.Authority.AHA -> AccAha
             com.medicalaid.app.content.Authority.KDIGO -> Kdigo
-            else -> of(source.document) ?: of(source.title)
+            com.medicalaid.app.content.Authority.ESC -> Esc
+            else -> if (source.authority.india) India else of(source.document) ?: of(source.title)
         }
 
         /** Citations to show under [filter]; falls back to all so a block is never left unsourced. */

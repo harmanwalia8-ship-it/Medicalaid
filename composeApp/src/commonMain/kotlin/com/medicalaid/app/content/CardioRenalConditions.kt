@@ -54,7 +54,7 @@ internal val cardioRenalConditionSources: List<Source> = listOf(
         "https://doi.org/10.1093/ndt/gfag055",
     ),
     Source(
-        "gc-esc-htn-2024", Authority.Paper, "ESC guideline — Eur Heart J 2024;45(38):3912–4018",
+        "gc-esc-htn-2024", Authority.ESC, "ESC guideline — Eur Heart J 2024;45(38):3912–4018",
         "2024 ESC Guidelines for the management of elevated blood pressure and hypertension", "2024",
         "https://doi.org/10.1093/eurheartj/ehae178",
     ),
@@ -76,12 +76,12 @@ internal val cardioRenalConditionSources: List<Source> = listOf(
         "https://doi.org/10.1016/j.ihj.2023.11.271",
     ),
     Source(
-        "gc-esc-eas-lipid-2019", Authority.Paper, "ESC/EAS guideline — Eur Heart J 2020;41(1):111–188",
+        "gc-esc-eas-lipid-2019", Authority.ESC, "ESC/EAS guideline — Eur Heart J 2020;41(1):111–188",
         "2019 ESC/EAS Guidelines for the management of dyslipidaemias: lipid modification to reduce cardiovascular risk", "2019",
         "https://doi.org/10.1093/eurheartj/ehz455",
     ),
     Source(
-        "gc-esc-eas-lipid-2025", Authority.Paper, "ESC/EAS focused update — Eur Heart J 2025;46(42):4359–4378",
+        "gc-esc-eas-lipid-2025", Authority.ESC, "ESC/EAS focused update — Eur Heart J 2025;46(42):4359–4378",
         "2025 Focused Update of the 2019 ESC/EAS Guidelines for the management of dyslipidaemias", "2025",
         "https://doi.org/10.1093/eurheartj/ehaf190",
     ),

@@ -14,6 +14,7 @@ class ContentIntegrityTest {
         "mohfw-thyroid-2014", "ata-2026-pregnancy", "nice-ng145", "ata-2014", "ata-aace-2012", "icmr-stw-hypothyroid-2022",
         "nkf-ckd-epi-2021", "kdigo-ckd-2024", "fda-renal-guidance-2024", "cockcroft-gault-1976",
         "st-aha-ais-2026", "st-nice-ng128", "st-mohfw-stroke-2022",
+        "tool-lund-browder", "tool-burns-fluids", "tool-acid-base",
     )
 
     @Test

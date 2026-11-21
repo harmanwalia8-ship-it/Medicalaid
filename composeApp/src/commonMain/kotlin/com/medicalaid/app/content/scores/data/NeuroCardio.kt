@@ -100,7 +100,7 @@ internal val neuroCardioScoreSources = listOf(
         "https://doi.org/10.1161/CIR.0000000000001193",
     ),
     Source(
-        "sc-esc-af-2024", Authority.Paper, "ESC/EACTS guideline — Eur Heart J 2024;45(36):3314–3414",
+        "sc-esc-af-2024", Authority.ESC, "ESC/EACTS guideline — Eur Heart J 2024;45(36):3314–3414",
         "2024 ESC Guidelines for the management of atrial fibrillation", "2024",
         "https://doi.org/10.1093/eurheartj/ehae176",
     ),

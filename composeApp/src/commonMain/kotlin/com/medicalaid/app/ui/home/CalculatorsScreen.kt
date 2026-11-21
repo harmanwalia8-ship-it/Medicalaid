@@ -53,6 +53,10 @@ fun CalculatorsScreen(
                 }
             }
         }
+        item { SectionHeader("Burns", Modifier.padding(horizontal = Gutter)) }
+        item { Box(Modifier.padding(horizontal = Gutter)) { com.medicalaid.app.ui.tools.BurnsTool() } }
+        item { SectionHeader("Acid–base", Modifier.padding(horizontal = Gutter)) }
+        item { Box(Modifier.padding(horizontal = Gutter)) { com.medicalaid.app.ui.tools.AcidBaseTool() } }
         item { SectionHeader("Kidney", Modifier.padding(horizontal = Gutter)) }
         item { Box(Modifier.padding(horizontal = Gutter)) { RenalTool() } }
         item { SectionHeader("Diabetes", Modifier.padding(horizontal = Gutter)) }
@@ -76,6 +80,8 @@ fun ToolScreen(kind: ToolKind, trimester: Trimester?, onBack: () -> Unit, conten
                     ToolKind.Glycemia -> GlycemiaTool()
                     ToolKind.TshPregnancy -> TshPregnancyTool(trimester)
                     ToolKind.TshGeneral -> TshGeneralTool()
+                    ToolKind.Burns -> com.medicalaid.app.ui.tools.BurnsTool()
+                    ToolKind.AcidBase -> com.medicalaid.app.ui.tools.AcidBaseTool()
                 }
             }
         }

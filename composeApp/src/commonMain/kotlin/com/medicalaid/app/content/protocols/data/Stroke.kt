@@ -4,6 +4,7 @@ import com.medicalaid.app.content.Authority
 import com.medicalaid.app.content.Source
 import com.medicalaid.app.content.cite
 import com.medicalaid.app.content.protocols.Protocol
+import com.medicalaid.app.content.protocols.ProtocolCategory
 import com.medicalaid.app.content.protocols.ProtocolNote
 import com.medicalaid.app.content.protocols.ProtocolTool
 import com.medicalaid.app.content.protocols.Step
@@ -94,6 +95,7 @@ private const val ICMR_IMG = "st-icmr-stw-stroke-imaging-2024"
 internal val strokeProtocols = listOf(
     Protocol(
         id = "acute-stroke",
+        category = ProtocolCategory.Neuro,
         title = "Acute stroke",
         summary = "Recognition, imaging, IV thrombolysis, thrombectomy, early care, ICH and TIA — " +
             "each step attributed to AHA/ASA, ESO, NICE, MoHFW or ICMR.",

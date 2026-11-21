@@ -10,7 +10,7 @@ package com.medicalaid.app.content
 internal val heartConditionSources: List<Source> = listOf(
     // ------------------------------------------------------------------ Heart failure
     Source(
-        "hc-esc-hf-2026", Authority.Paper, "ESC guideline — Eur Heart J 2026;47(38):5346–5457",
+        "hc-esc-hf-2026", Authority.ESC, "ESC guideline — Eur Heart J 2026;47(38):5346–5457",
         "2026 ESC Guidelines for the management of heart failure", "2026",
         "https://doi.org/10.1093/eurheartj/ehag100",
         status = "Replaces the 2021 ESC heart failure guideline",
@@ -44,7 +44,7 @@ internal val heartConditionSources: List<Source> = listOf(
     ),
     // ------------------------------------------------------------------ Chronic coronary disease
     Source(
-        "hc-esc-ccs-2024", Authority.Paper, "ESC guideline — Eur Heart J 2024;45(36):3415–3537",
+        "hc-esc-ccs-2024", Authority.ESC, "ESC guideline — Eur Heart J 2024;45(36):3415–3537",
         "2024 ESC Guidelines for the management of chronic coronary syndromes", "2024",
         "https://doi.org/10.1093/eurheartj/ehae177",
     ),

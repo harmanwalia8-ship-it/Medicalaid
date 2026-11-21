@@ -19,17 +19,38 @@ import com.medicalaid.app.content.protocols.data.oleanderSources
 import com.medicalaid.app.content.protocols.data.cocaineProtocols
 import com.medicalaid.app.content.protocols.data.cocaineSources
 import com.medicalaid.app.content.protocols.data.strokeProtocols
+import com.medicalaid.app.content.protocols.data.toolSources
+import com.medicalaid.app.content.protocols.data.endocrineEmergencySources
+import com.medicalaid.app.content.protocols.data.endocrineEmergencyProtocols
+import com.medicalaid.app.content.protocols.data.acidBaseSources
+import com.medicalaid.app.content.protocols.data.acidBaseProtocols
+import com.medicalaid.app.content.protocols.data.electrolyteSources
+import com.medicalaid.app.content.protocols.data.electrolyteProtocols
+import com.medicalaid.app.content.protocols.data.cardiacEmergencySources
+import com.medicalaid.app.content.protocols.data.cardiacEmergencyProtocols
+import com.medicalaid.app.content.protocols.data.resuscitationSources
+import com.medicalaid.app.content.protocols.data.resuscitationProtocols
+import com.medicalaid.app.content.protocols.data.respiratoryEmergencySources
+import com.medicalaid.app.content.protocols.data.respiratoryEmergencyProtocols
+import com.medicalaid.app.content.protocols.data.neuroEmergencySources
+import com.medicalaid.app.content.protocols.data.neuroEmergencyProtocols
+import com.medicalaid.app.content.protocols.data.environmentalSources
+import com.medicalaid.app.content.protocols.data.environmentalProtocols
+import com.medicalaid.app.content.protocols.data.infectionEmergencySources
+import com.medicalaid.app.content.protocols.data.infectionEmergencyProtocols
 import com.medicalaid.app.content.protocols.data.toxAlcoholProtocols
 import com.medicalaid.app.content.protocols.data.toxAlcoholSources
 
 object Protocols {
     val all: List<Protocol> =
         strokeProtocols + householdToxProtocols + pesticideProtocols + envenomationProtocols + drugToxProtocols + toxAlcoholProtocols +
-            paraquatProtocols + daturaProtocols + oleanderProtocols + cocaineProtocols
+            paraquatProtocols + daturaProtocols + oleanderProtocols + cocaineProtocols +
+            endocrineEmergencyProtocols + acidBaseProtocols + electrolyteProtocols + cardiacEmergencyProtocols + resuscitationProtocols + respiratoryEmergencyProtocols + neuroEmergencyProtocols + environmentalProtocols + infectionEmergencyProtocols
 
     val sources: List<Source> =
         strokeProtocolSources + householdToxSources + pesticideSources + envenomationSources + drugToxSources + toxAlcoholSources +
-            paraquatSources + daturaSources + oleanderSources + cocaineSources
+            paraquatSources + daturaSources + oleanderSources + cocaineSources + toolSources +
+            endocrineEmergencySources + acidBaseSources + electrolyteSources + cardiacEmergencySources + resuscitationSources + respiratoryEmergencySources + neuroEmergencySources + environmentalSources + infectionEmergencySources
 
     private val index = all.associateBy { it.id }
 
