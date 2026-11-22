@@ -23,6 +23,9 @@ object Protocols {
         Group(daturaProtocols, daturaSources),
         Group(oleanderProtocols, oleanderSources),
         Group(cocaineProtocols, cocaineSources),
+        // Medical emergencies — reviewed for 0.5.0
+        Group(cardiacEmergencyProtocols, cardiacEmergencySources),
+        Group(resuscitationProtocols, resuscitationSources),
     )
 
     /**
@@ -34,8 +37,7 @@ object Protocols {
         Group(endocrineEmergencyProtocols, endocrineEmergencySources),
         Group(acidBaseProtocols, acidBaseSources),
         Group(electrolyteProtocols, electrolyteSources),
-        Group(cardiacEmergencyProtocols, cardiacEmergencySources),
-        Group(resuscitationProtocols, resuscitationSources),
+        // Respiratory: reviewed; released together with acid-base (shares the BTS oxygen source defined there).
         Group(respiratoryEmergencyProtocols, respiratoryEmergencySources),
         Group(neuroEmergencyProtocols, neuroEmergencySources),
         Group(environmentalProtocols, environmentalSources),

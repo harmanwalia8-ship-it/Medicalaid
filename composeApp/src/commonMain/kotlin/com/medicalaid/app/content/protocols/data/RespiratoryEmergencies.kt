@@ -18,8 +18,9 @@ import com.medicalaid.app.content.protocols.StepDose
  *   November 2026); kPa values are converted to mm Hg only where marked "≈" or where the source gives both.
  * - Every point is attributed ("BTS/SIGN 158: …", "GINA 2026: …", "ICMR STW: …", "ESC 2019: …", "RCUK 2021: …").
  * - Locators: BTS/SIGN 158 section/table/annex; GINA 2026 box and page; GOLD 2027 chapter 4 figure/heading and page;
- *   NICE recommendation numbers; ESC 2019 recommendation table titles and table numbers (read from the official ESC
- *   slide set, which reproduces them); RCUK 2021 section numbers; AHA 2025 recommendation number and page.
+ *   NICE recommendation numbers; ESC 2019 recommendation table titles and the journal's table/figure numbers (the
+ *   official ESC slide set numbers its tables differently; supplementary tables are named as such); RCUK 2021 section
+ *   numbers; AHA 2025 recommendation number and page.
  * - The 2026 AHA/ACC acute PE guideline (Circulation 2026;153(12):e977–e1051) could not be retrieved in full text; only
  *   the official AHA/ACC news release summary is cited for it. ESC 2019 remains the current ESC PE guideline.
  * - Existing sources reused by id: gina-2026, icmr-stw-asthma-2019 (Sources.kt); em-ab-gold-2027, em-ab-bts-oxygen-2017,
@@ -71,8 +72,10 @@ internal val respiratoryEmergencySources: List<Source> = listOf(
             "with the European Respiratory Society (ERS)",
         "2019",
         "https://doi.org/10.1093/eurheartj/ehz405",
-        status = "Current ESC PE guideline (checked November 2026). Recommendation tables and Tables 4 and 9–13 reviewed " +
-            "from the official ESC slide set; supplementary data not reviewed",
+        status = "Current ESC PE guideline (checked November 2026). Recommendation tables, Tables 4 and 8–10, Figure 4 and " +
+            "§6.2–6.3 checked against the published article. The LMWH/fondaparinux and Hestia tables (Supplementary Data " +
+            "Tables 5 and 12) were read from the official ESC slide set, which numbers them Tables 11 and 13 — slide-set " +
+            "table numbers differ from the journal's; other supplementary data not reviewed",
     ),
     Source(
         "em-resp-aha-acc-pe-2026-news", Authority.AHA, "AHA/ACC news release, 19 February 2026",
@@ -318,16 +321,17 @@ private val reAsthma = Protocol(
                 "ICS/NCCP 2015: no routine role for IV or inhaled magnesium; 2 g IV over 20 min only in exceptional cases unresponsive to SABA, SAMA and steroids.",
                 "BTS/SIGN 158: repeated IV magnesium is untested and may cause hypermagnesaemia with weakness and respiratory fatigue.",
                 "BTS/SIGN 158: IV aminophylline only after senior consultation, for rare near-fatal or life-threatening poor responders; check levels if already on theophylline.",
-                "GINA 2026: IV aminophylline and theophylline should not be used. ICS/NCCP 2015: widely used in India, but evidence does not favour it.",
+                "GINA 2026: IV aminophylline and theophylline should not be used.",
+                "ICS/NCCP 2015: parenteral theophylline not to be used routinely (1A); widely used in India without supporting evidence; may be used in exceptional circumstances where inhaled drugs are ineffective, e.g. ventilated patients with intense bronchospasm (UPP).",
             ),
             checklistTitle = "Do not (GINA 2026; BTS/SIGN 158)",
             checklist = listOf(
                 "Sedatives of any kind — linked to avoidable asthma deaths",
                 "Routine antibiotics — infection is usually viral",
                 "Nebulised magnesium",
-                "Heliox outside a trial",
+                "Heliox outside a trial (BTS/SIGN 158) — GINA 2026: no routine role, but may be considered in severe exacerbations not responding to standard therapy",
                 "Leukotriene receptor antagonists — evidence does not support use",
-                "Nebulised furosemide — no shown benefit",
+                "Nebulised furosemide — no shown benefit (BTS/SIGN 158)",
             ),
             doses = listOf(
                 StepDose(
@@ -343,7 +347,7 @@ private val reAsthma = Protocol(
             ),
             citations = listOf(
                 cite(RE_SIGN, "§9.3.5–9.3.9; §9.3.11; §9.4; Annex 5"),
-                cite(RE_GINA, "Other treatments; aminophylline; sedatives (pp.187–188)"),
+                cite(RE_GINA, "Other treatments (p.188); aminophylline; sedatives (p.189)"),
                 cite(RE_ICS_ASTHMA, "Recommendations 22, 24–26, 28; aminophylline evidence review"),
             ),
         ),
@@ -371,8 +375,8 @@ private val reAsthma = Protocol(
             citations = listOf(
                 cite(RE_SIGN, "§9.3.12; §9.3.13"),
                 cite(RE_BTS_ICS, "Rec 39"),
-                cite(RE_GINA, "Non-invasive ventilation (p.187)"),
-                cite(RE_AHA_SPECIAL, "Asthma — Rec 1–3, 5 (S586)"),
+                cite(RE_GINA, "Non-invasive ventilation (p.188)"),
+                cite(RE_AHA_SPECIAL, "Asthma — Rec 1–3, 5 (S587)"),
                 cite(RE_ICS_ASTHMA, "Recommendation 27"),
             ),
         ),
@@ -435,8 +439,12 @@ private val reAsthma = Protocol(
         ),
         ProtocolNote(
             "Aminophylline is a real point of disagreement: BTS/SIGN 158 allows it after senior consultation in rare poor " +
-                "responders; GINA 2026 says it should not be used; ICS/NCCP 2015 notes its wide use in India without supporting evidence.",
-            listOf(cite(RE_SIGN, "§9.3.6"), cite(RE_GINA, "p.188"), cite(RE_ICS_ASTHMA, "Aminophylline evidence review")),
+                "responders; GINA 2026 says it should not be used; ICS/NCCP 2015 advises against routine use but allows it in " +
+                "exceptional cases where inhaled therapy fails.",
+            listOf(
+                cite(RE_SIGN, "§9.3.6"), cite(RE_GINA, "p.189"),
+                cite(RE_ICS_ASTHMA, "Recommendation 22; aminophylline evidence review"),
+            ),
         ),
         ProtocolNote(
             "Pulsus paradoxus: ICMR STW lists >25 mm Hg as a severity feature; BTS/SIGN 158 says it is inadequate and should not be used.",
@@ -527,14 +535,15 @@ private val reCopd = Protocol(
                 "GOLD 2027: air-driven nebulisation preferred. NICE NG115 and BTS 2017: if hypercapnic or acidotic, drive with compressed air and give oxygen by nasal cannulae alongside.",
                 "ICS/NCCP 2013: ipratropium 500 µg nebulised (or 20 µg × 2–4 puffs) plus salbutamol 2.5 mg nebulised (or 100 µg × 2–4 puffs) every 4–6 h.",
                 "ICMR STW: nebulised levosalbutamol/ipratropium 1.25 mg/0.5 mg, repeated at 20-minute intervals as needed.",
-                "GOLD 2027: IV methylxanthines not recommended. NICE NG115: IV theophylline only as an adjunct if nebulised bronchodilators fail; level within 24 h.",
+                "GOLD 2027: IV methylxanthines not recommended. NICE NG115: IV theophylline only as an adjunct if nebulised bronchodilators fail; level within 24 h of starting.",
+                "NICE NG115: take care with IV theophylline (interactions, toxicity) if already on oral theophylline — measure a level on admission. ICMR STW adds low-dose methylxanthines in moderate–severe COPD, so many patients may already take them.",
             ),
             citations = listOf(
                 cite(RE_GOLD, "Ch. 4 — Bronchodilators (p.114)"),
-                cite(RE_NG115, "Rec 1.3.8–1.3.11, 1.3.22–1.3.24"),
+                cite(RE_NG115, "Rec 1.3.3, 1.3.8–1.3.11, 1.3.22–1.3.24"),
                 cite(RE_BTS_O2, "R2"),
                 cite(RE_ICS_COPD, "Bronchodilators in AECOPD"),
-                cite(RE_ICMR_COPD, "Mild exacerbation"),
+                cite(RE_ICMR_COPD, "Mild exacerbation; Treatment — moderate/severe COPD"),
             ),
         ),
         // 4 ----------------------------------------------------------------------------------------------
@@ -578,19 +587,21 @@ private val reCopd = Protocol(
             points = listOf(
                 "GOLD 2027: NIV is the initial mode for acute respiratory failure in admitted exacerbations; it reduces intubation and mortality (success 80–85%).",
                 "GOLD 2027: NIV if PaCO₂ ≥6.0 kPa (45 mm Hg) with pH ≤7.35, severe dyspnoea with respiratory muscle fatigue, or persistent hypoxaemia despite oxygen.",
-                "BTS/ICS 2016: start NIV when pH <7.35 and PCO₂ >6.5 kPa persist despite optimal medical therapy (grade A); severe acidosis alone does not preclude a trial.",
+                "BTS/ICS 2016: start NIV when pH <7.35 and PCO₂ >6.5 kPa persist or develop despite optimal medical therapy (grade A).",
+                "BTS/ICS 2016: severe acidosis alone does not preclude a trial of NIV in an appropriate area with ready access to staff who can perform safe intubation (grade B); NIV should not delay escalation to invasive ventilation (grade C).",
                 "ISCCM 2020: NIV for pH 7.25–7.35 (1A); try it before invasive ventilation even at pH <7.25 with PaCO₂ ≥45 unless immediate intubation is needed (2A).",
-                "NICE NG115: deliver NIV in a dedicated setting with trained staff, a plan for deterioration and an agreed ceiling. ICS/NCCP 2013: use NIV early, even without routine ABG.",
+                "NICE NG115: deliver NIV in a dedicated setting with trained staff, a plan for deterioration and an agreed ceiling.",
+                "ICS/NCCP 2013: use NIV early; it can be used where ABG monitoring is not routinely available, but only with pulse oximetry, positive-pressure ventilation and intubation facilities readily available — refer promptly if not improving in 2–4 h.",
                 "GOLD 2027: once at least 4 h of unassisted breathing is tolerated, NIV can be stopped without weaning.",
             ),
             tool = ProtocolTool.AcidBase,
             citations = listOf(
                 cite(RE_GOLD, "Ch. 4 — Noninvasive mechanical ventilation; Figure 4.9 (p.118)"),
-                cite(RE_BTS_ICS, "Rec 24–26"),
+                cite(RE_BTS_ICS, "Rec 24–27"),
                 cite(RE_BTS_O2, "Good practice points — COPD"),
                 cite(RE_ISCCM_NIV, "A1 Acute exacerbation of COPD — recommendations"),
                 cite(RE_NG115, "Rec 1.3.30–1.3.32"),
-                cite(RE_ICS_COPD, "NIV in AECOPD"),
+                cite(RE_ICS_COPD, "NIV in AECOPD; Table 16"),
             ),
         ),
         // 7 ----------------------------------------------------------------------------------------------
@@ -699,7 +710,7 @@ private val rePe = Protocol(
             timing = "Immediately",
             points = listOf(
                 "ESC 2019: suspected high-risk PE — bedside echocardiography or emergency CTPA, depending on availability and clinical circumstances (I C).",
-                "ESC 2019 Fig 3: no RV dysfunction on echo — look for other causes of shock; RV dysfunction and CTPA not immediately feasible — treat as high-risk PE.",
+                "ESC 2019 Fig 4: no RV dysfunction on echo — look for other causes of shock; RV dysfunction and CTPA not immediately feasible — treat as high-risk PE.",
                 "ESC 2019: start IV unfractionated heparin with a weight-adjusted bolus without delay (I C). NICE NG158: confirmed PE with instability — continuous UFH infusion.",
                 "Raschke 1993 RCT: weight-based UFH (80 units/kg bolus, then 18 units/kg/h, aPTT every 6 h) reached the therapeutic range faster than fixed dosing.",
             ),
@@ -722,7 +733,7 @@ private val rePe = Protocol(
                 ),
             ),
             citations = listOf(
-                cite(RE_ESC_PE, "Recommendations for diagnosis (1); Table 4; Figure 3"),
+                cite(RE_ESC_PE, "Recommendations for diagnosis (1); Table 4; Figure 4"),
                 cite(RE_NG158, "Rec 1.3.12"),
                 cite(RE_RASCHKE, "Abstract"),
             ),
@@ -770,7 +781,7 @@ private val rePe = Protocol(
                 "AHA/ACC 2026: new categories A–E; A–B (no or mild symptoms, low risk) often discharged from ED; C–E admitted; D–E may need advanced therapy.",
                 "NAMS 2024 (India): outpatient treatment for low-risk PE — Hestia 0, no RV dysfunction and normal cardiac biomarkers.",
             ),
-            checklistTitle = "ESC 2019 Table 9: early mortality risk",
+            checklistTitle = "ESC 2019 Table 8: early mortality risk",
             checklist = listOf(
                 "High — haemodynamic instability with RV dysfunction (PESI and troponin not needed)",
                 "Intermediate–high — stable, PESI III–V or sPESI ≥1, RV dysfunction on TTE/CTPA AND raised troponin",
@@ -778,7 +789,7 @@ private val rePe = Protocol(
                 "Low — stable, PESI I–II or sPESI 0, no RV dysfunction; troponin optional, negative if measured",
             ),
             citations = listOf(
-                cite(RE_ESC_PE, "Table 9; Recommendations for prognostic assessment (1)–(2)"),
+                cite(RE_ESC_PE, "Table 8; Recommendations for prognostic assessment (1)–(2)"),
                 cite(RE_AHA_PE, "Guideline highlights — clinical categories"),
                 cite(RE_NAMS, "Annexure 2 — Table I"),
             ),
@@ -788,7 +799,8 @@ private val rePe = Protocol(
             title = "Anticoagulation (intermediate and low risk)",
             points = listOf(
                 "ESC 2019: if parenteral, LMWH or fondaparinux over UFH for most patients (I A); a NOAC is preferred to a VKA when eligible (I A).",
-                "NICE NG158: offer apixaban or rivaroxaban; otherwise LMWH ≥5 days then dabigatran or edoxaban, or LMWH with a VKA until INR ≥2.0 on 2 readings.",
+                "NICE NG158: offer apixaban or rivaroxaban; otherwise LMWH ≥5 days then dabigatran or edoxaban, or LMWH with a VKA for ≥5 days or until INR ≥2.0 on 2 consecutive readings, then VKA alone.",
+                "ESC 2019: with a VKA, continue UFH, LMWH or fondaparinux in parallel for ≥5 days AND until the INR has been 2.0–3.0 on 2 consecutive days.",
                 "FDA labels: apixaban 10 mg BD for 7 days then 5 mg BD; rivaroxaban 15 mg BD with food for 21 days then 20 mg OD.",
                 "FDA labels, after 5–10 days of parenteral anticoagulant: dabigatran 150 mg BD if CrCl >30; edoxaban 60 mg OD (30 mg if CrCl 15–50, ≤60 kg, P-gp inhibitors).",
                 "ESC 2019: NOACs not recommended in severe renal impairment, pregnancy, lactation or antiphospholipid syndrome (III C). Fondaparinux 5/7.5/10 mg OD for <50/50–100/>100 kg.",
@@ -796,16 +808,24 @@ private val rePe = Protocol(
             ),
             doses = listOf(
                 StepDose(
-                    "Enoxaparin — twice daily (ESC 2019 Table 11)",
+                    "Enoxaparin — twice daily (ESC 2019 Suppl. Data Table 5)",
                     WeightDose(1.0, 1.0, unit = "mg", per = "SC every 12 h"),
+                    note = "CrCl ≤30 mL/min or severe obesity: ESC 2019 recommends UFH; if LMWH is used at CrCl 15–30 mL/min, " +
+                        "use an adapted dosing scheme. CrCl <15: LMWH or UFH (NICE NG158 1.3.14)",
                 ),
                 StepDose(
-                    "Enoxaparin — once daily (ESC 2019 Table 11)",
+                    "Enoxaparin — once daily (ESC 2019 Suppl. Data Table 5)",
                     WeightDose(1.5, 1.5, unit = "mg", per = "SC once daily"),
+                    note = "CrCl ≤30 mL/min or severe obesity: ESC 2019 recommends UFH; if LMWH is used at CrCl 15–30 mL/min, " +
+                        "use an adapted dosing scheme. CrCl <15: LMWH or UFH (NICE NG158 1.3.14)",
                 ),
             ),
             citations = listOf(
-                cite(RE_ESC_PE, "Recommendations for acute-phase treatment of intermediate- or low-risk PE (1)–(2); Table 11"),
+                cite(
+                    RE_ESC_PE,
+                    "Recommendations for acute-phase treatment of intermediate- or low-risk PE (1)–(2); §6.2.1 Parenteral " +
+                        "anticoagulation; §6.2.3 Vitamin K antagonists; Supplementary Data Table 5 (slide-set Table 11)",
+                ),
                 cite(RE_NG158, "Rec 1.3.8, 1.3.13–1.3.14"),
                 cite(RE_APIXABAN, "§2.1"),
                 cite(RE_RIVAROXABAN, "§2.1"),
@@ -821,12 +841,13 @@ private val rePe = Protocol(
             points = listOf(
                 "ESC 2019: systemic thrombolysis for high-risk PE (I B) and as rescue for deterioration on anticoagulation (I B). NICE NG158: consider if haemodynamically unstable.",
                 "ESC 2019 (III B) and NICE NG158: no routine primary systemic thrombolysis in stable PE, even with RV dysfunction.",
-                "ESC 2019: alteplase 100 mg over 2 h, or 0.6 mg/kg over 15 min (max 50 mg). FDA label: resume anticoagulation once aPTT is ≤2× normal.",
+                "ESC 2019: alteplase 100 mg over 2 h, or 0.6 mg/kg over 15 min (max 50 mg).",
                 "ESC 2019: streptokinase 250,000 IU over 30 min then 100,000 IU/h for 12–24 h, or accelerated 1.5 million IU over 2 h.",
                 "ESC 2019: urokinase 4400 IU/kg over 10 min then 4400 IU/kg/h for 12–24 h, or accelerated 3 million IU over 2 h.",
+                "ESC 2019: UFH may be given during an alteplase infusion but should be stopped during streptokinase or urokinase infusion. FDA (Activase) label differs: start parenteral anticoagulation near the end of or right after alteplase, once aPTT or thrombin time is ≤2× normal.",
                 "NAMS 2024 (India): systemic thrombolysis for PE with instability — SBP <90 mm Hg, a fall >40 mm Hg from baseline, or cardiac arrest.",
             ),
-            checklistTitle = "ESC 2019 Table 12: contraindications to fibrinolysis",
+            checklistTitle = "ESC 2019 Table 10: contraindications to fibrinolysis",
             checklist = listOf(
                 "Absolute: haemorrhagic stroke or stroke of unknown origin, at any time",
                 "Absolute: ischaemic stroke in the previous 6 months",
@@ -839,22 +860,28 @@ private val rePe = Protocol(
             ),
             doses = listOf(
                 StepDose(
-                    "Alteplase — accelerated (ESC 2019 Table 12)",
+                    "Alteplase — accelerated (ESC 2019 Table 10)",
                     WeightDose(0.6, 0.6, unit = "mg", per = "IV over 15 min"),
                     note = "Standard regimen: 100 mg over 2 h",
                     maxTotal = 50.0,
                 ),
                 StepDose(
-                    "Urokinase — loading (ESC 2019 Table 12)",
+                    "Urokinase — loading (ESC 2019 Table 10)",
                     WeightDose(4400.0, 4400.0, unit = "units", per = "IV over 10 min"),
+                    note = "Stop UFH while urokinase runs (ESC 2019 §6.3.1)",
                 ),
                 StepDose(
-                    "Urokinase — infusion (ESC 2019 Table 12)",
+                    "Urokinase — infusion (ESC 2019 Table 10)",
                     WeightDose(4400.0, 4400.0, unit = "units", per = "per hour IV for 12–24 h"),
+                    note = "Stop UFH while urokinase runs (ESC 2019 §6.3.1)",
                 ),
             ),
             citations = listOf(
-                cite(RE_ESC_PE, "Recommendations for acute-phase treatment of high-risk PE (1); of intermediate- or low-risk PE (3); Table 12"),
+                cite(
+                    RE_ESC_PE,
+                    "Recommendations for acute-phase treatment of high-risk PE (1); of intermediate- or low-risk PE (3); " +
+                        "§6.3.1 Systemic thrombolysis; Table 10",
+                ),
                 cite(RE_NG158, "Rec 1.6.2–1.6.3"),
                 cite(RE_ALTEPLASE, "§2.3"),
                 cite(RE_NAMS, "Annexure 2 — Figure 1"),
@@ -873,19 +900,19 @@ private val rePe = Protocol(
             ),
             doses = listOf(
                 StepDose(
-                    "Norepinephrine (ESC 2019 Table 10)",
+                    "Norepinephrine (ESC 2019 Table 9)",
                     WeightDose(0.2, 1.0, unit = "mcg", per = "per minute IV infusion"),
                     note = "Excessive vasoconstriction may worsen tissue perfusion",
                 ),
                 StepDose(
-                    "Dobutamine (ESC 2019 Table 10)",
+                    "Dobutamine (ESC 2019 Table 9)",
                     WeightDose(2.0, 20.0, unit = "mcg", per = "per minute IV infusion"),
                     note = "May worsen hypotension if used without a vasopressor; may trigger arrhythmias",
                 ),
             ),
             citations = listOf(
-                cite(RE_ESC_PE, "Recommendations for acute-phase treatment of high-risk PE (1)–(2); Table 10; multidisciplinary PE teams; IVC filters"),
-                cite(RE_AHA_SPECIAL, "Pulmonary embolism — Rec 1–4 (S628)"),
+                cite(RE_ESC_PE, "Recommendations for acute-phase treatment of high-risk PE (1)–(2); Table 9; multidisciplinary PE teams; IVC filters"),
+                cite(RE_AHA_SPECIAL, "Pulmonary embolism — Rec 1–4 (S629)"),
                 cite(RE_NAMS, "Annexure 2 — Figure 1"),
             ),
         ),
@@ -898,7 +925,7 @@ private val rePe = Protocol(
                 "NICE NG158: anticoagulate confirmed PE for at least 3 months. NAMS 2024: unprovoked or persistent-risk VTE — indefinite, with periodic review.",
                 "AHA/ACC 2026: contact or visit within 1 week of discharge, clinic review by 3 months, and screen for chronic thromboembolic disease at every visit for ≥1 year.",
             ),
-            checklistTitle = "ESC 2019 Table 13 (Hestia): any 'yes' rules out early discharge",
+            checklistTitle = "ESC 2019 Hestia criteria (Suppl. Data Table 12): any 'yes' rules out early discharge",
             checklist = listOf(
                 "Haemodynamically unstable",
                 "Thrombolysis or embolectomy needed",
@@ -910,7 +937,7 @@ private val rePe = Protocol(
                 "CrCl <30 mL/min, severe liver impairment, pregnancy, or documented heparin-induced thrombocytopenia",
             ),
             citations = listOf(
-                cite(RE_ESC_PE, "Recommendations for early discharge, home treatment; Table 13"),
+                cite(RE_ESC_PE, "Recommendations for early discharge, home treatment; Supplementary Data Table 12 (slide-set Table 13)"),
                 cite(RE_NG158, "Rec 1.2.1–1.2.4, 1.3.5"),
                 cite(RE_NAMS, "Annexure 2 — Table III"),
                 cite(RE_AHA_PE, "Guideline highlights — follow-up"),
@@ -948,8 +975,8 @@ private val rePe = Protocol(
             ),
         ),
         ProtocolNote(
-            "ESC 2019 Table 12 lists alteplase, streptokinase and urokinase regimens only; tenecteplase dosing for PE is not covered here.",
-            listOf(cite(RE_ESC_PE, "Table 12")),
+            "ESC 2019 Table 10 lists alteplase, streptokinase and urokinase regimens only; tenecteplase dosing for PE is not covered here.",
+            listOf(cite(RE_ESC_PE, "Table 10")),
         ),
     ),
     citations = listOf(
@@ -1012,7 +1039,8 @@ private val reAnaphylaxis = Protocol(
                 StepDose(
                     "Adrenaline 1 mg/mL (1:1000) — IM (WAO 2020 Table 6)",
                     WeightDose(0.01, 0.01, unit = "mg", per = "IM into the anterolateral thigh (0.01 mL/kg)"),
-                    note = "Adults 0.5 mg (RCUK 2021, ERC 2025); repeat if no improvement",
+                    note = "Teenagers and adults 0.5 mg (RCUK 2021, ERC 2025, WAO Table 6); children: maximum 0.3 mg " +
+                        "(ICMR STW; WAO Table 6, 6–12 years); repeat if no improvement",
                     maxTotal = 0.5,
                 ),
             ),
@@ -1070,9 +1098,10 @@ private val reAnaphylaxis = Protocol(
             points = listOf(
                 "RCUK 2021: no respiratory or cardiovascular improvement after 2 appropriate IM doses — get critical care help and start an IV adrenaline infusion.",
                 "RCUK 2021: 1 mg adrenaline in 100 mL 0.9% saline on a dedicated line; start 0.5–1.0 mL/kg/h and titrate; give IM doses every 5 min until it runs.",
+                "RCUK 2021: given only by experienced specialists; continuous ECG and SpO₂ with NIBP at least every 5 min; do not piggy-back on another line (unless anti-reflux valve) or infuse on the BP-cuff arm (extravasation risk); check the cannula site regularly.",
                 "RCUK 2021: tachycardia, tremor or pallor with normal or high BP suggests excess adrenaline — reduce the rate; wean over 30 min, 1 h after resolution.",
                 "RCUK 2021 and ERC 2025: refractory to the infusion — add noradrenaline or vasopressin (RCUK: or metaraminol).",
-                "RCUK 2021: on beta-blockers, consider glucagon 1 mg IV, repeated or as a 1–2 mg/h infusion. AHA 2025: 1–5 mg IV in adults (case reports).",
+                "RCUK 2021: on beta-blockers, if still refractory after adrenaline infusion and adequate fluids, consider glucagon 1 mg IV, repeated or as a 1–2 mg/h infusion; monitor for hyperglycaemia, vomiting, hypokalaemia and hypocalcaemia. AHA 2025: 1–5 mg IV in adults (case reports).",
                 "AHA 2025: arrest from anaphylaxis — isotonic fluids and ECPR if refractory are reasonable. RCUK 2021: consider prolonged CPR.",
             ),
             doses = listOf(
@@ -1083,9 +1112,9 @@ private val reAnaphylaxis = Protocol(
                 ),
             ),
             citations = listOf(
-                cite(RE_RCUK, "§6.6; §6.7; Appendix 3; refractory anaphylaxis algorithm"),
+                cite(RE_RCUK, "§6.6; §6.7; §6.7.4; Appendix 3; refractory anaphylaxis algorithm"),
                 cite(RE_ERC_SPECIAL, "Anaphylaxis — other medications; considerations for cardiac arrest"),
-                cite(RE_AHA_SPECIAL, "Anaphylaxis — Rec 1–3 (S585); supportive text 3 (S586)"),
+                cite(RE_AHA_SPECIAL, "Anaphylaxis — Rec 1–3; supportive text 3 (S586)"),
             ),
         ),
         // 6 ----------------------------------------------------------------------------------------------
@@ -1115,7 +1144,7 @@ private val reAnaphylaxis = Protocol(
             points = listOf(
                 "NICE NG258: age ≥16 — mast cell tryptase as soon as possible after treatment starts, and again ideally within 1–2 h (no later than 4 h) of onset.",
                 "RCUK 2021: biphasic reactions occur in about 5%, median around 12 h; more likely after severe reactions, >1 adrenaline dose or adrenaline delayed >30–60 min.",
-                "NICE NG258: consider discharge 2 h after resolution if good response to one IM dose within 30 min, full resolution, 2 in-date auto-injectors and supervision.",
+                "NICE NG258: consider discharge after 2 h of observation from resolution if there was a good response (within 5–10 min) to a single IM dose given within 30 min of onset, symptoms fully resolved, the person already has 2 in-date auto-injectors and knows how and when to use them, and there is adequate supervision.",
                 "NICE NG258: observe at least 6 h after resolution if 2 IM doses were needed or there is a history of biphasic reaction.",
                 "EAACI 2021: monitor 6–8 h after respiratory compromise and at least 12–24 h after hypotension.",
             ),
@@ -1142,13 +1171,13 @@ private val reAnaphylaxis = Protocol(
                 "NICE NG258: ensure 2 in-date adrenaline auto-injectors and training, unless the cause was an easily avoided drug; carry them at all times.",
                 "NICE NG258: after using the injector, lie down (or sit if breathless) and do not stand suddenly; explain biphasic risk, trigger avoidance and when to call.",
                 "EAACI 2021: auto-injector at least 0.3 mg for adolescents and adults; 0.5 mg may be considered if overweight or after a life-threatening episode.",
-                "WAO 2020: limited availability and affordability of auto-injectors remain a major problem in many countries; give a personalised management plan.",
+                "WAO 2020: where auto-injectors are unavailable or unaffordable, a prefilled adrenaline syringe may be recommended — or, failing that, a 1 mL syringe, needle and 1 mg/mL ampoule, with training and written instructions for drawing up the correct dose; give a personalised management plan.",
                 "RCUK 2021: before discharge, check for dizziness on standing; eating at least 1 h before leaving may be advisable.",
             ),
             citations = listOf(
                 cite(RE_NG258, "Rec 1.1.12–1.1.16"),
                 cite(RE_EAACI, "Dose of adrenaline"),
-                cite(RE_WAO, "Abstract; Long-term management of anaphylaxis"),
+                cite(RE_WAO, "Long-term management of anaphylaxis"),
                 cite(RE_RCUK, "§8.1; §8.3"),
             ),
         ),

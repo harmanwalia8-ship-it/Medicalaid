@@ -264,7 +264,7 @@ internal val acidBaseProtocols = listOf(
                     "SRLF/SFMU 2019: a raised gap means acid with an anion other than chloride — lactate, acetoacetate, β-hydroxybutyrate, oxalate, glycolate, formate, salicylate or sulphate.",
                     "SRLF/SFMU 2019: hypoalbuminaemia lowers the gap and can hide lactate or ketoacids — common in ICU, malnutrition, liver disease and albuminuria.",
                     "CJASN 2023 review: normal-gap acidosis — tubular H⁺ transport defects, low renal ammonia excretion, GI or renal bicarbonate loss, IV-fluid dilution, or added HCl.",
-                    "SRLF/SFMU 2019: urinary anion gap only for normal-gap acidosis without obvious cause — negative suggests GI loss; zero or positive, tubular acidosis or hypoaldosteronism.",
+                    "SRLF/SFMU 2019 (expert opinion): urinary anion gap only for normal-gap acidosis without obvious cause — negative suggests GI loss; zero or positive, tubular acidosis or hypoaldosteronism; its value in the ED or ICU is questionable.",
                     "AJKD 2022 review: acetazolamide wastes bicarbonate, causing a non-gap (hyperchloraemic) acidosis with hypokalaemia.",
                     "ADA 2024 consensus: about one-third of DKA presentations are mixed acid–base disorders (vomiting, osmotic diuresis, Kussmaul hyperventilation).",
                 ),
@@ -290,11 +290,12 @@ internal val acidBaseProtocols = listOf(
                     "EXTRIP 2023: osmol gap = measured osmolality − calculated osmolarity, adjusted for ethanol; it is a poor screening test, especially at low values.",
                     "EXTRIP 2023: many conditions and other alcohols raise the osmol gap; it may be normal or even negative once ethylene glycol is metabolised.",
                     "SRLF/SFMU 2019 (expert opinion): methanol or ethylene glycol — renal replacement therapy if anion gap >20 mEq/L, renal insufficiency or visual impairment.",
+                    "EXTRIP 2023 (ethylene glycol) uses higher thresholds: anion gap (Na⁺ + K⁺ − Cl⁻ − HCO₃⁻) >27 mmol/L recommended, 23–27 suggested — follow the toxic alcohols protocol.",
                     "Suspected hooch (spurious liquor) or antifreeze ingestion: follow the 'Methanol and ethylene glycol (toxic alcohols)' protocol for fomepizole or ethanol and dialysis.",
                 ),
                 citations = listOf(
                     cite(SRLF, "R1.5 rationale; R3.12"),
-                    cite(EXTRIP_EG, "Osmol gap — recommendation and rationale"),
+                    cite(EXTRIP_EG, "Osmol gap — recommendation and rationale; Table 8 — indications (anion gap)"),
                 ),
             ),
             // 4 ------------------------------------------------------------------------------------
@@ -321,14 +322,14 @@ internal val acidBaseProtocols = listOf(
                 title = "Treat the cause",
                 points = listOf(
                     "CJASN 2023 review: treat high-gap acidosis by treating the underlying disease or removing the toxin; normalising the pH itself is controversial.",
-                    "ICMR STW DKA 2022: fluids, IV insulin and potassium; severity by pH and HCO₃ — mild 7.25–7.3/15–18, moderate 7.0–7.25/10–15, severe <7.0/<10.",
+                    "ICMR STW DKA 2022: IV fluids first, then IV insulin; give potassium before insulin if K⁺ <3.3 mEq/L (or ECG changes) — see the 'Diabetic ketoacidosis (DKA) — adult' protocol. Severity by pH and HCO₃ — mild 7.25–7.3/15–18, moderate 7.0–7.25/10–15, severe <7.0/<10.",
                     "SRLF/SFMU 2019: pH alone should probably not be used to identify critically ill patients (Grade 2−).",
                     "Gurjar 2011 (India): in aluminium phosphide (Celphos) poisoning, acidosis and shock are poor prognostic factors — see the 'Aluminium phosphide poisoning' protocol.",
                     "SRLF/SFMU 2019 (expert opinion): suspected metformin lactic acidosis — early renal replacement if organ dysfunction or no improvement in the first hours.",
                 ),
                 citations = listOf(
                     cite(ACHANTI, "Abstract"),
-                    cite(ICMR_DKA, "Assess severity of DKA; Management"),
+                    cite(ICMR_DKA, "Assess severity of DKA; Management — treatment; Common errors/pitfalls"),
                     cite(SRLF, "R2.1; R3.11"),
                     cite(GURJAR, "Abstract; Prognostic factors"),
                 ),
@@ -356,7 +357,7 @@ internal val acidBaseProtocols = listOf(
             Step(
                 title = "IV sodium bicarbonate: what the evidence supports",
                 points = listOf(
-                    "SRLF/SFMU 2019 (Grade 2+): give bicarbonate to ICU patients with pH ≤7.20, PaCO₂ <45 mm Hg and moderate to severe acute kidney injury.",
+                    "SRLF/SFMU 2019 (Grade 2+): bicarbonate should probably be given to ICU patients with pH ≤7.20, PaCO₂ <45 mm Hg and moderate to severe acute kidney injury.",
                     "SSC 2026: septic shock with pH ≤7.2 and AKIN stage 2–3 — bicarbonate suggested (very low certainty); not to improve haemodynamics in lactic acidaemia.",
                     "BICAR-ICU 2018 (389 ICU patients, pH ≤7.20): bicarbonate did not reduce the primary composite outcome; day-28 survival improved in the AKIN 2–3 stratum.",
                     "BICAR-ICU protocol: 4.2% sodium bicarbonate 125–250 mL over 30 min per infusion, maximum 1000 mL in 24 h, to keep arterial pH above 7.30.",
@@ -380,12 +381,12 @@ internal val acidBaseProtocols = listOf(
             // 8 ------------------------------------------------------------------------------------
             Step(
                 title = "Dialysis and ventilation",
-                timing = "pH ≤7.15 despite treatment (SRLF/SFMU R3.10)",
+                timing = "Shock or AKI with pH ≤7.15 despite treatment, without severe respiratory acidosis (SRLF/SFMU R3.10)",
                 points = listOf(
                     "SRLF/SFMU 2019 (expert opinion): with shock or AKI, start renal replacement if pH ≤7.15 despite appropriate treatment and without severe respiratory acidosis.",
                     "ICMR STW AKI 2026: refractory acidosis and intoxications are dialysis indications; a dialysis indication is a red flag for urgent referral.",
                     "SRLF/SFMU 2019 (expert opinion): salicylate — renal replacement if neurological involvement, level >6.5 mmol/L (90 mg/dL) or pH ≤7.20.",
-                    "SRLF/SFMU 2019 (expert opinion): if ventilated, raise rate (max 35/min) and/or tidal volume (up to 8 mL/kg) without intrinsic PEEP; aim pH ≥7.15, not normal.",
+                    "SRLF/SFMU 2019 (expert opinion): if ventilated, raise rate (max 35/min) and/or tidal volume (up to 8 mL/kg) without intrinsic PEEP, monitoring plateau pressure; aim pH ≥7.15, not normal.",
                     "SRLF/SFMU 2019: ventilatory compensation is only symptomatic and temporary — treat the acidosis and its cause at the same time.",
                 ),
                 citations = listOf(
@@ -401,8 +402,9 @@ internal val acidBaseProtocols = listOf(
                 listOf(cite(SRLF, "R3.6 rationale"), cite(SSC26, "Recommendations: Sodium bicarbonate"), cite(BICAR1, "Abstract"), cite(BICAR2, "Abstract")),
             ),
             ProtocolNote(
-                "DKA bicarbonate differs. ICMR STW 2022: pH <7.0 — 50 mmol in 200 mL sterile water over 2 h, but elsewhere only if pH <6.9, or <7.1 " +
-                    "with hypotension or hyperkalaemia. ADA 2024: consider if pH <7.0 — 100 mmol (8.4%) in 400 mL sterile water every 2 h until pH >7.0. " +
+                "DKA bicarbonate differs. ICMR STW 2022: pH <7.0 — 50 mmol in 200 mL sterile water over 2 h; the same box says bicarbonate only if " +
+                    "pH <6.9, if pH <7.1 with hypotension, or if hyperkalaemia is present. ADA 2024: routine use not recommended; consider if pH <7.0 — " +
+                    "100 mmol (8.4%) in 400 mL sterile water every 2 h until pH >7.0; reported harms include hypokalaemia and cerebral oedema. " +
                     "SRLF/SFMU 2019: probably not (Grade 2−).",
                 listOf(cite(ICMR_DKA, "Management — treatment"), cite(ADA, "Bicarbonate"), cite(SRLF, "R3.8")),
             ),
@@ -454,7 +456,7 @@ internal val acidBaseProtocols = listOf(
                     "AJKD 2022 review: metabolic alkalosis is a pH above 7.44 with a raised HCO₃; an ABG, or at least a VBG, is needed if in doubt.",
                     "Cureus 2021 review: a high HCO₃ can be metabolic alkalosis or compensation for respiratory acidosis — the blood gas decides.",
                     "NCP 2025 review: expected PaCO₂ rise ≈ 0.6 × the rise in HCO₃ above 24 mmol/L.",
-                    "CJASN 2020 review: compensation lowers the pH, which generally stays above 7.45; with HCO₃ above 55 mmol/L, PCO₂ may rise markedly.",
+                    "CJASN 2020 review: compensation lowers the pH, which generally stays above 7.45; with HCO₃ above 55 mmol/L, PCO₂ may rise markedly — likely respiratory muscle weakness from severe hypokalaemia, so respiratory acidosis often complicates extreme alkalosis.",
                     "BTS 2017: raised PCO₂ with pH ≥7.35 and/or HCO₃ >28 mmol/L probably means long-standing hypercapnia.",
                     "Cureus 2021 review: HCO₃ up to 40 mmol/L is tolerated; above 45 mmol/L can cause tetany, seizures, arrhythmias and delirium.",
                 ),
@@ -512,7 +514,7 @@ internal val acidBaseProtocols = listOf(
                 title = "Chloride-responsive: volume, chloride, potassium, magnesium",
                 points = listOf(
                     "AJKD 2022 review: chloride-based IV fluid restores volume and GFR so bicarbonate can be excreted; rising urine chloride shows adequate expansion.",
-                    "Cureus 2021 review: give isotonic (0.9%) saline and replace potassium as potassium chloride — oral, IV or both.",
+                    "Cureus 2021 review: give isotonic (0.9%) saline and replace potassium as potassium chloride — oral, IV or both; for IV KCl dilution, maximum rates and monitoring see the 'Hypokalaemia' protocol.",
                     "Cureus 2021 review: replace magnesium if low — hypomagnesaemia causes recalcitrant hypokalaemia.",
                     "CJASN 2020 review: stop the gastric acid loss; if losses must continue, an H₂ blocker or proton pump inhibitor can help.",
                     "Cureus 2021 review: stop or reduce diuretics; if they must continue (heart failure, cirrhosis), adding a potassium-sparing diuretic may help.",
@@ -549,20 +551,21 @@ internal val acidBaseProtocols = listOf(
                     "Cureus 2021 review: dilute HCl (0.1 N) is rarely used — glass container, central venous line only, risk of haemolysis and thrombosis; stop near pH 7.50.",
                     "Cureus 2021 review: haemodialysis or PD with low-bicarbonate dialysate helps in advanced CKD; CRRT is particularly helpful in severe alkalosis.",
                 ),
-                checklistTitle = "FDA label: acetazolamide contraindications",
+                checklistTitle = "FDA label: acetazolamide contraindications and cautions",
                 checklist = listOf(
                     "Low serum sodium and/or potassium",
                     "Marked kidney or liver disease or dysfunction; cirrhosis (hepatic encephalopathy risk)",
                     "Adrenal (suprarenal) failure",
                     "Hyperchloraemic acidosis",
                     "Hypersensitivity to acetazolamide or sulfonamides",
+                    "Caution — impaired alveolar ventilation (pulmonary obstruction, emphysema): may precipitate or aggravate acidosis; monitor electrolytes (Precautions)",
                 ),
                 citations = listOf(
                     cite(EMMETT, "Thiazide and/or loop diuretics — recovery phase"),
                     cite(TINAWI, "Management of metabolic alkalosis"),
                     cite(DO_AJKD, "Case 2 — Question 5"),
                     cite(DIABOLO, "Abstract"),
-                    cite(FDA_ACZ, "Contraindications"),
+                    cite(FDA_ACZ, "Contraindications; Precautions"),
                 ),
             ),
         ),
@@ -665,7 +668,7 @@ internal val acidBaseProtocols = listOf(
                 ),
                 scoreIds = listOf("news2"),
                 citations = listOf(
-                    cite(BTS_O2, "A3/F18; G2; G5; good practice points — COPD; hypercapnia due to excessive oxygen; track and trigger"),
+                    cite(BTS_O2, "A3/G1; G2; G5; good practice points — COPD; hypercapnia due to excessive oxygen; track and trigger"),
                     cite(BTS_ICS, "Rec 4; Rec 23"),
                     cite(ICMR_RF, "Treatment — oxygen"),
                     cite(ICMR_COPD, "Severe exacerbation"),
@@ -770,7 +773,7 @@ internal val acidBaseProtocols = listOf(
             ProtocolNote(
                 "Oxygen targets in India: ICMR STW respiratory failure — 88–92% in AECOPD; ICMR STW COPD — target SpO₂ 92% in severe " +
                     "exacerbation; BTS 2017 — 88–92% for all patients at risk of hypercapnia until gases are known.",
-                listOf(cite(ICMR_RF, "Treatment — oxygen"), cite(ICMR_COPD, "Severe exacerbation"), cite(BTS_O2, "A3/F18")),
+                listOf(cite(ICMR_RF, "Treatment — oxygen"), cite(ICMR_COPD, "Severe exacerbation"), cite(BTS_O2, "A3/G1")),
             ),
             ProtocolNote(
                 "Referral in India: ICMR STWs advise stabilising and transferring to a higher centre when there is no relief, mechanical " +
@@ -869,14 +872,14 @@ internal val acidBaseProtocols = listOf(
             Step(
                 title = "Salicylate, sepsis, liver disease, pregnancy",
                 points = listOf(
-                    "SRLF/SFMU 2019 (expert opinion): salicylate poisoning — bicarbonate whatever the pH; renal replacement if neurological signs, level >90 mg/dL (6.5 mmol/L) or pH ≤7.20.",
+                    "SRLF/SFMU 2019 (expert opinion): salicylate poisoning — bicarbonate whatever the pH, with close monitoring for hypokalaemia, hypernatraemia, hypocalcaemia, alveolar hypoventilation and fluid overload; renal replacement if neurological signs, level >90 mg/dL (6.5 mmol/L) or pH ≤7.20.",
                     "NCP 2025 review: in salicylate overdose, respiratory muscle fatigue can end the hyperventilation, leaving metabolic acidosis dominant.",
                     "NCP 2025 review: sepsis drives breathing through inflammatory mediators; give antibiotics if sepsis or infection is suspected.",
                     "NCP 2025 review: liver causes — hepatic encephalopathy, hepatopulmonary syndrome, portopulmonary hypertension, hepatic hydrothorax and large-volume ascites.",
                     "NCP 2025 review: pregnancy lowers PaCO₂ (to about 28 mm Hg in the third trimester) without needing treatment; it normalises after delivery.",
                 ),
                 citations = listOf(
-                    cite(SRLF, "R3.9; R3.13"),
+                    cite(SRLF, "R3.9 and rationale; R3.13"),
                     cite(NCP, "Miscellaneous; Clinical presentation and treatment of respiratory alkalosis"),
                 ),
             ),
