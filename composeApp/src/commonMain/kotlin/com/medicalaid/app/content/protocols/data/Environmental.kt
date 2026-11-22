@@ -168,9 +168,9 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 timing = "Before upper-airway oedema develops",
                 points = listOf(
                     "ISBI 2016: normal oxygenation or chest X-ray does not exclude inhalation injury; hoarseness, carbonaceous sputum, wheeze and dyspnoea strongly suggest it.",
-                    "MoHFW 2025: nurse propped up; humidified oxygen if SpO₂ <95%, titrated to SpO₂ 92–95% and PaO₂ >60 mm Hg.",
+                    "MoHFW 2025: nurse propped up; humidified oxygen if SpO₂ <95%, titrated to SpO₂ 92–95% and PaO₂ >60 mm Hg. ISBI 2016: pulse oximetry and PaO₂ do not detect CO hypoxaemia, so with suspected CO give oxygen at once by non-rebreathing mask (8–15 L/min) whatever the SpO₂.",
                     "MoHFW 2025: intubate for failure to maintain airway, severe CO or cyanide toxicity, stridor, pharyngeal or laryngeal oedema, or facial with circumferential neck burns.",
-                    "JTS 2025: intubate for GCS <8, symptomatic inhalation injury, deep facial or neck burns, or ≥40% TBSA; size 8 tube or larger in adults.",
+                    "JTS 2025: intubate for GCS <8, symptomatic inhalation injury, deep facial or neck burns, or ≥40% TBSA (JTS pearls: when the patient cannot be closely monitored in an ICU or will be transferred); size 8 tube or larger in adults.",
                     "MoHFW 2025 and ISBI 2016: CO — high-flow oxygen for at least 6 h; cyanide — hydroxocobalamin immediately if available. See the Carbon monoxide poisoning protocol.",
                     "ISBI 2016: prophylactic antibiotics and corticosteroids are not indicated for smoke inhalation; use lung-protective ventilation.",
                 ),
@@ -185,9 +185,9 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 ),
                 scoreIds = listOf("gcs"),
                 citations = listOf(
-                    cite(ENV_ISBI, "§4 Rec 2–5; §4.2.1"),
+                    cite(ENV_ISBI, "§4 Rec 2–5; §4.2.1; §4.3.1"),
                     cite(ENV_MOHFW, "Ch. 4 §D (pp. 29–30); Ch. 5 Airway management, CO and cyanide poisoning (pp. 38–42)"),
-                    cite(ENV_JTS, "Initial burn survey; Inhalation injury"),
+                    cite(ENV_JTS, "Clinical pearls (p. 5); Initial burn survey; Inhalation injury"),
                 ),
             ),
             // 4 ------------------------------------------------------------------------------------
@@ -229,7 +229,9 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                     StepDose(
                         label = "Oral resuscitation when IV fluid is not practical — ISBI 2016",
                         dose = WeightDose(150.0, 150.0, unit = "mL", per = "per 24 h, for 2 days"),
-                        note = "15% of body weight in local-diet liquids every 24 h, with 5 g table salt (one level teaspoon) per litre; frequent small sips (≤50 mL)",
+                        note = "15% of body weight in local-diet liquids every 24 h, with 5 g table salt (one level teaspoon) per litre; frequent small sips (≤50 mL). " +
+                            "ISBI 2016: burns <30% TBSA are candidates for oral resuscitation; in larger burns oral intake only offsets IV volume. " +
+                            "JTS 2025: by mouth only if awake and alert; avoid with abdominal injury, vomiting or burns >40% TBSA.",
                     ),
                 ),
                 citations = listOf(
@@ -237,7 +239,7 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                     cite(ENV_ISBI, "§3 Rec 3 (§3.5); §5 Rec 1–3 and FAQs (pp. 968–969)"),
                     cite(ENV_REVIEW, "Table 3"),
                     cite(ENV_ABA24, "Abstract"),
-                    cite(ENV_JTS, "Acute resuscitation; Considerations for pediatric patients; Appendix D item 7"),
+                    cite(ENV_JTS, "Acute resuscitation; Alternative strategy: enteral resuscitation (p. 10); Considerations for pediatric patients; Appendix D item 7"),
                 ),
             ),
             // 6 ------------------------------------------------------------------------------------
@@ -248,7 +250,7 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                     "Urine targets — MoHFW 2025: 0.5–1 mL/kg/h adults, 1 mL/kg/h children. ISBI 2016: 0.3–0.5 mL/kg/h adults, 1 mL/kg/h children. JTS 2025: 30–50 mL/h adults.",
                     "ISBI 2016: formulas are only a guide; urine output may approach anuria in the first 3 h whatever the infusion rate.",
                     "JTS 2025: if output stays above 50 or below 30 mL/h, change the rate by 20% and reassess after 2 h; no boluses unless MAP <65 mm Hg.",
-                    "JTS 2025: >250 mL/kg in the first 24 h raises the risk of abdominal and extremity compartment syndromes; measure bladder pressure if >200 mL/kg.",
+                    "JTS 2025: >250 mL/kg in the first 24 h raises the risk of abdominal and extremity compartment syndromes; in intubated patients, measure bladder pressure every 4 h if the first-24-h volume exceeds 200 mL/kg.",
                     "ABA 2024: consider human albumin, especially in larger burns, to lower volumes; monitor intra-abdominal and intraocular pressure selectively.",
                     "MoHFW 2025: lactate, where available, guides adequacy; delayed presentation, inhalation injury and electrical burns need more fluid.",
                 ),
@@ -267,8 +269,9 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                     "ISBI 2016: escharotomy when circumferential eschar compromises limb circulation, or chest or neck eschar compromises breathing; abdominal escharotomy for intra-abdominal hypertension.",
                     "JTS 2025: check pulses hourly, by Doppler if available; exclude hypovolaemia before escharotomy; elevate burned limbs above heart level.",
                     "MoHFW 2025: falling Doppler signal despite adequate BP, or tissue pressure >25 mm Hg, means escharotomy or fasciotomy is needed; remove constricting objects.",
-                    "ISBI 2016: longitudinal incisions near the neurovascular bundles, normal skin to normal skin (or joint above to joint below), down to healthy tissue.",
-                    "JTS 2025: escharotomy is painful — moderate sedation and IV opioids are often needed; check pulses hourly for 12–24 h afterwards.",
+                    "ISBI 2016: longitudinal mid-axial (medial and lateral) incisions, near but not over the neurovascular bundles (dorsum of hands and feet), normal skin to normal skin (or joint above to joint below), down to healthy tissue.",
+                    "ISBI 2016: inexperienced staff should never attempt escharotomy. MoHFW 2025: surgical burn management, escharotomy included, preferably in a tertiary centre with a dedicated burn unit.",
+                    "JTS 2025: escharotomy is painful — moderate sedation and IV opioids are often needed; check pulses hourly for at least 12–24 h afterwards.",
                     "ISBI 2016: primary fasciotomy is rarely indicated except in high-voltage electrical injury.",
                 ),
                 checklistTitle = "Warning signs (JTS 2025)",
@@ -279,9 +282,9 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                     "Difficulty ventilating an intubated patient",
                 ),
                 citations = listOf(
-                    cite(ENV_ISBI, "§6 Rec 1–4 (pp. 970–974)"),
+                    cite(ENV_ISBI, "§6 Rec 1–4 (pp. 970–974); Rec 3 (§6.4, §6.4.2)"),
                     cite(ENV_JTS, "Circumferential burns, escharotomy & extremity compartment syndrome"),
-                    cite(ENV_MOHFW, "Ch. 5 §G Escharotomy and fasciotomy (p. 42)"),
+                    cite(ENV_MOHFW, "Ch. 5 §G Surgical management; escharotomy and fasciotomy (p. 42)"),
                 ),
             ),
             // 8 ------------------------------------------------------------------------------------
@@ -289,14 +292,14 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 title = "Pain, tetanus, wound cover and antibiotics",
                 points = listOf(
                     "MoHFW 2025: IV opioids for severe background and procedural pain in the acute phase; avoid IM or SC injections during the shock phase.",
-                    "MoHFW 2025: tetanus toxoid 0.5 mL IM if not already given. ISBI 2016: unknown or inadequate immunisation — tetanus toxoid plus tetanus immune globulin.",
+                    "MoHFW 2025: tetanus toxoid 0.5 mL IM if not already given. ISBI 2016: unknown or inadequate immunisation — tetanus toxoid plus tetanus immune globulin (TIG); TIG may be less available in resource-limited settings, and IV immune globulin may be used if TIG is unavailable.",
                     "MoHFW 2025 and JTS 2025: no routine prophylactic systemic antibiotics; MoHFW exceptions — surgery such as escharotomy or fasciotomy, gangrene, associated trauma.",
                     "JTS 2025: do not debride blisters until at a facility with surgical capability; meanwhile cover with loose dry gauze or a clean sheet.",
                     "MoHFW 2025: debride large, ruptured or joint blisters; small (<5 cm) may stay; non-adherent paraffin gauze, then 1% silver sulfadiazine or a silver dressing.",
                 ),
                 citations = listOf(
                     cite(ENV_MOHFW, "Ch. 3 (TT 0.5 mL); Ch. 4 §F and Other measures (pp. 33–36); §H Table 3; §I Analgesia (p. 47)"),
-                    cite(ENV_ISBI, "§3 Rec 4"),
+                    cite(ENV_ISBI, "§3 Rec 4 (§3.6, §3.6.3)"),
                     cite(ENV_JTS, "Initial burn survey (blisters); Antimicrobial prophylaxis"),
                 ),
             ),
@@ -330,8 +333,12 @@ internal val environmentalProtocols: List<Protocol> = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "Cooling time differs: MoHFW 2025 describes continuous cooling for the first 10 minutes; BBA 2018 advises 20 minutes of cool running water within 3 hours of injury.",
-                listOf(cite(ENV_MOHFW, "Ch. 2 Cooling the burn wound (p. 13)"), cite(ENV_BBA, "Thermal burns — Cool")),
+                "Cooling time differs: ISBI 2016 about 3–5 minutes of cool, not cold, water; MoHFW 2025 continuous cooling for the first 10 minutes; " +
+                    "BBA 2018 20 minutes of cool running water within 3 hours of injury.",
+                listOf(
+                    cite(ENV_ISBI, "§3.2.5 Exposure"), cite(ENV_MOHFW, "Ch. 2 Cooling the burn wound (p. 13)"),
+                    cite(ENV_BBA, "Thermal burns — Cool"),
+                ),
             ),
             ProtocolNote(
                 "Threshold for formal resuscitation differs: MoHFW 2025 >15% TBSA in adults and ≥10% in children; ISBI 2016 >20% and >10%; JTS 2025 ≥20%. The burns chart follows MoHFW.",
@@ -449,7 +456,7 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 timing = "Start cooling within 10 min; reach target within 30 min (NCDC 2024; SCCM 2025)",
                 points = listOf(
                     "AHA 2025: start active cooling alongside resuscitation; ice-water immersion (1–5 °C) preferred; otherwise tepid-water (8–17 °C) immersion or tarp-assisted ice-water cooling.",
-                    "SCCM 2025 (strong): active over passive cooling; prioritise ice- or cold-water immersion; aim ≥0.155 °C/min and target temperature within 30 min of recognition.",
+                    "SCCM 2025 (strong recommendation, very low certainty): active over passive cooling. Good practice statements: prioritise ice- or cold-water immersion; aim ≥0.155 °C/min and reach target temperature within 30 min of recognition.",
                     "AHA 2025: cool at least 0.15 °C/min — slower cooling was associated with higher mortality. ERC 2025: neck-down immersion achieves 0.2–0.35 °C/min.",
                     "NCDC 2024 ED order: (1) cold-water immersion or body-bag cooling; (2) ice packs or chilled sheets and towels; (3) mist water with a direct fan.",
                     "NCDC 2024: 'cool first, transport second'; do not delay cooling to undress; keep immersion water below 15 °C and stir it continuously.",
@@ -469,13 +476,13 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                     "NCDC 2024: immersion can hamper cardiac monitoring and resuscitation; in elderly or comorbid classic heat stroke, prefer evaporative plus convective cooling, adding ice.",
                     "NCDC 2024: cool the whole body, front and back; ice packs to neck, axilla and groin add little and are supplementary only.",
                     "NCDC 2024: body-bag cooling (ice and cold water up to the neck) keeps the chest dry for monitoring; emerging evidence in classic heat stroke.",
-                    "SCCM 2025: use similar cooling strategies for classic and exertional heat stroke. AHA 2025 prefers ice-water immersion whatever the cause.",
+                    "SCCM 2025: use similar cooling strategies for classic and exertional heat stroke. AHA 2025 prefers ice-water immersion for exertional, environmental or drug-induced hyperthermia, without separating classic from exertional heat stroke.",
                     "NCDC 2024: air-conditioned rooms alone cool at 0.03–0.06 °C/min — unacceptable as the only method.",
                 ),
                 citations = listOf(
                     cite(ENV_NCDC, "Ch. 1 Challenges with rapid cooling (pp. 5–6); Classic heat stroke (p. 8); Cooling rates (p. 5); Ch. 2 Body bag cooling (p. 12)"),
                     cite(ENV_SCCM, "Good practice statements (SCCM infographic)"),
-                    cite(ENV_AHA, "Hyperthermia — adult Rec 2"),
+                    cite(ENV_AHA, "Hyperthermia — Introduction (S609); adult Rec 2"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -483,11 +490,11 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 title = "When to stop cooling",
                 timing = "Continuous core temperature monitoring",
                 points = listOf(
-                    "AHA 2025: stop active cooling at core temperature 38.6 °C; stopping at 37.5 °C risked overcooling, with coagulopathy and haemodynamic effects.",
+                    "AHA 2025: stop active cooling at core temperature 38.6 °C; in a trial of 10 healthy volunteers, removal at 38.6 °C rather than 37.5 °C lowered the risk of overcooling, which could cause coagulopathy and haemodynamic effects.",
                     "ERC 2025: cool to below 39 °C, preferably 38.5–38.0 °C; continue immersion until symptoms resolve or for a reasonable time, e.g. 15 min.",
                     "NCDC 2024: end point 38–39 °C; without rectal thermometry, immerse 10–15 min (CWI protocol) or 15–20 min (exertional principles), or until shivering.",
                     "NAP 2021 (MoHFW): temperature every 15–30 min; do not overcorrect below 38 °C; watch for hypothermia.",
-                    "NCDC 2024: treat intense shivering with short-acting benzodiazepines; consider deep sedation and neuromuscular blockade to cut heat production.",
+                    "NCDC 2024: treat intense shivering with short-acting benzodiazepines; consider deep sedation followed by neuromuscular blockade to cut heat production. NAP 2021: paralyse only if the patient is intubated.",
                 ),
                 citations = listOf(
                     cite(ENV_AHA, "Hyperthermia — adult Rec 5 and supportive text (S610)"),
@@ -500,13 +507,13 @@ internal val environmentalProtocols: List<Protocol> = listOf(
             Step(
                 title = "What not to use",
                 points = listOf(
-                    "SCCM 2025 (strong): do not use dantrolene. AHA 2025: dantrolene is not useful for hyperthermia other than malignant hyperthermia.",
+                    "SCCM 2025 (strong recommendation, very low certainty): do not use dantrolene. AHA 2025: dantrolene is not useful for hyperthermia other than malignant hyperthermia.",
                     "SCCM 2025: avoid routine paracetamol, NSAIDs and salicylates. NCDC 2024: antipyretics are not effective. ERC 2025: no medication lowers core temperature.",
                     "SCCM 2025: prophylactic antibiotics or antiseizure drugs only within research.",
                 ),
-                checklistTitle = "Don'ts (SCCM 2025; NCDC 2024; NAP 2021)",
+                checklistTitle = "Don'ts (SCCM 2025; NCDC 2024)",
                 checklist = listOf(
-                    "Antipyretics — paracetamol, NSAIDs, aspirin",
+                    "Antipyretics — paracetamol, NSAIDs, aspirin (also NAP 2021)",
                     "Dantrolene",
                     "Delaying cooling for tests, transport or undressing",
                     "Air-conditioned room alone as the only cooling",
@@ -685,7 +692,7 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 citations = listOf(
                     cite(ENV_MOHFW, "Ch. 6 Electric burns (p. 52)"),
                     cite(ENV_BBA, "Electrical burns"),
-                    cite(ENV_REVIEW, "Cardiac; Table 1"),
+                    cite(ENV_REVIEW, "Cardiovascular; Table 1"),
                     cite(ENV_PILECKY, "Abstract — Results and Conclusions"),
                 ),
             ),
@@ -696,7 +703,8 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "JTS 2025: watch for compartment syndrome, especially above 1000 V; it typically needs fasciotomy — escharotomy does not relieve pressure from myonecrosis.",
                     "MoHFW 2025: consider early fasciotomy for electrical burns of the extremities. ISBI 2016: high-voltage injury is the main indication for primary fasciotomy.",
-                    "Review 2026: pain out of proportion or on passive stretch; if examination is unreliable, compartment pressure >30 mm Hg warrants immediate surgical consultation.",
+                    "Review 2026: pain out of proportion or on passive stretch; if examination is unreliable, compartment pressure >30 mm Hg warrants immediate surgical consultation, " +
+                        "and a delta pressure (diastolic BP − compartment pressure) <30 mm Hg is the review's preferred threshold for fasciotomy.",
                     "MoHFW 2025: decreasing Doppler signal with adequate BP, or tissue pressure >25 mm Hg, means escharotomy or fasciotomy is needed.",
                     "Review 2026: MRI after admission may be needed to define deep soft-tissue injury in high-voltage cases.",
                 ),
@@ -732,13 +740,14 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "Review 2026: CK on arrival and trend for 24–48 h even if normal — CK peaks at 1–3 days; decide on context, not a single CK cut-off.",
                     "JTS 2025: visibly red or brown urine means clinically significant pigmenturia; check CK every 6 h if available.",
-                    "MoHFW 2025: with myoglobinuria, mannitol 50–200 g over 24 h and sodium bicarbonate 50–150 mEq in 1 L 5% dextrose over 1 h to alkalinise urine.",
+                    "MoHFW 2025 only: with myoglobinuria, mannitol 50–200 g over 24 h and sodium bicarbonate 50–150 mEq in 1 L 5% dextrose over 1 h to alkalinise urine; " +
+                        "JTS 2025 and Review 2026 titrate isotonic fluid to urine output and use neither.",
                     "Review 2026: creatinine every 24 h, or every 12 h at higher AKI risk, with continuous urine-output monitoring.",
                     "MoHFW 2025: once urine is clear, return to the usual burn resuscitation goals.",
                 ),
                 citations = listOf(
                     cite(ENV_REVIEW, "Musculoskeletal; Renal"),
-                    cite(ENV_JTS, "Electric injury — rhabdomyolysis"),
+                    cite(ENV_JTS, "Electric injury — rhabdomyolysis; increased fluid goals (pp. 14–15)"),
                     cite(ENV_MOHFW, "Ch. 6 Electric burns (p. 52)"),
                 ),
             ),
@@ -755,7 +764,7 @@ internal val environmentalProtocols: List<Protocol> = listOf(
                 ),
                 citations = listOf(
                     cite(ENV_ICAR, "Specific situations — Lightning injuries (recommendation, grade 1B)"),
-                    cite(ENV_REVIEW, "Assessment overview; Neurologic and sensory; Table 5"),
+                    cite(ENV_REVIEW, "Discussion — Management of Electrical Burn Complications in the ED; Neurologic and sensory; Table 5"),
                     cite(ENV_ABA_REF, "Electrical injuries"),
                 ),
             ),
@@ -777,17 +786,20 @@ internal val environmentalProtocols: List<Protocol> = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "Urine target with myoglobinuria differs: MoHFW 2025 2–5 mL/kg/h with mannitol and bicarbonate; JTS 2025 75–100 mL/h with isotonic fluid; Review 2026 about 1 mL/kg/h.",
+                "Urine target with myoglobinuria differs: MoHFW 2025 2–5 mL/kg/h with mannitol and bicarbonate; JTS 2025 75–100 mL/h with isotonic fluid. " +
+                    "Review 2026 gives about 1 mL/kg/h for adult electrical injury in general and no separate target for pigmenturia. " +
+                    "JTS 2025 and Review 2026 use no mannitol or bicarbonate.",
                 listOf(cite(ENV_MOHFW, "Ch. 6 (p. 52)"), cite(ENV_JTS, "Electric injury"), cite(ENV_REVIEW, "Renal; Table 3")),
             ),
             ProtocolNote(
                 "Evidence for monitoring is weak: Pilecky 2019 (retrospective) found routine ECG monitoring unnecessary in a mainly low-voltage cohort; the 2026 review notes " +
                     "that no widely accepted guideline exists for electrical injury.",
-                listOf(cite(ENV_PILECKY, "Conclusions"), cite(ENV_REVIEW, "Assessment overview")),
+                listOf(cite(ENV_PILECKY, "Conclusions"), cite(ENV_REVIEW, "Discussion — Management of Electrical Burn Complications in the ED")),
             ),
             ProtocolNote(
-                "Compartment pressure thresholds differ: MoHFW 2025 tissue pressure >25 mm Hg for escharotomy or fasciotomy; Review 2026 >30 mm Hg for urgent surgical consultation.",
-                listOf(cite(ENV_MOHFW, "Ch. 5 §G (p. 42)"), cite(ENV_REVIEW, "Table 2")),
+                "Compartment pressure thresholds differ: MoHFW 2025 tissue pressure >25 mm Hg for escharotomy or fasciotomy; Review 2026 >30 mm Hg for urgent surgical consultation, " +
+                    "with delta pressure <30 mm Hg as its preferred fasciotomy threshold.",
+                listOf(cite(ENV_MOHFW, "Ch. 5 §G (p. 42)"), cite(ENV_REVIEW, "Musculoskeletal; Table 2")),
             ),
             ProtocolNote(
                 "AHA 2025 addresses only cardiac arrest from electrocution; burns, cardiac injury and trauma from electricity are outside its scope.",

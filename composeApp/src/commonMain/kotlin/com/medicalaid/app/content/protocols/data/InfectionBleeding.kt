@@ -203,7 +203,7 @@ internal val infectionEmergencyProtocols = listOf(
             Step(
                 title = "Empirical antimicrobials",
                 points = listOf(
-                    "ICMR AMR 2019 (source unclear): imipenem–cilastatin 500 mg IV 6-hourly or 1 g 8-hourly, ± amikacin.",
+                    "ICMR AMR 2019 (source unclear; rule out common tropical infections, Ch. 1): imipenem–cilastatin 500 mg IV 6-hourly or 1 g 8-hourly, ± amikacin.",
                     "ICMR AMR 2019 alternatives: meropenem 1 g IV 8-hourly or cefoperazone–sulbactam 3 g IV 12-hourly, ± amikacin.",
                     "ICMR AMR 2019: with risk factors add vancomycin or teicoplanin (MRSA), colistin or polymyxin B (CR-GNB), or an echinocandin; ± doxycycline 100 mg IV 12-hourly.",
                     "ICMR AMR 2019: septic shock — at least two antibiotics of different classes; avoid piperacillin–tazobactam until cephalosporin-resistant bacteraemia is excluded (MERINO).",
@@ -235,7 +235,7 @@ internal val infectionEmergencyProtocols = listOf(
                     "SSC 2026 (conditional, low certainty): sepsis-induced hypoperfusion or septic shock — at least 30 mL/kg IV crystalloid in the first 3 h, individualised.",
                     "SSC 2026: use actual body weight, or adjusted or ideal weight if BMI >30 kg/m²; reassess often to avoid under- or over-resuscitation.",
                     "SSC 2026: crystalloids first-line (strong); balanced crystalloids over 0.9% saline (conditional), but 0.9% saline with traumatic brain injury.",
-                    "SSC 2026: no starches (strong) or gelatin; crystalloids alone over added albumin — albumin may suit large crystalloid volumes or cirrhosis.",
+                    "SSC 2026: no starches (strong) or gelatin; crystalloids alone over added albumin — albumin may suit large crystalloid volumes or cirrhosis; avoid it in traumatic brain injury.",
                     "SSC 2026: hypotension — crystalloid bolus first, vasopressors if it persists; unstable shock may need vasopressors with fluids from the start.",
                     "SSC 2026: after 30 mL/kg, liberal or restrictive fluids by patient and system factors; guide with dynamic measures and capillary refill.",
                 ),
@@ -306,8 +306,8 @@ internal val infectionEmergencyProtocols = listOf(
             Step(
                 title = "Ongoing care",
                 points = listOf(
-                    "SSC 2026 (strong): start insulin at glucose ≥180 mg/dL (10 mmol/L).",
-                    "SSC 2026 (strong): restrictive red-cell transfusion; pharmacological VTE prophylaxis, LMWH over unfractionated heparin.",
+                    "SSC 2026 (strong): start insulin at glucose ≥180 mg/dL (10 mmol/L). SSC 2021 remark: typical target 144–180 mg/dL (8–10 mmol/L) once insulin is started.",
+                    "SSC 2026 (strong): restrictive red-cell transfusion; pharmacological VTE prophylaxis unless contraindicated, LMWH over unfractionated heparin.",
                     "SSC 2026 (conditional): bicarbonate for pH ≤7.2 with AKI (AKIN 2–3); not to improve haemodynamics in lactic acidaemia.",
                     "SSC 2026 (conditional): after the acute resuscitation phase, active fluid removal — diuretics, then ultrafiltration if needed.",
                     "SSC 2026 (conditional): PPI stress-ulcer prophylaxis if GI bleeding risk factors; antipyretics not to improve outcomes.",
@@ -315,6 +315,7 @@ internal val infectionEmergencyProtocols = listOf(
                 ),
                 citations = listOf(
                     cite(SSC26, "Recommendations: Insulin therapy; Blood transfusion; VTE prophylaxis; Sodium bicarbonate; Active fluid removal; Stress ulcer prophylaxis; Antipyretics; Goals of care"),
+                    cite(SSC21, "Rec 69 remark"),
                 ),
             ),
         ),
@@ -416,7 +417,7 @@ internal val infectionEmergencyProtocols = listOf(
                 title = "Resuscitation and transfusion",
                 timing = "Immediately",
                 points = listOf(
-                    "ICMR STW: ≥18 G cannula, crystalloid (Ringer's lactate or saline), oxygen 2 L/min if high risk or shocked; target pulse <100, SBP >90, SpO₂ >90%.",
+                    "ICMR STW: at least one IV cannula of 18 G or larger bore, crystalloid (Ringer's lactate or saline), oxygen 2 L/min if high risk or shocked; target pulse <100, SBP >90, SpO₂ >90%.",
                     "ICMR STW: packed RBC or whole blood if Hb <7 g/dL (<9 g/dL with pre-existing heart disease). ACG 2021: transfuse at 7 g/dL.",
                     "International Consensus 2019: transfuse at Hb <8 g/dL without cardiovascular disease, higher with it. Baveno VII (variceal): target Hb 7–8 g/dL.",
                     "NICE CG141: base transfusion on the full clinical picture; massive bleeding — blood, platelets and clotting factors per local protocol.",
@@ -461,7 +462,7 @@ internal val infectionEmergencyProtocols = listOf(
                     "ICMR STW: endoscopy within 24 h of initial stabilisation for all acute GI bleeds; earlier if active ongoing bleeding.",
                     "ESGE 2021 (strong) and ACG 2021: within 24 h. ESGE 2026: not emergent (≤6 h) or urgent (≤12 h) unless unstable despite resuscitation.",
                     "NICE CG141: unstable severe bleeding — endoscopy immediately after resuscitation; everyone else within 24 h of admission.",
-                    "Baveno VII: suspected variceal bleed — endoscopy within 12 h after resuscitation; as soon as safely possible if unstable.",
+                    "Baveno VII: suspected variceal bleed — after haemodynamic resuscitation, endoscopy within 12 h of presentation; as soon as safely possible if unstable.",
                     "Baveno VII: erythromycin 250 mg IV 30–120 min before endoscopy unless QT prolongation. ACG 2021: erythromycin infusion suggested.",
                     "ESGE 2026: if IV erythromycin is unavailable, IV metoclopramide in selected severe or ongoing bleeding. International Consensus 2019: do not delay endoscopy for anticoagulants.",
                 ),
@@ -530,7 +531,7 @@ internal val infectionEmergencyProtocols = listOf(
                     "ESGE 2021 (strong): do not interrupt low-dose aspirin for secondary prevention; if stopped, restart within 3–5 days. NICE: continue once haemostasis is achieved.",
                     "ACG–CAG 2022: do not hold cardiac aspirin; if held, resume the day haemostasis is confirmed. No platelet transfusion for antiplatelet users.",
                     "ACG–CAG 2022: warfarin — against FFP and vitamin K; PCC over FFP if needed. NICE CG141: PCC if on warfarin and actively bleeding.",
-                    "ACG–CAG 2022: DOACs — against PCC, idarucizumab or andexanet. ESGE 2026: resume anticoagulation as soon as indicated by thromboembolic risk.",
+                    "ACG–CAG 2022 (conditional, very low certainty): DOACs — no routine PCC, idarucizumab or andexanet; selective use may be considered for life-threatening bleeding with a dose in the past 24 h. ESGE 2026: resume anticoagulation as soon as indicated by thromboembolic risk.",
                 ),
                 citations = listOf(
                     cite(STW_GIB_A, "Resuscitate — stop antiplatelets and anticoagulants"),
@@ -546,7 +547,7 @@ internal val infectionEmergencyProtocols = listOf(
                 title = "Discharge and secondary prevention",
                 points = listOf(
                     "ICMR STW discharge: haemodynamically stable, heart rate <90/min, conscious, no bleeding for ≥72 h (no further fall in Hb).",
-                    "ICMR STW varices: propranolol 20 mg 12-hourly, titrated to heart rate 60/min; repeat ligation at 2 weeks, then 2–3-weekly until eradicated.",
+                    "ICMR STW varices: propranolol 20 mg 12-hourly, increased to a heart rate of 60/min unless contraindicated; repeat ligation at 2 weeks, then 2–3-weekly until eradicated.",
                     "ICMR STW ulcer: PPI 40 mg twice daily for 4 weeks; reconsider NSAIDs; repeat endoscopy and H. pylori testing at 4–6 weeks.",
                     "NICE CG141: stop other NSAIDs, including COX-2 inhibitors, during the acute phase.",
                     "International Consensus 2019: previous ulcer bleeding with continuing antiplatelets or anticoagulants — PPI suggested.",
@@ -596,9 +597,10 @@ internal val infectionEmergencyProtocols = listOf(
                 listOf(cite(ACG21, "Abstract"), cite(BAVENO, "Statement 6.19"), cite(ESGE26, "Recommendation 2 (abstract)"), cite(ICG19, "Statement A7")),
             ),
             ProtocolNote(
-                "DOAC reversal differs: ACG–CAG 2022 suggests against andexanet alfa; NICE CG141 cites TA697 (2025), which recommends " +
-                    "andexanet as an option for life-threatening GI bleeding on apixaban or rivaroxaban.",
-                listOf(cite(ACGCAG, "Recommendation 6"), cite(NICE_GIB, "Rec 1.2.8")),
+                "DOAC reversal: ACG–CAG 2022 suggests against routine andexanet alfa but says it could be considered in life-threatening " +
+                    "GI bleeding within 24 h of apixaban or rivaroxaban; NICE CG141 cites TA697 (2025), which recommends andexanet as an " +
+                    "option for life-threatening or uncontrolled GI bleeding on apixaban or rivaroxaban.",
+                listOf(cite(ACGCAG, "Recommendation 6 and discussion"), cite(NICE_GIB, "Rec 1.2.8")),
             ),
             ProtocolNote(
                 "Very early endoscopy in high-risk patients is unresolved: International Consensus 2019 could not recommend for or " +
@@ -689,7 +691,8 @@ internal val infectionEmergencyProtocols = listOf(
                     "NCVBDC 2023: vitals 2–4-hourly without shock, 1–2-hourly in shock, every 5–30 min in severe dengue; haematocrit 4–6-hourly when stable.",
                     "NCVBDC 2023: aim for urine output about 0.5 mL/kg/h; use ideal body weight for fluid calculations if overweight or obese.",
                     "NCVBDC 2023 (adults, shock or complications): glucose, blood gas with lactate, electrolytes, renal and liver tests, coagulation, chest X-ray, blood group.",
-                    "WHO 2025 (strong): use capillary refill time and lactate to guide IV fluids; (conditional) passive leg raise in shock when unsure.",
+                    "WHO 2025 (strong): use capillary refill time, and lactate once IV resuscitation has started in severe disease, to guide IV fluids — " +
+                        "lactate is not useful with liver failure; (conditional) passive leg raise in shock when unsure.",
                     "WHO 2025 (conditional): crystalloid rather than colloid; it gives no volumes and defers to regional and national guidelines.",
                 ),
                 citations = listOf(
@@ -706,7 +709,7 @@ internal val infectionEmergencyProtocols = listOf(
                     "NCVBDC 2023: 7–10 mL/kg crystalloid over 1 h; reassess BP, pulse pressure, haematocrit, urine output and capillary refill hourly.",
                     "NCVBDC 2023 text: improving — reduce to 5–7 mL/kg/h for 2–4 h, 3–5 mL/kg/h for 2–4 h, then 2–4 mL/kg/h for 2–4 h.",
                     "NCVBDC 2023: no improvement and haematocrit >45% — second bolus 10 mL/kg over 1 h; still no improvement — manage as severe dengue.",
-                    "NCVBDC 2023: haematocrit falling below 45% — suspect overt bleeding; whole blood 10 mL/kg or packed red cells 5 mL/kg.",
+                    "NCVBDC 2023: no improvement and haematocrit <45% — suspect severe overt bleeding; check Hb and plan transfusion: whole blood 10 mL/kg or packed red cells 5 mL/kg.",
                     "NCVBDC 2023: stop IV fluids at 24–48 h by clinical status; discharge in 12–24 h is possible if recovering fast and not in the critical phase.",
                 ),
                 doses = listOf(
@@ -720,7 +723,7 @@ internal val infectionEmergencyProtocols = listOf(
                         dose = WeightDose(10.0, 10.0, unit = "mL", per = "IV over 1 h"),
                     ),
                     StepDose(
-                        label = "Whole blood if haematocrit falls <45% (NCVBDC 2023)",
+                        label = "Whole blood — no improvement after the first bolus and haematocrit <45% (NCVBDC 2023)",
                         dose = WeightDose(10.0, 10.0, unit = "mL", per = "per transfusion"),
                         note = "Or packed red cells 5 mL/kg.",
                     ),
@@ -819,7 +822,7 @@ internal val infectionEmergencyProtocols = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(DENGUE_IN, "§7.3.2 principles; §7.4; Box 8; §8.1(b)"),
+                    cite(DENGUE_IN, "§7.3.2 principles; §7.4; Box 8; §8.1.3(b)"),
                     cite(WHO_ARBO, "§5.5"),
                 ),
             ),
@@ -827,7 +830,8 @@ internal val infectionEmergencyProtocols = listOf(
             Step(
                 title = "Drugs and procedures to avoid",
                 points = listOf(
-                    "NCVBDC 2023: paracetamol 10 mg/kg per dose, not more often than 6-hourly; adult maximum 4 g/day. WHO 2025 also suggests metamizole.",
+                    "NCVBDC 2023: paracetamol 10 mg/kg per dose, not more often than 6-hourly; adult maximum 4 g/day. WHO 2025: caution with liver " +
+                        "disease or transaminitis; its paracetamol and metamizole suggestions are for non-severe disease (metamizole has limited availability and approval).",
                     "WHO 2025 (strong): no NSAIDs at any severity. NCVBDC 2023: avoid aspirin and NSAIDs.",
                     "WHO 2025 (conditional): no systemic corticosteroids in severe or non-severe dengue.",
                     "NCVBDC 2023 exception: encephalopathy — dexamethasone 0.15 mg/kg IV 6–8-hourly may be considered to lower intracranial pressure.",
@@ -838,7 +842,7 @@ internal val infectionEmergencyProtocols = listOf(
                     "Aspirin and other NSAIDs — NCVBDC 2023; WHO 2025",
                     "Intramuscular injections — ICMR AMR 2019; NCVBDC 2023 (children chapter)",
                     "Systemic corticosteroids — WHO 2025; NCVBDC 2023: no therapeutic utility (children chapter)",
-                    "Routine pleural or ascitic tapping — NCVBDC 2023",
+                    "Routine pleural or ascitic tapping — NCVBDC 2023 (children chapter); adults: only for severe respiratory distress after other measures fail, with extreme caution",
                     "Diuretics during the leakage phase — NCVBDC 2023 (children chapter)",
                     "Hypotonic fluids (except infants <6 months) — NCVBDC 2023",
                     "Routine antibiotics — ICMR AMR 2019",
@@ -847,7 +851,7 @@ internal val infectionEmergencyProtocols = listOf(
                     StepDose(
                         label = "Paracetamol (NCVBDC 2023)",
                         dose = WeightDose(10.0, 10.0, unit = "mg", per = "per dose, not more often than 6-hourly"),
-                        note = "NCVBDC 2023: adult maximum 4 g/day.",
+                        note = "NCVBDC 2023: adult maximum 4 g/day. WHO 2025: use with caution with liver disease or transaminitis.",
                     ),
                     StepDose(
                         label = "Dexamethasone — encephalopathy with raised ICP only (NCVBDC 2023)",
@@ -856,7 +860,7 @@ internal val infectionEmergencyProtocols = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(DENGUE_IN, "§7.2 (Group A); §5.5–5.7; §7.3.2; §7.6.2"),
+                    cite(DENGUE_IN, "§7.2 (Group A); §5.5–5.7; §7.3.2; §7.6.1; §7.6.2"),
                     cite(WHO_ARBO, "§4.2.1–4.2.3; §4.3; §5.3"),
                     cite(ICMR_AMR, "Ch. 2 §2.3.7"),
                 ),
@@ -881,11 +885,12 @@ internal val infectionEmergencyProtocols = listOf(
                     StepDose(
                         label = "Furosemide — overload with shock, after BP stabilises on dextran (NCVBDC 2023)",
                         dose = WeightDose(1.0, 1.0, unit = "mg", per = "IV per dose"),
-                        note = "Given during the dextran infusion; monitor vital signs every 15 min for 1 h.",
+                        note = "Given during the dextran infusion; monitor vital signs every 15 min for 1 h. NCVBDC 2023: hypokalaemia may " +
+                            "follow diuresis — check and correct potassium.",
                     ),
                 ),
                 citations = listOf(
-                    cite(DENGUE_IN, "Box 7; §7.3.2; §7.6.1; Ch. 13"),
+                    cite(DENGUE_IN, "Box 7; §7.3.2; §7.5; §7.6.1; §5.6; Ch. 13"),
                 ),
             ),
         ),
@@ -911,8 +916,9 @@ internal val infectionEmergencyProtocols = listOf(
                 listOf(cite(ICMR_AMR, "Ch. 2 §2.3.7.2"), cite(DENGUE_IN, "§7.3.1")),
             ),
             ProtocolNote(
-                "WHO 2025 makes no IV fluid volume recommendations; it defers to regional and national guidelines. It suggests " +
-                    "metamizole as well as paracetamol; NCVBDC 2023 names paracetamol only.",
+                "WHO 2025 makes no IV fluid volume recommendations; it defers to regional and national guidelines. For non-severe " +
+                    "disease it suggests metamizole as well as paracetamol (metamizole: limited availability and regulatory approval); " +
+                    "NCVBDC 2023 names paracetamol only.",
                 listOf(cite(WHO_ARBO, "§4.2.1–4.2.2; §5.2.1"), cite(DENGUE_IN, "§7.2")),
             ),
         ),
@@ -1024,7 +1030,9 @@ internal val infectionEmergencyProtocols = listOf(
                     "WHO 2026: complete a full 3-day ACT — artesunate–amodiaquine, artemether–lumefantrine or dihydroartemisinin–piperaquine; no mefloquine ACT after impaired consciousness.",
                     "NDP 2013: area-specific 3-day ACT — ACT-AL in North-Eastern states, ACT-SP elsewhere — plus single-dose primaquine on day 2.",
                     "NDP 2013 ACT-SP: artesunate 4 mg/kg daily for 3 days, sulfadoxine 25 mg/kg with pyrimethamine 1.25 mg/kg on day 1; primaquine 0.75 mg/kg day 2.",
-                    "NDP 2013: primaquine is contraindicated in pregnancy and in infants under 1 year.",
+                    "NDP 2013: primaquine is contraindicated in pregnancy, infants and G6PD deficiency; stop it if dark or red urine or cyanosis appears.",
+                    "Pregnancy, first trimester: NDP 2013 — ACT not to be given (first-trimester P. falciparum: quinine); WHO 2026 — " +
+                        "artemether–lumefantrine; SP-containing ACTs are contraindicated in the first trimester. No primaquine in pregnancy.",
                     "NDP 2013: after parenteral quinine — oral quinine 10 mg/kg three times daily to complete 7 days, plus doxycycline or clindamycin for 7 days.",
                     "NDP 2013: doxycycline is contraindicated in pregnancy and children <8 years — use clindamycin.",
                 ),
@@ -1032,16 +1040,21 @@ internal val infectionEmergencyProtocols = listOf(
                     StepDose(
                         label = "Artesunate — ACT-SP component (NDP 2013)",
                         dose = WeightDose(4.0, 4.0, unit = "mg", per = "orally once daily for 3 days"),
+                        note = "NDP 2013 chart adult dose (age ≥15 years): 200 mg/day.",
+                        maxTotal = 200.0,
                     ),
                     StepDose(
                         label = "Sulfadoxine — ACT-SP component (NDP 2013)",
                         dose = WeightDose(25.0, 25.0, unit = "mg", per = "orally on day 1 only"),
-                        note = "With pyrimethamine 1.25 mg/kg on day 1.",
+                        note = "With pyrimethamine 1.25 mg/kg (adult 75 mg) on day 1; NDP 2013 chart adult dose AS 200 mg/day, SP 1500/75 mg.",
+                        maxTotal = 1500.0,
                     ),
                     StepDose(
                         label = "Primaquine single dose (NDP 2013)",
                         dose = WeightDose(0.75, 0.75, unit = "mg", per = "orally on day 2"),
-                        note = "Not in pregnancy or infants. WHO 2026: 0.25 mg/kg in low-transmission areas.",
+                        note = "Not in pregnancy, infants <1 year or G6PD deficiency (NDP 2013). NDP 2013 dosage chart: 45 mg " +
+                            "(6 × 7.5 mg base) for age ≥15 years. WHO 2026: 0.25 mg/kg in low-transmission areas.",
+                        maxTotal = 45.0,
                     ),
                     StepDose(
                         label = "Quinine — oral follow-on (NDP 2013)",
@@ -1050,7 +1063,8 @@ internal val infectionEmergencyProtocols = listOf(
                     StepDose(
                         label = "Doxycycline with quinine (NDP 2013)",
                         dose = WeightDose(3.0, 3.0, unit = "mg", per = "orally once daily for 7 days"),
-                        note = "NDP 2013 table states 100 mg once daily. Not in pregnancy or children <8 years.",
+                        note = "NDP 2013 table and Note: 100 mg once a day (text: 3 mg/kg). Not in pregnancy or children <8 years.",
+                        maxTotal = 100.0,
                     ),
                     StepDose(
                         label = "Clindamycin with quinine (NDP 2013)",
@@ -1058,8 +1072,12 @@ internal val infectionEmergencyProtocols = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(WHO_MAL, "§5.2.2 — Follow-on treatment"),
-                    cite(NDP13, "Treatment of falciparum malaria; Chemotherapy of severe and complicated malaria — follow-up; Note"),
+                    cite(WHO_MAL, "§5.2.2 — Follow-on treatment; §5.2.1.4.1 (first trimester)"),
+                    cite(
+                        NDP13,
+                        "Treatment of uncomplicated malaria (points 3, 7); Treatment of vivax malaria; Treatment of falciparum malaria " +
+                            "(ACT-SP dosage chart; pregnancy); Chemotherapy of severe and complicated malaria — follow-up; Note",
+                    ),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -1085,7 +1103,8 @@ internal val infectionEmergencyProtocols = listOf(
                     StepDose(
                         label = "Quinine dihydrochloride — loading (WHO 2026; NDP 2013)",
                         dose = WeightDose(20.0, 20.0, unit = "mg", per = "salt, IV infusion over 4 h (or divided IM)"),
-                        note = "Not if quinine already received (NDP 2013). Infusion rate ≤5 mg salt/kg/h.",
+                        note = "Not if quinine already received (NDP 2013). Infusion rate ≤5 mg salt/kg/h. IM only if infusion is not " +
+                            "possible: 10 mg/kg into each anterior thigh, buffered or diluted to 60–100 mg/mL, never into the buttock (WHO 2026).",
                     ),
                     StepDose(
                         label = "Quinine dihydrochloride — maintenance (WHO 2026; NDP 2013)",
@@ -1126,7 +1145,8 @@ internal val infectionEmergencyProtocols = listOf(
                 points = listOf(
                     "WHO 2026: assess fluid needs individually; adults are very vulnerable to fluid overload; rapid bolus colloid or crystalloid is contraindicated.",
                     "WHO 2026: watch JVP, perfusion, venous filling, skin turgor and urine output — over-hydration causes pulmonary oedema, under-hydration shock and AKI.",
-                    "WHO 2026 (expert opinion): low-transmission settings — transfuse at Hb 7 g/dL (Hct 20%). ICMR AMR 2019: transmission in most of India is low.",
+                    "WHO 2026 (expert opinion): low-transmission settings — transfuse at Hb 7 g/dL (Hct 20%). ICMR AMR 2019: transmission is low " +
+                        "in most of India but intense in the north-eastern states and large areas of Odisha, Chhattisgarh, Jharkhand and Madhya Pradesh.",
                     "WHO 2026: AKI — exclude pre-renal causes; established renal failure or refractory acidosis — early haemofiltration or haemodialysis (peritoneal if unavailable).",
                     "WHO 2026: pulmonary oedema — prop up at 45°, oxygen, diuretic, stop IV fluids; intubate with PEEP or CPAP if life-threatening.",
                     "WHO 2026: bleeding — screened fresh blood, FFP, cryoprecipitate or platelets if available, vitamin K. Exchange transfusion: no recommendation possible.",
@@ -1150,7 +1170,7 @@ internal val infectionEmergencyProtocols = listOf(
                     "Corticosteroids",
                     "IV mannitol",
                     "Heparin",
-                    "Adrenaline",
+                    "Adrenaline as an adjunctive treatment",
                     "Overhydration or rapid fluid boluses",
                     "Quinine by IV bolus (lethal hypotension)",
                     "Prophylactic anticonvulsants",
@@ -1169,12 +1189,12 @@ internal val infectionEmergencyProtocols = listOf(
                     "WHO 2026: pregnancy — full-dose parenteral artesunate in any trimester without delay; IM artemether if unavailable, then quinine.",
                     "WHO 2026: seek obstetric advice early and check glucose often; severe malaria may present just after delivery.",
                     "NDP 2013: severe malaria in any trimester can be treated with artemisinin derivatives, which, unlike quinine, do not worsen hypoglycaemia.",
-                    "WHO 2026: severe P. vivax — manage as severe falciparum; complete with ACT or chloroquine, then primaquine radical cure after recovery.",
+                    "WHO 2026: severe P. vivax — manage as severe falciparum; complete with ACT or chloroquine, then primaquine radical cure after recovery, guided by G6PD status.",
                     "WHO 2026: delayed haemolysis can start >1 week after artesunate, especially with hyperparasitaemia — follow up for late anaemia.",
                     "WHO 2026: unexplained deterioration after starting antimalarials may be a supervening bacterial infection.",
                 ),
                 citations = listOf(
-                    cite(WHO_MAL, "§5.2.2 — Treatment during pregnancy; Treatment of severe P. vivax malaria; Concomitant use of antibiotics; §5.2.2.1 — post-treatment haemolysis"),
+                    cite(WHO_MAL, "§5.2.2 — Treatment during pregnancy; Treatment of severe P. vivax malaria; Concomitant use of antibiotics; §5.2.2.1 — post-treatment haemolysis; §5.2.1.6 (G6PD testing)"),
                     cite(NDP13, "Note (pregnant women with severe malaria)"),
                 ),
             ),

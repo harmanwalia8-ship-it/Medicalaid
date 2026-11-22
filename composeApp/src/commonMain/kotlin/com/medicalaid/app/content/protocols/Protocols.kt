@@ -30,6 +30,9 @@ object Protocols {
         Group(endocrineEmergencyProtocols, endocrineEmergencySources),
         Group(acidBaseProtocols, acidBaseSources),
         Group(electrolyteProtocols, electrolyteSources),
+        Group(neuroEmergencyProtocols, neuroEmergencySources),
+        Group(environmentalProtocols, environmentalSources),
+        Group(infectionEmergencyProtocols, infectionEmergencySources),
         // Obstetric emergencies — reviewed for 0.5.0
         Group(eclampsiaProtocols, eclampsiaSources),
         Group(pphProtocols, pphSources),
@@ -42,9 +45,6 @@ object Protocols {
      */
     private val inReview = listOf(
         // Medical emergencies
-        Group(neuroEmergencyProtocols, neuroEmergencySources),
-        Group(environmentalProtocols, environmentalSources),
-        Group(infectionEmergencyProtocols, infectionEmergencySources),
         // Obstetric emergencies and trauma
         Group(earlyPregnancyProtocols, earlyPregnancySources),
         Group(antepartumProtocols, antepartumSources),

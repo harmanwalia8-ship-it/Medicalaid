@@ -825,10 +825,16 @@ internal val neuroEmergencyProtocols = listOf(
                 timing = "Immediately after cultures",
                 points = listOf(
                     "WHO 2025: IV ceftriaxone or cefotaxime; add IV ampicillin or amoxicillin for Listeria risk; add vancomycin where pneumococcal penicillin or cephalosporin resistance is common.",
+                    "WHO 2025: IV chloramphenicol with benzylpenicillin, ampicillin or amoxicillin only when ceftriaxone or cefotaxime is not immediately available.",
                     "ICMR 2019: 1 month–50 y — ceftriaxone plus vancomycin; >50 y, alcoholism or impaired cell-mediated immunity — add ampicillin; alternative meropenem plus vancomycin.",
                     "ICMR 2019: pneumococcal cephalosporin resistance in Indian CSF isolates (Vellore) rose from 4.7% in 2008 to 28.5% in 2016.",
                     "Adult doses — ICMR 2019: ceftriaxone 2 g 12-hourly; meropenem 2 g 8-hourly. ESCMID 2016: ceftriaxone 2 g q12h or 4 g q24h; ampicillin 2 g q4h.",
+                    "NICE NG240: ceftriaxone is incompatible with calcium-containing solutions (e.g. Ringer's lactate) — follow MHRA safety advice.",
                     "ICMR STW first dose: ceftriaxone 2 g + vancomycin 500 mg, + ampicillin 2 g if >50 y or immunocompromised, + dexamethasone 8 mg IV.",
+                    "Antibiotic allergy — NICE NG240: ask about the reaction; get infection-specialist advice. Not severe: ceftriaxone or cefotaxime (+ co-trimoxazole if Listeria risk). Severe: chloramphenicol (+ co-trimoxazole if Listeria risk).",
+                    "WHO 2025: investigate beta-lactam allergy before deciding; avoid all beta-lactams after a previous life-threatening beta-lactam reaction.",
+                    "ICMR 2019 (acute febrile encephalopathy / AES): start empirical ceftriaxone, acyclovir (all suspected sporadic viral encephalitis), doxycycline and artesunate immediately after blood cultures.",
+                    "ICMR 2019: stop artesunate if smear and RDT are negative; stop acyclovir if an alternative diagnosis is made, MRI does not suggest HSV, or two PCRs 48 h apart are negative.",
                     "NICE NG240: no routine aciclovir unless HSV encephalitis is strongly suspected. ICMR 2019: treat confirmed HSV for 14–21 days.",
                 ),
                 checklistTitle = "Listeria risk — add ampicillin or amoxicillin (WHO 2025)",
@@ -861,11 +867,11 @@ internal val neuroEmergencyProtocols = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(BM_WHO, "§B.2.2"),
-                    cite(BM_ICMR, "§8.2.2; Table 8.3 (p. 80); Table 8.6 (pp. 83–84); §8.1 footnote (HSV)"),
+                    cite(BM_WHO, "§B.2.2 and remarks"),
+                    cite(BM_ICMR, "§8.1 (p. 75); §8.1.1 Step III and footnote (pp. 77–78); §8.2.2; Table 8.3 (p. 80); Table 8.6 (pp. 83–84)"),
                     cite(BM_ESCMID, "Table 4.1"),
                     cite(BM_STW, "Secondary care; tertiary care — empirical antibiotic"),
-                    cite(BM_NICE, "Rec 1.6.5–1.6.7"),
+                    cite(BM_NICE, "§1.6 and §1.7 safety notice; Rec 1.6.5–1.6.7, 1.6.16, 1.7.3"),
                     cite(BM_IDSA, "Table 4"),
                 ),
             ),
@@ -874,7 +880,7 @@ internal val neuroEmergencyProtocols = listOf(
                 title = "Adjunctive dexamethasone",
                 timing = "With or just before the first antibiotic dose",
                 points = listOf(
-                    "ESCMID 2016: adults — dexamethasone 10 mg 6-hourly for 4 days, starting with the first antibiotic dose (Grade A), or up to 4 h after it (Grade C).",
+                    "ESCMID 2016: in high-income-country settings, adults — dexamethasone 10 mg 6-hourly for 4 days, starting with the first antibiotic dose (Grade A), or up to 4 h after it (Grade C); no benefit was found in studies from low-income countries.",
                     "ICMR 2019: give 15–20 min before the first antibiotic; 0.15 mg/kg 6-hourly (10 mg in adults) for 48–96 h; at least one dose is acceptable pending CSF.",
                     "ICMR STW: dexamethasone 8 mg IV with the first antibiotic dose; stop after 48 h unless another indication (adrenal insufficiency, TB meningitis).",
                     "WHO 2025: start with the first antibiotic dose; stop if CSF is not bacterial; at most 4 days; may stop if the pathogen is not pneumococcus or Hib.",
@@ -882,7 +888,7 @@ internal val neuroEmergencyProtocols = listOf(
                     "WHO 2025: no corticosteroids in cerebral malaria; no proven benefit in advanced HIV disease. NICE NG240: not routinely in meningococcal disease.",
                 ),
                 citations = listOf(
-                    cite(BM_ESCMID, "Key question 6 — recommendations"),
+                    cite(BM_ESCMID, "Key question 6 — recommendations and conclusions"),
                     cite(BM_ICMR, "§8.2 (p. 80)"),
                     cite(BM_STW, "Tertiary care — empirical antibiotic"),
                     cite(BM_WHO, "§B.3"),
@@ -898,7 +904,8 @@ internal val neuroEmergencyProtocols = listOf(
                     "NICE NG240: do not routinely restrict fluids below maintenance; no glycerol; no routine mannitol or hypertonic saline.",
                     "NICE NG240: with raised ICP and concern about herniation, consider an osmotic agent as a temporary measure and get urgent critical care advice.",
                     "ICMR STW: mannitol and steroids are listed as not recommended at primary care — refer urgently to a centre with intensive care.",
-                    "ICMR STW: if cerebral malaria is possible, start IV artesunate 2.4 mg/kg (or quinine 20 mg/kg).",
+                    "ICMR STW and ICMR 2019: if cerebral malaria is possible, start IV artesunate 2.4 mg/kg at 0, 12 and 24 h, then every 24 h; stop it if peripheral smear and RDT are negative.",
+                    "ICMR 2019: artesunate is safer and reduces mortality compared with quinine; if parenteral artesunate is unavailable, use IM artemether 3.2 mg/kg (then 1.6 mg/kg daily) in preference to quinine.",
                 ),
                 doses = listOf(
                     StepDose(
@@ -909,7 +916,7 @@ internal val neuroEmergencyProtocols = listOf(
                 citations = listOf(
                     cite(BM_STW, "Primary care; secondary care"),
                     cite(BM_NICE, "Rec 1.9.1, 1.9.3–1.9.5"),
-                    cite(BM_ICMR, "Table 8.6 (p. 83)"),
+                    cite(BM_ICMR, "Table 8.6 (p. 83); §2.2.6 (p. 16); §8.1.1 Step III (p. 77)"),
                 ),
             ),
             // 8 ------------------------------------------------------------------------------------
@@ -918,7 +925,7 @@ internal val neuroEmergencyProtocols = listOf(
                 points = listOf(
                     "WHO 2025: pneumococcus 10–14 days, meningococcus 5–7, H. influenzae 7–10, Listeria 21. ICMR 2019: meningococcus and H. influenzae 7, Listeria 3–6 weeks.",
                     "ICMR 2019: stop vancomycin if the isolate is cephalosporin-susceptible; repeat CSF if no response at 48 h. NICE NG240: CSF-positive, culture/PCR-negative — 10 days.",
-                    "WHO 2025: single-dose ceftriaxone or oral ciprofloxacin for close contacts of meningococcal disease, as soon as possible (little benefit after 14 days); rifampicin if neither can be given.",
+                    "WHO 2025: in sporadic disease, single-dose ceftriaxone or oral ciprofloxacin for close contacts of laboratory-confirmed meningococcal disease (clinically suspected cases during epidemics), as soon as possible (little benefit after 14 days); rifampicin if neither can be given.",
                     "WHO 2025 close contacts: <1 m prolonged exposure (e.g. household) or oral-secretion exposure (kissing, mouth-to-mouth, intubation), 7 days before onset to 24 h after antibiotics.",
                     "ESCMID 2016 adult prophylaxis: ciprofloxacin 500 mg orally once (not in pregnancy), ceftriaxone 250 mg IM once, or rifampicin 600 mg twice daily for 2 days.",
                     "NICE NG240: review adults 4–6 weeks after discharge, including audiology. ESCMID 2016: pneumococcal vaccine after pneumococcal meningitis (Grade B).",
@@ -949,8 +956,12 @@ internal val neuroEmergencyProtocols = listOf(
                 listOf(cite(BM_ESCMID, "Key question 6 — conclusions"), cite(BM_WHO, "§B.3 — justification")),
             ),
             ProtocolNote(
-                "Listeria cover from age over 60 (WHO 2025) or over 50 (ICMR 2019, ESCMID 2016, IDSA 2004). Imaging thresholds: NICE NG240 GCS ≤9; WHO and ESCMID GCS <10.",
-                listOf(cite(BM_WHO, "§B.2.2; §A.4"), cite(BM_ICMR, "Table 8.3"), cite(BM_ESCMID, "Table 4.1"), cite(BM_IDSA, "Table 4"), cite(BM_NICE, "Rec 1.4.7")),
+                "Listeria cover from age over 60 (WHO 2025) or over 50 (ICMR 2019, ESCMID 2016, IDSA 2004). Imaging threshold is the same: GCS ≤9 (NICE NG240) = GCS <10 (WHO 2025, ESCMID 2016); NICE also images for a progressive or rapid fall in consciousness.",
+                listOf(cite(BM_WHO, "§B.2.2; §A.4"), cite(BM_ICMR, "Table 8.3"), cite(BM_ESCMID, "Table 4.1; Key question 4 — cranial imaging"), cite(BM_IDSA, "Table 4"), cite(BM_NICE, "Rec 1.4.7")),
+            ),
+            ProtocolNote(
+                "Aciclovir differs: NICE NG240 not routinely unless HSV encephalitis is strongly suspected; ICMR 2019 empirically in all suspected sporadic viral encephalitis (as part of acute febrile encephalopathy cover).",
+                listOf(cite(BM_NICE, "Rec 1.6.7"), cite(BM_ICMR, "§8.1 (p. 75); §8.1.1 Step III (p. 77)")),
             ),
             ProtocolNote(
                 "Scope: community-acquired bacterial meningitis in adults. Tuberculous meningitis (listed by ICMR 2019 among causes of acute febrile encephalopathy) and healthcare-associated meningitis are not covered.",
@@ -991,13 +1002,14 @@ internal val neuroEmergencyProtocols = listOf(
                     "ICMR STW: sudden severe or first/worst headache of life — CT with CT angiography, or MRI with MR angiography, at a tertiary centre.",
                     "AIAN 2011: all thunderclap headaches must be referred urgently to specialised units for full work-up and treatment.",
                     "NICE NG228: give effective analgesia, including opioids if needed; allow for their sedating and pupillary effects in neurological checks.",
+                    "AIAN 2011: in SAH treat headache with opioids or paracetamol and mild sedation; NSAIDs are relatively contraindicated because of the risk of gastrointestinal bleeding.",
                 ),
                 scoreIds = listOf("gcs"),
                 citations = listOf(
                     cite(SAH_NICE, "Rec 1.1.2–1.1.3, 1.1.6, 1.1.8–1.1.9"),
                     cite(SAH_AHA, "§4 Synopsis; Rec 1"),
                     cite(MG_ICMR, "Treatment of major catastrophic headaches at tertiary centre"),
-                    cite(MG_AIAN, "Primary thunderclap headache — treatment"),
+                    cite(MG_AIAN, "Primary thunderclap headache — treatment; Headache attributed to subarachnoid hemorrhage — treatment"),
                 ),
             ),
             // 2 ------------------------------------------------------------------------------------
@@ -1046,7 +1058,7 @@ internal val neuroEmergencyProtocols = listOf(
                 title = "Find the aneurysm and refer",
                 timing = "Secure the aneurysm as early as feasible, preferably within 24 h (AHA/ASA 2023)",
                 points = listOf(
-                    "NICE NG228: CT angiography without delay once SAH is confirmed; DSA or MRA if CTA is negative but an aneurysm is suspected. AHA/ASA 2023: DSA (COR 1).",
+                    "NICE NG228: CT angiography without delay once SAH is confirmed; if CTA does not find the cause and an aneurysm is still suspected, consider DSA (MRA only if DSA is contraindicated). AHA/ASA 2023: DSA (COR 1).",
                     "NICE NG228: urgently discuss transfer with a neurosurgical centre; rebleeding risk is highest within 24 h; don't decide on a severity score alone.",
                     "AHA/ASA 2023 (COR 1): timely transfer from low-volume to high-volume centres with neurocritical care and cerebrovascular and endovascular expertise.",
                     "AHA/ASA 2023 (COR 1): treat the ruptured aneurysm surgically or endovascularly as early as feasible, preferably within 24 h. NICE NG228: coiling, or clipping if coiling is unsuitable.",
@@ -1089,12 +1101,12 @@ internal val neuroEmergencyProtocols = listOf(
                 checklist = listOf(
                     "Never give capsule contents IV or by any parenteral route (boxed warning)",
                     "Contraindicated with strong CYP3A4 inhibitors — e.g. clarithromycin, ketoconazole, itraconazole, voriconazole, ritonavir",
-                    "Strong CYP3A4 inducers should generally not be co-administered",
+                    "Strong CYP3A4 inducers (e.g. rifampicin, phenytoin, phenobarbital, carbamazepine) should generally not be co-administered — nimodipine levels and efficacy may fall markedly",
                     "Nimodipine-induced hypotension — monitor BP (AHA/ASA 2023); in cirrhosis also heart rate (label)",
                 ),
                 citations = listOf(
                     cite(SAH_AHA, "§8.3 Rec 1–2, 6–8 and supportive text"),
-                    cite(SAH_NIMO, "Boxed warning; Contraindications; Dosage and administration"),
+                    cite(SAH_NIMO, "Boxed warning; Contraindications; Warnings (CYP3A4 inducers); Dosage and administration"),
                     cite(SAH_NICE, "Rec 1.2.1–1.2.2"),
                 ),
             ),
@@ -1117,8 +1129,8 @@ internal val neuroEmergencyProtocols = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "BP target before securing the aneurysm is unsettled: AHA/ASA 2023 sets none (earlier guidelines <160 or <180 mm Hg systolic); NICE NG228 makes no BP recommendation.",
-                listOf(cite(SAH_AHA, "§6 supportive text"), cite(SAH_NICE, "Recommendations 1.1–1.3")),
+                "BP target before securing the aneurysm is unsettled: AHA/ASA 2023 sets none (earlier guidelines <160 or <180 mm Hg systolic); NICE NG228 makes no recommendation on acute BP before the aneurysm is secured (rec 1.4.8 covers long-term BP after discharge).",
+                listOf(cite(SAH_AHA, "§6 supportive text"), cite(SAH_NICE, "Recommendations 1.1–1.3; 1.4.8")),
             ),
             ProtocolNote(
                 "AIAN 2011 (Indian) describes 'triple H' therapy (hydration, hypertension, haemodilution) with nimodipine for vasospasm; AHA/ASA 2023 advises euvolaemia and calls prophylactic haemodynamic augmentation harmful.",
