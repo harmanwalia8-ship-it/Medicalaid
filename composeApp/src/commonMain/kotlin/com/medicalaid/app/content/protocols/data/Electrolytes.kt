@@ -18,7 +18,7 @@ import com.medicalaid.app.content.protocols.StepDose
  * - Every point is attributed ("UKKA 2026: …", "ERC 2025: …", "AHA 2025: …", "ESE 2014: …", "US 2013: …", "ICMR STW: …").
  * - UKKA locators are guideline-statement numbers, tables and appendices; ERC 2025 locators are section headings and
  *   figures; ESE 2014 locators are recommendation numbers (Eur J Endocrinol version); US 2013 locators are the boxed
- *   expert-panel recommendations.
+ *   expert-panel recommendations, or the narrative section and page where a statement is only in the narrative.
  * - Existing sources reused by id: em-resus-erc-special-2025 and em-resus-fda-mgso4-label (Resuscitation.kt),
  *   em-resus-aha-special-2025 (DrugTox.kt), em-ab-icmr-stw-aki-2026 (AcidBaseDisorders.kt),
  *   tx-sb-icmr-stw-paralysis-2019 (Envenomation.kt), em-endo-icmr-stw-dka-2022 (EmergencyEndocrine.kt) and
@@ -153,7 +153,10 @@ private const val SALSA = "em-lyte-salsa-2021"
 /** Defined in Resuscitation.kt — ERC Guidelines 2025 Special Circumstances in Resuscitation. */
 private const val ERC_SPECIAL = "em-resus-erc-special-2025"
 
-/** Defined in Resuscitation.kt — US label, magnesium sulfate 50%. */
+/**
+ * Defined in Resuscitation.kt — US label, magnesium sulfate 50%. Its status line there ("cited only for mmol-per-mL
+ * content and dilution") predates this file, which also cites the label's renal-insufficiency cautions.
+ */
 private const val FDA_MG = "em-resus-fda-mgso4-label"
 
 /** Defined in DrugTox.kt — AHA 2025 Part 10, Special Circumstances of Resuscitation. */
@@ -185,7 +188,7 @@ private val hyperkalaemia = Protocol(
         "potassium binder", "sodium zirconium cyclosilicate", "SZC", "Lokelma", "patiromer", "Veltassa",
         "calcium polystyrene sulfonate", "sodium polystyrene sulfonate", "calcium resonium", "Kayexalate", "resin",
         "sodium bicarbonate", "dialysis", "haemodialysis", "AEIOU", "AKI", "acute kidney injury", "CKD", "renal failure",
-        "ACE inhibitor", "ARB", "spironolactone", "hyperkalaemic cardiac arrest",
+        "ACE inhibitor", "ARB", "spironolactone", "hyperkalaemic cardiac arrest", "DKA",
     ),
     steps = listOf(
         // 1 ----------------------------------------------------------------------------------------------
@@ -196,7 +199,7 @@ private val hyperkalaemia = Protocol(
                 "UKKA 2026 and ERC 2025: mild 5.5–5.9, moderate 6.0–6.4, severe ≥6.5 mmol/L; ERC adds 'extreme' ≥9.0. AHA 2025: adult hyperkalaemia is >5.0.",
                 "UKKA 2026: assess with ABCDE and an early warning score; 12-lead ECG and rhythm monitoring if K⁺ ≥6.0 (ERC 2025 algorithm: ≥6.5).",
                 "UKKA 2026 and ERC 2025: confirm with point-of-care (blood-gas) K⁺ while the laboratory result is awaited. ERC: treatment can start on ECG evidence alone.",
-                "UKKA 2026: ECG changes appear in about two-thirds with K⁺ ≥6.5 — a normal ECG does not exclude severe hyperkalaemia.",
+                "UKKA 2026: about two in three with K⁺ ≥6.5 have ECG changes, but reports vary — some find none in at least half; in one series 66% at 6.5–6.9, rising to 100% at ≥8.0. A normal ECG does not exclude severe hyperkalaemia.",
                 "UKKA 2026: QRS prolongation, bradycardia <50/min and junctional rhythm correlate best with adverse events; such bradycardia may resist atropine and pacing.",
                 "ERC 2025: limb weakness, flaccid paralysis or paraesthesia may indicate severe hyperkalaemia; arrhythmia or arrest occurred in 15% within 6 h.",
             ),
@@ -213,7 +216,7 @@ private val hyperkalaemia = Protocol(
             ),
             scoreIds = listOf("news2"),
             citations = listOf(
-                cite(UKKA, "Introduction (severity bands); Guidelines 13.2, 14.1–14.2, 15.2 and rationale; Appendix 7"),
+                cite(UKKA, "Introduction (severity bands); Guidelines 13.2, 14.1–14.2, 15.2 and rationale; Guideline 16.2a rationale (Table 13); Guidelines 26.1–26.2 rationale (p. 158); Appendix 7"),
                 cite(ERC_SPECIAL, "Hyperkalaemia – Non-cardiac arrest; Diagnosis of hyperkalaemia; Fig. 2"),
                 cite(AHA_SPECIAL, "Hyperkalemia — Synopsis"),
             ),
@@ -270,9 +273,10 @@ private val hyperkalaemia = Protocol(
                 "UKKA 2026 and ERC 2025: moderate or severe — 10 units soluble insulin with 25 g glucose IV over 15–30 min; check glucose first.",
                 "UKKA 2026: 25 g glucose = 50 mL 50%, 125 mL 20% or 250 mL 10%. ICMR STW AKI: 10 units in 50 mL 50% or 100 mL 25% dextrose.",
                 "UKKA 2026 and ERC 2025: pre-treatment glucose <126 mg/dL (7.0 mmol/L) — then 10% glucose 50 mL/h for 5 h; UKKA target 72–126 mg/dL (4.0–7.0 mmol/L).",
-                "UKKA 2026 and ERC 2025: nebulised salbutamol 10–20 mg as an adjunct (ICMR: 10 mg = four 2.5 mg respules). UKKA: consider only 10 mg in ischaemic heart disease.",
+                "UKKA 2026 and ERC 2025: nebulised salbutamol 10–20 mg as an adjunct (ICMR: 10 mg as 4 respules of 2.5 mL salbutamol). UKKA: consider only 10 mg in ischaemic heart disease.",
                 "UKKA 2026: never salbutamol alone in severe hyperkalaemia — 20–40% have a fall <0.5 mmol/L. ERC 2025: less effective with non-selective β-blockers.",
                 "UKKA 2026: if K⁺ is not <6.0 mmol/L within 2 h of insulin–glucose, consider a further infusion — repeat doses raise hypoglycaemia risk.",
+                "UKKA 2026: in DKA, high K⁺ is a shift out of cells and total-body K⁺ may be low; it falls with fluids and insulin — follow the DKA protocol and monitor K⁺ and glucose closely.",
             ),
             checklistTitle = "Higher hypoglycaemia risk after insulin–glucose (UKKA 2026 Table 21)",
             checklist = listOf(
@@ -297,11 +301,13 @@ private val hyperkalaemia = Protocol(
                 "ERC 2025: SZC 10 g or patiromer 8.4 g alongside insulin–glucose. UKKA 2026: patiromer 8.4 g once daily (onset 4–7 h) is an option at K⁺ ≥6.0.",
                 "US labels (SZC, patiromer, sodium polystyrene): not for emergency treatment of life-threatening hyperkalaemia — delayed onset. US SZC dose: 10 g three times daily up to 48 h.",
                 "UKKA 2026: calcium resonium no longer routine in acute hyperkalaemia — onset >4 h, unpredictable, intestinal necrosis reported. US label: avoid sorbitol with sodium polystyrene.",
-                "India: SZC 5 g and 10 g received CDSCO import and marketing permission in 2025 (company disclosure). ICMR STW AKI 2026: binders if dialysis is unavailable.",
-                "UKKA 2026 and ERC 2025: IV sodium bicarbonate is not routine outside cardiac arrest — ILCOR found a fall of only 0.1 mmol/L within 60 min.",
+                "India: SZC 5 g and 10 g received DCGI import and marketing permission (Form CT-20; disclosed March 2025), but only the 5 g sachet was announced for launch (November 2025) — a 10 g dose may need two 5 g sachets; check local stock (company disclosure).",
+                "ICMR STW AKI 2026: binders if dialysis is unavailable.",
+                "UKKA 2026 (2C) and ERC 2025: IV sodium bicarbonate is not routine outside cardiac arrest. ERC: ILCOR found a fall of only 0.1 mmol/L within 60 min.",
             ),
             checklistTitle = "Binder cautions",
             checklist = listOf(
+                "SZC and patiromer: avoid in severe constipation, bowel obstruction or impaction, or post-operative dysmotility; sodium polystyrene: contraindicated in obstructive bowel disease (US labels)",
                 "SZC: about 400 mg sodium per 5 g — watch for oedema in heart failure or CKD (US label)",
                 "SZC: give 2 h apart from oral drugs with pH-dependent absorption (UKKA Appendix 4E)",
                 "Patiromer: hypomagnesaemia; give other oral drugs 3 h apart (US label)",
@@ -311,10 +317,10 @@ private val hyperkalaemia = Protocol(
             citations = listOf(
                 cite(UKKA, "Guidelines 16.5, 16.6.1a–16.6.2, 16.2 (cation-exchange resin) and rationale; Guideline 17.1 rationale; Appendix 4D–4F; Appendix 7"),
                 cite(ERC_SPECIAL, "Fig. 2; Sodium bicarbonate; Potassium binders"),
-                cite(FDA_SZC, "1 Indications and usage; 2.1; 5.2"),
-                cite(FDA_PATIROMER, "1 Indications and usage; 2.1–2.2; 5.2; 7; 12.2"),
-                cite(FDA_SPS, "1 Indications and usage; 5.1; 5.3; 7.3"),
-                cite(AZ_INDIA_SZC, "Disclosure of 15 October 2025"),
+                cite(FDA_SZC, "1 Indications and usage; 2.1; 5.1–5.2"),
+                cite(FDA_PATIROMER, "1 Indications and usage; 2.1–2.2; 5.1–5.2; 7; 12.2"),
+                cite(FDA_SPS, "1 Indications and usage; 4 Contraindications; 5.1; 5.3; 7.3"),
+                cite(AZ_INDIA_SZC, "Disclosure of 15 October 2025 (refers to the CT-20 permission disclosed 6 March 2025)"),
                 cite(ICMR_AKI, "Treatment of hyperkalemia"),
             ),
         ),
@@ -375,14 +381,15 @@ private val hyperkalaemia = Protocol(
             title = "Prevent recurrence",
             points = listOf(
                 "UKKA 2026: review potassium-raising drugs, weigh recurrence risk before restarting them, and arrange community blood tests after discharge.",
-                "KDIGO 2024: hyperkalaemia on RAS inhibitors can often be managed by lowering potassium rather than reducing or stopping the RAS inhibitor.",
-                "ERC 2025: down-titrating or stopping RAAS inhibitors after hyperkalaemia is associated with worse outcomes; binders can support cardio-renal therapy.",
+                "UKKA 2026 (acute): withhold RAAS inhibitors during acute illness (sepsis, hypovolaemia, AKI) at any hyperkalaemia severity; stop them at K⁺ ≥6.0 unless SZC/patiromer criteria are met.",
+                "KDIGO 2024 (chronic CKD care): hyperkalaemia on RAS inhibitors can often be managed by lowering potassium rather than reducing or stopping the RAS inhibitor.",
+                "ERC 2025 (longer term): down-titrating or stopping RAAS inhibitors after hyperkalaemia is associated with worse outcomes; binders can support cardio-renal therapy.",
                 "UKKA 2026 (July 2026 update): SZC for persistent K⁺ ≥5.5 mmol/L in CKD 3b–5 (not on dialysis) or heart failure on suboptimal RAAS inhibitor doses.",
                 "ICMR STW CKD 2026: restrict potassium and salt substitutes; avoid fruit juices, coconut water, carbonated drinks. Lower-potassium: apple, papaya, pear, watermelon, cabbage, cauliflower, brinjal, cucumber.",
                 "UKKA 2026: dietary advice after non-dietary causes (constipation, acidosis, poor diabetes control) are addressed. ICMR STW: in AKI withhold ACEi/ARB; in CKD caution if K⁺ >5.5.",
             ),
             citations = listOf(
-                cite(UKKA, "Guidelines 10.1, 21.1–21.4; Summary of key changes July 2026"),
+                cite(UKKA, "Guidelines 2.6–2.7, 10.1, 21.1–21.4; Summary of key changes July 2026"),
                 cite(KDIGO_CKD, "Practice Points 3.6.3, 3.11.5.1–3.11.5.2"),
                 cite(ERC_SPECIAL, "Hyperkalaemia – Non-cardiac arrest"),
                 cite(ICMR_CKD, "Nutrition; Low potassium fruits/vegetables; BP control (ACE/ARB footnote)"),
@@ -509,14 +516,14 @@ private val hypokalaemia = Protocol(
             points = listOf(
                 "ERC 2025: slow replacement is preferable; rapid IV replacement only in an emergency. Target K⁺ 4.0 mmol/L.",
                 "Endocr Connect 2018 review: K⁺ 2.5–3.5 mmol/L may need only oral potassium; IV below 2.5, or with severe nausea, vomiting or abdominal distress.",
-                "US label (KCl extended-release tablets): treatment 40–100 mmol/day in divided doses, no more than 20 mmol per dose, with meals and a full glass of water.",
+                "US label (KCl extended-release tablets): treatment 40–100 mmol/day in divided doses, no more than 20 mmol per dose, with meals and a full glass of water. Contraindicated with amiloride or triamterene; swallow whole, do not crush or chew.",
                 "Endocr Connect 2018 review: each 1 mmol/L fall in K⁺ reflects roughly 200–400 mmol total deficit — an imprecise estimate.",
                 "ERC 2025 and review: severe renal impairment or dialysis — seek expert or renal advice before replacing potassium.",
             ),
             citations = listOf(
                 cite(ERC_SPECIAL, "Treatment of hypokalaemia; Fig. 3"),
                 cite(KARDALAS, "Treatment of hypokalemia"),
-                cite(FDA_KCL_ORAL, "2.1–2.2"),
+                cite(FDA_KCL_ORAL, "2.1–2.2; 4 Contraindications; 7.1"),
             ),
         ),
         // 4 ----------------------------------------------------------------------------------------------
@@ -532,14 +539,14 @@ private val hypokalaemia = Protocol(
             ),
             checklistTitle = "Do not",
             checklist = listOf(
-                "Inject KCl concentrate undiluted or as an IV push (US label: may be instantly fatal)",
+                "Inject KCl concentrate undiluted (US label: may be instantly fatal), or give ERC's 20 mmol over 2–3 min outside hypokalaemic cardiac arrest (peri-arrest: 20 mmol over 10 min)",
                 "Run 300–400 mmol/L solutions through a peripheral cannula (US label: central only)",
                 "Infuse fast without continuous ECG monitoring (US label)",
                 "Use dextrose as the diluent in severe hypokalaemia (US label: saline preferred)",
                 "Replace in severe renal impairment without expert advice (ERC 2025)",
             ),
             citations = listOf(
-                cite(ERC_SPECIAL, "Fig. 3; Treatment of hypokalaemia"),
+                cite(ERC_SPECIAL, "Summary — Hypokalaemia; Fig. 3; Treatment of hypokalaemia"),
                 cite(FDA_KCL_CONC, "Warnings (undiluted administration); Dosage and administration"),
                 cite(FDA_KCL_PREMIX, "Warnings; Dosage and administration"),
                 cite(KARDALAS, "Treatment of hypokalemia"),
@@ -552,12 +559,13 @@ private val hypokalaemia = Protocol(
                 "ERC 2025: magnesium deficiency (<0.6 mmol/L) worsens hypokalaemia; correct it concurrently — repletion speeds potassium correction.",
                 "ERC 2025: 50% magnesium sulphate (1 g = 4 mmol) — standard 2 g (8 mmol) over 4 h.",
                 "ERC 2025: medical emergency — 2 g (8 mmol) over 10–15 min, may be repeated once; cardiac arrest — 2 g over 2 min.",
+                "US label: magnesium is cleared only by the kidneys — renal insufficiency risks magnesium toxicity; in severe renal impairment do not exceed 20 g in 48 h and monitor serum Mg.",
                 "US label: dilute 50% magnesium sulphate to 20% or less before IV infusion; it contains 2.03 mmol per mL.",
                 "Endocr Connect 2018 review: if hypomagnesaemic, 8 mmol (4 mL 50%) diluted in 10 mL 0.9% saline over 20 min, then the first 40 mmol KCl infusion.",
             ),
             citations = listOf(
                 cite(ERC_SPECIAL, "Treatment of hypokalaemia; Fig. 3"),
-                cite(FDA_MG, "Description; Dosage and administration"),
+                cite(FDA_MG, "Description; Clinical pharmacology; Warnings; Precautions; Dosage and administration"),
                 cite(KARDALAS, "Table 3"),
             ),
         ),
@@ -605,9 +613,14 @@ private val hypokalaemia = Protocol(
     ),
     notes = listOf(
         ProtocolNote(
-            "IV rate limits differ: ERC 2025 — standard 10 mmol/h, maximum 20 mmol/h in HDU/ICU, peri-arrest 20 mmol over 10 min; US KCl labels — up to 10 mmol/h (≤40 mmol/L) " +
+            "IV rate limits differ: ERC 2025 — standard 10 mmol/h, maximum 20 mmol/h in HDU/ICU, peri-arrest 20 mmol over 10 min; " +
+                "cardiac arrest 20 mmol over 2–3 min then 10 mmol over 2 min (the US labels give no arrest regimen); US KCl labels — up to 10 mmol/h (≤40 mmol/L) " +
                 "if K⁺ >2.5, and up to 40 mmol/h with continuous ECG only if K⁺ <2.0 with ECG changes or paralysis.",
-            listOf(cite(ERC_SPECIAL, "Fig. 3"), cite(FDA_KCL_CONC, "Dosage and administration"), cite(FDA_KCL_PREMIX, "Dosage and administration")),
+            listOf(
+                cite(ERC_SPECIAL, "Summary — Hypokalaemia; Fig. 3"),
+                cite(FDA_KCL_CONC, "Dosage and administration"),
+                cite(FDA_KCL_PREMIX, "Dosage and administration"),
+            ),
         ),
         ProtocolNote(
             "Peripheral versus central: ERC 2025 prefers a central line for rapid emergency replacement; US labels prefer central whenever possible and require it for 300–400 mmol/L solutions. " +
@@ -670,7 +683,7 @@ private val hyponatraemia = Protocol(
                 "ESE 2014: consider weight-based 2 mL/kg instead of 150 mL when body composition is obviously deviant.",
                 "US 2013 — acute, or seizures/coma at any duration: 100 mL 3% NaCl IV over 10 min, up to 3 times as needed; urgent goal +4–6 mmol/L.",
                 "ICMR STW: acute (<48 h) severe — 3% saline 1–2 mL/kg/h to a total 4–6 mmol/L rise, enough to relieve severe symptoms.",
-                "ICMR STW: severe symptoms, chronic or unknown duration — 3% saline 0.5–1 mL/kg/h until symptoms resolve or a safe Na target; Na every 6–8 h.",
+                "ICMR STW: severe symptoms, chronic or unknown duration — 3% saline 0.5–1 mL/kg/h until symptoms resolve or a safe Na target (≤8–10 mmol/L in the first 24 h). ESE 2014: check Na every 4 h while 3% saline runs.",
                 "ESE 2014: manage where close biochemical and clinical monitoring is possible; correcting coexisting hypokalaemia also raises Na.",
             ),
             checklistTitle = "Severe symptoms (ESE 2014 Table 5)",
@@ -692,16 +705,18 @@ private val hyponatraemia = Protocol(
                 StepDose(
                     label = "3% saline — acute severe hyponatraemia (ICMR STW)",
                     dose = WeightDose(1.0, 2.0, unit = "mL", per = "per hour, IV infusion"),
-                    note = "ICMR STW: until a safe Na target, total rise 4–6 mmol/L; the STW states 1 mL/kg/h raises Na by about 1 mmol/L per hour.",
+                    note = "ICMR STW: until a safe Na target, total rise 4–6 mmol/L; the STW states 1 mL/kg/h raises Na by about 1 mmol/L per hour. " +
+                        "ICMR gives no Na-check interval for this regimen; ESE 2014: Na every 4 h while 3% runs.",
                 ),
                 StepDose(
                     label = "3% saline — severe symptoms, chronic or unknown duration (ICMR STW)",
                     dose = WeightDose(0.5, 1.0, unit = "mL", per = "per hour, IV infusion"),
-                    note = "ICMR STW: until symptoms resolve or a safe Na target; correction not more than 8–10 mmol/L in the first 24 h; Na every 6–8 h.",
+                    note = "ICMR STW: until symptoms resolve or a safe Na target; correction not more than 8–10 mmol/L in the first 24 h. " +
+                        "ESE 2014: Na every 4 h while 3% runs (ICMR's 6–8-hourly checks are listed with tolvaptan); at 1 mL/kg/h ≈ 1 mmol/L/h, 8 h can use the whole daily limit.",
                 ),
             ),
             citations = listOf(
-                cite(ESE, "Rec 7.1.1.1–7.1.1.4; Advice for clinical practice (7.1); Table 5"),
+                cite(ESE, "Rec 7.1.1.1–7.1.1.4, 7.1.3.4; Advice for clinical practice (7.1); Table 5"),
                 cite(US_PANEL, "Expert panel recommendation: treatment of symptomatic acute hyponatremia"),
                 cite(ICMR_NA, "Severe hyponatremia treatment — acute <48 hours; chronic/unknown (>48 hours)"),
             ),
@@ -741,7 +756,8 @@ private val hyponatraemia = Protocol(
                 "US 2013 (chronic): minimum 4–8 mmol/L/day (4–6 if high ODS risk); limits — normal risk 10–12 per 24 h and 18 per 48 h; high risk 8 per 24 h.",
                 "ICMR STW: not more than 8–10 mmol/L in the first 24 h — rapid correction may cause central pontine myelinolysis.",
                 "US 2013: 'six a day makes sense for safety' — with severe symptoms, achieve the day's rise in the first 6 h, then stop.",
-                "US 2013: volume depletion, cortisol deficiency, desmopressin or thiazides can autocorrect by water diuresis — check Na every 4–6 h and urine volume.",
+                "US 2013: volume depletion, cortisol deficiency, desmopressin or thiazides can autocorrect by water diuresis, raising Na >2 mmol/L/h — check Na every 4–6 h and urine volume.",
+                "ESE 2014: a sudden rise in urine output to >100 mL/h (e.g. after volume is restored) signals a too-rapid Na rise — check Na every 2 h until stable.",
                 "US 2013: true acute water intoxication need not be rate-limited; if acute versus chronic is uncertain, use chronic limits.",
             ),
             checklistTitle = "High risk of osmotic demyelination (US 2013 Table 3)",
@@ -753,8 +769,12 @@ private val hyponatraemia = Protocol(
                 "Advanced liver disease",
             ),
             citations = listOf(
-                cite(ESE, "Rec 7.1.2.4, 7.2.1.6, 7.4.1.4"),
-                cite(US_PANEL, "Expert panel recommendations: treatment of symptomatic acute hyponatremia; avoiding ODS; Table 3"),
+                cite(ESE, "Rec 7.1.2.4, 7.2.1.6, 7.4.1.4; Advice for clinical practice (7.4)"),
+                cite(
+                    US_PANEL,
+                    "Current recommendations for rate of correction (narrative, pp. S20–S21); " +
+                        "Expert panel recommendations: treatment of symptomatic acute hyponatremia; avoiding ODS; Table 3",
+                ),
                 cite(ICMR_NA, "Chronic/unknown (>48 hours); footnote on rapid correction"),
             ),
         ),
@@ -872,11 +892,14 @@ private val hyponatraemia = Protocol(
         ),
         ProtocolNote(
             "Vaptans are contested: ESE 2014 advises against them in profound SIAD and expanded ECF; the US 2013 panel lists them as an option; ICMR STW includes tolvaptan for chronic severe " +
-                "hyponatraemia. The US 2013 CME activity was supported by a grant from Otsuka, tolvaptan's manufacturer.",
+                "hyponatraemia. The US 2013 CME activity was supported by a grant from Otsuka, tolvaptan's manufacturer. " +
+                "The ICMR STW lists tolvaptan in the same box as the 3% saline infusion for severe symptoms; the US panel says not to use vaptans with, or straight after, " +
+                "3% saline, and the US label excludes tolvaptan for urgent correction — do not run both together.",
             listOf(
                 cite(ESE, "Rec 7.4.2.3, 7.4.3.4–7.4.3.5"),
                 cite(US_PANEL, "Expert panel recommendations: cautions for using vaptans; CME information"),
                 cite(ICMR_NA, "Chronic/unknown (>48 hours)"),
+                cite(FDA_TOLVAPTAN, "1 Indications and usage (limitations of use)"),
             ),
         ),
         ProtocolNote(
@@ -885,9 +908,10 @@ private val hyponatraemia = Protocol(
             listOf(cite(ESE, "Rec 7.5.1.3–7.5.1.4"), cite(US_PANEL, "Managing excessive correction of chronic hyponatremia")),
         ),
         ProtocolNote(
-            "Bolus versus infusion: in the SALSA RCT (178 patients), rapid intermittent 3% boluses and slow continuous infusion had similar overcorrection (17.2% vs 24.2%, not significant); " +
+            "Bolus versus infusion: in the SALSA RCT (178 patients), rapid intermittent 3% boluses and slow continuous infusion had similar overcorrection, " +
+                "defined as a rise >12 mmol/L in 24 h or >18 mmol/L in 48 h — looser than the ESE limits above (17.2% vs 24.2%, not significant); " +
                 "boluses needed re-lowering less often (41.4% vs 57.1%).",
-            listOf(cite(SALSA, "Abstract — Results")),
+            listOf(cite(SALSA, "Abstract — Main outcome and measures; Results")),
         ),
         ProtocolNote(
             "Classification differs: ESE 2014 grades biochemistry (profound <125 mmol/L) separately from symptoms and lets symptoms drive urgency; ICMR STW calls <125 mmol/L 'severe' " +

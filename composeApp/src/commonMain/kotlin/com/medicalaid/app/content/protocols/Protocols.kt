@@ -26,6 +26,10 @@ object Protocols {
         // Medical emergencies — reviewed for 0.5.0
         Group(cardiacEmergencyProtocols, cardiacEmergencySources),
         Group(resuscitationProtocols, resuscitationSources),
+        Group(respiratoryEmergencyProtocols, respiratoryEmergencySources),
+        Group(endocrineEmergencyProtocols, endocrineEmergencySources),
+        Group(acidBaseProtocols, acidBaseSources),
+        Group(electrolyteProtocols, electrolyteSources),
     )
 
     /**
@@ -34,11 +38,6 @@ object Protocols {
      */
     private val inReview = listOf(
         // Medical emergencies
-        Group(endocrineEmergencyProtocols, endocrineEmergencySources),
-        Group(acidBaseProtocols, acidBaseSources),
-        Group(electrolyteProtocols, electrolyteSources),
-        // Respiratory: reviewed; released together with acid-base (shares the BTS oxygen source defined there).
-        Group(respiratoryEmergencyProtocols, respiratoryEmergencySources),
         Group(neuroEmergencyProtocols, neuroEmergencySources),
         Group(environmentalProtocols, environmentalSources),
         Group(infectionEmergencyProtocols, infectionEmergencySources),

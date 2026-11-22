@@ -14,7 +14,8 @@ import com.medicalaid.app.content.protocols.StepDose
 /*
  * Endocrine emergencies in adults: DKA, HHS, hypoglycaemia, adrenal crisis, thyroid storm, myxoedema coma. Rules:
  * - Doses, thresholds and windows exactly as the cited document states them; every point is attributed
- *   ("ADA/EASD 2024: …", "JBDS 2023: …", "ICMR STW: …", "NICE NG243: …", "ATA 2016: …", "JTA 2016: …").
+ *   ("ADA/EASD 2024: …", "JBDS 2023: …", "ICMR STW: …", "NICE NG243: …", "ATA 2016: …", "JTA 2016: …",
+ *   "ETA/BTA/SfE 2026: …").
  * - Glucose in mg/dL; where the source uses mmol/L the mmol/L value is given in brackets (mg/dL = mmol/L × 18).
  *   Unit conversions in brackets (glucose ÷ 18, urea ÷ 6, BUN ÷ 2.8, creatinine µmol/L ÷ 88.4) are arithmetic, not
  *   guideline text.
@@ -23,13 +24,14 @@ import com.medicalaid.app.content.protocols.StepDose
  *   reproduces them.
  * - Cited by id from Sources.kt: ADA Standards 2026 Section 6 ("ada-s6"), ATA 2014 hypothyroidism ("ata-2014"),
  *   ICMR STW Hypothyroidism 2022 ("icmr-stw-hypothyroid-2022"), ICMR Type 2 Diabetes Guidelines 2018 ("icmr-t2dm-2018").
- * - Bodies without an Authority entry (Society for Endocrinology, Japan Thyroid Association) use Authority.Paper
- *   with the body named in the document field.
+ * - Bodies without an Authority entry (Society for Endocrinology, Japan Thyroid Association, European and British
+ *   Thyroid Associations) use Authority.Paper with the body named in the document field.
  * - Abstract-only sources say so in their status line. FDA labels are US labels; availability in India not verified.
  * - India: ICMR STW list checked November 2026 — STWs exist for DKA, type 1 and type 2 diabetes and hypothyroidism;
  *   none for HHS, adult hypoglycaemia, adrenal crisis, thyroid storm or myxoedema coma.
  * - All claims re-checked against the primary documents in November 2026 (JBDS-IP list confirms JBDS 01, 02, 06
- *   and 16 are the current editions; no newer ATA hyperthyroidism or JTA thyroid-storm guideline found).
+ *   and 16 are the current editions; no newer ATA hyperthyroidism or JTA thyroid-storm guideline found). The
+ *   August 2026 ETA/BTA/SfE/WEDS thyroid-storm consensus is cited alongside ATA 2016 and JTA 2016.
  */
 
 internal val endocrineEmergencySources: List<Source> = listOf(
@@ -150,6 +152,14 @@ internal val endocrineEmergencySources: List<Source> = listOf(
         status = "No later edition found (checked November 2026)",
     ),
     Source(
+        "em-endo-eta-thyroid-storm-2026", Authority.Paper,
+        "European Thyroid Association, British Thyroid Association, Society for Endocrinology and Welsh Endocrine and " +
+            "Diabetes Society joint consensus statement — Eur Thyroid J 2026;15(4):ETJ-26-0043 (Taylor et al.)",
+        "Management of thyroid emergencies: joint consensus statement on management of thyroid storm", "2026",
+        "https://doi.org/10.1530/ETJ-26-0043",
+        status = "Published 19 August 2026; reviewed from the open-access full text (PMC13506520)",
+    ),
+    Source(
         "em-endo-myxoedema-score-2014", Authority.Paper, "Original paper, Endocr Pract 2014;20(8):808–817 (Popoveniuc et al.)",
         "A diagnostic scoring system for myxedema coma", "2014",
         "https://doi.org/10.4158/EP13460.OR",
@@ -178,6 +188,7 @@ private const val ESE = "em-endo-ese-gc-ai-2024"
 private const val NG243 = "em-endo-nice-ng243"
 private const val ATA16 = "em-endo-ata-hyperthyroid-2016"
 private const val JTA = "em-endo-jta-thyroid-storm-2016"
+private const val ETA = "em-endo-eta-thyroid-storm-2026"
 private const val ATA14 = "ata-2014"
 private const val MC_SCORE = "em-endo-myxoedema-score-2014"
 
@@ -363,6 +374,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "ICMR STW: pH <7.0 — 50 mmol bicarbonate in 200 mL sterile water over 2 h; it also limits bicarbonate to pH <6.9, or <7.1 with hypotension or hyperkalaemia.",
                     "ADA/EASD 2024: routine bicarbonate not recommended; consider if pH <7.0 — 100 mmol sodium bicarbonate (8.4%) in 400 mL sterile water every 2 h until pH >7.0.",
+                    "ADA/EASD 2024: reported harms of bicarbonate include increased hypokalaemia, decreased tissue oxygen uptake, cerebral oedema and paradoxical CNS acidosis. JBDS 2023: excess bicarbonate may worsen CSF acidosis.",
                     "JBDS 2023: bicarbonate not recommended routinely; intensive care teams occasionally use it if pH stays low and inotropes are needed.",
                     "ADA/EASD 2024: phosphate only with muscle weakness, respiratory or cardiac compromise and phosphate <1.0 mmol/L — 20–30 mmol potassium phosphate in fluids; rapid replacement can cause hypocalcaemia.",
                     "JBDS 2023: no routine phosphate; consider replacement with respiratory failure, arrhythmia or rhabdomyolysis.",
@@ -384,7 +396,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "JBDS 2023 (euglycaemic DKA): start 10% glucose 125 mL/h straight away with FRIII 0.1 units/kg/h; reduce to 0.05 if glucose keeps falling despite it.",
                     "ICMR T2DM 2018: SGLT2 inhibitors are contraindicated in type 1 diabetes and DKA. ADA/EASD 2024: restarting after DKA in type 2 is not routinely recommended; JBDS: decide with the diabetes team.",
                     "ADA Standards 2026: avoid SGLT2 inhibitors in severe illness, ketonaemia or ketonuria, prolonged fasting and surgery; stop 3 days before surgery (4 for ertugliflozin).",
-                    "JBDS 2023: DKA in pregnancy can occur at glucose <250 mg/dL (13.9 mmol/L); admit to delivery suite or HDU with medical and obstetric care. ADA/EASD 2024 agrees.",
+                    "JBDS 2023: DKA in pregnancy can occur at glucose <250 mg/dL (13.9 mmol/L); admit to delivery suite or HDU with medical and obstetric care. ADA/EASD 2024 also advises delivery-suite or HDU care with immediate senior medical and obstetric input, and notes euglycaemic DKA (glucose <200 mg/dL) may occur.",
                 ),
                 citations = listOf(
                     cite(CONS, "Section 1 — Risk factors; Section 3; Table 4 (SGLT2 inhibitor; pregnancy)"),
@@ -401,7 +413,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "ICMR STW: stop the infusion when eating, glucose consistently <250 mg/dL, anion gap normal and acidosis corrected; give SC insulin at least 30 min before stopping.",
                     "ADA/EASD 2024: resolved when ketones <0.6 mmol/L and venous pH ≥7.3 or bicarbonate ≥18 mmol/L (ideally glucose <200 mg/dL). Do not use anion gap or urine ketones.",
                     "JBDS 2023: resolved when ketones <0.6 mmol/L and venous pH >7.3 — not bicarbonate (saline hyperchloraemia). Not resolved by 24 h — urgent senior specialist input.",
-                    "ADA/EASD 2024: basal insulin 1–2 h before stopping IV insulin (ADA Standards 2026: 2–4 h). JBDS 2023: SC fast-acting insulin with a meal, stop IV 30–60 min later.",
+                    "ADA/EASD 2024: basal insulin 1–2 h before stopping IV insulin (ADA Standards 2026: 2–4 h in its DKA/HHS section; its general IV-to-SC transition section says 2 h). JBDS 2023: SC fast-acting insulin with a meal, stop IV 30–60 min later.",
                     "ADA/EASD 2024: insulin-naive — total daily dose 0.5–0.6 units/kg (about 0.3 with kidney failure or frailty); basal-bolus preferred. JBDS 2023: new type 1 — basal 0.25 units/kg daily.",
                     "JBDS 2023: diabetes team review within 24 h; address precipitant, injection technique, sick-day rules and ketone testing. ADA/EASD 2024: follow-up within 2–4 weeks may reduce recurrence.",
                 ),
@@ -426,7 +438,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     cite(ICMR_DKA, "When to stop insulin infusion?"),
                     cite(CONS, "Section 4 — Criteria for resolution; Transition to maintenance insulin; Section 7"),
                     cite(JBDS_DKA, "6 to 12 hours and 12 to 24 hours, Action 2; E. Conversion to subcutaneous insulin; 60 minutes to 6 hours, Action 4; Other considerations"),
-                    cite(S16, "Rec 16.16; Transitioning from intravenous to subcutaneous insulin"),
+                    cite(S16, "Rec 16.16; Diabetic Ketoacidosis and Hyperglycemic Hyperosmolar State; Transitioning From Intravenous to Subcutaneous Insulin"),
                 ),
             ),
         ),
@@ -456,8 +468,8 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 listOf(cite(CONS, "Section 4 — Fluid therapy"), cite(JBDS_DKA, "Controversial areas 3")),
             ),
             ProtocolNote(
-                "Overlap before stopping IV insulin differs: SC insulin at least 30 min before (ICMR STW); basal 1–2 h before (ADA/EASD 2024); 2–4 h before (ADA Standards 2026); IV stopped 30–60 min after a meal-time SC dose (JBDS 2023).",
-                listOf(cite(ICMR_DKA, "When to stop insulin infusion?"), cite(CONS, "Transition to maintenance insulin"), cite(S16, "Transitioning from intravenous to subcutaneous insulin"), cite(JBDS_DKA, "12 to 24 hours")),
+                "Overlap before stopping IV insulin differs: SC insulin at least 30 min before (ICMR STW); basal 1–2 h before (ADA/EASD 2024); 2–4 h before (ADA Standards 2026, DKA/HHS section; its general IV-to-SC transition section says 2 h); IV stopped 30–60 min after a meal-time SC dose (JBDS 2023).",
+                listOf(cite(ICMR_DKA, "When to stop insulin infusion?"), cite(CONS, "Transition to maintenance insulin"), cite(S16, "Diabetic Ketoacidosis and Hyperglycemic Hyperosmolar State; Transitioning From Intravenous to Subcutaneous Insulin"), cite(JBDS_DKA, "12 to 24 hours")),
             ),
             ProtocolNote(
                 "ADA/EASD 2024 cites a reported inpatient DKA mortality of 30% in India, against 0.2–1.04% in recent high-income data, and links higher low- and middle-income mortality to delayed diagnosis and treatment.",
@@ -590,17 +602,21 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     StepDose(
                         label = "Insulin FRIII — HHS (JBDS 2022; ADA/EASD 2024)",
                         dose = WeightDose(0.05, 0.05, unit = "units", per = "per hour, fixed-rate IV infusion"),
-                        note = "JBDS 2022: once glucose has stopped falling on fluids alone, or at once if ketones >1.0–≤3.0 mmol/L without acidosis.",
+                        note = "JBDS 2022: once glucose has stopped falling on fluids alone, or at once if ketones >1.0–≤3.0 mmol/L without acidosis. " +
+                            "JBDS 2022 weight table: 50–139 kg → 2.5–6.5 units/h; <50 kg or >140 kg — seek senior or diabetes specialist team advice.",
                     ),
                     StepDose(
                         label = "Insulin FRIII — mixed DKA/HHS",
                         dose = WeightDose(0.1, 0.1, unit = "units", per = "per hour, fixed-rate IV infusion"),
-                        note = "ADA/EASD 2024: ketones ≥3.0 mmol/L, pH <7.30 or bicarbonate <18. JBDS 2022: ketones >3.0 with pH <7.3 and bicarbonate <15 — follow the DKA guideline.",
+                        note = "ADA/EASD 2024: ketones ≥3.0 mmol/L, pH <7.30 or bicarbonate <18. JBDS 2022: ketones >3.0 with pH <7.3 and bicarbonate <15 — follow the DKA guideline. " +
+                            "JBDS 2023 DKA weight table stops at 15 units/h (>150 kg); higher rates only on diabetes specialist advice. ADA/EASD 2024 gives no cap.",
+                        maxTotal = 15.0,
                     ),
                 ),
                 citations = listOf(
-                    cite(JBDS_HHS, "Insulin dose and timing; Clinical scenarios; 12 to 24 hours"),
+                    cite(JBDS_HHS, "Insulin dose and timing; Clinical scenarios; 12 to 24 hours; Care pathway Action 3 (weight/insulin dose reference guide)"),
                     cite(CONS, "Section 4 — Insulin"),
+                    cite(JBDS_DKA, "Insulin therapy (dose table)"),
                 ),
             ),
             // 6 ------------------------------------------------------------------------------------
@@ -683,7 +699,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 listOf(cite(ICMR_T2, "Section 8.1.2"), cite(ICMR_DKA, "Common errors/pitfalls")),
             ),
         ),
-        citations = listOf(cite(JBDS_HHS), cite(CONS), cite(S16), cite(ICMR_T2)),
+        citations = listOf(cite(JBDS_HHS), cite(CONS), cite(S16), cite(ICMR_T2), cite(JBDS_DKA)),
     ),
 
     // =============================================================================================
@@ -725,7 +741,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 title = "Conscious and able to swallow",
                 timing = "Recheck after 10–15 min (JBDS) / 15 min (ADA)",
                 points = listOf(
-                    "ICMR STW: glucose <70 mg/dL — 3 teaspoons of glucose powder or sugar. ICMR T2DM 2018: no meter and conscious — oral glucose, sweets or sugar.",
+                    "ICMR STW: glucose <70 mg/dL — 3 teaspoons of glucose powder or sugar. ICMR T2DM 2018: no meter and conscious — oral glucose, sweets or sugar; if on combination therapy that includes an alpha-glucosidase inhibitor (acarbose, miglitol, voglibose), use oral glucose, not sucrose (ADA Standards 2026: only pure glucose with acarbose).",
                     "ADA Standards 2026 Rec 6.15: glucose preferred; most need 15 g carbohydrate; avoid high-fat or high-protein foods first; repeat if still low at 15 min.",
                     "JBDS 2023: 15–20 g rapid-acting carbohydrate — e.g. 150–200 mL pure fruit juice (not on low-potassium diets) or 3–4 heaped teaspoons of sugar in water (not with acarbose).",
                     "JBDS 2023: repeat up to 3 times; still <72 mg/dL after 30–45 min or 3 cycles — call for help; IV glucose or glucagon 1 mg IM.",
@@ -734,7 +750,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 ),
                 citations = listOf(
                     cite(ICMR_T1, "Hypoglycaemia — treatment"),
-                    cite(ICMR_T2, "Section 8.1.1"),
+                    cite(ICMR_T2, "Section 8.1.1; Section 7.1.7 — Alpha-glucosidase inhibitors"),
                     cite(S6, "Rec 6.15; Hypoglycemia treatment"),
                     cite(JBDS_HYPO, "Algorithm A, steps 3–7; Algorithm B, steps 4–8"),
                 ),
@@ -771,15 +787,16 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "FDA label (glucagon injection): adults 1 mg SC or IM, or IV by healthcare providers; if no response after 15 min, a further 1 mg while awaiting emergency help.",
                     "FDA label (nasal glucagon): 3 mg into one nostril; a second 3 mg dose after 15 min if no response. Give oral carbohydrate once the patient responds.",
+                    "JBDS 2023: repeated glucagon is not advised (and unlicensed) — only 1% who had not responded to a first injection responded to a second; IV glucose is preferred. Take care with IM injection in anticoagulated patients.",
                     "ADA Standards 2026 Rec 6.16: prescribe glucagon for everyone taking insulin or at high risk of hypoglycaemia; preparations not needing reconstitution are preferred.",
                     "FDA label: works only with adequate liver glycogen — starvation, adrenal insufficiency or chronic hypoglycaemia need glucose. JBDS 2023: less effective with sulfonylureas, alcohol excess or liver disease.",
-                    "FDA labels (injection and nasal): contraindicated in phaeochromocytoma and insulinoma.",
+                    "FDA labels (injection and nasal): contraindicated in phaeochromocytoma, insulinoma and known hypersensitivity to glucagon or its excipients (anaphylaxis reported).",
                 ),
                 citations = listOf(
                     cite(FDA_GLUCAGON, "§2.2 Dosage; §4 Contraindications; §5.4 Lack of efficacy in decreased glycogen"),
                     cite(FDA_NASAL, "§2 Dosage and administration; §4 Contraindications"),
                     cite(S6, "Rec 6.16; Glucagon"),
-                    cite(JBDS_HYPO, "Algorithm A step 5; Algorithm C step 6"),
+                    cite(JBDS_HYPO, "Algorithm A step 5; Algorithm C step 6; Evidence for parenteral treatment options — Glucagon"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -891,11 +908,12 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "High-dose or >1 year inhaled/topical steroid, or several steroid formulations at once (ESE 2024 R2.9)",
                     "Intra-articular steroid injection within 2 months (ESE 2024 R2.9)",
                     "Strong CYP3A4 inhibitor with a glucocorticoid (ESE 2024); opioids, checkpoint inhibitors (NICE NG243)",
+                    "Glucocorticoid-dependent and starting a strong CYP3A4 inducer, e.g. rifampicin, phenytoin, carbamazepine (ESE 2024 Table 9)",
                 ),
                 citations = listOf(
                     cite(SFE, "Underlying conditions; Clinical presentation; Lab findings; Investigations"),
                     cite(NG243, "Recs 1.2.2, 1.2.3, 1.6.1"),
-                    cite(ESE, "R 2.9; R 3.2; Section 3.4 (thresholds)"),
+                    cite(ESE, "R 2.9; R 3.2; Definitions; Table 9"),
                 ),
             ),
             // 2 ------------------------------------------------------------------------------------
@@ -941,11 +959,14 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "SfE 2016: commonest — sudden stopping of long-term glucocorticoid; not doubling the oral dose during febrile illness (sick-day rule 1).",
                     "SfE 2016: no parenteral glucocorticoid for prolonged vomiting or diarrhoea, colonoscopy preparation, trauma or surgery under general anaesthesia (sick-day rule 2).",
                     "Endocrine Society 2016: gastrointestinal illness and other infections were the main precipitants in reported series.",
+                    "ESE 2024 Table 9: starting a strong CYP3A4 inducer (e.g. rifampicin, phenytoin, carbamazepine, phenobarbital) increases glucocorticoid metabolism and can trigger crisis.",
+                    "Endocrine Society 2016: starting thyroxine may induce adrenal crisis (faster cortisol metabolism); CYP3A4 inducers (e.g. carbamazepine, mitotane, St John's wort) increase cortisol clearance and need a higher replacement dose.",
                     "SfE 2016: in more than half of patients, adrenal insufficiency is diagnosed only after presenting in crisis. NICE NG243 1.7.8: identify and treat the cause.",
                 ),
                 citations = listOf(
                     cite(SFE, "Precipitating factors"),
-                    cite(ES_PAI, "Section 4 — Treatment and prevention of adrenal crisis (evidence)"),
+                    cite(ES_PAI, "Section 4.0 — Management and prevention of adrenal crisis (evidence)"),
+                    cite(ESE, "Table 9"),
                     cite(NG243, "Rec 1.7.8"),
                 ),
             ),
@@ -989,7 +1010,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
         notes = listOf(
             ProtocolNote(
                 "At-risk steroid exposure differs: SfE 2016 — ≥5 mg prednisolone equivalent for >4 weeks; ESE/Endocrine Society 2024 — above 15–25 mg hydrocortisone (4–6 mg prednisolone) for 3–4 weeks or longer; NICE NG243 — stopping after >4 weeks, any route.",
-                listOf(cite(SFE, "Underlying conditions"), cite(ESE, "Section 3.4"), cite(NG243, "Rec 1.2.3")),
+                listOf(cite(SFE, "Underlying conditions"), cite(ESE, "Definitions"), cite(NG243, "Rec 1.2.3")),
             ),
             ProtocolNote(
                 "First-litre rate differs: within the first hour (SfE 2016; Endocrine Society 2016 Table 3) vs over 30 minutes (NICE NG243 1.7.3).",
@@ -1015,7 +1036,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
         category = ProtocolCategory.Metabolic,
         title = "Thyroid storm — adult",
         summary = "Burch–Wartofsky and JTA criteria, beta-blockade, thionamide, iodine timing, glucocorticoid, cooling and " +
-            "supportive care, what to avoid — ATA 2016 and JTA/JES 2016.",
+            "supportive care, what to avoid — ATA 2016, JTA/JES 2016 and the ETA/BTA/SfE 2026 consensus.",
         keywords = listOf(
             "thyroid storm", "thyrotoxic crisis", "thyrotoxicosis", "hyperthyroidism", "Graves", "Graves disease",
             "Burch-Wartofsky", "BWPS", "JTA criteria", "PTU", "propylthiouracil", "methimazole", "thiamazole", "carbimazole",
@@ -1034,20 +1055,22 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "JTA 2016: TS1 (definite) — CNS plus ≥1 other feature, or ≥3 non-CNS features; TS2 (suspected) — 2 non-CNS features, or a TS1 picture without FT3/FT4 results.",
                     "ATA 2016: both systems overdiagnose — every feature except severe hyperpyrexia can occur in other major illness. Mortality 8–25% in modern series.",
                 ),
-                checklistTitle = "BWPS points (ATA 2016 Table 6)",
+                checklistTitle = "BWPS points (ATA 2016 Table 6; JTA 2016 Table 2; ETA/BTA/SfE 2026 Table 1)",
                 checklist = listOf(
-                    "Temperature °C: 37.2–37.7 (5), 37.8–38.3 (10), 38.3–38.8 (15), 38.9–39.4 (20), 39.4–39.9 (25), ≥40 (30)",
-                    "Heart rate: 100–109 (5), 110–119 (10), 120–129 (15), 130–139 (20), ≥140 (25)",
+                    "Temperature °F (ATA Table 6): 99.0–99.9 (5), 100.0–100.9 (10), 101.0–101.9 (15), 102.0–102.9 (20), 103.0–103.9 (25), ≥104.0 (30)",
+                    "Temperature °C (ETA/BTA/SfE 2026): 37.2–37.7 (5), 37.8–38.2 (10), 38.3–38.8 (15), 38.9–39.4 (20), 39.5–39.9 (25), ≥40.0 (30). JTA 2016 differs: 37.8–38.3 (10), 38.4–38.8 (15), 38.9–39.3 (20), 39.4–39.9 (25)",
+                    "Heart rate: 90–109 (5) [JTA 2016; ETA/BTA/SfE 2026 — ATA Table 6: 100–109], 110–119 (10), 120–129 (15), 130–139 (20), ≥140 (25)",
                     "Atrial fibrillation present (10)",
-                    "Heart failure: mild (5), moderate (10), severe (20)",
+                    "Heart failure: mild (5), moderate (10), severe (15 in JTA 2016 and ETA/BTA/SfE 2026; ATA Table 6 prints 20). ETA/BTA/SfE 2026: mild = pedal oedema, moderate = bibasilar rales, severe = pulmonary oedema",
                     "CNS: agitation (10); delirium, psychosis, extreme lethargy (20); seizure or coma (30)",
                     "GI–hepatic: diarrhoea, abdominal pain, nausea/vomiting (10); jaundice (20)",
-                    "Precipitant history (10) — ATA Table 6 prints this row inverted; see note",
+                    "Precipitating event present (10) — JTA 2016; ETA/BTA/SfE 2026. ATA Table 6 prints this row inverted; see note",
                 ),
                 scoreIds = listOf("gcs"),
                 citations = listOf(
                     cite(ATA16, "Section [H], Rec 34; Table 6"),
-                    cite(JTA, "Table 3 (JTA diagnostic criteria)"),
+                    cite(JTA, "Table 2 (Burch–Wartofsky Point Scale); Table 3 (JTA diagnostic criteria)"),
+                    cite(ETA, "Table 1 (Burch and Wartofsky scoring system)"),
                 ),
             ),
             // 2 ------------------------------------------------------------------------------------
@@ -1058,7 +1081,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "ATA 2016 Table 7: propranolol 60–80 mg every 4 h (blocks T4-to-T3 conversion at high doses); consider invasive monitoring in heart failure; alternative esmolol infusion.",
                     "JTA 2016 Rec 8: beta1-selective agents first — landiolol or esmolol IV, or bisoprolol 2.5–5 mg/day orally; propranolol is not contraindicated but not recommended.",
                     "JTA 2016: HR ≥150 with Killip ≤III — landiolol or esmolol; Killip IV — may be considered. Target HR ≤130.",
-                    "JTA 2016: stop if HR <80, SBP <80 mmHg or cardiac index ≤2.2; caution in asthma/COPD — switch to verapamil or diltiazem if bronchospasm.",
+                    "JTA 2016: consider stopping if HR <80, SBP <80 mmHg or cardiac index ≤2.2 L/min/m²; use landiolol/esmolol carefully in asthma/COPD — may switch to verapamil or diltiazem if an asthma attack occurs.",
                     "JTA 2016: atrial fibrillation — digitalis if no severe renal dysfunction; cardioversion if haemodynamics deteriorate and left atrial thrombus is excluded; anticoagulate by CHADS2.",
                 ),
                 doses = listOf(
@@ -1086,6 +1109,8 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "ATA 2016 Table 7: propylthiouracil 500–1000 mg load, then 250 mg every 4 h; or methimazole 60–80 mg/day.",
                     "ATA 2016: PTU is preferred in storm because it also blocks T4-to-T3 conversion — T3 fell about 45% in 24 h on PTU vs 10–15% on methimazole.",
                     "JTA 2016 Rec 2: methimazole or PTU; Japanese surveys found no difference in severity or mortality. JTA doses: oral methimazole 60 mg/day or PTU 600 mg/day.",
+                    "ETA/BTA/SfE 2026: methimazole 60–80 mg/day or carbimazole 80–100 mg/day, or PTU 500–1,000 mg load then 250 mg every 4 h; reduce as soon as practical to PTU 400 mg/day, methimazole 30 mg/day or carbimazole 40 mg/day.",
+                    "ETA/BTA/SfE 2026: strongly consider methimazole/carbimazole rather than PTU if bilirubin or liver enzymes are >3× the upper limit of normal.",
                     "JTA 2016: impaired consciousness or GI dysfunction — IV methimazole 30 mg/day where available; rectal antithyroid drugs have been reported.",
                     "JTA 2016: storm from destructive thyroiditis (subacute, drug-induced) — antithyroid drugs are contraindicated (ineffective).",
                     "JTA 2016: monitor for rash, agranulocytosis and liver dysfunction; if antithyroid drugs must stop, cholestyramine 4 g 3–4 times daily is an adjunct.",
@@ -1093,14 +1118,16 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 citations = listOf(
                     cite(ATA16, "Table 7; Section [H] (PTU vs MMI)"),
                     cite(JTA, "Recommendation 2 and comments"),
+                    cite(ETA, "Antithyroid drugs"),
                 ),
             ),
             // 4 ------------------------------------------------------------------------------------
             Step(
                 title = "Inorganic iodine — timing matters",
-                timing = "ATA: ≥1 h after the thionamide; JTA: with it",
+                timing = "ATA, ETA/BTA/SfE: ≥1 h after the thionamide; JTA: with it",
                 points = listOf(
                     "ATA 2016 Table 7: SSKI 5 drops (0.25 mL or 250 mg) orally every 6 h; do not start until 1 h after the antithyroid drug; alternative Lugol's solution.",
+                    "ETA/BTA/SfE 2026: wait 1 h after the antithyroid drug; Lugol's iodine 8 drops or SSKI 5 drops four times a day.",
                     "JTA 2016 Rec 3: give inorganic iodide at the same time as the antithyroid drug in storm due to hyperthyroidism; about 200 mg/day potassium iodide.",
                     "JTA 2016: do not give potassium iodide in known iodide allergy; confirm the iodide concentration of hospital-prepared SSKI or Lugol's solution.",
                     "JTA 2016: lithium may be used if allergic to antithyroid drugs or iodide, with level monitoring.",
@@ -1109,6 +1136,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 citations = listOf(
                     cite(ATA16, "Table 7"),
                     cite(JTA, "Recommendation 3 and comments"),
+                    cite(ETA, "Iodine/potassium iodide"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -1118,12 +1146,14 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "ATA 2016 Table 7: hydrocortisone 300 mg IV load, then 100 mg every 8 h; alternative dexamethasone.",
                     "JTA 2016 Rec 4: hydrocortisone 300 mg/day (100 mg IV every 8 h) or dexamethasone 8 mg/day, whatever the cause of storm.",
+                    "ETA/BTA/SfE 2026: hydrocortisone 100 mg IV load, then 50 mg four times a day.",
                     "ATA 2016 and JTA 2016: covers relative adrenal insufficiency and may reduce T4-to-T3 conversion.",
                     "JTA 2016: taper and stop after recovery once fasting cortisol confirms adrenal recovery; watch glucose, peptic ulcer and infection.",
                 ),
                 citations = listOf(
                     cite(ATA16, "Table 7; Section [H]"),
                     cite(JTA, "Recommendation 4 and comments"),
+                    cite(ETA, "Corticosteroids"),
                 ),
             ),
             // 6 ------------------------------------------------------------------------------------
@@ -1134,13 +1164,13 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                     "ATA 2016 Rec 35: multimodal care — beta-blocker, antithyroid drug, iodide, corticosteroid, paracetamol and cooling blankets, volume resuscitation, nutrition, respiratory care, ICU monitoring.",
                     "JTA 2016 Rec 5: paracetamol (e.g. 500 mg three times daily orally or as suppository) with ice packs or cooling blankets; search for and treat infection.",
                     "ATA 2016: triggers — abrupt stopping of antithyroid drugs, thyroid or other surgery with untreated thyrotoxicosis, acute illness, occasionally radioiodine. JTA 2016: infection is second commonest.",
-                    "JTA 2016: usually improves within 12–24 h; consider plasmapheresis if no improvement within 24–48 h. ATA 2016: plasma exchange or emergency surgery for poor responders.",
+                    "JTA 2016: usually improves within 12–24 h; consider plasmapheresis if no improvement within 24–48 h. ATA 2016: plasma exchange or emergency surgery for poor responders. ETA/BTA/SfE 2026: marked improvement usually within 24–72 h.",
                     "ATA 2016: prevent recurrence — avoid abrupt antithyroid drug withdrawal; be euthyroid before elective surgery, labour or other stressors.",
                 ),
                 checklistTitle = "Avoid (as attributed)",
                 checklist = listOf(
                     "Aspirin and NSAIDs for fever — may raise free thyroid hormone (JTA 2016)",
-                    "Iodine before the thionamide (ATA 2016: wait at least 1 h)",
+                    "Iodine before the thionamide (ATA 2016, ETA/BTA/SfE 2026: wait 1 h)",
                     "Antithyroid drugs in destructive thyroiditis (JTA 2016)",
                     "Propranolol as first choice — JTA 2016 prefers beta1-selective agents",
                     "Potassium iodide in known iodide allergy (JTA 2016)",
@@ -1148,6 +1178,7 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 citations = listOf(
                     cite(ATA16, "Rec 35; Section [H]"),
                     cite(JTA, "Recommendations 5, 6 and 8 with comments"),
+                    cite(ETA, "Ongoing management; Iodine/potassium iodide"),
                 ),
             ),
         ),
@@ -1157,31 +1188,34 @@ internal val endocrineEmergencyProtocols: List<Protocol> = listOf(
                 listOf(cite(ATA16, "Section [H]"), cite(JTA, "Recommendation 2")),
             ),
             ProtocolNote(
-                "Iodine timing: ATA 2016 — not until 1 h after the antithyroid drug; JTA 2016 — at the same time, based on two Japanese prospective trials in Graves' disease.",
-                listOf(cite(ATA16, "Table 7"), cite(JTA, "Recommendation 3")),
+                "Iodine timing: ATA 2016 and ETA/BTA/SfE 2026 — not until 1 h after the antithyroid drug; JTA 2016 — at the same time, based on two Japanese prospective trials in Graves' disease.",
+                listOf(cite(ATA16, "Table 7"), cite(JTA, "Recommendation 3"), cite(ETA, "Iodine/potassium iodide")),
             ),
             ProtocolNote(
                 "Beta-blocker: ATA 2016 lists propranolol 60–80 mg every 4 h; JTA 2016 prefers beta1-selective agents — in its survey, Killip ≥III deaths on beta-blockers were all on non-selective agents.",
                 listOf(cite(ATA16, "Table 7"), cite(JTA, "Recommendation 8")),
             ),
             ProtocolNote(
-                "Glucocorticoid: ATA 2016 — 300 mg IV load then 100 mg every 8 h; JTA 2016 — 300 mg/day (100 mg every 8 h) or dexamethasone 8 mg/day.",
-                listOf(cite(ATA16, "Table 7"), cite(JTA, "Recommendation 4")),
+                "Glucocorticoid: ATA 2016 — hydrocortisone 300 mg IV load then 100 mg every 8 h; JTA 2016 — 300 mg/day (100 mg every 8 h) or dexamethasone 8 mg/day; ETA/BTA/SfE 2026 — 100 mg IV load then 50 mg four times a day (200 mg/day).",
+                listOf(cite(ATA16, "Table 7"), cite(JTA, "Recommendation 4"), cite(ETA, "Corticosteroids")),
             ),
             ProtocolNote(
-                "ATA 2016 Table 6 prints the precipitant row as 'positive 0 / negative 10' and the storm band as '>45', while its text counts an identified precipitant and uses ≥45. The original Burch–Wartofsky paper was not reviewed — check before scoring.",
-                listOf(cite(ATA16, "Table 6; Section [H]")),
+                "ATA 2016 Table 6 prints the precipitant row as 'positive 0 / negative 10' and the storm band as '>45', while its text counts an identified precipitant and uses ≥45. It also prints heart rate 100–109 (5) and severe heart failure 20, and its Celsius footnote overlaps at 38.3 and 39.4 °C (its °F bands do not). " +
+                    "JTA 2016 Table 2 (modified from Burch–Wartofsky) and ETA/BTA/SfE 2026 Table 1 give heart rate 90–109 (5), severe heart failure 15, precipitant present 10 and storm ≥45; their Celsius bands differ slightly from each other. " +
+                    "A borderline patient can fall either side of 45 depending on the version used. The original Burch–Wartofsky paper was not reviewed — check before scoring.",
+                listOf(cite(ATA16, "Table 6; Section [H]"), cite(JTA, "Table 2 (Burch–Wartofsky Point Scale)"), cite(ETA, "Table 1 (Burch and Wartofsky scoring system)")),
             ),
             ProtocolNote(
                 "Diagnostic systems: BWPS ≥45 identified more clinically diagnosed storms than JTA TS1/TS2; both overdiagnosed in compensated thyrotoxicosis (ATA 2016).",
                 listOf(cite(ATA16, "Section [H]")),
             ),
             ProtocolNote(
-                "India: no ICMR STW or MoHFW guideline on thyroid storm was found. Neither ATA nor JTA gives carbimazole doses; availability of SSKI/Lugol's iodine, IV methimazole and landiolol in India was not verified.",
-                listOf(cite(ATA16), cite(JTA)),
+                "India: no ICMR STW or MoHFW guideline on thyroid storm was found. ATA 2016 gives no separate carbimazole dose, but states that carbimazole is converted to methimazole (10 mg carbimazole ≈ 6 mg methimazole) and refers to both as MMI; JTA 2016 gives none; ETA/BTA/SfE 2026 gives carbimazole 80–100 mg/day. " +
+                    "Availability of SSKI/Lugol's iodine, IV methimazole and landiolol in India was not verified.",
+                listOf(cite(ATA16, "Section [E] — ATD therapy (carbimazole), p1355"), cite(JTA), cite(ETA, "Antithyroid drugs")),
             ),
         ),
-        citations = listOf(cite(ATA16), cite(JTA)),
+        citations = listOf(cite(ATA16), cite(JTA), cite(ETA)),
     ),
 
     // =============================================================================================

@@ -17,8 +17,9 @@ import com.medicalaid.app.content.protocols.Step
  * - Every point is attributed ("SRLF/SFMU 2019: …", "BTS/ICS 2016: …", "ICMR STW: …", "GOLD 2027: …").
  * - Guideline locators are recommendation numbers (SRLF/SFMU R1.1…, BTS/ICS Rec 1…, BTS 2017 A1…/G6, ISCCM grades),
  *   figure/table numbers (GOLD, ICMR STW boxes) or section names; trials are cited from their published abstracts.
- * - The first step of every protocol embeds the ABG interpreter (ProtocolTool.AcidBase), which follows Berend et al.
- *   NEJM 2014 (ToolSources.kt, "tool-acid-base").
+ * - The first step of every protocol embeds the ABG interpreter (ProtocolTool.AcidBase): reference ranges, the pH 7.40
+ *   cut-off and the PaCO2-versus-40 comparison from StatPearls ("tool-abg-reference"); compensation, anion gap and Δ–Δ
+ *   from Berend et al. NEJM 2014 ("tool-acid-base"). Both in ToolSources.kt.
  * Existing sources cited from other files: tool-acid-base (ToolSources.kt), tx-meoh-extrip-eg-2023 (ToxAlcohols.kt),
  * tx-pest-gurjar-jets-2011 (Pesticides.kt).
  */
@@ -66,17 +67,8 @@ internal val acidBaseSources = listOf(
         "https://doi.org/10.1056/NEJMoa2114464",
         status = "Reviewed from the published abstract",
     ),
-    Source(
-        "em-ab-ada-hgc-2024", Authority.ADA, "ADA/EASD/JBDS/AACE/DTS consensus report (Diabetes Care 2024;47(8):1257–1275)",
-        "Hyperglycemic Crises in Adults With Diabetes: A Consensus Report", "2024",
-        "https://doi.org/10.2337/dci24-0032",
-        status = "Co-published in Diabetologia 2024;67(8):1455–1479 (open-access version reviewed)",
-    ),
-    Source(
-        "em-ab-icmr-stw-dka-2022", Authority.ICMR, "Standard Treatment Workflow (ICD-10 E11.10)",
-        "Diabetic Ketoacidosis", "2022",
-        "https://www.icmr.gov.in/icmrobject/uploads/STWs/1726567244_diabetic_ketoacidosis.pdf",
-    ),
+    // ADA/EASD hyperglycaemic crises consensus 2024 and ICMR STW DKA 2022 are defined in EmergencyEndocrine.kt
+    // (em-endo-ada-hgc-2024, em-endo-icmr-stw-dka-2022) and cited here by id.
     Source(
         "em-ab-icmr-stw-aki-2026", Authority.ICMR, "Standard Treatment Workflow (ICD-11 GB60)",
         "Acute Kidney Injury", "2026",
@@ -195,8 +187,8 @@ private const val BICAR1 = "em-ab-bicar-icu-2018"
 private const val BICAR2 = "em-ab-bicaricu2-2025"
 private const val SMART = "em-ab-smart-2018"
 private const val PLUS = "em-ab-plus-2022"
-private const val ADA = "em-ab-ada-hgc-2024"
-private const val ICMR_DKA = "em-ab-icmr-stw-dka-2022"
+private const val ADA = "em-endo-ada-hgc-2024" // EmergencyEndocrine.kt
+private const val ICMR_DKA = "em-endo-icmr-stw-dka-2022" // EmergencyEndocrine.kt
 private const val ICMR_AKI = "em-ab-icmr-stw-aki-2026"
 private const val ACHANTI = "em-ab-achanti-cjasn-2023"
 private const val EMMETT = "em-ab-emmett-cjasn-2020"
@@ -419,7 +411,7 @@ internal val acidBaseProtocols = listOf(
                 listOf(cite(ICMR_DKA, "Investigations; Monitoring"), cite(SRLF, "R1.1 rationale")),
             ),
             ProtocolNote(
-                "The interpreter in step 1 is built on Berend et al. (NEJM 2014) for arterial samples and reports Δ–Δ as a difference " +
+                "The interpreter in step 1 follows Berend et al. (NEJM 2014) for compensation, anion gap and Δ–Δ on arterial samples, and reports Δ–Δ as a difference " +
                     "(±5 mmol/L); NCP 2025 expresses the same comparison as a ratio (0.8–1.2). Its albumin correction (2.5 mmol/L per g/dL " +
                     "below 4.0 g/dL) matches SRLF/SFMU (0.25 per g/L below 40 g/L).",
                 listOf(cite(TOOL, "Anion gap and Δ–Δ sections"), cite(NCP, "Table 5"), cite(SRLF, "R1.3")),
@@ -918,9 +910,13 @@ internal val acidBaseProtocols = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "Pregnancy: the interpreter uses non-pregnant reference ranges (Berend et al.), so a normal pregnancy gas may read as " +
-                    "respiratory alkalosis. Breathe 2015 gives a PCO₂ plateau of about 32 mm Hg; NCP 2025 cites about 28 mm Hg in the third trimester.",
-                listOf(cite(TOOL, "Table 1"), cite(BREATHE, "Arterial blood gases and acid–base status"), cite(NCP, "Miscellaneous")),
+                "Pregnancy: the interpreter uses non-pregnant adult reference ranges (StatPearls: pH 7.35–7.45, PaCO₂ 35–45 mm Hg), so a normal " +
+                    "pregnancy gas may read as respiratory alkalosis — including, by its 7.40 cut-off, a pH of 7.41–7.45 with PaCO₂ below 35 mm Hg. " +
+                    "Breathe 2015 gives a PCO₂ plateau of about 32 mm Hg; NCP 2025 cites about 28 mm Hg in the third trimester.",
+                listOf(
+                    cite("tool-abg-reference", "Results, Reporting, and Critical Findings"),
+                    cite(BREATHE, "Arterial blood gases and acid–base status"), cite(NCP, "Miscellaneous"),
+                ),
             ),
             ProtocolNote(
                 "Rebreathing: no reviewed source supports paper-bag rebreathing; BTS 2017 advises against it. ICMR STW on anxiety " +
