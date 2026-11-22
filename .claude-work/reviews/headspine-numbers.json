@@ -1,0 +1,23 @@
+{
+  "checked": 310,
+  "issues": [
+    {
+      "protocolId": "canadian-c-spine",
+      "step": "Caveats (NICE NG232 head injury caveat)",
+      "claim": "Head injury: NICE NG232 advises CT cervical spine within 1 hour for GCS ≤12 on initial assessment, intubation, an urgent need for a definitive diagnosis, or blunt polytrauma involving the head and chest, abdomen or pelvis in an alert, stable person.",
+      "problem": "The list is presented as complete (joined by 'or') but omits the fifth limb of NG232 rec 1.6.2: clinical suspicion of cervical spine injury plus age ≥65, a dangerous mechanism (fall >1 m or 5 stairs, etc.), focal peripheral neurological deficit or limb paraesthesia. In a head-injured adult these are the commonest triggers, and NG232 specifies CT within 1 hour rather than radiography as the Canadian rule's band texts imply. The protocol step (head-injury Step 4) states this limb correctly; the score caveat does not.",
+      "correction": "Head injury: NICE NG232 advises CT cervical spine within 1 hour for GCS ≤12 on initial assessment, intubation, an urgent need for a definitive diagnosis, blunt polytrauma involving the head and chest, abdomen or pelvis in an alert, stable person, or clinical suspicion of cervical spine injury with age ≥65, a dangerous mechanism, focal peripheral neurological deficit or limb paraesthesia (rec 1.6.3 adds neck pain with an unsafe or failed rotation assessment).",
+      "evidence": "NICE NG232 rec 1.6.2 (https://www.nice.org.uk/guidance/ng232/chapter/Recommendations): \"do a CT cervical spine scan within 1 hour of the risk factor being identified if any of these high-risk factors apply: the GCS score is 12 or less on initial assessment; the person has been intubated; a definitive diagnosis of a cervical spine injury is urgently needed ...; there has been blunt polytrauma involving the head and chest, abdomen or pelvis in someone who is alert and stable; there is clinical suspicion of a cervical spine injury and any of these factors: age 65 or over; a dangerous mechanism of injury ...; focal peripheral neurological deficit; paraesthesia in the upper or lower limbs. [2023]\"",
+      "severity": "minor"
+    },
+    {
+      "protocolId": "canadian-c-spine",
+      "step": "Band 0.0 'C-spine imaging not required by the rule' (same paraphrase in spinal-injury Step 2 'Clear the cervical spine clinically', point 3)",
+      "claim": "NICE NG41: no immobilisation or imaging if also pain free.",
+      "problem": "NG41 rec 1.4.8 (and 1.1.10) withholds immobilisation and imaging only when BOTH bullets hold: the Canadian-rule low-risk/pain-free/rotation bullet AND absence of every thoracic or lumbosacral factor in rec 1.1.7. The band text drops the second condition, so a patient who clears the neck but has, for example, age ≥65 with back pain, a fall >3 m or midline thoracolumbar tenderness could be read as needing no immobilisation or imaging. (In the protocol, the thoracolumbar checklist beside point 3 reduces but does not remove this.)",
+      "correction": "NICE NG41: no immobilisation or imaging if also pain free and none of the thoracic or lumbosacral risk factors in rec 1.1.7 is present.",
+      "evidence": "NICE NG41 rec 1.4.8 (https://www.nice.org.uk/guidance/ng41/chapter/Recommendations): \"Do not carry out or maintain full in-line spinal immobilisation or request imaging for people if: they have low-risk factors for cervical spine injury as identified and indicated by the Canadian C-spine rule, are pain free and are able to actively rotate their neck 45 degrees left and right; they do not have any of the factors listed in recommendation 1.1.7.\" (Rec 1.4.7 joins its bullets with 'or'; rec 1.4.8 does not, so both conditions apply.)",
+      "severity": "minor"
+    }
+  ]
+}
