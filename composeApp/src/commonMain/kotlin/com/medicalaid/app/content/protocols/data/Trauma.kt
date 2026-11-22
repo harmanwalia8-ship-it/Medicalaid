@@ -14,16 +14,16 @@ import com.medicalaid.app.content.protocols.StepDose
  * Major trauma, traumatic haemorrhage, chest trauma and traumatic cardiac arrest. Rules:
  * - Doses, thresholds and time windows exactly as the cited document states them (checked against the full texts of
  *   MoHFW 2025, ICMR STW 2024, WHO BEC 2018, NICE NG39, the European guideline 2023, ERC 2025 Special Circumstances,
- *   RCUK/ERC 2025 First Aid, EAST 2012 and 2015 and the Kcentra label; EAST 2016/2017/2021/2022/2023, WTA 2012 and
- *   CRASH-2 against their published abstracts; 22 November 2026).
+ *   RCUK/ERC 2025 First Aid, EAST 2012 and 2015, the WTA 2024 algorithm and the Kcentra, ketorolac and naloxone labels;
+ *   EAST 2016/2017/2021/2022/2023 and CRASH-2 against their published abstracts; 22 November 2026).
  * - Every point is attributed ("MoHFW 2025: …", "ICMR STW 2024: …", "WHO BEC: …", "NICE NG39: …", "European 2023: …",
- *   "ERC 2025: …", "RCUK/ERC 2025: …", "EAST 2015: …", "WTA 2012: …").
+ *   "ERC 2025: …", "RCUK/ERC 2025: …", "EAST 2015: …", "WTA 2024: …").
  * - The ATLS manual is proprietary and is not used as a source. MoHFW 2025 Table 9 summarises ATLS 11th-edition changes;
  *   only its non-numerical statements are reported, attributed to MoHFW.
  * - Locators: MoHFW 2025 — chapter and printed page; NICE — recommendation number; European 2023 — recommendation (R)
  *   number; ERC 2025 — section heading or figure; EAST — recommendation level or abstract section.
- * - Existing sources reused by id: em-resus-erc-special-2025 (Resuscitation.kt), em-resus-aha-special-2025 (DrugTox.kt),
- *   ob-mat-east-2025 (MaternalCollapse.kt) and mohfw-td (Sources.kt).
+ * - Existing sources reused by id: em-resus-erc-special-2025 (Resuscitation.kt), em-resus-aha-special-2025 and
+ *   tx-dt-fda-naloxone-inj (DrugTox.kt), ob-mat-east-2025 (MaternalCollapse.kt) and mohfw-td (Sources.kt).
  */
 
 internal val traumaSources: List<Source> = listOf(
@@ -79,10 +79,10 @@ internal val traumaSources: List<Source> = listOf(
         "https://doi.org/10.1097/TA.0000000000000648",
     ),
     Source(
-        "tr-wta-rt-2012", Authority.Paper, "Western Trauma Association critical decisions algorithm (J Trauma Acute Care Surg 2012;73(6):1359–1363)",
-        "Western Trauma Association critical decisions in trauma: resuscitative thoracotomy", "2012",
-        "https://doi.org/10.1097/TA.0b013e318270d2df",
-        status = "Abstract reviewed. WTA published an adult emergency resuscitative thoracotomy algorithm in 2024 (J Trauma Acute Care Surg 2024;97(6):961–968); its full text could not be accessed",
+        "tr-wta-ert-2024", Authority.Paper, "Western Trauma Association clinical decisions algorithm (J Trauma Acute Care Surg 2024;97(6):961–968)",
+        "Adult emergency resuscitative thoracotomy: A Western Trauma Association clinical decisions algorithm", "2024",
+        "https://doi.org/10.1097/TA.0000000000004462",
+        status = "Tesoriero R et al.; published online 25 October 2024; replaces the 2012 WTA resuscitative thoracotomy algorithm; full text, algorithm (Fig. 1) and procedure guide (Fig. 2) reviewed",
     ),
     Source(
         "tr-east-bci-2012", Authority.EAST, "Practice management guideline (J Trauma Acute Care Surg 2012;73(5 Suppl 4):S301–S306)",
@@ -128,7 +128,13 @@ internal val traumaSources: List<Source> = listOf(
         "tr-fda-kcentra", Authority.FDA, "Prescribing information (DailyMed)",
         "Kcentra (prothrombin complex concentrate, human)", "2023",
         "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=eee1afb8-324c-42e4-8bf0-f0c9da5e6d42",
-        status = "US label, version published 17 May 2023; cited for INR-banded dose caps, rate and repeat dosing only",
+        status = "US label, version published 17 May 2023; cited for INR-banded dose caps, rate, repeat dosing, contraindications and the boxed warning only",
+    ),
+    Source(
+        "tr-fda-ketorolac-inj", Authority.FDA, "Prescribing information (DailyMed)",
+        "Ketorolac tromethamine injection, solution (Anthea Pharma)", "2026",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7a7c8579-d423-4699-9435-69c4d127c654",
+        status = "Label revised February 2026; cited for the boxed warning (bleeding and renal risk) and dosage only",
     ),
     Source(
         "tr-fda-andexxa-2025", Authority.FDA, "FDA Safety Communication",
@@ -146,7 +152,7 @@ private const val EU = "tr-euro-bleeding-2023"
 private const val CRASH2 = "tr-crash2-timing-2011"
 private const val RCUK_FA = "tr-rcuk-first-aid-2025"
 private const val EAST_EDT = "tr-east-edt-2015"
-private const val WTA = "tr-wta-rt-2012"
+private const val WTA = "tr-wta-ert-2024"
 private const val EAST_BCI = "tr-east-bci-2012"
 private const val EAST_PAIN = "tr-east-pain-2016"
 private const val EAST_RIBS_OLD = "tr-east-cwis-ribs-2023"
@@ -155,6 +161,10 @@ private const val EAST_HTX = "tr-east-htx-2021"
 private const val EAST_ABX = "tr-east-tt-abx-2022"
 private const val KCENTRA = "tr-fda-kcentra"
 private const val ANDEXXA = "tr-fda-andexxa-2025"
+private const val KETOROLAC = "tr-fda-ketorolac-inj"
+
+/** Defined in DrugTox.kt — US naloxone hydrochloride injection label (Fresenius Kabi). */
+private const val NALOX_INJ = "tx-dt-fda-naloxone-inj"
 
 /** Defined in Resuscitation.kt — ERC Guidelines 2025 Special Circumstances in Resuscitation. */
 private const val ERC = "em-resus-erc-special-2025"
@@ -291,13 +301,15 @@ private val majorTrauma = Protocol(
                 "MoHFW 2025: hypotension after injury is blood loss until proven otherwise; an injured patient who is cool and tachycardic is in hypovolaemic shock until proven otherwise.",
                 "MoHFW 2025: two 16G cannulas; Hb, platelets, PT/INR, aPTT, group and cross-match, blood gas, urea, creatinine; pregnancy test in women 15–49 years.",
                 "NICE NG39: peripheral IV access, intra-osseous if it fails; in children consider intra-osseous first-line if peripheral access is expected to be difficult.",
-                "European 2023 and MoHFW 2025: tranexamic acid 1 g IV within 3 h of injury, then 1 g over 8 h. NICE NG39: as soon as possible.",
+                "Adults — European 2023 and MoHFW 2025: tranexamic acid 1 g IV within 3 h of injury, then 1 g over 8 h. NICE NG39: as soon as possible.",
+                "Children: none of these sources gives a paediatric tranexamic acid dose — European 2023 has no paediatric-specific recommendations and CRASH-2 enrolled adults.",
                 "MoHFW 2025: look for bleeding in chest, abdomen, pelvis, long bones and face. Fluids, blood and reversal: see the Traumatic haemorrhage protocol.",
             ),
             citations = listOf(
                 cite(MOH, "Ch. 2 Circulation with haemorrhage control, Fig. 4 (pp. 14–15); Table 1 (p. 11); Ch. 4 (p. 22)"),
                 cite(NICE, "Rec 1.5.4, 1.5.15–1.5.17"),
-                cite(EU, "R23"),
+                cite(EU, "R23; Discussion — limitations"),
+                cite(CRASH2, "Abstract — Methods"),
             ),
         ),
         // 6 ----------------------------------------------------------------------------------------------
@@ -344,9 +356,12 @@ private val majorTrauma = Protocol(
             points = listOf(
                 "NICE NG39: assess pain regularly with a scale suited to age, development and cognition; IV morphine first-line, adjusted to effect.",
                 "NICE NG39: no IV access — consider intranasal diamorphine or ketamine; ketamine in analgesic doses is second-line.",
-                "MoHFW 2025: severe pain (7–10) — IV fentanyl or morphine, reassess within 30 min; moderate (4–6) — IV NSAIDs such as diclofenac or ketorolac.",
+                "MoHFW 2025 adult pain ladder: severe pain (7–10) — IV fentanyl or morphine, reassess within 30 min; moderate (4–6) — IV NSAIDs such as diclofenac or ketorolac.",
+                "MoHFW 2025 drug table lists ketorolac only for age <65 years: 15–30 mg 6-hourly, max 120 mg/day (<50 kg: 15 mg 6-hourly, max 60 mg/day), for up to 5 days.",
+                "Ketorolac US label: contraindicated with suspected or confirmed cerebrovascular bleeding, haemorrhagic diathesis, incomplete haemostasis or high bleeding risk, and with risk of renal failure from volume depletion; correct hypovolaemia first.",
                 "MoHFW 2025: morphine 2 mg IV loading, then 2–4 mg every 1–2 h; fentanyl 1–2 mcg/kg IV loading, then 1–3 mcg/kg/h infusion.",
                 "MoHFW 2025: stop the opioid infusion if BP <100 mm Hg (give IV fluids) or RR <10 or SpO₂ <94% (naloxone 2 mg IV stat).",
+                "Naloxone US label: for opioid depression after surgery, smaller doses — 0.1–0.2 mg IV every 2–3 min to adequate ventilation and alertness without significant pain; abrupt reversal can cause VT/VF, pulmonary oedema and cardiac arrest.",
                 "MoHFW 2025: splints, collars and dressings relieve pain; ultrasound-guided nerve blocks are to be performed by an anaesthesiologist.",
             ),
             doses = listOf(
@@ -363,7 +378,9 @@ private val majorTrauma = Protocol(
             ),
             citations = listOf(
                 cite(NICE, "Rec 1.7.2–1.7.6"),
-                cite(MOH, "Ch. 14 Pain ladder, Fig. 21 (p. 62); drug and dose table (p. 65); nerve blocks (p. 66)"),
+                cite(MOH, "Ch. 14 Pain ladder, Fig. 21 (p. 62); drug and dose table, Table 7 (p. 65); nerve blocks (p. 66)"),
+                cite(KETOROLAC, "Boxed warning — Renal risk, Risk of bleeding; Dosage and administration"),
+                cite(NALOX_INJ, "Dosage and administration — Usage in adults, Postoperative opioid depression; Precautions — General"),
             ),
         ),
         // 9 ----------------------------------------------------------------------------------------------
@@ -376,10 +393,10 @@ private val majorTrauma = Protocol(
                 "MoHFW 2025: tetanus toxoid 0.5 mL IM if indicated; MoHFW UIP has replaced TT with Td for all age groups. See the tetanus prophylaxis protocol.",
                 "NICE NG39: the optimal destination is usually a major trauma centre. European 2023: take severely injured patients directly to an appropriate trauma facility.",
                 "MoHFW 2025: transfer early when needs exceed capability — airway, chest drain, bleeding control, splints first; do not delay for CT; speak doctor-to-doctor.",
-                "Injured pregnant woman: see the Trauma in pregnancy protocol.",
+                "Injured pregnant woman: MoHFW 2025 — pelvic (vaginal) examination only after ultrasound localisation of the placenta. See the Trauma in pregnancy protocol.",
             ),
             citations = listOf(
-                cite(MOH, "Ch. 2 Secondary survey and re-evaluation (pp. 17–18); Ch. 1 Yellow area (p. 12); Ch. 15 Patient transfer (pp. 67–68)"),
+                cite(MOH, "Ch. 2 Secondary survey and re-evaluation (pp. 17–18); Ch. 1 Yellow area (p. 12); Ch. 13 Trauma in pregnancy — Secondary survey (p. 58); Ch. 15 Patient transfer (pp. 67–68)"),
                 cite(MOH_TD, "Key messages; points to remember"),
                 cite(NICE, "Rec 1.1.1"),
                 cite(EU, "R1"),
@@ -392,7 +409,7 @@ private val majorTrauma = Protocol(
             listOf(cite(NICE, "Rec 1.3.7"), cite(WHO, "Breathing skill station — open pneumothorax"), cite(ICMR, "Open pneumothorax panel"), cite(MOH, "Ch. 5 (p. 26)"), cite(RCUK_FA, "Open chest wounds")),
         ),
         ProtocolNote(
-            "Early fluids differ: WHO BEC — 1 L crystalloid boluses, repeated if still in shock; MoHFW 2025 — 1 L warmed Ringer's lactate before blood; NICE NG39 — no crystalloid in hospital for active bleeding; European 2023 — restricted volume, avoid Ringer's lactate in severe head trauma.",
+            "Early fluids differ: WHO BEC — 1 L crystalloid over <30 min, a second 1 L if still in shock, and if still in shock after 2 L reassess for ongoing blood loss and call an advanced provider; MoHFW 2025 — 1 L warmed Ringer's lactate before blood; NICE NG39 — no crystalloid in hospital for active bleeding; European 2023 — restricted volume, avoid Ringer's lactate in severe head trauma.",
             listOf(cite(WHO, "Skills — IV fluid administration"), cite(MOH, "Ch. 2 (p. 15); Ch. 4 (p. 23)"), cite(NICE, "Rec 1.5.23"), cite(EU, "R13, R15")),
         ),
         ProtocolNote(
@@ -408,11 +425,15 @@ private val majorTrauma = Protocol(
             listOf(cite(MOH, "Ch. 1 Yellow area (p. 12)"), cite(MOH_TD, "Points to remember")),
         ),
         ProtocolNote(
-            "Scope: the ATLS manual is proprietary and is not used as a source here. MoHFW 2025 (Dte.GHS, with AIIMS JPNATC contributors) and ICMR STW 2024 are the Indian references; NICE NG39 and the European guideline 2023 are the international ones.",
-            listOf(cite(MOH, "List of contributors (p. 5)"), cite(ICMR, "Footer"), cite(NICE), cite(EU)),
+            "Tourniquet release differs: WHO BEC — release every 2 h for at least 10 min while holding direct pressure, re-applying only for continued active bleeding; RCUK/ERC 2025 first aid — the first aider does not release it; it should only be released by a healthcare professional.",
+            listOf(cite(WHO, "Skills — Tourniquet technique for uncontrolled external bleeding"), cite(RCUK_FA, "Control of life-threatening bleeding")),
+        ),
+        ProtocolNote(
+            "Scope: the ATLS manual is proprietary and is not used as a source here. MoHFW 2025 (Dte.GHS, with AIIMS JPNATC contributors) and ICMR STW 2024 are the Indian references; NICE NG39 and the European guideline 2023 are the international ones. Both Indian documents are ATLS-based: the ICMR STW lists ATLS 9th edition (2013) as its only reference, and MoHFW 2025 refers to ATLS throughout. Their statements are reported as ICMR and MoHFW publish them.",
+            listOf(cite(MOH, "List of contributors (p. 5); Ch. 3 (p. 19); Ch. 13 (p. 57); Table 9 (p. 69)"), cite(ICMR, "Footer; Reference"), cite(NICE), cite(EU)),
         ),
     ),
-    citations = listOf(cite(MOH), cite(ICMR), cite(WHO), cite(NICE), cite(EU), cite(RCUK_FA), cite(MOH_TD)),
+    citations = listOf(cite(MOH), cite(ICMR), cite(WHO), cite(NICE), cite(EU), cite(RCUK_FA), cite(MOH_TD), cite(CRASH2), cite(KETOROLAC), cite(NALOX_INJ)),
 )
 
 // ================================================================================================ Traumatic haemorrhage
@@ -476,17 +497,18 @@ private val traumaticHaemorrhage = Protocol(
             title = "Tranexamic acid",
             timing = "As soon as possible; not more than 3 h after injury (NICE NG39)",
             points = listOf(
-                "European 2023 (Grade 1A): bleeding or at risk of it — tranexamic acid 1 g IV over 10 min, then 1 g over 8 h, within 3 h of injury.",
+                "Adults — European 2023 (Grade 1A): bleeding or at risk of it — tranexamic acid 1 g IV over 10 min, then 1 g over 8 h, within 3 h of injury.",
                 "European 2023: give it as soon as possible, en route to hospital if feasible, and do not wait for viscoelastic results.",
                 "NICE NG39: IV tranexamic acid as soon as possible in active or suspected bleeding; not more than 3 h after injury unless hyperfibrinolysis is evident.",
-                "MoHFW 2025: severely injured — tranexamic acid 1 g within 3 h of injury, plus 1 g infusion over 8 h.",
-                "CRASH-2: death from bleeding fell with treatment ≤1 h (RR 0.68) and at 1–3 h (RR 0.79), but rose when given after 3 h (RR 1.44).",
+                "Adults — MoHFW 2025: severely injured — tranexamic acid 1 g within 3 h of injury, plus 1 g infusion over 8 h.",
+                "Children: none of these sources gives a paediatric tranexamic acid dose — European 2023 has no paediatric-specific recommendations and CRASH-2 enrolled adults.",
+                "CRASH-2 (exploratory analysis): death from bleeding fell with treatment ≤1 h (RR 0.68) and at 1–3 h (RR 0.79); treatment after 3 h seemed to increase it (RR 1.44) and could be harmful.",
             ),
             citations = listOf(
-                cite(EU, "R23"),
+                cite(EU, "R23; Discussion — limitations"),
                 cite(NICE, "Rec 1.5.4–1.5.5"),
                 cite(MOH, "Ch. 2 Circulation with haemorrhage control (p. 15)"),
-                cite(CRASH2, "Abstract — Findings"),
+                cite(CRASH2, "Abstract — Methods, Findings, Interpretation"),
             ),
         ),
         // 4 ----------------------------------------------------------------------------------------------
@@ -496,7 +518,7 @@ private val traumaticHaemorrhage = Protocol(
             points = listOf(
                 "European 2023: restricted volume replacement to SBP 80–90 mm Hg (MAP 50–60 mm Hg) until major bleeding stops, if there is no brain injury.",
                 "European 2023: severe TBI (GCS ≤8) — MAP ≥80 mm Hg. NICE NG39: if TBI dominates, use less restrictive resuscitation to maintain cerebral perfusion.",
-                "MoHFW 2025: penetrating torso trauma — SBP 85–90 mm Hg; traumatic brain injury — SBP 90–95 mm Hg.",
+                "MoHFW 2025: penetrating torso trauma — SBP 85–90 mm Hg. For TBI it gives two targets: SBP 90–95 mm Hg under permissive hypotension (Ch. 4) and SBP >100–110 mm Hg in its head trauma chapter (Ch. 7).",
                 "NICE NG39: before hospital, titrate to a palpable central (carotid or femoral) pulse. ERC 2025: hypotensive resuscitation should not exceed 60 min.",
                 "NICE NG39: in hospital, no crystalloids for active bleeding. European 2023: 0.9% saline or balanced crystalloid if hypotensive; avoid Ringer's lactate in severe head trauma.",
                 "European 2023: restrict colloids; if targets are not met, add noradrenaline to fluids; dobutamine for myocardial dysfunction.",
@@ -504,7 +526,7 @@ private val traumaticHaemorrhage = Protocol(
             citations = listOf(
                 cite(EU, "R13–R15"),
                 cite(NICE, "Rec 1.5.18–1.5.23"),
-                cite(MOH, "Ch. 4 Permissive hypotension (p. 23)"),
+                cite(MOH, "Ch. 4 Permissive hypotension (p. 23); Ch. 7 Head trauma — Circulation goals (p. 35)"),
                 cite(ERC, "Post resuscitation care after traumatic cardiac arrest"),
             ),
         ),
@@ -560,7 +582,7 @@ private val traumaticHaemorrhage = Protocol(
             points = listOf(
                 "ERC 2025: damage control resuscitation combines permissive hypotension, haemostatic resuscitation and damage control surgery; hypothermia worsens coagulopathy and acidosis.",
                 "European 2023: damage control surgery for shock, ongoing bleeding, coagulopathy, hypothermia, acidosis, inaccessible injury or time-consuming procedures.",
-                "NICE NG39: damage control surgery if unstable and not responding to volume resuscitation; definitive surgery if responding or haemodynamically normal.",
+                "NICE NG39: damage control surgery if unstable and not responding to volume resuscitation; consider definitive surgery if unstable but responding; definitive surgery if haemodynamically normal.",
                 "European 2023 and ERC 2025: early active warming — warmed fluids and external warming devices — to reach and keep normothermia.",
                 "MoHFW 2025: move non-responders and transient responders to theatre or interventional radiology; transfer if expertise or angioembolisation is unavailable.",
                 "MoHFW 2025: urine output goals — adults 0.5 mL/kg/h, children 1 mL/kg/h, under 1 year 2 mL/kg/h.",
@@ -581,6 +603,7 @@ private val traumaticHaemorrhage = Protocol(
                 "European 2023 (1A): vitamin K antagonist — early 4-factor PCC plus phytomenadione 5–10 mg IV. NICE NG39: PCC immediately; do not use plasma for this.",
                 "European 2023: PCC 25 U/kg at INR 2–4, 35 U/kg at INR 4–6, 50 U/kg above 6. Kcentra label: dose capped at 100 kg; repeat dosing not recommended.",
                 "European 2023: life-threatening apixaban or rivaroxaban bleeding — andexanet alfa; if unavailable, or edoxaban, PCC 25–50 U/kg. FDA 2025: andexanet risks outweigh benefits.",
+                "Kcentra label: contraindicated in DIC, known heparin-induced thrombocytopenia (it contains heparin) and prior anaphylaxis to its components; boxed warning — arterial and venous thromboembolism; may not suit patients with a thromboembolic event in the prior 3 months.",
                 "European 2023 (1C): life-threatening bleeding on dabigatran — idarucizumab 5 g IV. NICE NG39: consult a haematologist for reversal of non-VKA anticoagulants.",
                 "European 2023: avoid routine platelet transfusion in bleeding patients on antiplatelet agents.",
             ),
@@ -612,7 +635,7 @@ private val traumaticHaemorrhage = Protocol(
             citations = listOf(
                 cite(NICE, "Rec 1.5.6–1.5.12"),
                 cite(EU, "R33–R36; R33 rationale (INR-based PCC dosing)"),
-                cite(KCENTRA, "Dosage and administration — Table 1; §2.1, §2.3"),
+                cite(KCENTRA, "Dosage and administration — Table 1; §2.1, §2.3; Boxed warning; §4 Contraindications; §5.2"),
                 cite(ANDEXXA, "Safety communication, 18 December 2025"),
             ),
         ),
@@ -633,11 +656,11 @@ private val traumaticHaemorrhage = Protocol(
     ),
     notes = listOf(
         ProtocolNote(
-            "Blood pressure targets differ: European 2023 — SBP 80–90 mm Hg without brain injury, MAP ≥80 mm Hg in severe TBI; MoHFW 2025 — SBP 85–90 (penetrating torso), 90–95 mm Hg (TBI); NICE NG39 — palpable central pulse; ERC 2025 — no more than 60 min of hypotensive resuscitation.",
-            listOf(cite(EU, "R13"), cite(MOH, "Ch. 4 (p. 23)"), cite(NICE, "Rec 1.5.19–1.5.21"), cite(ERC, "Post resuscitation care after traumatic cardiac arrest")),
+            "Blood pressure targets differ: European 2023 — SBP 80–90 mm Hg without brain injury, MAP ≥80 mm Hg in severe TBI; MoHFW 2025 — SBP 85–90 mm Hg (penetrating torso), and for TBI 90–95 mm Hg (Ch. 4) but >100–110 mm Hg (Ch. 7, head trauma); NICE NG39 — palpable central pulse; ERC 2025 — no more than 60 min of hypotensive resuscitation.",
+            listOf(cite(EU, "R13"), cite(MOH, "Ch. 4 (p. 23); Ch. 7 Head trauma — Circulation goals (p. 35)"), cite(NICE, "Rec 1.5.19–1.5.21"), cite(ERC, "Post resuscitation care after traumatic cardiac arrest")),
         ),
         ProtocolNote(
-            "Crystalloid differs: MoHFW 2025 — 1 L (children <40 kg: 20 mL/kg) before blood; WHO BEC — 1 L boluses, repeated if still in shock; NICE NG39 — no crystalloid in hospital for active bleeding; European 2023 — start crystalloid if hypotensive but avoid Ringer's lactate in severe head trauma.",
+            "Crystalloid differs: MoHFW 2025 — 1 L (children <40 kg: 20 mL/kg) before blood; WHO BEC — 1 L over <30 min, a second 1 L if still in shock, and if still in shock after 2 L reassess for ongoing blood loss and call an advanced provider; NICE NG39 — no crystalloid in hospital for active bleeding; European 2023 — start crystalloid if hypotensive but avoid Ringer's lactate in severe head trauma.",
             listOf(cite(MOH, "Ch. 4 (pp. 22–23)"), cite(WHO, "Skills — IV fluid administration"), cite(NICE, "Rec 1.5.22–1.5.23"), cite(EU, "R15")),
         ),
         ProtocolNote(
@@ -714,7 +737,8 @@ private val chestTrauma = Protocol(
                 "NICE NG39: decompress before imaging only with haemodynamic instability or severe respiratory compromise; in hospital, open thoracostomy followed by chest drain.",
                 "NICE NG39: before hospital, open thoracostomy instead of needle decompression if expertise allows; drain through it if breathing spontaneously; watch for recurrence.",
                 "WHO BEC: needle decompression at the 2nd intercostal space, midclavicular line, with a 14–16G cannula; then a chest tube.",
-                "ICMR STW 2024: wide-bore needle, 4th/5th space, anterior axillary line, then chest tube. MoHFW 2025: wide-bore needle, 5th space midaxillary line, then drain.",
+                "ICMR STW 2024: wide-bore needle, 4th/5th space, anterior axillary line, then chest tube.",
+                "MoHFW 2025: wide-bore needle, 5th space midaxillary line, then drain (Ch. 4); its Thoracic trauma chapter gives needle decompression followed by chest tube in the 5th space, anterior axillary line (Ch. 5).",
                 "MoHFW 2025, children: 14–18G needle, 2nd intercostal space midclavicular line; tube thoracostomy 5th space anterior to the midaxillary line.",
             ),
             citations = listOf(
@@ -772,14 +796,15 @@ private val chestTrauma = Protocol(
                 "ERC 2025: needle pericardiocentesis keeps a limited role in non-trauma centres where definitive surgery is not immediately available.",
                 "MoHFW 2025: penetrating thorax, neck or abdomen injury is red triage; left thoracoabdominal wounds indicate laparotomy for diaphragm injury risk.",
                 "WHO BEC: leave penetrating objects in place and stabilise them for transfer to a surgical team.",
-                "Arrest after penetrating chest injury: see Traumatic cardiac arrest — EAST 2015 strongly recommends thoracotomy when signs of life are present.",
+                "EAST 2015 (strong): pulseless with signs of life after penetrating thoracic injury — ED thoracotomy; its evidence is mostly from major urban trauma centres and may not apply to community or rural centres.",
+                "ERC 2025: resuscitative thoracotomy needs expertise, equipment, environment and ≤15 min elapsed since loss of vital signs. Arrest after penetrating chest injury: see Traumatic cardiac arrest.",
             ),
             citations = listOf(
                 cite(MOH, "Ch. 5 Cardiac tamponade (p. 27); Ch. 4 (p. 25); Ch. 1 triage (p. 7); Ch. 6 laparotomy indications (p. 31)"),
                 cite(ICMR, "Cardiac tamponade panel"),
                 cite(ERC, "Cardiac tamponade and resuscitative thoracotomy"),
                 cite(WHO, "Trauma module — Circulation; Quick cards — Management of specific conditions"),
-                cite(EAST_EDT, "Abstract — Conclusion"),
+                cite(EAST_EDT, "Abstract — Conclusion; Using these guidelines in clinical practice"),
             ),
         ),
         // 6 ----------------------------------------------------------------------------------------------
@@ -865,8 +890,8 @@ private val chestTrauma = Protocol(
     ),
     notes = listOf(
         ProtocolNote(
-            "Needle decompression site differs: WHO BEC — 2nd space, midclavicular line; ICMR STW 2024 — 4th/5th space, anterior axillary line; MoHFW 2025 — 5th space, midaxillary line (adults). NICE NG39 and ERC 2025 prefer open thoracostomy when expertise is available.",
-            listOf(cite(WHO, "Skills — emergency needle decompression"), cite(ICMR, "Tension pneumothorax panel"), cite(MOH, "Ch. 4 (p. 25)"), cite(NICE, "Rec 1.3.5, 1.4.2"), cite(ERC, "Tension pneumothorax")),
+            "Needle decompression site differs: WHO BEC — 2nd space, midclavicular line; ICMR STW 2024 — 4th/5th space, anterior axillary line; MoHFW 2025 (adults) — 5th space, midaxillary line (Ch. 4) or anterior axillary line (Ch. 5). NICE NG39 and ERC 2025 prefer open thoracostomy when expertise is available.",
+            listOf(cite(WHO, "Skills — emergency needle decompression"), cite(ICMR, "Tension pneumothorax panel"), cite(MOH, "Ch. 4 (p. 25); Ch. 5 (p. 26)"), cite(NICE, "Rec 1.3.5, 1.4.2"), cite(ERC, "Tension pneumothorax")),
         ),
         ProtocolNote(
             "Open chest wound: three-sided dressing (WHO BEC, ICMR STW 2024, MoHFW 2025) versus a simple occlusive dressing (NICE NG39) versus leaving it exposed or a vented dressing (RCUK/ERC 2025 first aid).",
@@ -897,7 +922,7 @@ private val traumaticCardiacArrest = Protocol(
     category = ProtocolCategory.Trauma,
     title = "Traumatic cardiac arrest",
     summary = "ERC 2025 traumatic arrest and peri-arrest algorithm — simultaneous treatment of hypovolaemia, hypoxia, tension " +
-        "pneumothorax and tamponade, resuscitative thoracotomy selection (EAST 2015, WTA 2012), withholding and termination.",
+        "pneumothorax and tamponade, resuscitative thoracotomy selection (EAST 2015, WTA 2024), withholding and termination.",
     keywords = listOf(
         "traumatic cardiac arrest", "TCA", "traumatic arrest", "trauma arrest", "peri-arrest trauma", "PEA trauma",
         "pseudo-PEA", "resuscitative thoracotomy", "emergency department thoracotomy", "EDT", "ED thoracotomy",
@@ -942,15 +967,16 @@ private val traumaticCardiacArrest = Protocol(
         // 3 ----------------------------------------------------------------------------------------------
         Step(
             title = "Treat reversible causes simultaneously",
-            timing = "Takes priority over chest compressions (ERC 2025)",
+            timing = "Start CPR; reversible causes are treated alongside and take priority over chest compressions (ERC 2025)",
             points = listOf(
-                "ERC 2025: address reversible causes simultaneously and prioritise them over chest compressions; act by clinical priority, not in sequence.",
+                "ERC 2025 Fig. 8: start CPR, and alongside it address reversible causes simultaneously, prioritising them over chest compressions; act by clinical priority, not in sequence.",
                 "ERC 2025: in hypovolaemia, tamponade or tension pneumothorax, compressions may not work and must not delay treating the cause.",
                 "ERC 2025: in exsanguination with SBP <90 mm Hg, circulation before intubation (CAB) was linked to lower 30-day mortality (17.5% vs 72.0%).",
                 "ERC 2025: providers not trained to treat reversible causes follow standard ALS and prioritise rapid transport.",
             ),
             checklistTitle = "ERC 2025 algorithm — in parallel",
             checklist = listOf(
+                "Start CPR — alongside, without delaying treatment of reversible causes",
                 "Control external catastrophic haemorrhage",
                 "Secure the airway and maximise oxygenation",
                 "Bilateral chest decompression (thoracostomies)",
@@ -1015,7 +1041,11 @@ private val traumaticCardiacArrest = Protocol(
                 "EAST 2015 (strong): pulseless with signs of life after penetrating thoracic injury — emergency department thoracotomy (survival 21.3%).",
                 "EAST 2015 (conditional for): penetrating thoracic without signs of life; penetrating extrathoracic with or without; blunt with signs of life. Conditional against: blunt without signs of life.",
                 "EAST 2015: signs of life — spontaneous breathing, palpable pulse, measurable BP, movement, cardiac electrical activity or pupillary reactivity.",
-                "WTA 2012: thoracotomy if prehospital CPR <10 min after blunt trauma, <15 min penetrating torso, <5 min penetrating neck or extremity, or profound refractory shock.",
+                "EAST 2015: its evidence is mostly from major urban trauma centres and may not apply to community or rural centres; it informs, not replaces, clinical judgement.",
+                "WTA 2024, no signs of life: pronounce dead after prehospital CPR >10 min (blunt) or >15 min (penetrating truncal); within these limits, cardiac ultrasound — organized wall motion → select by injury; tamponade → thoracotomy; neither → pronounce dead.",
+                "WTA 2024: cardiac electrical activity as the only sign of life is also judged by cardiac ultrasound in this way. Profound shock = SBP <60 mm Hg; ROSC = organized cardiac activity with sustained SBP >70 mm Hg.",
+                "WTA 2024: other signs of life, wall motion or profound shock without ROSC after resuscitation — by injury: thoracic → thoracotomy; abdominal or pelvic → thoracotomy if tamponade, otherwise REBOA may be considered where expertise exists, or thoracotomy.",
+                "WTA 2024: isolated head, neck or extremity injury — continue resuscitation and external haemorrhage control; the former <5 min CPR limit for thoracotomy in neck and extremity injury was removed; pronounce dead if there is no response.",
                 "ERC 2025: if any of the four Es is unmet, thoracotomy is futile and exposes the team to unnecessary risk.",
             ),
             checklistTitle = "ERC 2025 — the four Es",
@@ -1027,8 +1057,8 @@ private val traumaticCardiacArrest = Protocol(
             ),
             citations = listOf(
                 cite(ERC, "Cardiac tamponade and resuscitative thoracotomy"),
-                cite(EAST_EDT, "Abstract — Results, Conclusion; Fig. 7"),
-                cite(WTA, "Abstract — Results"),
+                cite(EAST_EDT, "Abstract — Results, Conclusion; Fig. 7; Using these guidelines in clinical practice"),
+                cite(WTA, "Fig. 1 algorithm and notes; Sections A–F; Summary and conclusion"),
             ),
         ),
         // 8 ----------------------------------------------------------------------------------------------
@@ -1038,7 +1068,8 @@ private val traumaticCardiacArrest = Protocol(
             points = listOf(
                 "ERC 2025: the role of adrenaline and vasopressors in traumatic arrest is unclear; at most a bridge — treating reversible causes takes preference.",
                 "ERC 2025 (suggestion): stop if there is no ROSC 20 min after reversible causes are addressed, or no cardiac activity on ultrasound in PEA at 20 min.",
-                "WTA 2012: after thoracotomy, asystole without tamponade — declare death; salvageable if SBP >70 mm Hg can be generated, with aortic cross-clamp if needed.",
+                "WTA 2024 procedure guide: after thoracotomy, organized cardiac activity with SBP <70 mm Hg → clamp the descending aorta and continue resuscitation; move to theatre if ROSC (organized rhythm, SBP >70 mm Hg).",
+                "WTA 2024: no organized cardiac activity, tamponade, cardiac injury or air embolism → terminate; a brief period of open cardiac massage and aortic occlusion may be considered first. No ROSC after adequate aortic occlusion → terminate.",
                 "ERC 2025: in one prehospital cohort, no one survived thoracotomy beyond 15 min of tamponade arrest or 5 min after exsanguination arrest.",
             ),
             checklistTitle = "Consider termination (ERC 2025)",
@@ -1048,7 +1079,7 @@ private val traumaticCardiacArrest = Protocol(
             ),
             citations = listOf(
                 cite(ERC, "The role of inotropes and vasopressors; Withholding resuscitation; Cardiac tamponade and resuscitative thoracotomy"),
-                cite(WTA, "Abstract — Results"),
+                cite(WTA, "Fig. 2 procedure guide and notes; Section E"),
             ),
         ),
         // 9 ----------------------------------------------------------------------------------------------
@@ -1071,16 +1102,16 @@ private val traumaticCardiacArrest = Protocol(
     ),
     notes = listOf(
         ProtocolNote(
-            "AHA 2025: the special-circumstances guideline (Part 10) has no traumatic cardiac arrest section; this page follows ERC 2025, EAST 2015 and WTA 2012.",
+            "AHA 2025: the special-circumstances guideline (Part 10) has no traumatic cardiac arrest section; this page follows ERC 2025, EAST 2015 and WTA 2024.",
             listOf(cite(AHA_SPECIAL, "Scope — topics covered"), cite(ERC, "Traumatic cardiac arrest")),
         ),
         ProtocolNote(
-            "Thoracotomy selection differs: EAST 2015 uses mechanism and signs of life; WTA 2012 uses prehospital CPR duration; ERC 2025 uses the four Es, including ≤15 min elapsed since loss of vital signs.",
-            listOf(cite(EAST_EDT, "Abstract — Conclusion"), cite(WTA, "Abstract"), cite(ERC, "Cardiac tamponade and resuscitative thoracotomy")),
+            "Thoracotomy selection differs: EAST 2015 uses mechanism and signs of life; WTA 2024 uses signs of life, prehospital CPR duration and cardiac ultrasound when signs of life are absent, then injury pattern; ERC 2025 uses the four Es, including ≤15 min elapsed since loss of vital signs.",
+            listOf(cite(EAST_EDT, "Abstract — Conclusion"), cite(WTA, "Fig. 1; Summary and conclusion"), cite(ERC, "Cardiac tamponade and resuscitative thoracotomy")),
         ),
         ProtocolNote(
-            "WTA published an updated adult resuscitative thoracotomy algorithm in 2024 (J Trauma Acute Care Surg 2024;97:961–968). Its full text could not be checked; the 2012 thresholds are shown.",
-            listOf(cite(WTA)),
+            "WTA 2024 replaced its 2012 algorithm: cardiac electrical activity as the only sign of life is now judged by cardiac ultrasound, REBOA is an alternative for extrathoracic injury, and for penetrating neck and extremity injury the <5 min CPR limit was removed and thoracotomy de-emphasised.",
+            listOf(cite(WTA, "Summary and conclusion; Section F")),
         ),
         ProtocolNote(
             "REBOA: the European guideline 2023 suggests considering it for noncompressible bleeding as a bridge; ERC 2025 does not recommend it outside clinical trials.",
