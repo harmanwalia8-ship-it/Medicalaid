@@ -66,15 +66,38 @@ class TraumaScoresTest {
         assertTrue(ScoreEngine.alerts(s, mapOf("group" to lowRisk, "rotate" to 1)).isEmpty())
     }
 
+    // Option indices of the NEXUS "assessed" question.
+    private val allAssessed = 0
+    private val notAssessable = 1
+
     @Test
     fun nexus() {
         val s = score("nexus-c-spine")
         assertFalse(s.showTotal)
-        check(s, emptyMap(), 0.0, "Imaging not required by NEXUS")
-        check(s, mapOf("tenderness" to 1), 1.0, "Imaging indicated by NEXUS")
-        check(s, mapOf("distracting" to 1), 1.0, "Imaging indicated by NEXUS")
-        check(s, mapOf("tenderness" to 0, "intoxication" to 1, "alertness" to 1), 2.0, "Imaging indicated by NEXUS")
-        check(s, s.items.associate { it.id to 1 }, 5.0, "Imaging indicated by NEXUS")
+
+        // The gating question comes first: yes (all five assessed), then no (at least one cannot be assessed).
+        assertEquals("assessed", s.items.first().id)
+        val assessed = s.items.single { it.id == "assessed" } as Choice
+        assertEquals(2, assessed.options.size)
+        assertTrue(assessed.options[allAssessed].label.startsWith("Yes"))
+        assertTrue(assessed.options[notAssessable].label.startsWith("No"))
+
+        // Nothing answered → no result: the untouched page never reads as "imaging not required".
+        assertNull(ScoreEngine.total(s, emptyMap()))
+        // Ticking or unticking criteria does not produce a result until the gating question is answered.
+        assertNull(ScoreEngine.total(s, mapOf("tenderness" to 0, "deficit" to 0)))
+        assertNull(ScoreEngine.total(s, mapOf("tenderness" to 1)))
+
+        check(s, mapOf("assessed" to allAssessed), 0.0, "Imaging not required by NEXUS")
+        check(s, mapOf("assessed" to notAssessable), 1.0, "Imaging indicated by NEXUS")
+        check(s, mapOf("assessed" to allAssessed, "tenderness" to 1), 1.0, "Imaging indicated by NEXUS")
+        check(s, mapOf("assessed" to allAssessed, "distracting" to 1), 1.0, "Imaging indicated by NEXUS")
+        check(
+            s, mapOf("assessed" to allAssessed, "tenderness" to 0, "intoxication" to 1, "alertness" to 1),
+            2.0, "Imaging indicated by NEXUS",
+        )
+        check(s, mapOf("assessed" to notAssessable, "tenderness" to 0, "deficit" to 0), 1.0, "Imaging indicated by NEXUS")
+        check(s, s.items.associate { it.id to 1 }, 6.0, "Imaging indicated by NEXUS")
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -100,7 +123,7 @@ class TraumaScoresTest {
 
     @Test
     fun everyAnswerSetHasABand() {
-        val expectedMax = mapOf("canadian-c-spine" to 1000.0, "nexus-c-spine" to 5.0)
+        val expectedMax = mapOf("canadian-c-spine" to 1000.0, "nexus-c-spine" to 6.0)
         ids.forEach { id ->
             val s = score(id)
             var max = Double.NEGATIVE_INFINITY
