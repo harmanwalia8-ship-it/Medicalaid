@@ -57,6 +57,21 @@ guideline tabs on protocol pages ("All" default), teal accent instead of purple,
 6. Ask the user before starting `ROADMAP.md` (child emergencies, infections/antibiotics, fever work-up, steroid
    misuse, paediatric doses, remaining drug phases).
 
+## Release plan (an APK to the user after each major phase)
+| Version (code) | Released groups | Notes |
+|---|---|---|
+| 0.5.1 (6) | trauma + head/spine + wounds/bites | also ships FOGSI 2026 notes, teal UI, score-panel "Show more" fix |
+| 0.5.2 (7) | limb/abdomen trauma | trauma complete |
+| 0.5.3 (8) | early pregnancy + APH/preterm labour | |
+| 0.5.4 (9) | labour-room emergencies + maternal medical (sepsis, VTE, DKA in pregnancy) | obstetric complete |
+At each: move groups to `released`, bump versionCode/versionName and `APP_VERSION`, README, tests, release APK,
+send with SendUserFile, commit and push. Move any unreviewed score file to `drafts/` before building.
+
+## Schedule
+Scheduled task "Resume Medicalaid work every 5 hours" fires into this session at 4:21, 9:21, 14:21, 19:21 (and 0:21
+once its first run adds it) IST. Each run continues the next step; after 0.5.4 it disables itself and asks the
+user about `ROADMAP.md`.
+
 ## User preferences
 - Clinician decision support for doctors in India (Punjab); sources India first, every statement cited.
 - Uncluttered, premium UI; no purple, no pill shapes; side menu, search everywhere.
