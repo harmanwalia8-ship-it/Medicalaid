@@ -52,8 +52,9 @@ Medical emergencies, obstetric emergencies and trauma are written and in review 
 - Burns: tappable Lund–Browder body chart (six age columns) → %TBSA → fluid plan. Adults: Parkland 4 and ABA 2024
   2 mL/kg/%TBSA; children: JTS 3 and MoHFW 2 mL/kg/%TBSA plus dextrose maintenance (4-2-1). Shown only above the
   MoHFW thresholds; warns above 250 mL/kg/24 h (JTS).
-- ABG interpreter (Berend, NEJM 2014): primary disorder, expected secondary response, anion gap with albumin
-  correction, Δ–Δ. Arterial samples only.
+- ABG interpreter: reference ranges pH 7.35–7.45, PaCO₂ 35–45 mm Hg, HCO₃ 22–26 mmol/L (StatPearls), with the
+  pH 7.40 cut-off for a normal pH and PaCO₂ compared with 40 mm Hg; expected secondary response, anion gap with
+  albumin correction and Δ–Δ follow Berend (NEJM 2014). Arterial samples only.
 - Glucose ↔ HbA1c (ADAG equation, as used by the ADA eAG calculator) with ADA diagnostic band and the
   ICMR therapy band. Clearly marked as a rough estimate; not offered in pregnancy (ADA 2026, rec 15.13).
 - TSH in pregnancy — shows **ATA 2026** and **MoHFW 2014** verdicts side by side (they differ).
@@ -79,8 +80,8 @@ Medical emergencies, obstetric emergencies and trauma are written and in review 
   geo-restricted; an alternative authoritative dose source is needed).
 - **COVID-19 vaccine in pregnancy:** US federal guidance changed in 2025 and remains contested; ACOG's position is shown.
 - ADA publishes a new Standards of Care each December — re-check the 2027 edition.
-- **ABG thresholds:** the interpreter uses Berend's Table 1 (pH 7.38–7.42, PaCO₂ 38–42 mm Hg), stricter than the
-  common 7.35–7.45. Decide which convention to show before release.
+- **ABG:** for a compensated gas such as pH 7.39 / PaCO₂ 51 / HCO₃ 30, Berend's chronic band reports "additional
+  metabolic alkalosis" while StatPearls calls it compensatory — a clinical reviewer should look at this edge.
 - **MoHFW STG Burns 2025, Figure 5:** four Lund–Browder values in the government figure are wrong; the app uses the
   US Joint Trauma System reproduction instead.
 - **Poisoning:** India-availability of physostigmine and digoxin-specific Fab, and the AHA 2008 cocaine statement,

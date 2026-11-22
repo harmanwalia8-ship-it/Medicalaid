@@ -360,19 +360,31 @@ fun AcidBaseTool(
 
         if (ph != null && pco2 != null && hco3 != null) {
             val primary = AcidBase.primary(ph, pco2, hco3)
+            // pH 7.35–7.45: StatPearls' 7.40 cut-off decides which disorder the compensation check analyses.
+            val side = if (primary == AcidBase.Primary.NormalPh) AcidBase.sideOfCutoff(ph, pco2, hco3) else null
+            val analysed = side ?: primary
             Spacer(Modifier.height(14.dp))
             Column(Modifier.fillMaxWidth().clip(Radius.inner).background(c.surfaceMuted).padding(14.dp)) {
                 Text("PRIMARY", style = Theme.type.overline, color = c.textTertiary)
                 Spacer(Modifier.height(2.dp))
                 Text(primary.label, style = Theme.type.bodyStrong, color = c.text)
-                val comp = compensationLine(primary, pco2, hco3, chronic)
+                if ((primary == AcidBase.Primary.RespiratoryAcidosis || primary == AcidBase.Primary.RespiratoryAlkalosis) &&
+                    pco2 >= AcidBase.PCO2_LOW && pco2 <= AcidBase.PCO2_HIGH
+                ) {
+                    Text(
+                        "PaCO₂ is within 35–45 mm Hg; classified by comparing it with 40 mm Hg (StatPearls).",
+                        style = Theme.type.caption, color = c.textSecondary,
+                    )
+                }
+                side?.let { Text("By the StatPearls 7.40 cut-off: ${it.label}", style = Theme.type.caption, color = c.textSecondary) }
+                val comp = compensationLine(analysed, pco2, hco3, chronic)
                 if (comp != null) {
                     Spacer(Modifier.height(6.dp))
                     Text(comp.first, style = Theme.type.caption, color = c.textSecondary)
                     Text(comp.second, style = Theme.type.label, color = c.accent)
                 }
             }
-            if (primary == AcidBase.Primary.RespiratoryAcidosis || primary == AcidBase.Primary.RespiratoryAlkalosis) {
+            if (analysed == AcidBase.Primary.RespiratoryAcidosis || analysed == AcidBase.Primary.RespiratoryAlkalosis) {
                 Spacer(Modifier.height(8.dp))
                 Segmented(listOf(false to "Acute", true to "Chronic"), chronic, { chronic = it })
             }
@@ -429,9 +441,17 @@ fun AcidBaseTool(
                         )
                     }
                     add(
-                        "Normal ranges (StatPearls): pH 7.35–7.45, PaCO₂ 35–45 mm Hg, HCO₃ 22–26 mmol/L; values may vary slightly among laboratories. " +
+                        "Normal ranges (StatPearls): pH 7.35–7.45, PaCO₂ 35–45 mm Hg, HCO₃ 22–26 mmol/L; values may vary slightly among laboratories " +
+                            "and across age groups, from neonates to older adults. " +
                             "The primary disorder is a pH outside 7.35–7.45 with the matching abnormal PaCO₂ and/or HCO₃ (criteria as in Berend Table 1, " +
                             "which uses narrower bands: pH 7.38–7.42, PaCO₂ 38–42 mm Hg). Expected compensation, anion gap and Δ–Δ follow Berend.",
+                    )
+                    add(
+                        "If the pH is outside 7.35–7.45 but neither PaCO₂ nor HCO₃ is outside its range in the matching direction, " +
+                            "PaCO₂ is compared with 40 mm Hg (StatPearls: above 40 with pH below 7.40 indicates respiratory acidosis; " +
+                            "below 40 with pH above 7.40, respiratory alkalosis). If the pH is within 7.35–7.45, StatPearls uses 7.40 as the " +
+                            "cut-off: an abnormal PaCO₂ or HCO₃ on the matching side is named and checked for compensation " +
+                            "(StatPearls example: pH 7.39, PaCO₂ 51, HCO₃ 30 is a primary respiratory acidosis).",
                     )
                     add(
                         "Prediction equations are approximations (Berend: data are insufficient to construct confidence limits for severe chronic respiratory disorders). " +
@@ -447,7 +467,7 @@ fun AcidBaseTool(
         Spacer(Modifier.height(14.dp))
         GuidelineBasis(
             listOf(
-                Citation("tool-abg-reference", "Results, Reporting, and Critical Findings (normal ranges; pH 7.40 cut-off)"),
+                Citation("tool-abg-reference", "Results, Reporting, and Critical Findings (normal ranges; pH 7.40 cut-off; PaCO₂ compared with 40 mm Hg)"),
                 Citation("tool-acid-base", "Table 1 (criteria, compensation); Figures 1–2; text pp. 1437–1441; Table 2 footnote"),
             ),
             compact = true,

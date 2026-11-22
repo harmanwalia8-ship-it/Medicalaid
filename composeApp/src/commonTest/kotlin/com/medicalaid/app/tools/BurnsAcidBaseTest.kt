@@ -128,7 +128,7 @@ class BurnsAcidBaseTest {
         assertEquals(AcidBase.Primary.MixedAlkalosis, AcidBase.primary(7.55, 34.0, 30.0))
         assertEquals(AcidBase.Primary.NormalPh, AcidBase.primary(7.40, 40.0, 24.0))
         assertEquals(AcidBase.Primary.NotClassified, AcidBase.primary(7.30, 40.0, 24.0))
-        // pH 7.37 was acidaemia under Berend's 7.38 cut-off; it is now within 7.35–7.45.
+        // pH 7.37 was acidaemia under Berend's 7.38 cut-off; it is now within 7.35–7.45 (analysed by the 7.40 cut-off).
         assertEquals(AcidBase.Primary.NormalPh, AcidBase.primary(7.37, 33.0, 19.0))
         // PaCO2 43 was a respiratory component under Berend's 42; it is now within 35–45, so HCO3 21 alone is metabolic.
         assertEquals(AcidBase.Primary.MetabolicAcidosis, AcidBase.primary(7.30, 43.0, 21.0))
@@ -149,14 +149,17 @@ class BurnsAcidBaseTest {
         assertEquals(AcidBase.Primary.RespiratoryAlkalosis, p(7.46, 30.0, 24.0))
         assertEquals(AcidBase.Primary.NotClassified, p(7.34, 40.0, 24.0))
         assertEquals(AcidBase.Primary.NotClassified, p(7.46, 40.0, 24.0))
-        // Abnormal PaCO2 or HCO3 with pH inside 7.35–7.45 is not a primary disorder here (see the NormalPh label).
+        // Abnormal PaCO2 or HCO3 with pH inside 7.35–7.45 stays NormalPh; sideOfCutoff then applies the StatPearls 7.40 cut-off.
         assertEquals(AcidBase.Primary.NormalPh, p(7.36, 32.0, 18.0))
         assertEquals(AcidBase.Primary.NormalPh, p(7.44, 50.0, 33.0))
-        // PaCO2: 45 and 35 are normal; above 45 / below 35 is a respiratory component.
-        assertEquals(AcidBase.Primary.NotClassified, p(7.30, 45.0, 24.0))
+        // PaCO2: 45 and 35 are normal; above 45 / below 35 is a respiratory component (so not mixed at 45 / 35).
+        assertEquals(AcidBase.Primary.MetabolicAcidosis, p(7.30, 45.0, 21.5))
         assertEquals(AcidBase.Primary.RespiratoryAcidosis, p(7.30, 45.5, 24.0))
-        assertEquals(AcidBase.Primary.NotClassified, p(7.50, 35.0, 24.0))
+        assertEquals(AcidBase.Primary.MetabolicAlkalosis, p(7.50, 35.0, 26.5))
         assertEquals(AcidBase.Primary.RespiratoryAlkalosis, p(7.50, 34.5, 24.0))
+        // With neither outside its range, PaCO2 is compared with 40 (StatPearls): 45 and 35 still give a respiratory disorder.
+        assertEquals(AcidBase.Primary.RespiratoryAcidosis, p(7.30, 45.0, 24.0))
+        assertEquals(AcidBase.Primary.RespiratoryAlkalosis, p(7.50, 35.0, 24.0))
         // HCO3: 22 and 26 are normal; below 22 / above 26 is a metabolic component.
         assertEquals(AcidBase.Primary.NotClassified, p(7.30, 40.0, 22.0))
         assertEquals(AcidBase.Primary.MetabolicAcidosis, p(7.30, 40.0, 21.5))
@@ -167,6 +170,54 @@ class BurnsAcidBaseTest {
         assertEquals(AcidBase.Primary.MixedAlkalosis, p(7.46, 34.5, 26.5))
         assertTrue(AcidBase.Primary.NormalPh.label.contains("7.35–7.45"))
         assertTrue(AcidBase.Primary.NormalPh.label.contains("StatPearls"))
+    }
+
+    @Test
+    fun abnormalPhWithPaco2AndHco3InRangeComparesPaco2With40() {
+        fun p(ph: Double, pco2: Double, hco3: Double) = AcidBase.primary(ph, pco2, hco3)
+        // StatPearls: "PaCO2 greater than 40 mm Hg with a pH less than 7.4 indicates a respiratory acidosis, whereas
+        // PaCO2 less than 40 mm Hg and pH greater than 7.4 indicates a respiratory alkalosis."
+        // Henderson–Hasselbalch-consistent gases near the range limits (45/23 → 7.33, 44/23 → 7.34, 36/26 → 7.48).
+        assertEquals(AcidBase.Primary.RespiratoryAcidosis, p(7.33, 45.0, 23.0))
+        assertEquals(AcidBase.Primary.RespiratoryAcidosis, p(7.34, 44.0, 23.0))
+        assertEquals(AcidBase.Primary.RespiratoryAlkalosis, p(7.48, 36.0, 26.0))
+        // Berend per-10 mm Hg bands then report the metabolic part.
+        assertEquals(AcidBase.RespResponse.AdditionalMetabolicAcidosis, AcidBase.respAcidosisResponse(45.0, 23.0))
+        assertEquals(AcidBase.RespResponse.AdditionalMetabolicAlkalosis, AcidBase.respAlkalosisResponse(36.0, 26.0))
+        // A HCO3 abnormality in the matching direction still takes precedence.
+        assertEquals(AcidBase.Primary.MetabolicAcidosis, p(7.30, 43.0, 21.0))
+        assertEquals(AcidBase.Primary.MetabolicAlkalosis, p(7.50, 37.0, 27.0))
+        // Only a pH that neither rule explains is not classified (PaCO2 40, or on the other side of 40).
+        assertEquals(AcidBase.Primary.NotClassified, p(7.30, 40.0, 24.0))
+        assertEquals(AcidBase.Primary.NotClassified, p(7.30, 38.0, 28.0))
+        assertEquals(AcidBase.Primary.NotClassified, p(7.50, 40.0, 24.0))
+        assertEquals(AcidBase.Primary.NotClassified, p(7.50, 42.0, 20.0))
+        assertTrue(AcidBase.Primary.NotClassified.label.contains("greater than 40"))
+        assertTrue(AcidBase.Primary.NotClassified.label.contains("Recheck the values"))
+    }
+
+    @Test
+    fun normalPhUsesTheStatPearls740CutOff() {
+        assertEquals(7.40, AcidBase.PH_CUTOFF)
+        // StatPearls example 1 (pH 7.39, PaCO2 51, HCO3 30) and example 2 (pH 7.45, PaCO2 32, HCO3 23).
+        assertEquals(AcidBase.Primary.NormalPh, AcidBase.primary(7.39, 51.0, 30.0))
+        assertEquals(AcidBase.Primary.RespiratoryAcidosis, AcidBase.sideOfCutoff(7.39, 51.0, 30.0))
+        assertEquals(AcidBase.Primary.NormalPh, AcidBase.primary(7.45, 32.0, 23.0))
+        assertEquals(AcidBase.Primary.RespiratoryAlkalosis, AcidBase.sideOfCutoff(7.45, 32.0, 23.0))
+        // Example 1: HCO3 rise 30 − 24 = 6 over 11 mm Hg → 5.5 per 10 (Berend: more than 5).
+        assertEquals(AcidBase.RespResponse.AdditionalMetabolicAlkalosis, AcidBase.respAcidosisResponse(51.0, 30.0))
+        // StatPearls: "a pH of 7.37 as acidosis and 7.42 as alkalemia".
+        assertEquals(AcidBase.Primary.MetabolicAcidosis, AcidBase.sideOfCutoff(7.37, 33.0, 19.0))
+        assertEquals(AcidBase.Primary.MetabolicAcidosis, AcidBase.sideOfCutoff(7.36, 32.0, 18.0))
+        assertEquals(AcidBase.Primary.MetabolicAlkalosis, AcidBase.sideOfCutoff(7.44, 50.0, 33.0))
+        assertEquals(AcidBase.Primary.MixedAcidosis, AcidBase.sideOfCutoff(7.38, 46.0, 21.0))
+        assertEquals(AcidBase.Primary.MixedAlkalosis, AcidBase.sideOfCutoff(7.42, 34.0, 27.0))
+        // Exactly 7.40, all values normal, or abnormal values on the other side: nothing to analyse.
+        assertNull(AcidBase.sideOfCutoff(7.40, 40.0, 24.0))
+        assertNull(AcidBase.sideOfCutoff(7.40, 50.0, 30.0))
+        assertNull(AcidBase.sideOfCutoff(7.38, 44.0, 25.0))
+        assertNull(AcidBase.sideOfCutoff(7.38, 30.0, 28.0))
+        assertNull(AcidBase.sideOfCutoff(7.42, 50.0, 20.0))
     }
 
     @Test

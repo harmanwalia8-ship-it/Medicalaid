@@ -8,7 +8,9 @@ import kotlin.math.round
  * - Normal ranges (the primary-disorder thresholds [PH_LOW]…[HCO3_HIGH]): the usual clinical reference ranges from
  *   StatPearls, Castro & Zubair, "Arterial Blood Gas Analysis: Fundamentals, Interpretation, and Clinical Utility",
  *   updated 5 July 2026 (ToolSources.kt, "tool-abg-reference"), section "Results, Reporting, and Critical Findings".
- *   Berend's narrower Table 1 bands (pH 7.38–7.42, PaCO2 38–42 mm Hg) are not used.
+ *   Berend's narrower Table 1 bands (pH 7.38–7.42, PaCO2 38–42 mm Hg) are not used. The same StatPearls section
+ *   (Romanski method) gives the pH 7.40 cut-off within the normal range ([PH_CUTOFF], [sideOfCutoff]) and the comparison
+ *   of PaCO2 with 40 mm Hg that [primary] uses when neither PaCO2 nor HCO3 is outside its range in the matching direction.
  * - Everything else (structure of the primary-disorder criteria, secondary-response formulas, respiratory bands, anion gap,
  *   albumin correction, Δ–Δ) follows Berend, de Vries & Gans, N Engl J Med 2014;371:1434–1445 (ToolSources.kt,
  *   "tool-acid-base"): Table 1, Figures 1–2 and the anion gap and Δ–Δ sections.
@@ -23,8 +25,16 @@ object AcidBase {
     const val PH_LOW = 7.35
     const val PH_HIGH = 7.45
     /**
-     * StatPearls (Results, Reporting, and Critical Findings): "PaCO2 (35-45 mm Hg)". Respiratory acidosis needs
-     * PaCO2 > 45, respiratory alkalosis PaCO2 < 35 mm Hg.
+     * StatPearls (Romanski method): "If the pH is within the normal range (7.35-7.45), a pH of 7.40 should be used as
+     * the cutoff; in other words, clinicians should categorize a pH of 7.37 as acidosis and 7.42 as alkalemia."
+     * Used by [sideOfCutoff].
+     */
+    const val PH_CUTOFF = 7.40
+    /**
+     * StatPearls (Results, Reporting, and Critical Findings): "PaCO2 (35-45 mm Hg)". This app applies Berend's Table 1
+     * structure with these limits: respiratory acidosis needs PaCO2 > 45, respiratory alkalosis PaCO2 < 35 mm Hg.
+     * (StatPearls' Romanski step instead compares PaCO2 with 40 mm Hg; [primary] uses that only when neither PaCO2 nor
+     * HCO3 is outside its range in the direction that matches the pH.)
      */
     const val PCO2_HIGH = 45.0
     const val PCO2_LOW = 35.0
@@ -65,17 +75,27 @@ object AcidBase {
         MixedAlkalosis("Mixed metabolic and respiratory alkalosis"),
         NormalPh(
             "pH within the normal range 7.35–7.45 (StatPearls). Within this range StatPearls uses 7.40 as the cut-off " +
-                "(pH 7.37 counts as acidosis, 7.42 as alkalaemia). If PaCO₂ or HCO₃ is abnormal, also consider a mixed or chronic " +
-                "respiratory disorder (Berend: pH may be normal in chronic respiratory acidosis, and compensation may normalise pH " +
-                "in chronic respiratory alkalosis). If all values are normal, a raised anion gap may still reveal a mixed disorder (Berend).",
+                "(pH 7.37 counts as acidosis, 7.42 as alkalaemia); when PaCO₂ or HCO₃ is abnormal, the compensation check uses " +
+                "that cut-off. Also consider a mixed or chronic respiratory disorder (Berend: pH may be normal in chronic " +
+                "respiratory acidosis, and compensation may normalise pH in chronic respiratory alkalosis). If all values are " +
+                "normal, a raised anion gap may still reveal a mixed disorder (Berend).",
         ),
-        NotClassified("pH abnormal but PaCO₂ and HCO₃ do not meet the criteria for a primary disorder — recheck the values"),
+        NotClassified(
+            "pH outside 7.35–7.45, but neither HCO₃ (22–26 mmol/L) nor PaCO₂ (compared with 40 mm Hg) is on the side that " +
+                "explains it (StatPearls: PaCO₂ greater than 40 mm Hg with pH below 7.40 indicates a respiratory acidosis; " +
+                "PaCO₂ less than 40 with pH above 7.40, a respiratory alkalosis). Recheck the values.",
+        ),
     }
 
     /**
      * Primary disorder: Berend Table 1 criteria (pH outside the normal range plus the matching abnormal PaCO2 and/or
      * HCO3), applied with the StatPearls normal ranges ([PH_LOW]–[PH_HIGH], [PCO2_LOW]–[PCO2_HIGH], [HCO3_LOW]–[HCO3_HIGH])
-     * instead of Berend's narrower bands. Range limits count as normal.
+     * instead of Berend's narrower bands. Range limits count as normal. When the pH is abnormal but neither PaCO2 nor HCO3
+     * is outside its range in the matching direction (values near the limits can together give an abnormal pH, e.g.
+     * pH 7.33, PaCO2 45, HCO3 23), PaCO2 is compared with [PCO2_NORMAL] as in StatPearls: "PaCO2 greater than 40 mm Hg
+     * with a pH less than 7.4 indicates a respiratory acidosis, whereas PaCO2 less than 40 mm Hg and pH greater than 7.4
+     * indicates a respiratory alkalosis."
+     * Only a pH that neither rule explains is [Primary.NotClassified].
      */
     fun primary(ph: Double, pco2: Double, hco3: Double): Primary = when {
         ph < PH_LOW && pco2 > PCO2_HIGH && hco3 < HCO3_LOW -> Primary.MixedAcidosis
@@ -84,8 +104,26 @@ object AcidBase {
         ph > PH_HIGH && pco2 < PCO2_LOW && hco3 > HCO3_HIGH -> Primary.MixedAlkalosis
         ph > PH_HIGH && hco3 > HCO3_HIGH -> Primary.MetabolicAlkalosis
         ph > PH_HIGH && pco2 < PCO2_LOW -> Primary.RespiratoryAlkalosis
+        ph < PH_LOW && pco2 > PCO2_NORMAL -> Primary.RespiratoryAcidosis
+        ph > PH_HIGH && pco2 < PCO2_NORMAL -> Primary.RespiratoryAlkalosis
         ph < PH_LOW || ph > PH_HIGH -> Primary.NotClassified
         else -> Primary.NormalPh
+    }
+
+    /**
+     * For a [Primary.NormalPh] gas: the disorder on the side of the StatPearls [PH_CUTOFF] (7.40), judged by the same
+     * PaCO2 and HCO3 limits as [primary]. Null when the pH is exactly 7.40 or PaCO2 and HCO3 give no matching
+     * abnormality. StatPearls example 1 (pH 7.39, PaCO2 51, HCO3 30) and example 2 (pH 7.45, PaCO2 32, HCO3 23) come out
+     * as respiratory acidosis and respiratory alkalosis.
+     */
+    fun sideOfCutoff(ph: Double, pco2: Double, hco3: Double): Primary? = when {
+        ph < PH_CUTOFF && pco2 > PCO2_HIGH && hco3 < HCO3_LOW -> Primary.MixedAcidosis
+        ph < PH_CUTOFF && hco3 < HCO3_LOW -> Primary.MetabolicAcidosis
+        ph < PH_CUTOFF && pco2 > PCO2_HIGH -> Primary.RespiratoryAcidosis
+        ph > PH_CUTOFF && pco2 < PCO2_LOW && hco3 > HCO3_HIGH -> Primary.MixedAlkalosis
+        ph > PH_CUTOFF && hco3 > HCO3_HIGH -> Primary.MetabolicAlkalosis
+        ph > PH_CUTOFF && pco2 < PCO2_LOW -> Primary.RespiratoryAlkalosis
+        else -> null
     }
 
     /** Expected range for the secondary response; [value] is its midpoint. */
