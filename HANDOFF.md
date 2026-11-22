@@ -54,8 +54,9 @@ guideline tabs on protocol pages ("All" default), teal accent instead of purple,
 ## Next steps, in order
 1. Head/spine: two reviews → fixer. 2. Wounds/bites: write → reviews → fixer. 3. Release trauma + head/spine +
    wounds; build **0.5.1** (versionCode 6), README, APK, send. 4. Limb/abdomen. 5. Obstetric batch 2.
-6. Ask the user before starting `ROADMAP.md` (child emergencies, infections/antibiotics, fever work-up, steroid
-   misuse, paediatric doses, remaining drug phases).
+6. Then `ROADMAP.md`, sections in order — the user approved on 23 Nov 2026 going straight on without asking
+   (child emergencies, infections/antibiotics, fever work-up, steroid misuse, paediatric doses, remaining drug
+   phases, smaller items). Skip and list for the user: licensed skin photos, colleague review, signing key, CDSCO.
 
 ## Release plan (an APK to the user after each major phase)
 | Version (code) | Released groups | Notes |
@@ -64,17 +65,25 @@ guideline tabs on protocol pages ("All" default), teal accent instead of purple,
 | 0.5.2 (7) | limb/abdomen trauma | trauma complete |
 | 0.5.3 (8) | early pregnancy + APH/preterm labour | |
 | 0.5.4 (9) | labour-room emergencies + maternal medical (sepsis, VTE, DKA in pregnancy) | obstetric complete |
+| 0.6.0 (10) | child emergencies part 1: arrest/seriously ill child, neonatal resuscitation, sepsis, seizures, DKA | ROADMAP 1 |
+| 0.6.1 (11) | child emergencies part 2: asthma/bronchiolitis/croup, diarrhoea, SAM, anaphylaxis/dengue/malaria | ROADMAP 1 |
+| 0.7.0 (12) | antibiotics in Drugs + Infections A–Z | ROADMAP 2; split into two APKs if large |
+| 0.7.1 (13) | fever work-up | ROADMAP 3 |
+| 0.8.0 (14) | steroid misuse + children's doses in Drugs | ROADMAP 4, 5 |
+| 0.9.0 (15) | Treatment pages phase 1 (remaining) + phase 2 | ROADMAP 6 |
+| 0.9.1 (16) | Treatment pages phase 3 (pregnancy additions) | ROADMAP 6 |
+| 0.9.2 (17) | smaller items: CURB-65 mg/dL urea, poisoning batch 2, AHA/ASA 2026 stroke correction, iOS CI build | ROADMAP 7 |
 At each: move groups to `released`, bump versionCode/versionName and `APP_VERSION`, README, tests, release APK,
 send with SendUserFile, commit and push. Move any unreviewed score file to `drafts/` before building.
 
 ## Schedule
 Scheduled task "Resume Medicalaid work every 5 hours" fires into this session at 4:21, 9:21, 14:21, 19:21 (and 0:21
-once its first run adds it) IST. Each run continues the next step; after 0.5.4 it disables itself and asks the
-user about `ROADMAP.md`.
+once its first run adds it) IST. Each run continues the next step through HANDOFF and ROADMAP; after the last APK it
+disables itself and sends the user a summary of what still needs them.
 
 ## User preferences
 - Clinician decision support for doctors in India (Punjab); sources India first, every statement cited.
 - Uncluttered, premium UI; no purple, no pill shapes; side menu, search everywhere.
 - Keep ESC content for now (permission needed before public release). Before sharing widely: colleague review,
   signing key, CDSCO check (README checklist).
-- Ask before starting big batches; keep usage low.
+- Ask before starting big batches; keep usage low. (23 Nov 2026: the whole HANDOFF + ROADMAP queue is approved.)
