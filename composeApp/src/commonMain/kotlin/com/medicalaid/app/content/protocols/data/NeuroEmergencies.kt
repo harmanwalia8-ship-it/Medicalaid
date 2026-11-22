@@ -493,12 +493,16 @@ internal val neuroEmergencyProtocols = listOf(
         ),
         notes = listOf(
             ProtocolNote(
-                "ICMR STW first-line doses are higher than AES 2016 and state no maximum — IV diazepam 0.25–0.4 mg/kg (AES: 0.15–0.2 mg/kg, max 10 mg); buccal/intranasal midazolam 0.3–0.5 mg/kg. They are shown as text, not calculator doses.",
+                "ICMR STW IV diazepam is higher than AES 2016 (0.25–0.4 mg/kg vs 0.15–0.2 mg/kg, max 10 mg). ICMR IV lorazepam (up to 0.1 mg/kg) matches AES (0.1 mg/kg) but has no 4 mg cap. ICMR buccal/intranasal midazolam is 0.3–0.5 mg/kg; AES lists these routes (Level B) without a dose. ICMR states no maxima, so these are shown as text, not calculator doses.",
                 listOf(cite(SE_ICMR, "SE algorithm"), cite(SE_AES, "Figure 1")),
             ),
             ProtocolNote(
                 "Levetiracetam differs: ICMR STW 20–30 mg/kg (max 3 g) as an alternative after phenytoin, valproate and phenobarbitone; AES 2016 and ESETT 60 mg/kg (max 4500 mg) with no preferred second-line drug.",
-                listOf(cite(SE_ICMR, "SE algorithm"), cite(SE_AES, "Figure 1"), cite(SE_ESETT, "Abstract")),
+                listOf(cite(SE_ICMR, "SE algorithm"), cite(SE_AES, "Figure 1"), cite(SE_ESETT, "Methods — trial treatments")),
+            ),
+            ProtocolNote(
+                "Propofol differs: ICMR STW load 2–5 mg/kg and infusion 1–15 mg/kg/h (up to 250 mcg/kg/min). NCS 2012: load 1–2 mg/kg, infusion 30–200 mcg/kg/min (1.8–12 mg/kg/h), caution above 80 mcg/kg/min (4.8 mg/kg/h) for >48 h (propofol infusion syndrome), and hypotension especially with the loading dose in critically ill patients.",
+                listOf(cite(SE_ICMR, "SE algorithm — ICU"), cite(SE_NCS, "Table 8")),
             ),
             ProtocolNote(
                 "Second-line evidence: ESETT found no drug superior. AES 2016: fosphenytoin preferred over phenytoin for tolerability when both are available; in adults each later therapy is less effective (Level A).",
@@ -594,14 +598,24 @@ internal val neuroEmergencyProtocols = listOf(
                     "AHS 2025: must offer (Level A) — IV prochlorperazine and greater occipital nerve block, in eligible adults without contraindications.",
                     "AHS 2025: should offer (Level B) — IV dexketoprofen, IV ketorolac, IV metoclopramide, SC sumatriptan and supraorbital nerve block.",
                     "AHS 2025: may offer (Level C) — IV chlorpromazine, IV dexamethasone, IV valproate. Eptinezumab: no recommendation for an ED population.",
+                    "Valproate in women of childbearing potential or pregnancy: follow MHRA safety measures (NICE NG217, which notes they apply to IV valproate).",
                     "NICE CG150: consider an antiemetic even without nausea; if oral treatment fails, non-oral metoclopramide or prochlorperazine, adding a non-oral NSAID or triptan.",
+                    "NICE CG150: note the SPC special warnings and precautions for metoclopramide and prochlorperazine, and discuss benefits and risks.",
                     "Prochlorperazine injection label (nausea/vomiting): IV 2.5–10 mg slowly at ≤5 mg/min, not as a bolus; single dose ≤10 mg, ≤40 mg/day; hypotension possible.",
                     "ICMR STW (primary care): paracetamol 650 mg or indomethacin 50 mg, with prochlorperazine 10 mg as antiemetic.",
                 ),
+                checklistTitle = "Prochlorperazine injection cautions (label)",
+                checklist = listOf(
+                    "Do not use in comatose states, with large amounts of CNS depressants (alcohol, barbiturates, opioids) or with phenothiazine hypersensitivity",
+                    "Keep the patient lying down and observe for at least 30 min after injection (hypotension)",
+                    "If a vasopressor is needed use noradrenaline or phenylephrine, not adrenaline (further fall in BP)",
+                    "Extrapyramidal reactions (dystonia, akathisia) can occur: treat with injectable diphenhydramine, a barbiturate or an antiparkinsonism drug (not levodopa)",
+                ),
                 citations = listOf(
                     cite(MG_AHS25, "Abstract — conclusions"),
+                    cite(SE_NICE, "Rec 7.1.9 and rationale"),
                     cite(MG_NICE, "Rec 1.3.13–1.3.14"),
-                    cite(MG_PCZ, "Dosage and administration — severe nausea and vomiting"),
+                    cite(MG_PCZ, "Dosage and administration — severe nausea and vomiting; Contraindications; Precautions; Adverse reactions; Overdosage"),
                     cite(MG_ICMR, "Migraine — acute management"),
                 ),
             ),
@@ -614,8 +628,11 @@ internal val neuroEmergencyProtocols = listOf(
                     "AIAN 2011: SC sumatriptan 6 mg (½ mL) for severe attacks with vomiting; injection and nasal sumatriptan are available in India.",
                     "AHS 2025: SC sumatriptan — should offer (Level B), as in AHS 2016.",
                 ),
-                checklistTitle = "Contraindications (label)",
+                checklistTitle = "Contraindications and warnings (label)",
                 checklist = listOf(
+                    "No prior migraine diagnosis or atypical symptoms: exclude other serious neurological conditions first (label §5.4)",
+                    "Triptan-naive with multiple CV risk factors (age, diabetes, hypertension, smoking, obesity, family history of CAD): cardiovascular evaluation first; if negative, consider giving the first dose under supervision with an ECG straight after (label §5.1)",
+                    "Serotonin syndrome risk with SSRIs, SNRIs, TCAs or MAO inhibitors — stop if suspected (label §5.7)",
                     "Ischaemic coronary artery disease or coronary vasospasm, including Prinzmetal's angina",
                     "Wolff–Parkinson–White or other accessory-pathway arrhythmias",
                     "History of stroke or TIA; hemiplegic or basilar migraine",
@@ -627,7 +644,7 @@ internal val neuroEmergencyProtocols = listOf(
                     "Hypersensitivity to sumatriptan (angioedema, anaphylaxis)",
                 ),
                 citations = listOf(
-                    cite(MG_SUMA, "§1 Limitations of use; §2.1; §4"),
+                    cite(MG_SUMA, "§1 Limitations of use; §2.1; §4; §5.1, §5.4, §5.7"),
                     cite(MG_AIAN, "Migraine — specific medications for acute treatment (triptans)"),
                     cite(MG_AHS25, "Abstract — conclusions"),
                     cite(MG_AHS16, "Abstract — recommendations"),
@@ -694,7 +711,7 @@ internal val neuroEmergencyProtocols = listOf(
         ),
         citations = listOf(
             cite(MG_ICMR), cite(MG_AIAN), cite(MG_AHS25), cite(MG_AHS16), cite(MG_NICE), cite(MG_SNOOP), cite(MG_CW),
-            cite(MG_SUMA), cite(MG_PCZ),
+            cite(MG_SUMA), cite(MG_PCZ), cite(SE_NICE),
         ),
     ),
 
@@ -726,11 +743,11 @@ internal val neuroEmergencyProtocols = listOf(
                     "NICE NG240: strongly suspect meningococcal disease with purpura (>2 mm), a spreading non-blanching rash, or meningitis signs plus such a rash; no rash does not exclude it.",
                     "ICMR 2019: classic triad — fever, neck stiffness, altered sensorium. ICMR STW differential: stroke, infective (including protozoal) meningoencephalitis or abscess, metabolic encephalopathy, postictal state, intoxication.",
                     "WHO 2025: admit immediately or transfer urgently to a facility able to do lumbar puncture and manage severe illness.",
-                    "NICE NG240: don't delay transfer for antibiotics; if transfer will be significantly delayed, give IV or IM ceftriaxone or benzylpenicillin first.",
+                    "NICE NG240: don't delay transfer for antibiotics; if transfer will be significantly delayed, give IV or IM ceftriaxone or benzylpenicillin first — but give no antibiotics before hospital if there is severe allergy to either.",
                 ),
                 scoreIds = listOf("gcs"),
                 citations = listOf(
-                    cite(BM_NICE, "Rec 1.1.4–1.1.5, 1.1.9–1.1.10, 1.2.3–1.2.4"),
+                    cite(BM_NICE, "Rec 1.1.4–1.1.5, 1.1.9–1.1.10, 1.2.3–1.2.4, 1.2.6"),
                     cite(BM_ICMR, "§8.2.1 (p. 78)"),
                     cite(BM_STW, "Differential diagnosis"),
                     cite(BM_WHO, "§B.1"),
