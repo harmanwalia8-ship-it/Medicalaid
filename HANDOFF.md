@@ -45,14 +45,16 @@ guideline tabs on protocol pages ("All" default), teal accent instead of purple,
 - `Trauma.kt` (major trauma, haemorrhage, chest, traumatic arrest) — reviewed and fixed (f4b4d36). Release it only
   together with head/spine and wounds, because it links to them.
 - `TraumaHeadSpine.kt` + `scores/data/TraumaScores.kt` + `TraumaScoresTest.kt` (Canadian C-spine, NEXUS) —
-  written (3515477); **both reviews still to run** (they were stopped mid-way), then the fixer.
+  **reviewed and fixed** (23 Nov 2026): numbers review 2 minor, safety review 3 major + 11 minor, all 16 confirmed
+  and applied (findings in `.claude-work/reviews/headspine-*.json`); tests pass. The C-spine scores are live in the
+  app (scores are not gated) and now reviewed. Release the protocols with trauma + wounds in 0.5.1.
 - `WoundsBites.kt` (dog bites/rabies, tetanus) — placeholder: write, review, fix.
 - `TraumaLimbAbdomen.kt` (abdominal/pelvic, open fractures, compartment/crush) — placeholder.
 - Obstetric batch 2 — placeholders `EarlyPregnancy.kt`, `AntepartumHaemorrhage.kt`, `LabourEmergencies.kt`,
   `MaternalMedical.kt` (briefs in the GROUPS array: earlypreg, aph, labour, maternalmed).
 
 ## Next steps, in order
-1. Head/spine: two reviews → fixer. 2. Wounds/bites: write → reviews → fixer. 3. Release trauma + head/spine +
+1. ~~Head/spine: two reviews → fixer~~ (done). 2. Wounds/bites: write → reviews → fixer. 3. Release trauma + head/spine +
    wounds; build **0.5.1** (versionCode 6), README, APK, send. 4. Limb/abdomen. 5. Obstetric batch 2.
 6. Then `ROADMAP.md`, sections in order — the user approved on 23 Nov 2026 going straight on without asking
    (child emergencies, infections/antibiotics, fever work-up, steroid misuse, paediatric doses, remaining drug
