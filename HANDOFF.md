@@ -1,7 +1,7 @@
 # Handoff — where the work stands (22 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `ccr-f183fc69-36wkic`. Last shipped APK: **0.5.0** (versionCode 5).
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.5.0** (versionCode 5).
 
 ## Build and check
 ```
@@ -11,6 +11,12 @@ export ANDROID_HOME=/opt/android-sdk
 ./gradlew :composeApp:desktopTest --tests '*Screenshots*' -Pscreenshots   # PNGs → composeApp/build/screenshots/
 ```
 Version lives in `composeApp/build.gradle.kts` (versionCode/versionName) and `APP_VERSION` in `ui/home/AboutScreen.kt`.
+
+Fresh cloud container setup (neither survives a new container):
+- Android SDK: download `commandlinetools-linux-*_latest.zip` from dl.google.com into `/opt/android-sdk/cmdline-tools/latest`,
+  accept licences, then `sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"`.
+- Maven Central rate-limits the shared proxy (HTTP 429). Use Google's mirror via an init script:
+  `mkdir -p ~/.gradle/init.d && cp .claude-work/gradle-mirror.init.gradle.kts ~/.gradle/init.d/`
 
 ## How content is gated
 `content/protocols/Protocols.kt` has two lists: `released` (shown) and `inReview` (compiled and tested, never
