@@ -46,7 +46,18 @@ every step; "Where guidelines differ" notes compare India and international guid
 independent reviewers then check it: one checks every number against the source, the other checks safety and
 attribution. A fixer re-checks each finding against the source before changing anything. Groups that have not
 finished this cycle stay in `Protocols.inReview`: they are compiled and tested but never shown.
-Medical emergencies, obstetric emergencies and trauma are written and in review for 0.5.0.
+- *Medical emergencies (0.5.0):* DKA, HHS, hypoglycaemia, adrenal crisis, thyroid storm, myxoedema coma;
+  metabolic and respiratory acidosis/alkalosis (with the ABG interpreter); hyper/hypokalaemia, hyponatraemia;
+  STEMI (streptokinase/tenecteplase), NSTE-ACS, acute heart failure, hypertensive emergency, aortic dissection;
+  cardiac arrest, tachy- and bradyarrhythmias; acute severe asthma, COPD exacerbation, pulmonary embolism,
+  anaphylaxis; status epilepticus, acute migraine, bacterial meningitis, subarachnoid haemorrhage; burns (with the
+  body chart), heat stroke, electrical injury; sepsis, upper GI bleed, severe dengue, severe malaria.
+- *Obstetric emergencies (0.5.0):* eclampsia and severe pre-eclampsia, postpartum haemorrhage, maternal collapse
+  and perimortem caesarean, trauma in pregnancy.
+
+Written and still in review (hidden until reviewed): major trauma, head/spine injury (and the C-spine rules,
+kept in `drafts/`), abdominal/limb trauma, bites/rabies/tetanus, and the second obstetric batch (ectopic,
+miscarriage, hyperemesis, APH, preterm labour, labour-room emergencies, sepsis/VTE/DKA in pregnancy).
 
 **Calculators**
 - Burns: tappable Lund–Browder body chart (six age columns) → %TBSA → fluid plan. Adults: Parkland 4 and ABA 2024
