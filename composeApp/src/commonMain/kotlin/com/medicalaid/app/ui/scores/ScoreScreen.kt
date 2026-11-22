@@ -42,6 +42,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.medicalaid.app.content.scores.Choice
 import com.medicalaid.app.content.scores.Criterion
@@ -79,13 +82,19 @@ fun ScoreScreen(
     val band = total?.let { ScoreEngine.band(score, it) }
     val alerts = ScoreEngine.alerts(score, answers)
     val missing = ScoreEngine.unanswered(score, answers).size
+    // Long band text is collapsed to 4 lines with an ellipsis; tapping the panel shows all of it.
+    var expanded by remember(score.id) { mutableStateOf(false) }
+    var overflows by remember(score.id) { mutableStateOf(false) }
+    var panelHeightPx by remember { mutableStateOf(0) }
+    val panelHeight = with(LocalDensity.current) { panelHeightPx.toDp() }
 
     Box(Modifier.fillMaxSize()) {
         LazyColumn(
             Modifier.fillMaxSize(),
             contentPadding = PaddingValues(
                 top = contentPadding.calculateTopPadding(),
-                bottom = contentPadding.calculateBottomPadding() + 170.dp,
+                // Keep the last item reachable above the sticky result panel, however tall it is.
+                bottom = contentPadding.calculateBottomPadding() + maxOf(170.dp, panelHeight + 16.dp),
             ),
         ) {
             item {
@@ -172,11 +181,13 @@ fun ScoreScreen(
         // Sticky result panel.
         Column(
             Modifier.align(Alignment.BottomCenter).fillMaxWidth()
+                .onSizeChanged { panelHeightPx = it.height }
                 .padding(horizontal = 12.dp)
                 .windowInsetsPadding(WindowInsets.navigationBars)
                 .padding(bottom = 10.dp)
                 .clip(Radius.card)
                 .background(if (c.isDark) c.surfaceMuted else c.text)
+                .clickable(enabled = band != null && (overflows || expanded)) { expanded = !expanded }
                 .padding(horizontal = 18.dp, vertical = 14.dp),
         ) {
             val onDark = if (c.isDark) c.text else c.background
@@ -201,7 +212,19 @@ fun ScoreScreen(
                                     Text(b.title, style = Theme.type.bodyStrong, color = onDark)
                                 }
                                 Spacer(Modifier.height(2.dp))
-                                Text(b.meaning, style = Theme.type.caption, color = sub, maxLines = 4)
+                                Text(
+                                    b.meaning, style = Theme.type.caption, color = sub,
+                                    maxLines = if (expanded) Int.MAX_VALUE else 4,
+                                    overflow = TextOverflow.Ellipsis,
+                                    onTextLayout = { if (!expanded) overflows = it.hasVisualOverflow },
+                                )
+                                if (overflows || expanded) {
+                                    Text(
+                                        if (expanded) "Show less" else "Show more",
+                                        style = Theme.type.label, color = onDark,
+                                        modifier = Modifier.padding(top = 4.dp),
+                                    )
+                                }
                             }
                         }
                     }
