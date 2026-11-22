@@ -63,7 +63,14 @@ internal val cardiacEmergencySources: List<Source> = listOf(
         "em-card-esc-acs-2023", Authority.ESC, "ESC guideline — Eur Heart J 2023;44(38):3720–3826",
         "2023 ESC Guidelines for the management of acute coronary syndromes", "2023",
         "https://doi.org/10.1093/eurheartj/ehad191",
-        status = "Fibrinolytic doses and contraindications are in the online supplement, which was not reviewed",
+        status = "Fibrinolytic doses and contraindications are in the online supplement; only its Table S10 UFH co-therapy row was checked",
+    ),
+    Source(
+        "em-card-udmi-2018", Authority.ESC,
+        "ESC/ACC/AHA/WHF expert consensus document — Circulation 2018;138(20):e618–e651",
+        "Fourth Universal Definition of Myocardial Infarction (2018)", "2018",
+        "https://doi.org/10.1161/CIR.0000000000000617",
+        status = "ACC/AHA 2025 Table 3 is adapted from it; the Fifth Universal Definition (2026) names ST elevation in V7–V9 without a numeric cut-off",
     ),
     Source(
         "em-card-esc-council-he-2019", Authority.ESC,
@@ -100,6 +107,7 @@ private const val STEMI_INDIA = "em-card-stemi-india-2015"
 
 // International
 private const val ESC_ACS = "em-card-esc-acs-2023"
+private const val UDMI = "em-card-udmi-2018"
 private const val ACS25 = "tx-cocaine-acc-aha-acs-2025"
 private const val CP21 = "sc-aha-chestpain-2021"
 private const val NICE_ACS = "sc-nice-ng185"
@@ -147,12 +155,13 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "V2–V3: ≥2 mm in men 40 and over",
                     "V2–V3: ≥1.5 mm in women of any age",
                     "All other leads: ≥1 mm (ESC: without LV hypertrophy or LBBB)",
-                    "Posterior: ST elevation in V7–V9 (CSI 2017: >1 mm)",
+                    "Posterior: ST elevation ≥0.5 mm in V7–V9, ≥1 mm in men under 40 (Fourth Universal Definition of MI 2018); CSI 2017: >1 mm",
                     "Right ventricle: ST elevation in V3R–V4R (ESC 2023)",
                 ),
                 citations = listOf(
                     cite(ESC_ACS, "§3.2.1; Rec Table 1 (ECG)"),
                     cite(ACS25, "Table 3; §3.1.1 Rec 1; §3.1.2 Rec 1, 3 and supportive text"),
+                    cite(UDMI, "§28 Application of supplemental ECG leads"),
                     cite(ICMR_STEMI, "STEMI diagnosis (flowchart footnote)"),
                     cite(CSI, "Tables 3 and 5"),
                 ),
@@ -185,6 +194,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "ICMR STW: ICU bed with continuous ECG monitoring and defibrillator; serial troponin; echocardiography, especially for mechanical complications.",
                     "Oxygen only if SpO₂ <90% (ESC 2023; ACC/AHA 2025; ICMR STW). ACC/AHA 2025: routine oxygen at SpO₂ ≥90% gives no benefit.",
                     "Morphine: ICMR STW 2–4 mg IV every 15 min; ACC/AHA 2025 2–4 mg, repeat every 5–15 min, up to 10 mg; ESC 2023 e.g. 5–10 mg IV.",
+                    "ACC/AHA 2025: reserve morphine for pain resistant to maximally tolerated anti-ischaemic drugs; it may delay the effect of oral P2Y12 inhibitors.",
                     "ACC/AHA 2025: sublingual nitroglycerin 0.3–0.4 mg every 5 min, up to 3 doses, if SBP ≥90 mm Hg; IV from 10 mcg/min for persistent pain.",
                     "ESC 2023: IV metoprolol should be considered before primary PCI if no acute heart failure and SBP >120 mm Hg. CSI 2017: no routine IV beta-blockers.",
                 ),
@@ -321,10 +331,10 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "With fibrinolysis — ESC 2023: enoxaparin IV then SC is the preferred anticoagulant; weight-adjusted UFH if enoxaparin is unavailable. ICMR STW: enoxaparin preferred over UFH.",
                     "Continue until revascularisation, or for the hospital stay up to 8 days (ESC 2023; ACC/AHA 2025). ICMR STW: until PCI or discharge.",
-                    "ESC 2023: with streptokinase, consider fondaparinux IV then SC 24 h later. ACC/AHA 2025 with any lytic: fondaparinux 2.5 mg IV, then 2.5 mg SC daily; not if CrCl <30.",
+                    "ESC 2023: with streptokinase, consider fondaparinux IV then SC 24 h later. ACC/AHA 2025: after any lytic, only if no invasive approach is intended — fondaparinux 2.5 mg IV, then 2.5 mg SC daily from the next day; contraindicated if CrCl <30. Not for pharmaco-invasive or rescue PCI.",
                     "Primary PCI — ESC 2023: UFH bolus 70–100 U/kg; enoxaparin or bivalirudin are alternatives. Fondaparinux must not support PCI (ESC 2023; ACC/AHA 2025 — harm).",
                     "ICMR STW: UFH 60 U/kg (max 5000 U), then 12 U/kg/h to aPTT 50–70 s; or enoxaparin 1 mg/kg SC 12-hourly.",
-                    "ACC/AHA 2025 enoxaparin with fibrinolysis: <75 years — 30 mg IV, then after 15 min 1 mg/kg SC 12-hourly; ≥75 — no bolus, 0.75 mg/kg. CrCl <30: 1 mg/kg daily.",
+                    "ACC/AHA 2025 enoxaparin with fibrinolysis: <75 years — 30 mg IV, then after 15 min 1 mg/kg SC 12-hourly (max 100 mg for the first 2 doses); ≥75 — no bolus, 0.75 mg/kg (max 75 mg for the first 2 doses). CrCl <30: 1 mg/kg daily.",
                 ),
                 doses = listOf(
                     StepDose(
@@ -345,16 +355,26 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                         maxTotal = 5000.0,
                     ),
                     StepDose(
-                        "Enoxaparin with fibrinolysis, age <75 (ACC/AHA 2025)",
+                        "Enoxaparin with fibrinolysis, age <75 — first 2 SC doses (ACC/AHA 2025)",
                         WeightDose(1.0, 1.0, "mg", per = "SC every 12 h"),
-                        note = "After a 30 mg IV bolus; 100 mg cap applies to the first 2 doses; CrCl <30: 1 mg/kg every 24 h",
+                        note = "After a 30 mg IV bolus; max 100 mg per dose for the first 2 doses only; CrCl <30: 1 mg/kg every 24 h",
                         maxTotal = 100.0,
                     ),
                     StepDose(
-                        "Enoxaparin with fibrinolysis, age ≥75 (ACC/AHA 2025)",
+                        "Enoxaparin with fibrinolysis, age <75 — from the 3rd SC dose (ACC/AHA 2025)",
+                        WeightDose(1.0, 1.0, "mg", per = "SC every 12 h"),
+                        note = "The 100 mg cap no longer applies; CrCl <30: 1 mg/kg every 24 h",
+                    ),
+                    StepDose(
+                        "Enoxaparin with fibrinolysis, age ≥75 — first 2 SC doses (ACC/AHA 2025)",
                         WeightDose(0.75, 0.75, "mg", per = "SC every 12 h"),
-                        note = "No IV bolus; 75 mg cap applies to the first 2 doses",
+                        note = "No IV bolus; max 75 mg per dose for the first 2 doses only; CrCl <30: 1 mg/kg every 24 h",
                         maxTotal = 75.0,
+                    ),
+                    StepDose(
+                        "Enoxaparin with fibrinolysis, age ≥75 — from the 3rd SC dose (ACC/AHA 2025)",
+                        WeightDose(0.75, 0.75, "mg", per = "SC every 12 h"),
+                        note = "The 75 mg cap no longer applies; CrCl <30: 1 mg/kg every 24 h",
                     ),
                     StepDose(
                         "UFH during primary PCI (ESC 2023)",
@@ -364,7 +384,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 ),
                 citations = listOf(
                     cite(ESC_ACS, "Rec Table 5 (patients with STEMI); Rec Table 7; Table 6"),
-                    cite(ACS25, "§4.4 Rec 4–5, 8–11; Table 10"),
+                    cite(ACS25, "§4.4 Rec 4–5, 8–11 and supportive text; Table 10"),
                     cite(ICMR_STEMI, "Drugs & dosage — anti thrombotics; Post thrombolysis"),
                     cite(CSI, "Anti coagulation"),
                 ),
@@ -417,20 +437,20 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 listOf(cite(ICMR_STEMI, "Patient with STEMI in 12–24 hours"), cite(ESC_ACS, "Rec Table 4"), cite(ACS25, "§5.3.1 synopsis")),
             ),
             ProtocolNote(
-                "UFH dosing differs: ICMR STW 60 U/kg (max 5000 U), aPTT 50–70 s; ACC/AHA 2025 60 IU/kg (max 4000 IU) then 12 IU/kg/h (max 1000 IU/h); ESC 2023 70–100 U/kg.",
-                listOf(cite(ICMR_STEMI, "Drugs & dosage — anti thrombotics"), cite(ACS25, "Table 10"), cite(ESC_ACS, "Table 6")),
+                "UFH with fibrinolysis: ICMR STW 60 U/kg (max 5000 U) then 12 U/kg/h, aPTT 50–70 s; ACC/AHA 2025 and ESC 2023 (Suppl. Table S10) 60 U/kg (max 4000 U) then 12 U/kg/h (max 1000 U/h), aPTT 50–70 s. ESC 2023's 70–100 U/kg (Table 6) is the initial-treatment and PCI bolus — do not give it with a lytic.",
+                listOf(cite(ICMR_STEMI, "Drugs & dosage — anti thrombotics"), cite(ACS25, "Table 10 and footnote"), cite(ESC_ACS, "Table 6; Suppl. Table S10")),
             ),
             ProtocolNote(
-                "Early beta-blockers differ: ESC 2023 — IV metoprolol may be considered before primary PCI; CSI 2017 — no routine IV beta-blockers; ICMR STW lists an oral beta-blocker if LVEF <40%.",
+                "Early beta-blockers differ: ESC 2023 — IV metoprolol should be considered (Class IIa) before primary PCI if no acute heart failure and SBP >120 mm Hg; CSI 2017 — no routine IV beta-blockers; ICMR STW lists an oral beta-blocker if LVEF <40%.",
                 listOf(cite(ESC_ACS, "Rec Table 3"), cite(CSI, "Beta blockers"), cite(ICMR_STEMI, "Drugs & dosage — beta-blocker")),
             ),
             ProtocolNote(
-                "Review scope: ESC 2023 fibrinolytic doses sit in its online supplement, not reviewed — doses here come from ACC/AHA 2025, ICMR STW and CSI 2017. Three ACC/AHA 2025 errata were not reviewed.",
-                listOf(cite(ESC_ACS, "§5.3.1"), cite(ACS25, "Table 13")),
+                "Review scope: ESC 2023 fibrinolytic doses sit in its online supplement, of which only the UFH row of Table S10 was checked — doses here come from ACC/AHA 2025, ICMR STW and CSI 2017. Three ACC/AHA 2025 errata were not reviewed.",
+                listOf(cite(ESC_ACS, "§5.3.1; Suppl. Table S10"), cite(ACS25, "Table 13")),
             ),
         ),
         citations = listOf(
-            cite(ICMR_STEMI), cite(CSI), cite(STEMI_INDIA), cite(ESC_ACS), cite(ACS25), cite(NICE_ACS),
+            cite(ICMR_STEMI), cite(CSI), cite(STEMI_INDIA), cite(ESC_ACS), cite(ACS25), cite(NICE_ACS), cite(UDMI),
         ),
     ),
     // =============================================================================================== NSTE-ACS
@@ -522,10 +542,11 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "PCI: prasugrel or ticagrelor (ACC/AHA 2025; ESC 2023 favours prasugrel). No planned invasive evaluation: ticagrelor (ACC/AHA 2025; NICE unless high bleeding risk).",
                     "Loading: prasugrel 60 mg; ticagrelor 180 mg; clopidogrel 300–600 mg (ESC; ACC/AHA) or 300 mg (ICMR). Prasugrel: not after stroke (ESC) or stroke/TIA (ACC/AHA).",
                     "ICMR STW at PHC/CHC: start aspirin, loading-dose clopidogrel, heparin or LMWH, high-dose statin and metoprolol; refer high or intermediate risk to a PCI centre.",
+                    "Metoprolol only without contraindications (ACC/AHA 2025): acute HF (Killip II–IV), low-output state or risk of shock, PR >0.24 s, 2nd/3rd-degree AV block without a pacemaker, severe bradycardia, active bronchospasm. Stop it if HF or shock develops.",
                 ),
                 citations = listOf(
                     cite(ESC_ACS, "Rec Table 5; Table 6"),
-                    cite(ACS25, "§4.3.1; §4.3.2 Rec 2–6; Table 7"),
+                    cite(ACS25, "§4.3.1; §4.3.2 Rec 2–6; Table 7; §4.6 Rec 1, synopsis and supportive text"),
                     cite(NICE_ACS, "Rec 1.2.2, 1.2.6, 1.2.21–1.2.22"),
                     cite(ICMR_NSTE, "Management — PHC/CHC level; Drugs & dosage"),
                 ),
@@ -692,7 +713,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "ESC 2026: IV loop diuretic for every patient with fluid overload — furosemide 40 mg IV if diuretic-naive, or twice the usual oral dose.",
                     "ESC 2026: adequate response — spot urine sodium ≥70 mmol/L at 2 h, or urine output ≥100 mL/h over the first 6 h.",
-                    "ESC 2026: poor response — double the dose and/or add IV acetazolamide 500 mg or eGFR-based hydrochlorothiazide; furosemide maximum usually 600 mg/day.",
+                    "ESC 2026: poor response — double the dose and/or add IV acetazolamide 500 mg or eGFR-based hydrochlorothiazide (add-ons for patients previously treated with loop diuretics); furosemide maximum usually 600 mg/day.",
                     "ESC 2026: pulmonary oedema usually needs vasodilators more than high-dose diuretics. Check creatinine and electrolytes at least every 24 h.",
                     "ICMR STW: IV furosemide 10–80 mg as needed in the acute stage; change to oral when symptoms subside; monitor electrolytes and creatinine.",
                 ),
@@ -716,12 +737,12 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     StepDose(
                         "Nitroprusside (ESC 2026 Suppl. Table S14)",
                         WeightDose(0.3, 5.0, "mcg", per = "per minute IV infusion"),
-                        note = "Start at 0.3 and titrate; watch for hypotension and isocyanate toxicity",
+                        note = "Start at 0.3 mcg/kg/min and titrate up to 5 mcg/kg/min; watch for hypotension and cyanide toxicity (ESC Council 2019 Table 4)",
                     ),
                 ),
                 citations = listOf(
                     cite(ESC_HF, "§7.5.7; §7.5.10; Rec Table 9; Fig. 13; Suppl. §4.3, Table S14"),
-                    cite(ESC_HE, "Table 3; acute cardiogenic pulmonary oedema"),
+                    cite(ESC_HE, "Table 3; Table 4; acute cardiogenic pulmonary oedema"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -761,7 +782,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "ESC 2026: continue or rapidly restart foundational HF therapy unless there is hypoperfusion; start an SGLT2 inhibitor in hospital after initial stabilisation.",
                     "ESC 2026: switch IV to oral diuretic once decongested; check for residual congestion before discharge.",
-                    "ICMR STW: start ARNI and spironolactone; beta-blocker after decongestion if BP >100 mm Hg and HR >60/min; SGLT2 inhibitor.",
+                    "ICMR STW: start low-dose ARNI only if BP >100 mm Hg, electrolytes normal and creatinine <2.5 mg/dL; spironolactone 25–50 mg daily with potassium and creatinine monitoring; beta-blocker after decongestion if BP >100 mm Hg and HR >60/min; SGLT2 inhibitor.",
                     "ESC 2026: rapid uptitration of therapy with frequent visits in the first 6 weeks after an HF admission.",
                 ),
                 citations = listOf(
@@ -811,7 +832,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "ESC 2024: emergency = BP ≥180/110 mm Hg with acute hypertension-mediated organ damage, often symptomatic; needs immediate careful lowering, often IV.",
                     "ICMR STW: BP ≥180/120 with symptoms of target-organ damage is a red flag — stabilise ABC and refer to emergency care at a higher centre.",
-                    "ISH 2020 and ESC Council 2019: no specific BP threshold defines an emergency; the rate of rise matters more than the absolute value.",
+                    "ISH 2020 and ESC Council 2019: no specific BP threshold defines an emergency. ESC Council 2019: the rate of BP rise appears more important than the absolute value.",
                     "ESC 2024: urgency (no acute organ damage) — oral treatment, usually no admission. Pain or distress can raise BP that settles once relieved.",
                     "ICMR STW urgency (≥180/120, no organ damage): oral drugs, no IV medicines, lower gradually over 24–48 h, review within 1 week.",
                     "ESC Council 2019: avoid short-acting nifedipine (rapid falls); after an oral dose, observe for at least 2 h.",
@@ -874,7 +895,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "Aortic dissection: SBP <120 mm Hg and HR <60/min immediately (ESC Council 2019; ISH 2020); ACC/AHA 2022: HR 60–80. Beta-blocker first — see aortic dissection.",
                     "Acute pulmonary oedema: SBP <140 mm Hg immediately — nitroprusside or nitroglycerin with a loop diuretic (ESC Council 2019; ISH 2020).",
-                    "Acute coronary syndrome: SBP <140 mm Hg immediately — nitroglycerin first line, labetalol an alternative (ESC Council 2019; ISH 2020).",
+                    "Acute coronary syndrome: SBP <140 mm Hg immediately — nitroglycerin or labetalol first line; urapidil the alternative (ESC Council 2019; ISH 2020).",
                     "Severe pre-eclampsia or eclampsia: SBP <160 and DBP <105 mm Hg with IV labetalol or nicardipine plus magnesium (ESC 2024; ESC Council). ESC 2024: within 150–180 min.",
                     "ESC Council 2019 in pregnancy: labetalol ≤800 mg in 24 h (fetal bradycardia); nitroprusside contraindicated (fetal cyanide toxicity).",
                     "ISH 2020: cocaine or amphetamines — benzodiazepines first. Phaeochromocytoma — phentolamine; beta-blocker only after alpha-blockade.",
@@ -894,14 +915,14 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "Ischaemic stroke for thrombolysis: <185/110 before IVT and <180/105 after (AHA/ASA 2026; ESC 2024). ESC 2024: <180/105 for ≥24 h after IVT or thrombectomy.",
                     "Ischaemic stroke without reperfusion and BP ≥220/110: ESC 2024 — lower by about 15% in the first 24 h. ESC Council: >220/120 — MAP −15% in 1 h.",
                     "Intracerebral haemorrhage, ESC 2024: within 6 h, SBP target 140–160 mm Hg; if SBP ≥220, avoid a fall of more than 70 mm Hg within 1 h.",
-                    "Intracerebral haemorrhage, AHA/ASA 2022: SBP 150–220 — target 140 (range 130–150) may be reasonable; below 130 is potentially harmful.",
+                    "Intracerebral haemorrhage, AHA/ASA 2022 (mild-to-moderate ICH, SBP 150–220): target 140 (range 130–150) is safe and may be reasonable; below 130 is potentially harmful. Large or severe ICH, or surgical decompression: intensive lowering not established.",
                     "ESC Council 2019 and ISH 2020: labetalol or nicardipine first line for BP lowering in ischaemic and haemorrhagic stroke.",
                 ),
                 citations = listOf(
                     cite(AHA_AIS, "§4.3 Rec 5, 7"),
                     cite(ESC_HTN, "§10.2–10.3; Rec Table 32"),
                     cite(ESC_HE, "Table 3"),
-                    cite(AHA_ICH, "§5.1 Rec 3, 5"),
+                    cite(AHA_ICH, "§5.1 Rec 3–5"),
                     cite(ISH, "Table 12"),
                 ),
             ),
@@ -915,9 +936,10 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "Esmolol 0.5–1 mg/kg IV bolus, then 50–300 mcg/kg/min. Metoprolol 2.5–5 mg IV over 2 min, repeat every 5 min, max 15 mg (ESC Council 2019).",
                     "ISH 2020: nitroglycerin and nitroprusside are specifically useful when the heart or aorta is involved.",
                 ),
-                checklistTitle = "Cautions (ESC Council 2019 Table 4)",
+                checklistTitle = "Cautions (ESC Council 2019 Table 4 unless stated)",
                 checklist = listOf(
                     "Esmolol, labetalol, metoprolol: 2nd or 3rd-degree AV block, systolic heart failure, asthma, bradycardia",
+                    "Beta-blockers, labetalol included: relatively contraindicated in (meth)amphetamine or cocaine intoxication — benzodiazepines first (ESC Council 2019); ESC 2024: caution with beta-blockers when sympathomimetics are the trigger",
                     "Labetalol: bronchoconstriction; fetal bradycardia",
                     "Nicardipine: liver failure; headache, reflex tachycardia",
                     "Nitroprusside: cyanide toxicity; relative contraindication in liver or kidney failure",
@@ -944,8 +966,9 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(ESC_HE, "Table 4"),
+                    cite(ESC_HE, "Table 4; (meth)amphetamine or cocaine intoxication"),
                     cite(ISH, "§10.4 Acute therapeutic management"),
+                    cite(ESC_HTN, "§10.1.1"),
                 ),
             ),
         ),
@@ -1008,7 +1031,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "Pain: chest, back or abdominal — abrupt onset, severe, or ripping/tearing",
                     "Exam: pulse deficit or systolic BP differential",
                     "Exam: focal neurological deficit with pain; new aortic regurgitation murmur",
-                    "Exam (ESC 2024): haemodynamic instability — hypotension or shock",
+                    "Exam: hypotension or shock state (ACC/AHA 2022 Table 24; ESC 2024 Fig. 30 — haemodynamic instability)",
                 ),
                 citations = listOf(
                     cite(AHA_AORTA, "AAS presentation; Tables 22 and 24"),
@@ -1040,7 +1063,7 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                 points = listOf(
                     "Targets: ESC 2024 — SBP <120 mm Hg and HR ≤60/min; ACC/AHA 2022 — SBP <120 or lowest BP keeping organ perfusion, HR 60–80; ICMR STW — SBP 100–120, HR 60–70.",
                     "Beta-blocker first: IV labetalol or esmolol (ESC 2024); ICMR STW also lists metoprolol. If contraindicated: IV diltiazem or verapamil (ACC/AHA 2022; ESC 2024).",
-                    "Then a vasodilator — nicardipine, nitroprusside or a nitrate — only if SBP stays high after rate control (ACC/AHA 2022; ESC 2024).",
+                    "Then a vasodilator — nicardipine, nitroprusside or a nitrate — only if SBP stays high after rate control (ACC/AHA 2022; ESC 2024). ICMR STW: SBP and HR both still high — add a calcium-channel blocker to the beta-blocker.",
                     "Arterial line, continuous ECG and ICU admission (ESC 2024; ACC/AHA 2022). IV opioid analgesia helps reach targets.",
                     "ICMR STW: significant aortic regurgitation — MAP 70–80 mm Hg and HR near 80/min. ESC 2024: tolerate higher BP with malperfusion, spinal or brain ischaemia.",
                     "ICMR STW: labetalol 20 mg IV over 2 min, then 1–2 mg/min; metoprolol 5 mg IV over 2 min, up to 3 doses; nicardipine 2.5–15 mg/h; morphine 2–10 mg IV.",
@@ -1056,9 +1079,9 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                         note = "Up to 300 mcg/kg/min",
                     ),
                     StepDose(
-                        "Diltiazem — loading, if beta-blocker contraindicated (ICMR STW)",
+                        "Diltiazem — loading, added to the beta-blocker if SBP and HR both stay high (ICMR STW)",
                         WeightDose(0.25, 0.25, "mg", per = "IV over 2–5 min"),
-                        note = "Then 5 mg/h IV infusion",
+                        note = "Then 5 mg/h IV infusion. ACC/AHA 2022 and ESC 2024 use IV diltiazem or verapamil instead of a beta-blocker if one is contraindicated; this dose is from ICMR STW",
                     ),
                     StepDose(
                         "Nitroprusside — after beta-blocker (ICMR STW)",
@@ -1104,7 +1127,8 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "Rupture or leak — haemothorax, enlarging periaortic or mediastinal haematoma",
                     "Branch occlusion or malperfusion — visceral, renal, limb",
                     "Extension of the dissection, including retrograde type A",
-                    "Rapid aortic enlargement (ICMR: aneurysmal dilatation >5.5 cm)",
+                    "Aortic enlargement in the acute phase (ACC/AHA 2022); rapid aortic expansion (ICMR STW)",
+                    "Aneurysmal dilatation >5.5 cm (ICMR STW)",
                     "Intractable pain",
                     "Uncontrolled hypertension",
                     "Haemodynamic instability (ICMR)",
@@ -1128,13 +1152,14 @@ internal val cardiacEmergencyProtocols: List<Protocol> = listOf(
                     "Thrombolysis for ischaemia caused by dissection (ICMR STW)",
                     "A vasodilator before the beta-blocker or calcium-channel blocker — reflex tachycardia (ACC/AHA 2022; ESC 2024)",
                     "IV NSAIDs such as ketorolac — may raise BP and harm the kidneys (ACC/AHA 2022)",
+                    "Beta-blockers in hypersensitivity, severe asthma, severe COPD, heart block or uncompensated heart failure; extreme bradycardia in severe aortic regurgitation (ICMR STW)",
                     "Beta-blockers without caution in acute aortic regurgitation, heart block or bradycardia (ACC/AHA 2022)",
                     "Catheter coronary angiography or aortography for diagnosis — not needed (ICMR STW)",
                 ),
                 citations = listOf(
                     cite(ACS25, "Table 14"),
                     cite(ICMR_STEMI, "Absolute contra-indications to thrombolytic therapy"),
-                    cite(ICMR_AAS, "MI vs acute type A dissection; Imaging and diagnostic algorithm"),
+                    cite(ICMR_AAS, "MI vs acute type A dissection; Imaging and diagnostic algorithm; Antihypertensive drugs"),
                     cite(AHA_AORTA, "Acute medical management of AAS supportive text"),
                     cite(ESC_PAAD, "§9.3.1.4.1; Fig. 30"),
                 ),
