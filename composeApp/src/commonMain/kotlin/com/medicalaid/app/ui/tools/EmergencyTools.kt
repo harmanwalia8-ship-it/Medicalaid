@@ -108,7 +108,7 @@ fun BurnsTool(initialMarks: Map<String, Double> = emptyMap(), initialWeight: Str
             Text("Burns — TBSA and fluids", style = Theme.type.headline, color = c.text, modifier = Modifier.weight(1f))
             if (marks.isNotEmpty()) {
                 Row(
-                    Modifier.clip(Radius.pill).clickable { marks = emptyMap() }.padding(horizontal = 8.dp, vertical = 4.dp),
+                    Modifier.clip(Radius.chip).clickable { marks = emptyMap() }.padding(horizontal = 8.dp, vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Icon(Icons.Outlined.RestartAlt, null, tint = c.textSecondary, modifier = Modifier.size(16.dp))
@@ -125,7 +125,7 @@ fun BurnsTool(initialMarks: Map<String, Double> = emptyMap(), initialWeight: Str
                 Text(
                     a.label, style = Theme.type.label,
                     color = if (active) c.onAccent else c.textSecondary,
-                    modifier = Modifier.clip(Radius.pill).background(if (active) c.accent else c.surfaceMuted)
+                    modifier = Modifier.clip(Radius.chip).background(if (active) c.accent else c.surfaceMuted)
                         .clickable { age = a }.padding(horizontal = 12.dp, vertical = 6.dp),
                 )
             }

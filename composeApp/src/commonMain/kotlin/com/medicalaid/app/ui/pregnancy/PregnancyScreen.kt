@@ -212,7 +212,7 @@ private fun DateRow(label: String, value: LocalDate?, placeholder: String, onCli
 private fun Stepper(value: Int, unit: String, range: IntRange, onChange: (Int) -> Unit) {
     val c = Theme.colors
     Row(
-        Modifier.clip(Radius.pill).background(c.surfaceMuted).padding(3.dp),
+        Modifier.clip(Radius.chip).background(c.surfaceMuted).padding(3.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         StepButton(Icons.Outlined.Remove, "Decrease", enabled = value > range.first) { onChange(value - 1) }
@@ -376,8 +376,8 @@ private fun PregnancyProgress(gaDays: Int) {
     val c = Theme.colors
     val fraction = (gaDays / 280f).coerceIn(0f, 1f)
     Column {
-        Box(Modifier.fillMaxWidth().height(6.dp).clip(Radius.pill).background(c.surfaceMuted)) {
-            Box(Modifier.fillMaxWidth(fraction).fillMaxHeight().clip(Radius.pill).background(c.accent))
+        Box(Modifier.fillMaxWidth().height(6.dp).clip(Radius.chip).background(c.surfaceMuted)) {
+            Box(Modifier.fillMaxWidth(fraction).fillMaxHeight().clip(Radius.chip).background(c.accent))
             // Trimester boundaries at 14 and 28 weeks.
             Row(Modifier.fillMaxSize()) {
                 Spacer(Modifier.weight(14f))

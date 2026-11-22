@@ -22,6 +22,20 @@ class GuidelineFilterTest {
     }
 
     @Test
+    fun newGroupsAndAttribution() {
+        assertEquals(GuidelineGroup.Who, GuidelineGroup.of("WHO 2023: oxytocin 10 IU IM"))
+        assertEquals(GuidelineGroup.India, GuidelineGroup.of("WHO India: framework"))
+        assertEquals(GuidelineGroup.India, GuidelineGroup.of("FOGSI 2026 (India): Pritchard preferred"))
+        assertEquals(GuidelineGroup.Erc, GuidelineGroup.of("ERC 2025: adrenaline 1 mg"))
+        assertEquals(GuidelineGroup.Esc, GuidelineGroup.of("ESC Council 2019: avoid short-acting nifedipine"))
+        assertNull(GuidelineGroup.of("Eddleston et al. 2004: five signs"))
+        assertTrue(GuidelineGroup.attributed("Eddleston et al. 2004: five signs"))
+        assertTrue(GuidelineGroup.attributed("ISH 2020 and ESC Council 2019: no specific threshold"))
+        assertFalse(GuidelineGroup.attributed("Check glucose before anything else"))
+        assertFalse(GuidelineGroup.attributed("pH 7.35–7.45 is normal"))
+    }
+
+    @kotlin.test.Test
     fun showsUnprefixedAlways() {
         assertTrue(GuidelineGroup.shows("Before starting: check potassium", GuidelineGroup.Nice))
         assertFalse(GuidelineGroup.shows("ESC 2024: target 120–129", GuidelineGroup.India))

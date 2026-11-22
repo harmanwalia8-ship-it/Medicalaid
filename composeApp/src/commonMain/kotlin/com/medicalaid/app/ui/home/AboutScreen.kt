@@ -109,7 +109,7 @@ fun IntendedUseDialog(onAccept: () -> Unit) {
             Bullets(intendedUse)
             Spacer(Modifier.height(24.dp))
             Box(
-                Modifier.fillMaxWidth().clip(Radius.pill).background(c.accent).clickable(onClick = onAccept).padding(vertical = 14.dp),
+                Modifier.fillMaxWidth().clip(Radius.chip).background(c.accent).clickable(onClick = onAccept).padding(vertical = 14.dp),
                 contentAlignment = Alignment.Center,
             ) {
                 Text("I understand", style = Theme.type.bodyStrong, color = c.onAccent, textAlign = TextAlign.Center)

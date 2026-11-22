@@ -255,7 +255,7 @@ private fun Drawer(current: Destination, onSelect: (Destination) -> Unit) {
             Destination.entries.forEach { d ->
                 val active = d == current
                 Row(
-                    Modifier.fillMaxWidth().clip(Radius.pill)
+                    Modifier.fillMaxWidth().clip(Radius.chip)
                         .background(if (active) c.accentSoft else c.surface)
                         .clickable { onSelect(d) }
                         .padding(horizontal = 16.dp, vertical = 13.dp),

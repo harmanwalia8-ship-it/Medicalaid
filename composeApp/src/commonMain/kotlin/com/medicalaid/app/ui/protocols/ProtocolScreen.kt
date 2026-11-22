@@ -51,6 +51,7 @@ import com.medicalaid.app.ui.components.ScreenTitle
 import com.medicalaid.app.ui.components.SurfaceCard
 import com.medicalaid.app.ui.formatNumber
 import com.medicalaid.app.ui.theme.Radius
+import com.medicalaid.app.ui.medicines.GuidelineGroup
 import com.medicalaid.app.ui.theme.Theme
 import com.medicalaid.app.ui.tools.NumberField
 import com.medicalaid.app.ui.tools.toDecimalOrNull
@@ -61,13 +62,28 @@ fun ProtocolScreen(
     onBack: () -> Unit,
     onOpenScore: (String) -> Unit,
     contentPadding: PaddingValues,
+    initialFilter: GuidelineGroup? = null,
 ) {
     val c = Theme.colors
     var weightText by remember(protocol.id) { mutableStateOf("") }
     val weightKg = weightText.toDecimalOrNull()?.takeIf { it in 2.0..250.0 }
     val hasDoses = protocol.steps.any { it.doses.isNotEmpty() }
+    // Guideline bodies quoted on this page ("ESC 2024: …"). "All" (null) shows everything, as before.
+    var filter by remember(protocol.id) { mutableStateOf(initialFilter) }
+    val groupsOnPage = remember(protocol.id) {
+        protocol.steps.flatMap { it.points + listOfNotNull(it.checklistTitle) }
+            .mapNotNull { GuidelineGroup.of(it) }.distinct().sortedBy { it.ordinal }
+    }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
         item { ScreenTitle(protocol.title, protocol.summary, onBack = onBack) }
+        if (groupsOnPage.size >= 2) {
+            item {
+                com.medicalaid.app.ui.components.FilterTabs(
+                    listOf<Pair<GuidelineGroup?, String>>(null to "All") + groupsOnPage.map { it to it.label },
+                    filter, { filter = it }, Modifier.padding(top = 8.dp),
+                )
+            }
+        }
         if (hasDoses) {
             item {
                 SurfaceCard(Modifier.padding(horizontal = Gutter).padding(top = 12.dp), padding = PaddingValues(horizontal = 18.dp, vertical = 12.dp)) {
@@ -86,7 +102,7 @@ fun ProtocolScreen(
         }
         item { Spacer(Modifier.height(16.dp)) }
         itemsIndexed(protocol.steps, key = { i, s -> "$i-${s.title}" }) { index, step ->
-            StepRow(index + 1, step, isLast = index == protocol.steps.lastIndex, onOpenScore = onOpenScore, weightKg = weightKg)
+            StepRow(index + 1, step, isLast = index == protocol.steps.lastIndex, onOpenScore = onOpenScore, weightKg = weightKg, filter = filter)
         }
         item {
             Column(Modifier.padding(horizontal = Gutter).padding(top = 20.dp)) {
@@ -135,7 +151,7 @@ private fun NotesCard(protocol: Protocol) {
 }
 
 @Composable
-private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (String) -> Unit, weightKg: Double?) {
+private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (String) -> Unit, weightKg: Double?, filter: GuidelineGroup?) {
     val c = Theme.colors
     Row(Modifier.padding(horizontal = Gutter).height(IntrinsicSize.Min)) {
         // Timeline rail
@@ -153,7 +169,7 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
                 if (step.timing != null) {
                     Spacer(Modifier.height(6.dp))
                     Row(
-                        Modifier.clip(Radius.pill).background(c.accentSoft).padding(horizontal = 10.dp, vertical = 4.dp),
+                        Modifier.clip(Radius.chip).background(c.accentSoft).padding(horizontal = 10.dp, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(Icons.Outlined.AccessTime, null, tint = c.accent, modifier = Modifier.size(14.dp))
@@ -163,7 +179,7 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
                 }
                 if (step.points.isNotEmpty()) {
                     Spacer(Modifier.height(10.dp))
-                    Bullets(step.points)
+                    FilteredPoints(step, filter)
                 }
                 if (step.checklist.isNotEmpty()) {
                     Spacer(Modifier.height(12.dp))
@@ -191,15 +207,63 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
                             Text(
                                 "${s.name} ›",
                                 style = Theme.type.label, color = c.accent,
-                                modifier = Modifier.clip(Radius.pill).background(c.accentSoft)
+                                modifier = Modifier.clip(Radius.chip).background(c.accentSoft)
                                     .clickable { onOpenScore(s.id) }.padding(horizontal = 12.dp, vertical = 7.dp),
                             )
                         }
                     }
                 }
                 Spacer(Modifier.height(12.dp))
-                GuidelineBasis(step.citations, compact = true)
+                val selectedHere = filter != null && step.points.any { GuidelineGroup.of(it) == filter }
+                GuidelineBasis(if (selectedHere) GuidelineGroup.filterCitations(step.citations, filter) else step.citations, compact = true)
             }
+        }
+    }
+}
+
+/**
+ * The step's statements under the selected guideline. "All" shows every statement. With a guideline selected:
+ * its statements plus unattributed ones; other guidelines' statements fold into one line that expands on tap.
+ * If the selected guideline says nothing for this step, every statement is shown with a short note.
+ */
+@Composable
+private fun FilteredPoints(step: Step, filter: GuidelineGroup?) {
+    val c = Theme.colors
+    if (filter == null) {
+        Bullets(step.points)
+        return
+    }
+    val mine = step.points.filter { GuidelineGroup.of(it) == filter }
+    if (mine.isEmpty()) {
+        Text("No ${filter.label} statement for this step — other guidelines shown.", style = Theme.type.caption, color = c.textTertiary)
+        Spacer(Modifier.height(6.dp))
+        Bullets(step.points)
+        return
+    }
+    val shown = step.points.filter { GuidelineGroup.of(it) == filter || !GuidelineGroup.attributed(it) }
+    val others = step.points - shown.toSet()
+    Bullets(shown)
+    if (others.isNotEmpty()) {
+        var open by remember(step.title, filter) { mutableStateOf(false) }
+        val names = others.mapNotNull { GuidelineGroup.of(it)?.label ?: it.substringBefore(':').take(24) }.distinct()
+        Spacer(Modifier.height(6.dp))
+        Row(
+            Modifier.clip(Radius.chip).clickable { open = !open }.padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                (if (open) "Hide" else "Also") + " · " + names.joinToString(", "),
+                style = Theme.type.caption, color = c.textSecondary, maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false),
+            )
+            Icon(
+                Icons.Outlined.ExpandMore, null, tint = c.textTertiary,
+                modifier = Modifier.size(16.dp).rotate(if (open) 180f else 0f),
+            )
+        }
+        if (open) {
+            Spacer(Modifier.height(4.dp))
+            Bullets(others, color = c.textSecondary)
         }
     }
 }

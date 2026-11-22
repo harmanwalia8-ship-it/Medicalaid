@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -84,7 +85,7 @@ fun SectionHeader(title: String, modifier: Modifier = Modifier, trailing: String
 @Composable
 fun Tag(text: String, fg: Color = Theme.colors.textSecondary, bg: Color = Theme.colors.surfaceMuted) {
     Box(
-        Modifier.clip(Radius.pill).background(bg).padding(horizontal = 9.dp, vertical = 3.dp),
+        Modifier.clip(Radius.chip).background(bg).padding(horizontal = 9.dp, vertical = 3.dp),
     ) {
         Text(text, style = Theme.type.caption, color = fg, maxLines = 1)
     }
@@ -267,26 +268,57 @@ fun ScreenTitle(
     }
 }
 
-/** Segmented pill control. */
+/** Segmented control. */
 @Composable
 fun <T> Segmented(options: List<Pair<T, String>>, selected: T, onSelect: (T) -> Unit, modifier: Modifier = Modifier) {
     val c = Theme.colors
     Row(
-        modifier.clip(Radius.pill).background(c.surfaceMuted).padding(3.dp),
+        modifier.clip(Radius.chip).background(c.surfaceMuted).padding(3.dp),
         horizontalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         options.forEach { (value, label) ->
             val active = value == selected
             Box(
                 Modifier
-                    .clip(RoundedCornerShape(50))
+                    .clip(RoundedCornerShape(4.dp))
                     .background(if (active) c.surface else Color.Transparent)
-                    .then(if (active) Modifier.border(1.dp, c.hairline, RoundedCornerShape(50)) else Modifier)
+                    .then(if (active) Modifier.border(1.dp, c.hairline, RoundedCornerShape(4.dp)) else Modifier)
                     .clickable { onSelect(value) }
                     .padding(horizontal = 14.dp, vertical = 7.dp),
             ) {
                 Text(label, style = Theme.type.label, color = if (active) c.text else c.textSecondary)
             }
         }
+    }
+}
+
+/**
+ * Text tabs with an underline under the selected one, scrolling sideways when they do not fit.
+ * Used for guideline filters ("All · India · ESC · NICE …").
+ */
+@Composable
+fun <T> FilterTabs(options: List<Pair<T, String>>, selected: T, onSelect: (T) -> Unit, modifier: Modifier = Modifier) {
+    val c = Theme.colors
+    Column(modifier.fillMaxWidth()) {
+        Row(
+            Modifier.horizontalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = Gutter),
+            horizontalArrangement = Arrangement.spacedBy(18.dp),
+        ) {
+            options.forEach { (value, label) ->
+                val active = value == selected
+                Column(
+                    Modifier.width(androidx.compose.foundation.layout.IntrinsicSize.Max)
+                        .clickable { onSelect(value) }.padding(top = 6.dp),
+                ) {
+                    Text(
+                        label, style = if (active) Theme.type.bodyStrong else Theme.type.body,
+                        color = if (active) c.text else c.textSecondary, maxLines = 1,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Box(Modifier.fillMaxWidth().height(2.dp).background(if (active) c.accent else Color.Transparent))
+                }
+            }
+        }
+        Hairline(Modifier.padding(horizontal = Gutter))
     }
 }

@@ -84,7 +84,7 @@ fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingV
                                 "eGFR / CrCl calculator ›",
                                 style = Theme.type.label,
                                 color = c.accent,
-                                modifier = Modifier.clip(Radius.pill).background(c.accentSoft)
+                                modifier = Modifier.clip(Radius.chip).background(c.accentSoft)
                                     .clickable(onClick = onOpenRenalCalculator).padding(horizontal = 12.dp, vertical = 7.dp),
                             )
                         }
@@ -160,7 +160,7 @@ fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingV
             ) {
                 items(sections.size) { i ->
                     Box(
-                        Modifier.clip(Radius.pill).background(c.surface).border(1.dp, c.hairline, Radius.pill)
+                        Modifier.clip(Radius.chip).background(c.surface).border(1.dp, c.hairline, Radius.chip)
                             .clickable { scope.launch { listState.animateScrollToItem(firstSectionIndex + i) } }
                             .padding(horizontal = 14.dp, vertical = 7.dp),
                     ) { Text(sections[i].chip, style = Theme.type.label, color = c.textSecondary) }

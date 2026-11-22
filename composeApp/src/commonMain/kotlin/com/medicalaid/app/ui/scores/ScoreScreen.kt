@@ -96,7 +96,7 @@ fun ScoreScreen(
                         Spacer(Modifier.weight(1f))
                         if (answers.isNotEmpty()) {
                             Row(
-                                Modifier.clip(Radius.pill).clickable { answers = emptyMap() }.padding(horizontal = 8.dp, vertical = 4.dp),
+                                Modifier.clip(Radius.chip).clickable { answers = emptyMap() }.padding(horizontal = 8.dp, vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
                                 Icon(Icons.Outlined.RestartAlt, null, tint = c.textSecondary, modifier = Modifier.size(16.dp))
@@ -294,7 +294,7 @@ private fun PointsBadge(points: Double, active: Boolean) {
         pointsLabel(points),
         style = Theme.type.label,
         color = if (active) c.accent else c.textSecondary,
-        modifier = Modifier.clip(Radius.pill).background(if (active) c.surface else c.surfaceMuted)
+        modifier = Modifier.clip(Radius.chip).background(if (active) c.surface else c.surfaceMuted)
             .padding(horizontal = 8.dp, vertical = 3.dp),
     )
 }

@@ -115,13 +115,10 @@ fun ConditionScreen(
                     Text("Based on " + authorities.joinToString(" · "), style = Theme.type.caption, color = Theme.colors.textTertiary)
                 }
                 if (groupsOnPage.size >= 2) {
-                    Row(
-                        Modifier.padding(top = 14.dp).horizontalScroll(rememberScrollState()).padding(horizontal = Gutter),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    ) {
-                        FilterChip("All guidelines", filter == null) { filter = null }
-                        groupsOnPage.forEach { g -> FilterChip(g.label, filter == g) { filter = g } }
-                    }
+                    com.medicalaid.app.ui.components.FilterTabs(
+                        listOf<Pair<GuidelineGroup?, String>>(null to "All") + groupsOnPage.map { it to it.label },
+                        filter, { filter = it }, Modifier.padding(top = 10.dp),
+                    )
                 }
             }
         }
@@ -231,21 +228,6 @@ fun ConditionScreen(
 }
 
 @Composable
-private fun FilterChip(label: String, active: Boolean, onClick: () -> Unit) {
-    val c = Theme.colors
-    Text(
-        label,
-        style = Theme.type.label,
-        color = if (active) c.onAccent else c.textSecondary,
-        modifier = Modifier.clip(Radius.pill)
-            .background(if (active) c.accent else c.surface)
-            .border(1.dp, if (active) c.accent else c.hairline, Radius.pill)
-            .clickable(onClick = onClick)
-            .padding(horizontal = 14.dp, vertical = 7.dp),
-    )
-}
-
-@Composable
 private fun InfoCard(block: InfoBlock, modifier: Modifier = Modifier) {
     SurfaceCard(modifier) {
         Text(block.title, style = Theme.type.headline, color = Theme.colors.text)
@@ -270,7 +252,7 @@ private fun DrugCard(drug: Drug, weightKg: Double?, highlighted: Boolean, onOpen
                     "Drug profile ›",
                     style = Theme.type.label,
                     color = c.accent,
-                    modifier = Modifier.padding(start = 8.dp, top = 2.dp).clip(Radius.pill).clickable { onOpenDrug(monograph.id) }
+                    modifier = Modifier.padding(start = 8.dp, top = 2.dp).clip(Radius.chip).clickable { onOpenDrug(monograph.id) }
                         .padding(horizontal = 6.dp, vertical = 2.dp),
                 )
             }

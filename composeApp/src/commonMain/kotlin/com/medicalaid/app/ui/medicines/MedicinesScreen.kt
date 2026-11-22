@@ -168,7 +168,7 @@ fun SearchField(
 ) {
     val c = Theme.colors
     androidx.compose.foundation.layout.Row(
-        modifier.fillMaxWidth().clip(Radius.pill).background(c.surface).border(1.dp, c.hairline, Radius.pill)
+        modifier.fillMaxWidth().clip(Radius.chip).background(c.surface).border(1.dp, c.hairline, Radius.chip)
             .padding(start = 16.dp, end = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -191,7 +191,7 @@ fun SearchField(
         }
         if (value.isNotEmpty()) {
             Box(
-                Modifier.size(32.dp).clip(Radius.pill).clickable { onValueChange("") },
+                Modifier.size(32.dp).clip(Radius.chip).clickable { onValueChange("") },
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(Icons.Outlined.Close, "Clear search", tint = c.textSecondary, modifier = Modifier.size(18.dp))

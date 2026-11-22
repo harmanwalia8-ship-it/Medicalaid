@@ -52,11 +52,11 @@ private val Light = AppColors(
     surface = Color(0xFFFFFFFF),
     surfaceMuted = Color(0xFFF0F0ED),
     hairline = Color(0xFFE7E6E2),
-    text = Color(0xFF141417),
-    textSecondary = Color(0xFF66666E),
-    textTertiary = Color(0xFF9B9BA3),
-    accent = Color(0xFF3F47CC),
-    accentSoft = Color(0xFFEDEEFC),
+    text = Color(0xFF16181A),
+    textSecondary = Color(0xFF5F6366),
+    textTertiary = Color(0xFF969A9D),
+    accent = Color(0xFF0B6E70),
+    accentSoft = Color(0xFFE2EFEF),
     onAccent = Color(0xFFFFFFFF),
     positive = Color(0xFF16805A),
     positiveSoft = Color(0xFFE6F4EE),
@@ -68,16 +68,16 @@ private val Light = AppColors(
 )
 
 private val Dark = AppColors(
-    background = Color(0xFF0E0E11),
-    surface = Color(0xFF17171B),
-    surfaceMuted = Color(0xFF202026),
-    hairline = Color(0xFF2A2A31),
-    text = Color(0xFFF2F2F4),
-    textSecondary = Color(0xFFA3A3AC),
-    textTertiary = Color(0xFF6E6E78),
-    accent = Color(0xFF9198F5),
-    accentSoft = Color(0xFF22244A),
-    onAccent = Color(0xFF0E0E11),
+    background = Color(0xFF0F1112),
+    surface = Color(0xFF171A1B),
+    surfaceMuted = Color(0xFF1F2324),
+    hairline = Color(0xFF2A2F30),
+    text = Color(0xFFF1F3F3),
+    textSecondary = Color(0xFFA2A7A9),
+    textTertiary = Color(0xFF6E7476),
+    accent = Color(0xFF5BBFC1),
+    accentSoft = Color(0xFF13292A),
+    onAccent = Color(0xFF0F1112),
     positive = Color(0xFF4CC394),
     positiveSoft = Color(0xFF15302A),
     caution = Color(0xFFE5A54B),
@@ -108,9 +108,10 @@ object Theme {
 }
 
 object Radius {
-    val card = RoundedCornerShape(20.dp)
-    val inner = RoundedCornerShape(14.dp)
-    val pill = RoundedCornerShape(50)
+    val card = RoundedCornerShape(12.dp)
+    val inner = RoundedCornerShape(8.dp)
+    /** Small labels, badges and selectable items — a softened rectangle, not a pill. */
+    val chip = RoundedCornerShape(6.dp)
 }
 
 @Composable
@@ -175,10 +176,10 @@ fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable ()
             colorScheme = scheme,
             typography = typography,
             shapes = Shapes(
-                small = RoundedCornerShape(10.dp),
-                medium = RoundedCornerShape(14.dp),
-                large = RoundedCornerShape(20.dp),
-                extraLarge = RoundedCornerShape(28.dp),
+                small = RoundedCornerShape(6.dp),
+                medium = RoundedCornerShape(8.dp),
+                large = RoundedCornerShape(12.dp),
+                extraLarge = RoundedCornerShape(16.dp),
             ),
             content = content,
         )

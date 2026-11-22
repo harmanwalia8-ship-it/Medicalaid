@@ -148,6 +148,21 @@ class Screenshots {
         shot("47-protocol-celphos-dark", heightDp = 2000, dark = true) {
             com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("aluminium-phosphide")!!, {}, {}, pad)
         }
+        shot("50-htn-emergency-all", heightDp = 2200) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("hypertensive-emergency")!!, {}, {}, pad)
+        }
+        shot("51-htn-emergency-esc", heightDp = 2200) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(
+                com.medicalaid.app.content.protocols.Protocols.byId("hypertensive-emergency")!!, {}, {}, pad,
+                initialFilter = com.medicalaid.app.ui.medicines.GuidelineGroup.Esc,
+            )
+        }
+        shot("52-htn-emergency-esc-dark", heightDp = 1400, dark = true) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(
+                com.medicalaid.app.content.protocols.Protocols.byId("hypertensive-emergency")!!, {}, {}, pad,
+                initialFilter = com.medicalaid.app.ui.medicines.GuidelineGroup.Esc,
+            )
+        }
         shot("43-tool-abg", heightDp = 1100) {
             Box(Modifier.padding(20.dp)) { com.medicalaid.app.ui.tools.AcidBaseTool("7.21", "24", "10", "138", "100", "2.5") }
         }
