@@ -48,10 +48,8 @@ guideline tabs on protocol pages ("All" default), teal accent instead of purple,
   **reviewed and fixed** (23 Nov 2026): numbers review 2 minor, safety review 3 major + 11 minor, all 16 confirmed
   and applied (findings in `.claude-work/reviews/headspine-*.json`); tests pass. The C-spine scores are live in the
   app (scores are not gated) and now reviewed. Release the protocols with trauma + wounds in 0.5.1.
-- `WoundsBites.kt` (dog bites/rabies, tetanus) — placeholder. The writer was started 23 Nov 2026 and cut off by
-  the usage limit before writing anything: **restart the writer** (writePrompt for group `wounds` in
-  `.claude-work/obstetric-trauma-protocols.js`; use this session's scratchpad, not the SCRATCH path in that file), then
-  reviews and fixer.
+- `WoundsBites.kt` (animal-bite-rabies, tetanus-prophylaxis) — **written** 23 Nov 2026, tests pass; numbers review →
+  safety review → fixer still to run (findings go to `.claude-work/reviews/wounds-*.json`).
 - `TraumaLimbAbdomen.kt` (abdominal/pelvic, open fractures, compartment/crush) — placeholder.
 - Obstetric batch 2 — placeholders `EarlyPregnancy.kt`, `AntepartumHaemorrhage.kt`, `LabourEmergencies.kt`,
   `MaternalMedical.kt` (briefs in the GROUPS array: earlypreg, aph, labour, maternalmed).
