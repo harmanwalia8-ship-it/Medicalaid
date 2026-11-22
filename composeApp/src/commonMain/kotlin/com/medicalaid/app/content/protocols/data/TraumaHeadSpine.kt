@@ -282,7 +282,7 @@ private val headInjury = Protocol(
             points = listOf(
                 "NICE NG232: loss of consciousness or amnesia plus age ≥65, a bleeding or clotting disorder, dangerous mechanism or >30 min retrograde amnesia — CT head within 8 h.",
                 "MoHFW 2025 mild TBI — NCCT head with C-spine for: age >65, vomiting >2 episodes, LOC >5 min, retrograde amnesia >30 min, dangerous mechanism, anticoagulant use.",
-                "MoHFW 2025 also: GCS <15 at 2 h, suspected open or depressed fracture, basal skull fracture signs; NCCT in all moderate and severe TBI. ICMR STW 2024: NCCT head with C-spine in all head injuries.",
+                "MoHFW 2025 also: GCS <15 at 2 h, signs of open, depressed or basal skull fracture; NCCT in all moderate–severe TBI. ICMR STW 2024: NCCT head with C-spine for all.",
                 "NICE NG232: CT cervical spine within 1 h for GCS ≤12, intubation, blunt polytrauma of head and torso, or neck concern with age ≥65, dangerous mechanism, paraesthesia or focal deficit.",
                 "Children: NICE NG232 has separate criteria (e.g. suspected non-accidental injury, GCS <14, a head bruise, swelling or cut >5 cm under 1 year). MoHFW 2025 uses the PECARN rule.",
                 "NICE NG232: no CT on site — transfer; do not use skull X-rays to diagnose brain injury; provisional CT report within 1 h.",
@@ -313,7 +313,7 @@ private val headInjury = Protocol(
                 "NICE NG24: immediate prothrombin complex concentrate to reverse warfarin with head injury and suspected intracerebral haemorrhage. MoHFW 2025: reverse anticoagulation with an intracranial bleed.",
                 "Reversal agents and doses (PCC, vitamin K, idarucizumab): see the Traumatic haemorrhage and shock protocol — Reverse anticoagulants.",
                 "NICE NG232: GCS ≤12 and no suspected active extracranial bleeding — consider tranexamic acid 2 g IV bolus (16 and over) within 2 h, before imaging.",
-                "CRASH-3 (adults within 3 h; GCS ≤12 or intracranial bleeding on CT): 1 g over 10 min, then 1 g over 8 h; fewer head-injury deaths in mild–moderate, not severe TBI.",
+                "CRASH-3 (adults within 3 h; GCS ≤12 or CT bleed): 1 g over 10 min, then 1 g over 8 h; fewer head-injury deaths in mild–moderate, not severe TBI.",
                 "BTF prehospital 2023: prehospital tranexamic acid is not generally indicated for suspected intracranial bleeding. Extracranial bleeding: see Traumatic haemorrhage and shock.",
             ),
             doses = listOf(
@@ -383,7 +383,7 @@ private val headInjury = Protocol(
         // 7 ----------------------------------------------------------------------------------------------
         Step(
             title = "Seizures and intensive care",
-            timing = "Seizure prophylaxis covers the first 7 days (BTF 4th edition)",
+            timing = "Early post-traumatic seizures: within 7 days of injury (BTF 4th edition)",
             points = listOf(
                 "BTF 4th edition (IIA): phenytoin reduces early seizures (within 7 days) but not late seizures; early seizures have not been linked to worse outcomes.",
                 "BTF: insufficient evidence to prefer levetiracetam over phenytoin. SIBICC 2019: consider anti-seizure medicine for 1 week only, unless there is an indication to continue.",
@@ -414,12 +414,11 @@ private val headInjury = Protocol(
         // 8 ----------------------------------------------------------------------------------------------
         Step(
             title = "Neurosurgical referral, transfer and specific injuries",
-            timing = "Discuss with neurosurgery as soon as a trigger is present",
             points = listOf(
                 "NICE NG232: discuss new surgically significant imaging findings with a neurosurgeon. ICMR STW 2024: surgery for extradural haematoma >30 mL, or subdural >10 mm with shift >5 mm and deterioration.",
                 "MoHFW 2025: admit or transfer moderate TBI to a facility with definitive neurosurgical care; if none is readily available, a trained surgeon operates on mass lesions.",
                 "NICE NG232: transfer benefits anyone with GCS ≤8; resuscitate, stabilise and monitor first; do not move a persistently hypotensive patient until the cause is found and treated.",
-                "MoHFW 2025, penetrating injury: leave the object in place; NCCT head with C-spine; ceftriaxone 1 g IV, amikacin 500 mg IV twice daily and metronidazole 500 mg IV three times daily, or local policy.",
+                "MoHFW 2025, penetrating: leave the object in place; NCCT head with C-spine; ceftriaxone 1 g IV, amikacin 500 mg IV twice daily, metronidazole 500 mg IV three times daily, or local policy.",
                 "MoHFW 2025: scalp wounds bleed profusely — direct pressure, clean and suture; look for a skull fracture. Depressed fracture: NCCT with C-spine and neurosurgical consult.",
             ),
             checklistTitle = "NICE NG232 — discuss with a neurosurgeon, regardless of imaging",
@@ -580,13 +579,13 @@ private val spinalInjury = Protocol(
         // 3 ----------------------------------------------------------------------------------------------
         Step(
             title = "Spinal motion restriction",
-            timing = "Until injury is excluded or definitively treated",
+            timing = "From the scene to definitive care (CSCM 2008)",
             points = listOf(
                 "NICE NG41, adults: manual stabilisation, sized semi-rigid collar (not with a compromised airway or deformity such as ankylosing spondylitis), scoop stretcher, head blocks and tape, ideally a vacuum mattress.",
                 "NICE NG41: devices can be counterproductive; let agitated or distressed people, including children, find a comfortable position with manual in-line stabilisation.",
                 "RCUK/ERC 2025 first aid: an alert person can hold the neck in a comfortable, stable position; trained responders may use collars selectively.",
                 "MoHFW 2025: semi-rigid collar in all patients until cervical injury is ruled out; do not reduce an obvious deformity; log roll with at least four people.",
-                "NICE NG41: never transport on a longboard — extrication only. MoHFW 2025: spine board for no more than 2 h. CSCM 2008: move onto a padded surface early in the ED.",
+                "NICE NG41: no transport on a longboard — extrication only. MoHFW 2025: spine board for ≤2 h. CSCM 2008: move onto a padded surface early in the ED.",
                 "CSCM 2008: with confirmed spinal or cord injury, keep the spine immobilised until definitive treatment; log roll as a unit.",
             ),
             citations = listOf(
@@ -665,7 +664,7 @@ private val spinalInjury = Protocol(
         // 7 ----------------------------------------------------------------------------------------------
         Step(
             title = "Steroids and neuroprotective drugs",
-            timing = "Any methylprednisolone decision falls within 8 h of injury",
+            timing = "AO Spine 2017 and ICMR STW 2024 consider methylprednisolone only within 8 h of injury",
             points = listOf(
                 "NICE NG41: do not use methylprednisolone, nimodipine or naloxone for neuroprotection after acute traumatic spinal cord injury. MoHFW 2025: do not give steroids.",
                 "AANS/CNS 2013 (Level I): methylprednisolone is not recommended — no Class I or II evidence of benefit; high-dose steroids cause harm, including death.",

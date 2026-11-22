@@ -14,13 +14,17 @@ import com.medicalaid.app.content.scores.ScoreCategory
 import com.medicalaid.app.content.scores.ShowIf
 
 /*
- * Trauma decision rules: Canadian C-spine Rule and NEXUS low-risk criteria (checked November 2026).
- * - Rule wording from the derivation/validation papers; the Canadian rule card is Figure 1 of Stiell 2009 (BMJ, open access).
+ * Trauma decision rules: Canadian C-spine Rule and NEXUS low-risk criteria (checked 22 November 2026).
+ * - Rule wording from the derivation/validation papers (PubMed abstracts of Stiell 2001, Stiell 2003 and Hoffman 2000);
+ *   the Canadian rule card is Figure 1 of Stiell 2009 (BMJ, open access), checked against the figure itself.
  * - Band.meaning is attributed; the app reports what the rule and guidelines say, it does not instruct.
  * - Canadian C-spine Rule: one question (applicability + risk group) gates the rotation question, so the neck-rotation
  *   question is never shown for a high-risk patient. Values are priority-ordered (1000 / 100 / 10 / 1 / 0).
  * - NEXUS: the five criteria are named exactly as in Hoffman 2000 (abstract); their detailed operational definitions
- *   (full text) could not be checked and are deliberately not paraphrased here.
+ *   (full text, not accessible) are deliberately not paraphrased here.
+ * - Score sources must be released sources, so the MoHFW 2025 trauma STG has its own id here (sc-tr-mohfw-stg-trauma-2025);
+ *   the same document is tr-mohfw-stg-trauma-2025 in protocols/data/Trauma.kt, which is still in review. The
+ *   head and spinal injury protocols (TraumaHeadSpine.kt) cite sc-tr-nice-ng41 and sc-tr-stiell-2003 from this file.
  */
 
 internal val traumaScoreSources = listOf(
@@ -82,7 +86,7 @@ internal val traumaScores = listOf(
         ),
         items = listOf(
             Choice(
-                "group", "Applicability, high-risk and low-risk factors",
+                "group", "Applicability, high-risk and low-risk factors — pick the first row that applies",
                 listOf(
                     Option(
                         "Not applicable — non-trauma, GCS <15, unstable vital signs, age <16, acute paralysis, known vertebral disease or previous C-spine surgery",
@@ -119,7 +123,7 @@ internal val traumaScores = listOf(
             ),
             Band(
                 10.0, 10.0, "Imaging indicated — no low-risk factor",
-                "Canadian C-spine Rule (Stiell 2001): no low-risk factor, so range of motion cannot be assessed safely — radiography indicated. NICE NG41: CT in adults when imaging is indicated by the rule.",
+                "Canadian C-spine Rule (Stiell 2001): no low-risk factor, so range of motion cannot be assessed safely — radiography indicated. NICE NG41 advises CT for adults when the rule indicates imaging.",
                 Level.Moderate,
             ),
             Band(
@@ -151,7 +155,7 @@ internal val traumaScores = listOf(
                 listOf(cite(NG41, "Rec 1.5.6–1.5.7")),
             ),
             Caveat(
-                "Head injury: NICE NG232 advises CT cervical spine within 1 hour, regardless of this rule, if GCS ≤12 on initial assessment, the patient is intubated, or there is blunt polytrauma involving the head and chest, abdomen or pelvis.",
+                "Head injury: NICE NG232 advises CT cervical spine within 1 hour for GCS ≤12 on initial assessment, intubation, an urgent need for a definitive diagnosis, or blunt polytrauma involving the head and chest, abdomen or pelvis in an alert, stable person.",
                 listOf(cite(NG232, "Rec 1.6.2")),
             ),
             Caveat(

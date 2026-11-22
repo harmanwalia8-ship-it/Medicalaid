@@ -37,6 +37,13 @@ class TraumaScoresTest {
         val s = score("canadian-c-spine")
         assertFalse(s.showTotal)
 
+        // The option order below is what the indices refer to: not applicable, high risk, no low-risk factor, low risk.
+        val group = s.items.single { it.id == "group" } as Choice
+        assertEquals(4, group.options.size)
+        assertTrue(group.options[notApplicable].label.startsWith("Not applicable"))
+        assertTrue(group.options[highRisk].label.startsWith("High-risk factor"))
+        assertTrue(group.options[lowRisk].label.contains("at least one low-risk factor"))
+
         // Nothing answered → no result.
         assertNull(ScoreEngine.total(s, emptyMap()))
 
