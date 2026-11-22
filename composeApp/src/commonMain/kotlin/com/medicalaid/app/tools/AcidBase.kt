@@ -4,22 +4,39 @@ import kotlin.math.round
 
 /**
  * Arterial blood gas interpretation: primary disorder, secondary response, anion gap, albumin-corrected
- * anion gap and Δ–Δ. Every threshold and formula follows Berend, de Vries & Gans, N Engl J Med
- * 2014;371:1434–1445 (ToolSources.kt, "tool-acid-base"): Table 1, Figures 1–2 and the anion gap and Δ–Δ sections.
+ * anion gap and Δ–Δ.
+ * - Normal ranges (the primary-disorder thresholds [PH_LOW]…[HCO3_HIGH]): the usual clinical reference ranges from
+ *   StatPearls, Castro & Zubair, "Arterial Blood Gas Analysis: Fundamentals, Interpretation, and Clinical Utility",
+ *   updated 5 July 2026 (ToolSources.kt, "tool-abg-reference"), section "Results, Reporting, and Critical Findings".
+ *   Berend's narrower Table 1 bands (pH 7.38–7.42, PaCO2 38–42 mm Hg) are not used.
+ * - Everything else (structure of the primary-disorder criteria, secondary-response formulas, respiratory bands, anion gap,
+ *   albumin correction, Δ–Δ) follows Berend, de Vries & Gans, N Engl J Med 2014;371:1434–1445 (ToolSources.kt,
+ *   "tool-acid-base"): Table 1, Figures 1–2 and the anion gap and Δ–Δ sections.
  * Arterial samples only (Berend Table 1 footnote gives different venous reference values).
  * Units: PaCO2 mm Hg; HCO3, Na, Cl mmol/L; albumin g/dL.
  */
 object AcidBase {
-    /** Berend Table 1: acidaemia pH < 7.38, alkalaemia pH > 7.42 (reference 7.40 ± 0.02). */
-    const val PH_LOW = 7.38
-    const val PH_HIGH = 7.42
-    /** Berend Table 1: respiratory acidosis PaCO2 > 42, respiratory alkalosis PaCO2 < 38 mm Hg (reference 40 ± 2). */
-    const val PCO2_HIGH = 42.0
-    const val PCO2_LOW = 38.0
-    /** Berend Table 1: metabolic acidosis HCO3 < 22, metabolic alkalosis HCO3 > 26 mmol/L (reference 24 ± 2). */
+    /**
+     * StatPearls (Results, Reporting, and Critical Findings): "pH (7.35-7.45)"; Romanski method: "acidemia (pH <7.35)
+     * or alkalemia (pH >7.45)". So pH 7.35 and 7.45 themselves are within the normal range.
+     */
+    const val PH_LOW = 7.35
+    const val PH_HIGH = 7.45
+    /**
+     * StatPearls (Results, Reporting, and Critical Findings): "PaCO2 (35-45 mm Hg)". Respiratory acidosis needs
+     * PaCO2 > 45, respiratory alkalosis PaCO2 < 35 mm Hg.
+     */
+    const val PCO2_HIGH = 45.0
+    const val PCO2_LOW = 35.0
+    /**
+     * StatPearls (Results, Reporting, and Critical Findings): "HCO3 (22-26 mEq/L)" (= mmol/L; the same as Berend
+     * Table 1, 24 ± 2). Metabolic acidosis needs HCO3 < 22, metabolic alkalosis HCO3 > 26 mmol/L.
+     */
     const val HCO3_LOW = 22.0
     const val HCO3_HIGH = 26.0
+    /** Berend Table 1 reference PaCO2 (40 mm Hg), the baseline for the secondary-response formulas and bands. */
     const val PCO2_NORMAL = 40.0
+    /** Berend Table 1 reference HCO3 (24 mmol/L), the baseline for the secondary-response formulas, bands and ΔHCO3. */
     const val HCO3_NORMAL = 24.0
     /** Upper reference value of the anion gap used for ΔAG (Berend: "e.g., 12 mmol per liter"; analyser-specific). */
     const val AG_NORMAL = 12.0
@@ -47,14 +64,19 @@ object AcidBase {
         MixedAcidosis("Mixed metabolic and respiratory acidosis"),
         MixedAlkalosis("Mixed metabolic and respiratory alkalosis"),
         NormalPh(
-            "pH 7.38–7.42. If PaCO₂ or HCO₃ is abnormal, this is a mixed disorder or a chronic respiratory disorder " +
-                "(Berend: pH may be normal in chronic respiratory acidosis, and compensation may normalise pH in chronic " +
-                "respiratory alkalosis). If all values are normal, a raised anion gap may still reveal a mixed disorder.",
+            "pH within the normal range 7.35–7.45 (StatPearls). Within this range StatPearls uses 7.40 as the cut-off " +
+                "(pH 7.37 counts as acidosis, 7.42 as alkalaemia). If PaCO₂ or HCO₃ is abnormal, also consider a mixed or chronic " +
+                "respiratory disorder (Berend: pH may be normal in chronic respiratory acidosis, and compensation may normalise pH " +
+                "in chronic respiratory alkalosis). If all values are normal, a raised anion gap may still reveal a mixed disorder (Berend).",
         ),
         NotClassified("pH abnormal but PaCO₂ and HCO₃ do not meet the criteria for a primary disorder — recheck the values"),
     }
 
-    /** Primary disorder by Berend Table 1 criteria. */
+    /**
+     * Primary disorder: Berend Table 1 criteria (pH outside the normal range plus the matching abnormal PaCO2 and/or
+     * HCO3), applied with the StatPearls normal ranges ([PH_LOW]–[PH_HIGH], [PCO2_LOW]–[PCO2_HIGH], [HCO3_LOW]–[HCO3_HIGH])
+     * instead of Berend's narrower bands. Range limits count as normal.
+     */
     fun primary(ph: Double, pco2: Double, hco3: Double): Primary = when {
         ph < PH_LOW && pco2 > PCO2_HIGH && hco3 < HCO3_LOW -> Primary.MixedAcidosis
         ph < PH_LOW && hco3 < HCO3_LOW -> Primary.MetabolicAcidosis

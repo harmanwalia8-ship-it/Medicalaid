@@ -11,7 +11,10 @@ import com.medicalaid.app.content.Source
  *   targets (p. 10), paediatric formula and D5LR 4-2-1 maintenance (p. 18), hours counted from injury (Appendix D).
  * - Starting rates 2 and 4 mL/kg/%TBSA: ABA 2024 guideline, Question 3 (adults with burns ≥20% TBSA).
  * - IV thresholds, half of the 24 h volume in the first 8 h, paediatric formula, urine output targets: MoHFW 2025 STG, section E.
- * - ABG thresholds, venous reference values, respiratory bands, anion gap, albumin correction, Δ–Δ: Berend et al. NEJM 2014.
+ * - ABG normal ranges used as the primary-disorder thresholds (pH 7.35–7.45, PaCO2 35–45 mm Hg, HCO3 22–26 mmol/L):
+ *   StatPearls "Arterial Blood Gas Analysis", section "Results, Reporting, and Critical Findings".
+ * - ABG primary-disorder criteria (structure), venous reference values, secondary-response formulas, respiratory bands,
+ *   anion gap, albumin correction, Δ–Δ: Berend et al. NEJM 2014.
  */
 internal val toolSources = listOf(
     Source(
@@ -38,5 +41,12 @@ internal val toolSources = listOf(
         "Physiological approach to assessment of acid–base disturbances (Berend, de Vries, Gans)", "2014",
         "https://doi.org/10.1056/NEJMra1003327",
         status = "Updated online 16 October 2014",
+    ),
+    Source(
+        "tool-abg-reference", Authority.Paper, "StatPearls review chapter (NCBI Bookshelf NBK536919; PMID 30725604)",
+        "Arterial Blood Gas Analysis: Fundamentals, Interpretation, and Clinical Utility (Castro, Zubair)", "2026",
+        "https://www.ncbi.nlm.nih.gov/books/NBK536919/",
+        status = "Last updated 5 July 2026; StatPearls Publishing, Treasure Island (FL). Normal ranges only; " +
+            "the chapter notes that values may vary slightly among laboratories",
     ),
 )

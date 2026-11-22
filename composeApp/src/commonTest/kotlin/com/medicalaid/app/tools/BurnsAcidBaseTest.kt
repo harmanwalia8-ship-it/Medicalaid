@@ -108,19 +108,65 @@ class BurnsAcidBaseTest {
     }
 
     @Test
-    fun primaryDisorderUsesBerendTable1Criteria() {
+    fun primaryDisorderUsesUsualReferenceRanges() {
+        // StatPearls normal ranges: pH 7.35–7.45, PaCO2 35–45 mm Hg, HCO3 22–26 mmol/L (HCO3 as in Berend Table 1).
+        assertEquals(7.35, AcidBase.PH_LOW)
+        assertEquals(7.45, AcidBase.PH_HIGH)
+        assertEquals(35.0, AcidBase.PCO2_LOW)
+        assertEquals(45.0, AcidBase.PCO2_HIGH)
+        assertEquals(22.0, AcidBase.HCO3_LOW)
+        assertEquals(26.0, AcidBase.HCO3_HIGH)
+        // Compensation baselines stay on Berend's reference values.
+        assertEquals(40.0, AcidBase.PCO2_NORMAL)
+        assertEquals(24.0, AcidBase.HCO3_NORMAL)
+
         assertEquals(AcidBase.Primary.MetabolicAcidosis, AcidBase.primary(7.20, 25.0, 10.0))
         assertEquals(AcidBase.Primary.RespiratoryAcidosis, AcidBase.primary(7.25, 60.0, 26.0))
         assertEquals(AcidBase.Primary.MixedAcidosis, AcidBase.primary(7.10, 55.0, 16.0))
         assertEquals(AcidBase.Primary.MetabolicAlkalosis, AcidBase.primary(7.50, 48.0, 36.0))
         assertEquals(AcidBase.Primary.RespiratoryAlkalosis, AcidBase.primary(7.50, 28.0, 21.0))
         assertEquals(AcidBase.Primary.MixedAlkalosis, AcidBase.primary(7.55, 34.0, 30.0))
-        // pH < 7.38 is acidaemia in Berend (not 7.35).
-        assertEquals(AcidBase.Primary.MetabolicAcidosis, AcidBase.primary(7.37, 33.0, 19.0))
         assertEquals(AcidBase.Primary.NormalPh, AcidBase.primary(7.40, 40.0, 24.0))
         assertEquals(AcidBase.Primary.NotClassified, AcidBase.primary(7.30, 40.0, 24.0))
-        // PaCO2 43 (> 42) with HCO3 < 22 counts as a respiratory component.
-        assertEquals(AcidBase.Primary.MixedAcidosis, AcidBase.primary(7.30, 43.0, 21.0))
+        // pH 7.37 was acidaemia under Berend's 7.38 cut-off; it is now within 7.35–7.45.
+        assertEquals(AcidBase.Primary.NormalPh, AcidBase.primary(7.37, 33.0, 19.0))
+        // PaCO2 43 was a respiratory component under Berend's 42; it is now within 35–45, so HCO3 21 alone is metabolic.
+        assertEquals(AcidBase.Primary.MetabolicAcidosis, AcidBase.primary(7.30, 43.0, 21.0))
+        assertEquals(AcidBase.Primary.MixedAcidosis, AcidBase.primary(7.30, 46.0, 21.0))
+    }
+
+    @Test
+    fun primaryDisorderBoundaries() {
+        fun p(ph: Double, pco2: Double, hco3: Double) = AcidBase.primary(ph, pco2, hco3)
+        // pH: 7.35 and 7.45 are normal; acidaemia below 7.35, alkalaemia above 7.45.
+        assertEquals(AcidBase.Primary.NormalPh, p(7.36, 40.0, 24.0))
+        assertEquals(AcidBase.Primary.NormalPh, p(7.35, 40.0, 24.0))
+        assertEquals(AcidBase.Primary.NormalPh, p(7.44, 40.0, 24.0))
+        assertEquals(AcidBase.Primary.NormalPh, p(7.45, 40.0, 24.0))
+        assertEquals(AcidBase.Primary.MetabolicAcidosis, p(7.34, 40.0, 18.0))
+        assertEquals(AcidBase.Primary.RespiratoryAcidosis, p(7.34, 50.0, 24.0))
+        assertEquals(AcidBase.Primary.MetabolicAlkalosis, p(7.46, 40.0, 30.0))
+        assertEquals(AcidBase.Primary.RespiratoryAlkalosis, p(7.46, 30.0, 24.0))
+        assertEquals(AcidBase.Primary.NotClassified, p(7.34, 40.0, 24.0))
+        assertEquals(AcidBase.Primary.NotClassified, p(7.46, 40.0, 24.0))
+        // Abnormal PaCO2 or HCO3 with pH inside 7.35–7.45 is not a primary disorder here (see the NormalPh label).
+        assertEquals(AcidBase.Primary.NormalPh, p(7.36, 32.0, 18.0))
+        assertEquals(AcidBase.Primary.NormalPh, p(7.44, 50.0, 33.0))
+        // PaCO2: 45 and 35 are normal; above 45 / below 35 is a respiratory component.
+        assertEquals(AcidBase.Primary.NotClassified, p(7.30, 45.0, 24.0))
+        assertEquals(AcidBase.Primary.RespiratoryAcidosis, p(7.30, 45.5, 24.0))
+        assertEquals(AcidBase.Primary.NotClassified, p(7.50, 35.0, 24.0))
+        assertEquals(AcidBase.Primary.RespiratoryAlkalosis, p(7.50, 34.5, 24.0))
+        // HCO3: 22 and 26 are normal; below 22 / above 26 is a metabolic component.
+        assertEquals(AcidBase.Primary.NotClassified, p(7.30, 40.0, 22.0))
+        assertEquals(AcidBase.Primary.MetabolicAcidosis, p(7.30, 40.0, 21.5))
+        assertEquals(AcidBase.Primary.NotClassified, p(7.50, 40.0, 26.0))
+        assertEquals(AcidBase.Primary.MetabolicAlkalosis, p(7.50, 40.0, 26.5))
+        // Mixed at the edges.
+        assertEquals(AcidBase.Primary.MixedAcidosis, p(7.34, 45.5, 21.5))
+        assertEquals(AcidBase.Primary.MixedAlkalosis, p(7.46, 34.5, 26.5))
+        assertTrue(AcidBase.Primary.NormalPh.label.contains("7.35–7.45"))
+        assertTrue(AcidBase.Primary.NormalPh.label.contains("StatPearls"))
     }
 
     @Test

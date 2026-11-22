@@ -429,19 +429,27 @@ fun AcidBaseTool(
                         )
                     }
                     add(
+                        "Normal ranges (StatPearls): pH 7.35–7.45, PaCO₂ 35–45 mm Hg, HCO₃ 22–26 mmol/L; values may vary slightly among laboratories. " +
+                            "The primary disorder is a pH outside 7.35–7.45 with the matching abnormal PaCO₂ and/or HCO₃ (criteria as in Berend Table 1, " +
+                            "which uses narrower bands: pH 7.38–7.42, PaCO₂ 38–42 mm Hg). Expected compensation, anion gap and Δ–Δ follow Berend.",
+                    )
+                    add(
                         "Prediction equations are approximations (Berend: data are insufficient to construct confidence limits for severe chronic respiratory disorders). " +
                             "Respiratory disorders are classified by Berend's bands for the HCO₃ change per 10 mm Hg change in PaCO₂ from 40, with no added tolerance.",
                     )
                     add(
                         "Arterial blood gas only. Berend's venous reference values differ (pH 7.36–7.38, PvCO₂ 43–48 mm Hg, HCO₃ 25–26 mmol/L), " +
-                            "so do not apply these thresholds to a venous sample.",
+                            "so do not apply these arterial ranges to a venous sample.",
                     )
                 },
             )
         }
         Spacer(Modifier.height(14.dp))
         GuidelineBasis(
-            listOf(Citation("tool-acid-base", "Table 1; Figures 1–2; text pp. 1437–1441; Table 2 footnote")),
+            listOf(
+                Citation("tool-abg-reference", "Results, Reporting, and Critical Findings (normal ranges; pH 7.40 cut-off)"),
+                Citation("tool-acid-base", "Table 1 (criteria, compensation); Figures 1–2; text pp. 1437–1441; Table 2 footnote"),
+            ),
             compact = true,
         )
     }

@@ -143,7 +143,7 @@ private val cardiacArrest = Protocol(
                 "AHA 2025: manufacturer's energy (e.g. first shock 120–200 J); if unknown, maximum; monophasic 360 J. IRC 2017: 120 J biphasic, escalating to 200 J maximum.",
                 "ERC 2025: antero-lateral pads, lateral pad below the armpit in the mid-axillary line; peri-shock pause under 5 s; shock even fine VF.",
                 "VF after 3 shocks: ERC 2025 — consider antero-posterior vector change, dual sequential shocks not routine; AHA 2025 — usefulness of both not established.",
-                "ERC 2025: up to three stacked shocks only for witnessed, monitored VF/pVT with a defibrillator at hand (e.g. catheter laboratory). AHA 2025: single shocks preferred.",
+                "ERC 2025: up to three stacked shocks only for witnessed, monitored VF/pVT with a defibrillator at hand (e.g. catheter laboratory); for adrenaline and amiodarone timing, the three stacked shocks count as the first shock. AHA 2025: single shocks preferred.",
             ),
             citations = listOf(
                 cite(ERC_ALS, "Defibrillation strategy; Defibrillation pads and paddles; Energy levels and number of shocks; Refractory ventricular fibrillation"),
@@ -161,7 +161,7 @@ private val cardiacArrest = Protocol(
                 "Shockable rhythm: ERC 2025 — after the 3rd shock; AHA 2025 — after initial defibrillation attempts fail (its algorithm gives it after the 2nd shock).",
                 "IRC 2017: 1 mg diluted to 10 mL once access is secured, irrespective of rhythm; flush with 20 mL saline and raise the limb 10–20 s.",
                 "AHA 2025: vasopressin, alone or with adrenaline, offers no advantage; high-dose adrenaline is not recommended.",
-                "ERC 2025: arrest with an arterial line in place — suggests 50–100 mcg increments first instead of a 1 mg bolus.",
+                "ERC 2025: arrest with an arterial line in place — suggests 50–100 mcg increments first instead of a 1 mg bolus; if 1 mg in total has no effect, check for extravasation, then consider 1 mg every 3–5 min.",
             ),
             citations = listOf(
                 cite(AHA_ALS, "Vasopressor management in cardiac arrest Rec 1–6; Fig. 2"),
@@ -224,7 +224,7 @@ private val cardiacArrest = Protocol(
                 "ERC 2025: suspected or confirmed pulmonary embolism — consider immediate thrombolysis, then consider continuing CPR for 60–90 min in select patients.",
                 "ERC 2025: give fluids only if hypovolaemia caused the arrest (isotonic saline or balanced crystalloid).",
                 "ERC 2025: POCUS only by skilled operators without extra pauses; RV dilatation alone does not diagnose PE. AHA 2025: usefulness not well established.",
-                "Hyperkalaemic arrest: ERC 2025 — 10 mL 10% calcium chloride plus 50 mmol sodium bicarbonate; AHA 2025 — calcium, bicarbonate and insulin-glucose not well established.",
+                "Hyperkalaemic arrest: ERC 2025 — 10 mL 10% calcium chloride plus 50 mmol sodium bicarbonate, through separate lines or with a flush in between; AHA 2025 — calcium, bicarbonate and insulin-glucose not well established.",
                 "IRC 2017 mnemonic 'HIT THE TARGET' also lists acute coronary syndrome, raised intracranial pressure and hypo-/hyperglycaemia.",
             ),
             checklistTitle = "4 Hs and 4 Ts (ERC 2025; AHA 2025 adds hydrogen ion)",
@@ -254,7 +254,7 @@ private val cardiacArrest = Protocol(
             points = listOf(
                 "ERC 2025: ECPR may be considered for selected adults when conventional CPR fails, where it can be delivered; recognise refractory arrest early to activate the team.",
                 "AHA 2025: intubated patient failing to reach ETCO2 >10 mm Hg after 20 min of ALS — may be one component of a multimodal decision to stop.",
-                "AHA 2025: no ETCO2 cut-off in non-intubated patients. ERC 2025: never use low ETCO2 alone; TOR rules are not the sole basis in hospital.",
+                "AHA 2025 (Class 3: Harm): do not use any ETCO2 cut-off to decide to stop CPR in non-intubated patients. ERC 2025: never use low ETCO2 alone; TOR rules are not the sole basis in hospital.",
                 "IRC 2017: with high-quality CPR, asystole >20 min and ETCO2 <10 mm Hg may be a sign to stop; VF/pVT should prompt continued resuscitation.",
                 "ERC 2025: do not use POCUS assessment of contractility as the sole reason to stop CPR.",
             ),
@@ -344,7 +344,7 @@ private val cardiacArrest = Protocol(
         ),
         ProtocolNote(
             "Scope: post-ROSC targets here are ERC–ESICM 2025 and IRC 2017 only; AHA 2025 Part 11 (post-cardiac arrest care) was not available for review. Published corrigenda to the ERC chapters have not been reviewed.",
-            listOf(cite(ERC_PRC, "Corrigendum Resuscitation 2026;228:111315"), cite(ERC_ALS, "Corrigendum Resuscitation 2026;229:111313"), cite(IRC, "Post-resuscitation care")),
+            listOf(cite(ERC_PRC), cite(ERC_ALS), cite(IRC, "Post-resuscitation care")),
         ),
     ),
     citations = listOf(
@@ -402,7 +402,7 @@ private val tachycardiaWithPulse = Protocol(
                 "ERC 2025: AF — start at maximum output; flutter or SVT 70–120 J, then stepwise; VT with a pulse 120–150 J, then stepwise.",
                 "AHA 2025 (Fig. 7): AF 200 J; flutter 200 J; narrow-complex 100 J; monomorphic VT 100 J; polymorphic VT — unsynchronised high-energy shock.",
                 "ERC 2025: cardioversion fails — amiodarone 300 mg IV over 10–20 min or procainamide 10–15 mg/kg (max 1 g) over 20 min, re-shock; amiodarone 900 mg/24 h.",
-                "AHA 2025: if synchronisation delays a critical patient, give unsynchronised shocks; resynchronise after each shock. ICMR STW: unstable AF — cardiovert after heparinisation.",
+                "AHA 2025: if synchronisation delays a critical patient, give unsynchronised shocks; resynchronise after each shock. ICMR STW (district hospital): immediate cardioversion after heparinisation if haemodynamically unstable.",
             ),
             doses = listOf(
                 StepDose(
@@ -431,18 +431,18 @@ private val tachycardiaWithPulse = Protocol(
             ),
             doses = listOf(
                 StepDose(
-                    "Verapamil (AHA Table 2; ERC Table 6)",
+                    "Verapamil (ERC Table 6)",
                     WeightDose(0.075, 0.15, "mg", per = "IV over 2 min"),
-                    note = "ERC: average 5–10 mg",
+                    note = "ERC: average 5–10 mg; AHA Table 2 gives the same dose for AF/flutter rate control",
                 ),
                 StepDose(
-                    "Diltiazem (AHA Table 2; ERC Table 6)",
+                    "Diltiazem (ERC Table 6)",
                     WeightDose(0.25, 0.25, "mg", per = "IV over 2 min"),
-                    note = "ERC: average 20 mg",
+                    note = "ERC: average 20 mg; AHA Table 2 gives the same dose for AF/flutter rate control",
                 ),
             ),
             citations = listOf(
-                cite(AHA_ALS, "Regular narrow-complex tachycardia Rec 1–6 and supportive text; Fig. 6; Table 2"),
+                cite(AHA_ALS, "Regular narrow-complex tachycardia Rec 1–6 and supportive text; Fig. 6; Table 2 (AF/flutter rate control: same verapamil and diltiazem doses)"),
                 cite(ERC_ALS, "Table 6; Fig. 8"),
             ),
         ),
@@ -452,9 +452,9 @@ private val tachycardiaWithPulse = Protocol(
             points = listOf(
                 "AHA 2025 (Class 1): IV β-blocker or non-dihydropyridine CCB to slow the rate if no pre-excitation; IV amiodarone useful when critically ill (2a).",
                 "ICMR STW: metoprolol, diltiazem or verapamil if HR >110/min without CHF; β-blocker plus digoxin in heart failure; aim HR <110/min.",
-                "ERC 2025: EF >40% — β-blocker, verapamil, diltiazem or digoxin; EF <40% — smallest β-blocker dose for HR <110, plus digoxin; unstable, severe LV dysfunction — amiodarone.",
+                "ERC 2025: EF >40% — β-blocker, verapamil, diltiazem or digoxin; EF <40% — smallest β-blocker dose for HR <110/min, adding digoxin if necessary (Fig. 8: β-blocker or digoxin); unstable, severe LV dysfunction — amiodarone.",
                 "AHA 2025: avoid CCBs and IV β-blockers in decompensated HFrEF. Metoprolol 2.5–5 mg over 2 min, up to 3 doses.",
-                "AHA 2025: amiodarone 300 mg IV over 1 h, then 10–50 mg/h over 24 h; digoxin 0.25 mg IV, repeated to maximum 1.5 mg in 24 h.",
+                "AHA 2025: amiodarone 300 mg IV over 1 h, then 10–50 mg/h over 24 h; digoxin 0.25 mg IV, repeated to maximum 1.5 mg in 24 h, usually as an adjunct (caution in renal impairment).",
                 "ERC 2025: anticoagulate if AF has lasted >24 h. AHA 2025: cardioverting AF >48 h without anticoagulation risks thromboembolism.",
             ),
             scoreIds = listOf("cha2ds2-vasc", "has-bled"),
@@ -571,7 +571,7 @@ private val tachycardiaWithPulse = Protocol(
             listOf(cite(ERC_ALS, "Table 6"), cite(AHA_ALS, "Wide-complex tachycardia Rec 3 supportive text")),
         ),
         ProtocolNote(
-            "India: ICMR has no adult tachyarrhythmia STW (its 'Tachyarrhythmia' STW is paediatric). The ICMR AF STW and ERC 2025 both aim for a ventricular rate below 110/min in AF.",
+            "India: ICMR has no adult tachyarrhythmia STW (its 'Tachyarrhythmia' STW is paediatric). The ICMR AF STW aims for a ventricular rate below 110/min in AF; ERC 2025 gives the same <110/min target for stable patients with LVEF <40%.",
             listOf(cite(ICMR_AF, "Heart rate control"), cite(ERC_ALS, "Tachyarrhythmias")),
         ),
     ),
@@ -626,12 +626,12 @@ private val bradycardia = Protocol(
                 "AHA 2025 (Class 2a): atropine 1 mg IV bolus, repeated every 3–5 min, maximum 3 mg.",
                 "ERC 2025: atropine 500 mcg IV/IO, repeated every 3–5 min to a total of 3 mg; glycopyrrolate may be used instead.",
                 "ICMR STW gives no atropine dose; it advises IV dopamine or isoprenaline until temporary pacing can be placed.",
+                "ERC 2025: bradycardia after spinal cord injury — consider aminophylline 100–200 mg slow IV.",
             ),
-            checklistTitle = "Atropine cautions (ERC 2025)",
+            checklistTitle = "Do not give atropine (ERC 2025)",
             checklist = listOf(
-                "High-degree AV block with wide QRS — ineffective and may worsen the block",
-                "Heart transplant — may cause high-degree AV block or sinus arrest; use aminophylline 100–200 mg slow IV",
-                "Spinal cord injury — consider aminophylline 100–200 mg slow IV",
+                "High-degree AV block with wide QRS — do not give: ineffective and may worsen the block",
+                "Heart transplant — do not give: can cause high-degree AV block or sinus arrest; use aminophylline 100–200 mg slow IV",
             ),
             citations = listOf(
                 cite(AHA_ALS, "Initial management of bradycardia Rec 2; Fig. 8 (Doses/Details)"),
@@ -693,9 +693,10 @@ private val bradycardia = Protocol(
             title = "Drug and toxin causes",
             points = listOf(
                 "ICMR STW: suspected β-blocker or CCB overdose — withhold the drug; also consider clonidine and lithium.",
-                "Glucagon (β-blocker/CCB): ERC 2025 — 3–10 mg IV over 1–2 min, then 2–5 mg/h if effective; AHA 2025 — 2–10 mg, then 1–15 mg/h.",
+                "Glucagon (β-blocker/CCB): ERC 2025 — 3–10 mg IV over 1–2 min, then 2–5 mg/h if effective; AHA 2025 — 2–10 mg, then 1–15 mg/h; anticipate vomiting.",
+                "AHA 2025 (Class 1): vasopressors (e.g. noradrenaline, adrenaline) for hypotension in β-blocker and CCB poisoning.",
                 "AHA 2025 (Class 1): high-dose insulin for hypotension in CCB poisoning, and for vasopressor-refractory hypotension in β-blocker poisoning.",
-                "AHA 2025: calcium reasonable in CCB, may be reasonable in β-blocker poisoning — calcium chloride 2000 mg or calcium gluconate 6000 mg initially.",
+                "AHA 2025: calcium reasonable in CCB, may be reasonable in β-blocker poisoning — calcium chloride 2000 mg (through a central line) or calcium gluconate 6000 mg initially, then titrate to BP; do not exceed ionised calcium 1.5–2 times the upper limit of normal.",
                 "AHA 2025 digoxin Fab: acute — 1 vial per 0.5 mg ingested; amount unknown, critically ill — 10–20 vials; chronic — vials = level (ng/mL) × kg ÷ 100.",
                 "AHA 2025 Table 4: yellow oleander — Fab 1200 mg (30 vials); organophosphates — atropine 1–2 mg, doubled every 5 min (see oleander and organophosphate protocols).",
             ),
@@ -713,17 +714,17 @@ private val bradycardia = Protocol(
             citations = listOf(
                 cite(ICMR_BRADY, "Treatment of associated conditions; General approach to patients with symptomatic bradycardia"),
                 cite(ERC_ALS, "Peri-arrest arrhythmias (bradycardia)"),
-                cite(AHA_SPECIAL, "Toxicology: β-blockers Rec 1, 3, 9; Toxicology: calcium channel blockers Rec 1, 5–6; Toxicology: digoxin and related cardiac glycosides Rec 1–2; Table 4"),
+                cite(AHA_SPECIAL, "Toxicology: β-blockers Rec 1–3, 9 and supportive text; Toxicology: calcium channel blockers Rec 1–2, 5–6; Toxicology: digoxin and related cardiac glycosides Rec 1–2; Table 4"),
             ),
         ),
         // 6 ----------------------------------------------------------------------------------------------
         Step(
             title = "Hyperkalaemia, ischaemia and other causes",
-            timing = "Calcium first if hyperkalaemic ECG changes",
+            timing = "ERC 2025: IV calcium for severe hyperkalaemia with ECG changes",
             points = listOf(
                 "ICMR STW: hyperkalaemia (K+ >6 mmol/L or ECG changes) — stop K+ supplements, K-sparing diuretics, NSAIDs and RAAS inhibitors.",
                 "ICMR STW: 10 mL 10% calcium gluconate over 10 min; IV insulin with glucose; IV sodium bicarbonate; salbutamol, loop diuretics or potassium binders.",
-                "ERC 2025: 10 mL 10% calcium chloride for severe hyperkalaemia with ECG changes; insulin 10 units with glucose 25 g; nebulised salbutamol 10–20 mg.",
+                "ERC 2025: 10 mL 10% calcium chloride for severe hyperkalaemia with ECG changes; insulin 10 units with glucose 25 g, then 10% glucose 50 mL/h for 5 h if pre-treatment glucose <7 mmol/L (hypoglycaemia in up to 28%); nebulised salbutamol 10–20 mg.",
                 "AHA and ERC 2025 list myocardial ischaemia/infarction as a cause; ERC 2025: immediate pacing especially when block is at or below the His–Purkinje level.",
                 "AHA 2025: other causes — hypoxaemia, hypothyroidism, infection, structural heart disease, increased vagal tone, metabolic derangement, medications or toxins.",
             ),
@@ -767,8 +768,12 @@ private val bradycardia = Protocol(
             listOf(cite(ERC_ALS, "Peri-arrest arrhythmias (bradycardia)"), cite(AHA_SPECIAL, "Table 4; Toxicology: β-blockers Rec 3; calcium channel blockers Rec 6")),
         ),
         ProtocolNote(
-            "Hyperkalaemia: ICMR STW uses 10 mL 10% calcium gluconate over 10 min; ERC 2025 uses 10 mL 10% calcium chloride.",
-            listOf(cite(ICMR_BRADY, "Treatment of associated conditions"), cite(ERC_SPECIAL, "Hyperkalaemia")),
+            "Hyperkalaemia: ICMR STW uses 10 mL 10% calcium gluconate over 10 min; ERC 2025 uses 10 mL 10% calcium chloride. These are not equivalent: 10 mL 10% calcium chloride contains about three times the calcium of 10 mL 10% calcium gluconate (AHA 2025 Table 4: 2000 mg chloride and 6000 mg gluconate each ≈ 28 mEq Ca2+).",
+            listOf(cite(ICMR_BRADY, "Treatment of associated conditions"), cite(ERC_SPECIAL, "Hyperkalaemia"), cite(AHA_SPECIAL, "Table 4")),
+        ),
+        ProtocolNote(
+            "Sodium bicarbonate differs: the ICMR STW lists IV sodium bicarbonate for hyperkalaemia; ERC 2025 recommends against its routine use outside cardiac arrest (potassium falls by only about 0.1 mmol/L).",
+            listOf(cite(ICMR_BRADY, "Treatment of associated conditions"), cite(ERC_SPECIAL, "Hyperkalaemia — Sodium bicarbonate")),
         ),
         ProtocolNote(
             "Definition: AHA 2025 follows the 2018 ACC/AHA/HRS threshold of HR <50/min (historically <60/min); the ICMR STW also uses <50/min.",
