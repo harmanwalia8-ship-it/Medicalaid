@@ -220,7 +220,7 @@ internal val maternalCollapseProtocols = listOf(
                     "AHA 2025 (A–H): Anaesthetic complications, Bleeding, Cardiovascular, Drugs, Embolic (amniotic fluid or pulmonary), Fever, General (Hs and Ts), Hypertension.",
                     "AOA India 2022 (ABCDE-UPS) adds uterine causes (accreta spectrum, abruption, rupture), pulmonary causes and sepsis.",
                     "ERC 2025: point-of-care ultrasound helps when concealed bleeding versus thromboembolism is unclear; consider ruptured ectopic pregnancy.",
-                    "ERC 2025: high-risk PE causing arrest — consider thrombolysis or surgical embolectomy (expert opinion). Peripartum cardiomyopathy — treat as acute heart failure; early echocardiography.",
+                    "ERC 2025: high-risk PE causing arrest — consider thrombolysis or surgical embolectomy (expert opinion); after thrombolytics, continue CPR for at least 60–90 min. Peripartum cardiomyopathy — treat as acute heart failure; early echocardiography.",
                     "ERC 2025: puerperal sepsis — blood cultures and early broad-spectrum antibiotics; seek chorioamnionitis, retained products, endometritis, wound infection.",
                 ),
                 checklistTitle = "Reversible causes (ERC 2025 Table 13; AHA 2025; AOA India 2022)",
@@ -249,9 +249,10 @@ internal val maternalCollapseProtocols = listOf(
                 timing = "As soon as suspected",
                 points = listOf(
                     "AHA 2025: arrest on IV magnesium — stop it and give calcium (reasonable). ERC 2025: calcium chloride 10%, 10 mL IV, for magnesium overdose.",
-                    "MoHFW STG: magnesium-toxicity arrest — CPR, stop MgSO4, IV calcium gluconate, intubate and ventilate; if antenatal, immediate delivery. AOA India 2022: 10 mL 10% slow IV.",
+                    "MoHFW STG: magnesium-toxicity arrest — CPR, stop MgSO4, IV calcium gluconate, intubate and ventilate; if antenatal, immediate delivery. AOA India 2022: 10 mL of 10% calcium gluconate or chloride, slow IV.",
                     "AHA 2025: local anaesthetic toxicity — give 20% lipid emulsion; benzodiazepines for seizures; bicarbonate for wide-complex tachycardia; ECLS for refractory shock.",
-                    "QRH 2023: stop injecting; lipid 1.5 mL/kg over 2–3 min, repeated at 5 and 10 min if unstable; in arrest, adrenaline ≤1 µg/kg; avoid vasopressin.",
+                    "QRH 2023: stop injecting; lipid 1.5 mL/kg over 2–3 min, repeated at 5 and 10 min if unstable.",
+                    "QRH 2023: in arrest — adrenaline ≤1 µg/kg, avoid vasopressin; recovery may take >1 hour — consider cardiopulmonary bypass if available. Afterwards exclude pancreatitis (daily amylase or lipase).",
                     "ERC 2025: haemorrhage — activate the major obstetric haemorrhage protocol, prompt transfusion, tranexamic acid 1 g IV. See the Postpartum haemorrhage protocol.",
                     "ERC 2025: eclampsia — treat severe hypertension (160/110 mm Hg); magnesium sulfate 4 g IV over 5–15 min, then 1 g/h for 24 h. See Eclampsia protocol.",
                 ),
@@ -259,12 +260,14 @@ internal val maternalCollapseProtocols = listOf(
                     StepDose(
                         label = "Lipid emulsion 20% — bolus (AHA 2025, weight <70 kg)",
                         dose = WeightDose(1.5, 1.5, unit = "mL", per = "IV bolus"),
-                        note = "AHA 2025 Table 4: >70 kg — 100 mL over 2–3 min. QRH 2023: 1.5 mL/kg over 2–3 min. Propofol is not a substitute.",
+                        note = "AHA 2025 Table 4: >70 kg — 100 mL over 2–3 min (cap shown). QRH 2023: 1.5 mL/kg over 2–3 min. Propofol is not a substitute.",
+                        maxTotal = 100.0,
                     ),
                     StepDose(
                         label = "Lipid emulsion 20% — infusion (AHA 2025, weight <70 kg)",
                         dose = WeightDose(0.25, 0.25, unit = "mL", per = "per minute, for up to 30 min"),
-                        note = "AHA 2025 Table 4: >70 kg — 200–250 mL over 15–20 min.",
+                        note = "AHA 2025 Table 4: >70 kg — do not use the per-kg rate; give 200–250 mL over 15–20 min. Cap shown is the 70 kg rate (17.5 mL/min).",
+                        maxTotal = 17.5,
                     ),
                     StepDose(
                         label = "Lipid emulsion 20% — infusion (QRH 2023)",
@@ -282,13 +285,13 @@ internal val maternalCollapseProtocols = listOf(
                     cite(ERC, "Table 12; Table 2 (hypermagnesaemia); Pre-eclampsia and eclampsia; Haemorrhage"),
                     cite(MOH_STG, "Eclampsia — Magnesium toxicity (p. 93)"),
                     cite(AOA, "Drugs — lipid rescue; calcium gluconate/chloride"),
-                    cite(QRH, "Steps 1–7; Box A"),
+                    cite(QRH, "Steps 1–7; Box A; Box C"),
                 ),
             ),
             // 7 ------------------------------------------------------------------------------------
             Step(
                 title = "Amniotic fluid embolism: recognise",
-                timing = "During labour or within 30 min of placental delivery (SMFM 2026)",
+                timing = "Usually during labour or within 30 min of placental delivery (SMFM 2026); rarely in the first or second trimester, at termination or amniocentesis (SMFM 2016)",
                 points = listOf(
                     "SMFM 2016: consider AFE in sudden cardiorespiratory collapse in a labouring or recently delivered woman (GRADE 1C); it remains a clinical diagnosis — no confirmatory laboratory test.",
                     "SMFM 2026: clinically diagnosed by arrest or hypotension with respiratory compromise, overt DIC and absence of fever.",
@@ -297,7 +300,7 @@ internal val maternalCollapseProtocols = listOf(
                     "SMFM 2016: do not diagnose AFE from haemorrhage due to persistent atony with secondary coagulopathy alone — a common diagnostic error.",
                 ),
                 citations = listOf(
-                    cite(SMFM16, "Recommendations 1–2; differential diagnoses; coagulopathy section (pp. B16–B22)"),
+                    cite(SMFM16, "Recommendations 1–2; timing of onset (p. B18); differential diagnoses; coagulopathy section (pp. B16–B22)"),
                     cite(SMFM26, "§1 Introduction; §2"),
                     cite(AHA, "Amniotic fluid embolism — synopsis (p. S626)"),
                 ),
@@ -312,6 +315,7 @@ internal val maternalCollapseProtocols = listOf(
                     "SMFM 2026: cryoprecipitate preferred over FFP to limit volume overload; consider thromboelastometry; anticipate atony — oxytocin plus other uterotonics as needed.",
                     "SMFM 2016: avoid excessive fluid (GRADE 1C). SMFM 2026: e.g. 500 mL boluses and reassess; echocardiography; wean FiO₂ to SpO₂ 94–98%.",
                     "SMFM 2026: norepinephrine if needed; dobutamine or milrinone as inotropes; pulmonary vasodilator — inhaled nitric oxide 5–40 ppm, epoprostenol, or sildenafil 20 mg orally if awake.",
+                    "SMFM 2016 Table 2: with inhaled nitric oxide, check methaemoglobin every 6 h and avoid abrupt discontinuation.",
                     "AHA 2025: VA-ECMO and inhaled pulmonary vasodilators reasonable; atropine without bradycardia not recommended. SMFM 2026: atropine–ondansetron–ketorolac evidence is case reports only.",
                 ),
                 doses = listOf(
@@ -352,16 +356,18 @@ internal val maternalCollapseProtocols = listOf(
                 timing = "From ROSC — or if no ROSC with standard resuscitation",
                 points = listOf(
                     "AHA 2025: ECPR is reasonable if unresponsive to standard resuscitation; ELSO suggests summoning ECPR resources after 10–15 min without ROSC.",
+                    "AOA India 2022: ECMO can worsen thrombosis or coagulopathy — use caution with obstetric haemorrhage or DIC. ERC 2025: in exceptional cases ECPR may start immediately, with uterine evacuation postponed because of anticoagulation-related bleeding risk.",
                     "ERC 2025: post-resuscitation care as for other adults; stabilising the mother stabilises the fetus. Prepare for major obstetric haemorrhage after hysterotomy or thrombolysis.",
                     "AOA India 2022: if still undelivered, maintain uterine displacement; if ROSC before delivery, move to theatre with a team ready for caesarean.",
                     "AOA India 2022: after ROSC — surgical repair, haemostasis, antibiotics and intensive care. ERC 2025: involve obstetrics, anaesthesia, critical care and neonatology.",
-                    "ERC 2025: hypothermic temperature control reported only in isolated early-pregnancy cases with fetal monitoring. AOA India 2022: recommends it, with caution in haemorrhage or coagulopathy.",
+                    "AOA India 2022: oxytocin is a vasodilator — high bolus doses (5–10 U) may cause cardiovascular collapse and re-arrest after ROSC; use it judiciously.",
+                    "ERC 2025: hypothermic temperature control has been reported in isolated early-pregnancy cases with fetal heart rate monitoring, with no evidence of harm and favourable maternal and neonatal outcomes. AOA India 2022: recommends it, with caution in haemorrhage or coagulopathy.",
                     "ERC 2025 and AOA India 2022: debrief the team; offer psychological support to the woman, family and staff; document in real time.",
                 ),
                 citations = listOf(
                     cite(AHA, "Pregnant patients in cardiac arrest, Rec 6 and supportive text (p. S625)"),
-                    cite(ERC, "Extracorporeal life support; Maternal considerations for post resuscitation care; Table 12"),
-                    cite(AOA, "Post cardiac arrest care; Important considerations"),
+                    cite(ERC, "Extracorporeal life support; Resuscitative hysterotomy; Maternal considerations for post resuscitation care; Table 12"),
+                    cite(AOA, "Post cardiac arrest care — Recommendations; Drugs — uterotonic drugs; Important considerations"),
                 ),
             ),
         ),
@@ -380,7 +386,10 @@ internal val maternalCollapseProtocols = listOf(
             ProtocolNote(
                 "Gestation criterion differs: AHA 2025 — fundal height at or above the umbilicus; ERC 2025 — >20 weeks or fundus above umbilicus; AOA India 2022 — >20 weeks; " +
                     "SMFM 2016 — ≥23 weeks in AFE, noting no evidence that previable delivery improves AFE outcome.",
-                listOf(cite(AHA, "Rec 1"), cite(ERC, "Table 12"), cite(AOA, "Resuscitative uterine interventions"), cite(SMFM16, "Recommendation 5")),
+                listOf(
+                    cite(AHA, "Pregnant patients in cardiac arrest, Rec 1 (p. S623)"), cite(ERC, "Table 12"),
+                    cite(AOA, "Resuscitative uterine interventions"), cite(SMFM16, "Recommendation 5"),
+                ),
             ),
             ProtocolNote(
                 "Lipid emulsion regimens differ: AHA 2025 — <70 kg 1.5 mL/kg then 0.25 mL/kg/min up to 30 min; QRH 2023 — 1.5 mL/kg over 2–3 min, 15 mL/kg/h, max 12 mL/kg; " +
@@ -389,8 +398,12 @@ internal val maternalCollapseProtocols = listOf(
             ),
             ProtocolNote(
                 "Calcium for magnesium toxicity: AHA 2025 gives no dose; ERC 2025 — calcium chloride 10% 10 mL IV (Table 2: gluconate 10–30 mL or chloride 5–10 mL, repeat if needed); " +
-                    "MoHFW STG and AOA India 2022 — calcium gluconate 10 mL of 10% slow IV.",
-                listOf(cite(AHA, "Rec 8"), cite(ERC, "Table 12; Table 2"), cite(MOH_STG, "Magnesium toxicity (p. 93)"), cite(AOA, "Drugs")),
+                    "MoHFW STG — calcium gluconate 10 mL slow IV for respiratory arrest (strength not stated); for cardiac arrest, IV calcium gluconate with no dose given. " +
+                    "AOA India 2022 — 10 mL of 10% calcium gluconate or chloride, slow IV.",
+                listOf(
+                    cite(AHA, "Pregnant patients in cardiac arrest, Rec 8 (p. S623)"), cite(ERC, "Table 12; Table 2"),
+                    cite(MOH_STG, "Magnesium toxicity (p. 93)"), cite(AOA, "Drugs — calcium gluconate/chloride"),
+                ),
             ),
             ProtocolNote(
                 "WHO MCPC 2017 (lidocaine toxicity with cardiac arrest): hyperventilate with oxygen, cardiac massage, immediate caesarean if undelivered, adrenaline 0.5 mL of 1:10 000 IV — it does not mention lipid emulsion.",
@@ -438,12 +451,13 @@ internal val maternalCollapseProtocols = listOf(
                 title = "Primary survey: pregnancy changes",
                 timing = "On arrival",
                 points = listOf(
-                    "SOGC 2015: treat every injured woman of reproductive age as pregnant until a pregnancy test or ultrasound proves otherwise.",
+                    "SOGC 2015: consider every woman of reproductive age with significant injuries pregnant until a definitive pregnancy test or ultrasound proves otherwise.",
                     "EAST 2025: the best early treatment of the fetus is optimal resuscitation of the mother.",
                     "SOGC 2015: oxygen to keep maternal SpO₂ >95%; nasogastric tube in a semiconscious or unconscious woman to prevent aspiration.",
                     "AHA 2025: pregnancy raises oxygen consumption and lowers FRC, so hypoxaemia comes faster; airway oedema and aspiration risk make intubation harder.",
                     "SOGC 2015: if needed, insert a chest drain 1–2 intercostal spaces higher than usual.",
-                    "SOGC 2015: major injury — trauma unit or emergency department at any gestation; minor injury with fetus ≥23 weeks — labour and delivery triage.",
+                    "SOGC 2015: major injury — trauma unit or emergency department at any gestation; injury neither life- nor limb-threatening with fetus ≥23 weeks — labour and delivery triage; " +
+                        "if injury severity or gestational age is uncertain — trauma unit or emergency department first, to rule out major injury.",
                 ),
                 scoreIds = listOf("gcs"),
                 citations = listOf(
@@ -543,7 +557,8 @@ internal val maternalCollapseProtocols = listOf(
                     "WHO MCPC 2017: abruption — bleeding after 22 weeks (may be concealed) with abdominal pain; tense or tender uterus, shock, fetal distress or absent heart sounds.",
                     "WHO MCPC 2017: rupture — intra-abdominal or vaginal bleeding, severe pain; abnormal uterine contour, easily felt fetal parts, absent fetal heart, rapid pulse.",
                     "WHO MCPC 2017: heavy bleeding from abruption — deliver as soon as possible and prepare for PPH. Rupture — restore volume, then laparotomy.",
-                    "SOGC 2015: urgent obstetric consultation for contractions, suspected abruption or rupture at ≥23 weeks; with vaginal bleeding, defer speculum or digital examination until praevia is excluded.",
+                    "SOGC 2015: urgent obstetric consultation for contractions, suspected abruption or rupture at ≥23 weeks; with vaginal bleeding at or after 23 weeks, " +
+                        "defer speculum or digital examination until praevia is excluded by a prior or current ultrasound.",
                 ),
                 citations = listOf(
                     cite(SOGC, "Rec 13–14, 27"),
@@ -553,17 +568,18 @@ internal val maternalCollapseProtocols = listOf(
             // 7 ------------------------------------------------------------------------------------
             Step(
                 title = "Rh(D)-negative: anti-D and Kleihauer–Betke",
-                timing = "Ideally within 72 h of the event (ACOG PB 181)",
+                timing = "Ideally within 72 h (ACOG PB 181); later doses may still protect",
                 points = listOf(
                     "SOGC 2015 and ACOG PB 181: give anti-D immunoglobulin to every Rh(D)-negative pregnant woman after (abdominal) trauma.",
                     "SOGC 2015 and ACOG PB 181: quantify fetomaternal haemorrhage, e.g. Kleihauer–Betke, to decide whether additional anti-D doses are needed.",
                     "EAST 2025: Kleihauer–Betke testing in Rh-negative patients to determine an appropriate anti-D dose.",
                     "ACOG PB 181: 300 micrograms of anti-D covers up to 30 mL of Rh(D)-positive fetal whole blood (15 mL fetal red cells).",
                     "ACOG PB 181: the ideal time to give anti-D is within 72 h of a potentially sensitising event.",
+                    "ACOG PB 181: if 72 h have passed, it may still protect — partial to complete protection was seen when given as late as 13 days after exposure; some benefit has been suggested as late as 28 days postpartum.",
                 ),
                 citations = listOf(
                     cite(SOGC, "Rec 22–23"),
-                    cite(PB181, "Box 1; Anti-D immune globulin; abdominal trauma question; Summary of recommendations"),
+                    cite(PB181, "Box 1; Anti-D immune globulin; abdominal trauma question; missed-dose question (pp. e65–e66); Summary of recommendations"),
                     cite(EAST, "Abstract — Results"),
                 ),
             ),
@@ -606,15 +622,18 @@ internal val maternalCollapseProtocols = listOf(
         notes = listOf(
             ProtocolNote(
                 "Gestation thresholds differ: SOGC 2015 uses 23 weeks (viability) for monitoring and perimortem caesarean; EAST 2025 uses ≥20 weeks for resuscitative hysterotomy; AHA 2025 uses fundal height.",
-                listOf(cite(SOGC, "Rec 20, 31"), cite(EAST, "Abstract"), cite(AHA, "Rec 1")),
+                listOf(cite(SOGC, "Rec 20, 31"), cite(EAST, "Abstract"), cite(AHA, "Pregnant patients in cardiac arrest, Rec 1 (p. S623)")),
             ),
             ProtocolNote(
-                "Monitoring duration differs: SOGC 2015 — at least 4 h, 24 h if adverse factors; EAST 2025 — at least 4–6 h (conditional, low-quality evidence).",
+                "Monitoring duration differs: SOGC 2015 — at least 4 h, 24 h if adverse factors; EAST 2025 — at least 4–6 h (conditional recommendation).",
                 listOf(cite(SOGC, "Rec 20–21"), cite(EAST, "Abstract")),
             ),
             ProtocolNote(
                 "Positioning: SOGC 2015 accepts manual displacement or left tilt; ERC 2025 notes about 30° is needed for partial relief; MoHFW HDU 2016 uses 15° tilt outside arrest; in arrest, manual displacement is preferred.",
-                listOf(cite(SOGC, "Rec 7"), cite(ERC, "Aortocaval compression"), cite(MOH_HDU, "p. 22"), cite(AHA, "Rec 4")),
+                listOf(
+                    cite(SOGC, "Rec 7"), cite(ERC, "Aortocaval compression"), cite(MOH_HDU, "p. 22"),
+                    cite(AHA, "Pregnant patients in cardiac arrest, Rec 4 (p. S623)"),
+                ),
             ),
             ProtocolNote(
                 "India: no MoHFW, ICMR STW or FOGSI guideline on trauma in pregnancy was found (November 2026). Under the UIP, pregnant women receive Td, not Tdap.",

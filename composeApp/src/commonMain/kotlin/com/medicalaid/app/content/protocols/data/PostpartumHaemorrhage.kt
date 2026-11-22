@@ -119,6 +119,9 @@ private const val METHERGINE = "ob-pph-fda-methylergonovine"
 private const val SBA = "mohfw-anc-2010"
 private const val MOH09 = "mohfw-mo-handbook-2009"
 
+// Existing drug label (drug database, drugs/data/RespiratoryGi.kt).
+private const val FCM = "fda-label-ferric-carboxymaltose"
+
 internal val pphProtocols = listOf(
     Protocol(
         id = "pph",
@@ -210,7 +213,8 @@ internal val pphProtocols = listOf(
                     "ICMR STW 2025: oxytocin 10 IU IM if not given after delivery; never an IV bolus. Bleeding not controlled — infusion 10–20 units/h with bimanual compression.",
                     "WHO 2025: no IV oxytocin or no response — IV ergometrine, oxytocin–ergometrine, or a prostaglandin incl. misoprostol 800 µg sublingual (ICMR STW, NICE: or rectal).",
                     "ICMR STW 2025: methylergometrine 0.2 mg IM/slow IV, repeat at 15 min, max 5 doses (1 mg); carboprost 250 µg IM 20-minutely, max 8 doses (2 mg).",
-                    "WHO 2025: carbetocin is for prevention only, not treatment; adding misoprostol to oxytocin gives no benefit. NICE NG235 Table 12 chooses second line by the prophylaxis given.",
+                    "WHO 2025: carbetocin is for prevention only, not treatment; adding misoprostol to oxytocin gives no benefit.",
+                    "NICE NG235 Table 12 picks the first- and second-line uterotonic by the prophylaxis given — e.g. after oxytocin alone, first line is IM ergometrine (carboprost if contraindicated) or an oxytocin infusion.",
                 ),
                 checklistTitle = "Contraindications and cautions",
                 checklist = listOf(
@@ -218,8 +222,10 @@ internal val pphProtocols = listOf(
                     "Oxytocin–ergometrine: severe hypertension, pre-eclampsia, eclampsia, severe cardiac, hepatic or renal disease (NICE NG235)",
                     "Methylergometrine: no strong or moderate CYP3A4 inhibitors — HIV protease inhibitors, clarithromycin, azole antifungals (US label)",
                     "Methylergometrine IV only as a life-saving measure, over ≥60 s with BP monitoring (US label)",
+                    "Methylergometrine: store apart from newborn injections — given in error instead of vitamin K or hepatitis B vaccine (US label)",
                     "Ergometrine and PGE2 analogues: avoid while the placenta is retained (WHO 2025); ergometrine contraindicated (MoHFW MO handbook)",
                     "Carboprost: asthma (ICMR STW contraindication; US label caution); active cardiac, pulmonary, renal or hepatic disease (US label)",
+                    "Carboprost: deep IM only — never IV (US label)",
                     "Misoprostol 800 µg: GDG concern over hyperpyrexia (WHO 2025)",
                     "Oxytocin limits: total ≤100 IU in 24 h (ICMR STW); ≤3 L of oxytocin-containing fluid (MoHFW MO handbook)",
                 ),
@@ -228,8 +234,8 @@ internal val pphProtocols = listOf(
                     cite(STW, "Initial management; management of atonic PPH — pharmacotherapy; bleeding not controlled"),
                     cite(NG235, "Rec 1.10.9, 1.10.34; Table 12"),
                     cite(MOH09, "Session 3b — retained placenta; drugs for PPH management (pp. 35–36)"),
-                    cite(HEMABATE, "Contraindications; Precautions; Dosage and administration §2"),
-                    cite(METHERGINE, "Contraindications; Warnings; Dosage and administration"),
+                    cite(HEMABATE, "Contraindications; Precautions; Dosage and administration §2; ampoule label"),
+                    cite(METHERGINE, "Contraindications; Warnings, incl. medication errors; Precautions — drug interactions (CYP3A4 inhibitors); Dosage and administration"),
                 ),
             ),
             // 4 ------------------------------------------------------------------------------------
@@ -303,12 +309,12 @@ internal val pphProtocols = listOf(
                     "ICMR STW 2025: 1 L RL/NS over 15–20 min; about 3 mL crystalloid per mL lost early on. FIGO 2022: >4 L of fluid linked to further bleeding.",
                     "WHO 2025: transfuse on the clinical picture — unstable, loss ≥1000 mL and ongoing; a single Hb can mislead. Red-cell goal often Hb >70 g/L.",
                     "WHO 2025: crossmatched red cells preferred; otherwise ABO/Rh-compatible uncrossmatched, or O RhD-negative in an emergency. Verify blood group on labour-ward admission.",
-                    "WHO 2025: keep fibrinogen ≥2 g/L (3–4 g ≈ 8–10 units cryoprecipitate). FFP after results and 4 RBC units; if results are delayed, 1 FFP : 2 RBC.",
+                    "WHO 2025: target fibrinogen ≥2 g/L — typically 3–4 g, about 8–10 units of cryoprecipitate depending on the fibrinogen content per unit. FFP after results and 4 RBC units; if results are delayed, 1 FFP : 2 RBC.",
                     "FIGO 2022: haemostatic resuscitation — limit crystalloid, give products early in high ratios (1:1:1 RBC:FFP:platelets); fibrinogen at least 150–200 mg/dL.",
                 ),
                 checklistTitle = "Massive PPH (WHO 2025)",
                 checklist = listOf(
-                    "Massive transfusion: 4 RBC units in 1 h with ongoing need, ≥10 units in 24 h, or >50% blood volume in 3 h",
+                    "Massive transfusion: 4 RBC units in 1 h with ongoing need, ≥10 units in 24 h, >50% blood volume in 3 h, or replacement of a total blood volume",
                     "Step 1: tranexamic acid 1 g IV over 10 min",
                     "Step 2: fibrinogen (concentrate or cryoprecipitate) when coagulopathy is detected or highly suspected, e.g. amniotic fluid embolism",
                     "Step 3: FFP for documented factor deficiency — target PT/aPTT ratio <1.5, INR ≤1.5",
@@ -394,12 +400,13 @@ internal val pphProtocols = listOf(
                 points = listOf(
                     "ICMR STW 2025: once controlled — massage 15-minutely for 2 h; vitals every 10 min for 30 min, 15 min for 30 min, then 30-minutely for 3–6 h.",
                     "ICMR STW 2025: continue oxytocin infusion at 5–10 IU/h; total oxytocin not to exceed 100 IU in 24 h.",
-                    "WHO 2025: oral iron ± folic acid for 6–12 weeks where anaemia is prevalent; IV iron if oral fails or severe anaemia (Hb ≤80 g/L) needs rapid correction.",
+                    "WHO 2025: oral iron ± folic acid for 6–12 weeks where anaemia is prevalent.",
+                    "WHO 2025: IV iron, only with staff trained to manage anaphylaxis, if oral iron cannot be used or is not tolerated, or severe iron-deficiency anaemia (Hb ≤80 g/L) needs rapid correction.",
                     "SBA 2010: secondary PPH — bleeding from 24 h up to 6 weeks after birth, from retained clots or placental fragments, or uterine infection.",
                     "SBA 2010: oxytocin 10 IU IM, then 20 IU in 500 mL RL/NS at 40–60 drops/min; if fever or foul discharge, first antibiotic doses; refer to FRU.",
                     "NICE NG194: seek review for sudden, heavy or increasing bleeding, clots or tissue, or infection signs; anaemia and booking weight <50 kg worsen consequences.",
                 ),
-                checklistTitle = "SBA 2010 — first antibiotic doses before referral",
+                checklistTitle = "SBA 2010 — if fever or foul discharge: first antibiotic doses before referral",
                 checklist = listOf(
                     "Ampicillin 1 g orally",
                     "Metronidazole 400 mg orally",
@@ -409,7 +416,9 @@ internal val pphProtocols = listOf(
                     StepDose(
                         label = "Ferric carboxymaltose — IV iron after PPH (regimen in the studies WHO 2025 reviewed)",
                         dose = WeightDose(20.0, 20.0, "mg", per = "single IV infusion"),
-                        note = "WHO 2025: IV iron only with staff trained to manage anaphylaxis; monitor during and 30 min after the infusion; avoid iron dextran.",
+                        note = "WHO 2025: IV iron only with staff trained to manage anaphylaxis; monitor during and 30 min after the infusion; avoid iron dextran. " +
+                            "US label: ≥50 kg — 15 mg/kg (max 1,000 mg) as one dose per course, or 750 mg × 2 ≥7 days apart; <50 kg — 15 mg/kg × 2 doses ≥7 days apart. " +
+                            "Boxed warning: symptomatic hypophosphataemia.",
                         maxTotal = 1000.0,
                     ),
                 ),
@@ -418,6 +427,7 @@ internal val pphProtocols = listOf(
                     cite(WHO25, "§3.7; Rec 42–43 with remarks"),
                     cite(SBA, "Module II — C.2 delayed/secondary PPH"),
                     cite(NG194, "Rec 1.2.13–1.2.14"),
+                    cite(FCM, "Boxed Warning; 2.2 Dosage"),
                 ),
             ),
         ),
@@ -466,7 +476,9 @@ internal val pphProtocols = listOf(
                 listOf(cite(WHO25, "Rec 24 remarks"), cite(STW, "Bleeding not controlled; bleeding controlled")),
             ),
             ProtocolNote(
-                "Ergometrine prophylaxis is contested: WHO 2025 no longer recommends ergometrine or oxytocin–ergometrine for prevention; FIGO 2022 allows 200 µg if hypertension is excluded; NICE NG235 advises oxytocin–ergometrine with risk factors; MoHFW 2015 urges caution in unscreened women.",
+                "Ergometrine prophylaxis is contested: WHO 2025 recommends against ergometrine/methylergometrine and oxytocin–ergometrine for prevention (Rec 9.1–9.2, ‘Not recommended’); " +
+                    "FIGO 2022 allows ergometrine/methylergometrine 200 µg IM/IV only where oxytocin is unavailable or of uncertain quality, and only if hypertensive disorders can be safely excluded; " +
+                    "NICE NG235 advises oxytocin–ergometrine with risk factors; MoHFW 2015 says it is probably safer to avoid ergot derivatives in unscreened women.",
                 listOf(
                     cite(WHO25, "Rec 9.1–9.2"),
                     cite(FIGO22, "§2.1"),
@@ -521,6 +533,7 @@ internal val pphProtocols = listOf(
         citations = listOf(
             cite(WHO25), cite(STW), cite(MOHFW15), cite(SBA), cite(MOH09), cite(FIGO22), cite(NG235), cite(NG194),
             cite(GTG52), cite(PB183), cite(WOMAN), cite(WOMAN2), cite(EMOTIVE), cite(HEMABATE), cite(METHERGINE),
+            cite(FCM),
         ),
     ),
 )

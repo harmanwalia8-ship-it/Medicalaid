@@ -30,6 +30,10 @@ object Protocols {
         Group(endocrineEmergencyProtocols, endocrineEmergencySources),
         Group(acidBaseProtocols, acidBaseSources),
         Group(electrolyteProtocols, electrolyteSources),
+        // Obstetric emergencies — reviewed for 0.5.0
+        Group(eclampsiaProtocols, eclampsiaSources),
+        Group(pphProtocols, pphSources),
+        Group(maternalCollapseProtocols, maternalCollapseSources),
     )
 
     /**
@@ -42,9 +46,6 @@ object Protocols {
         Group(environmentalProtocols, environmentalSources),
         Group(infectionEmergencyProtocols, infectionEmergencySources),
         // Obstetric emergencies and trauma
-        Group(eclampsiaProtocols, eclampsiaSources),
-        Group(pphProtocols, pphSources),
-        Group(maternalCollapseProtocols, maternalCollapseSources),
         Group(earlyPregnancyProtocols, earlyPregnancySources),
         Group(antepartumProtocols, antepartumSources),
         Group(labourEmergencyProtocols, labourEmergencySources),

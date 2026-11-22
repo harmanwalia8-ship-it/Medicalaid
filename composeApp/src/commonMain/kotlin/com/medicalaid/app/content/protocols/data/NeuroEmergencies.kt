@@ -19,9 +19,10 @@ import com.medicalaid.app.content.protocols.StepDose
  * - Locators: NICE recommendation numbers; AES 2016 Figure 1 phase; NCS 2012 table / summary recommendation;
  *   ESCMID key question / table; WHO 2025 section / table; ICMR STW box headings; ICMR 2019 antimicrobial
  *   guideline section / table and page; AHA/ASA 2023 section and recommendation number.
- * - Only the abstracts of ILAE 2015, AHS 2016, AHS 2025, SNNOOP10, ESETT and Perry 2013 could be read; nothing beyond
- *   the abstract is taken from them. ICMR first-line benzodiazepine doses without a stated maximum are given as text,
- *   not as calculator doses.
+ * - Only the abstracts of ILAE 2015, AHS 2016, AHS 2025, SNNOOP10 and Perry 2013 could be read; nothing beyond
+ *   the abstract is taken from them. ESETT: abstract and full text (PMC7098487) read; trial doses are from its Methods
+ *   (trial treatments). ICMR first-line benzodiazepine doses without a stated maximum are given as text, not as
+ *   calculator doses.
  * - Existing source reused by id: st-icmr-stw-stroke-2019 (Stroke.kt).
  */
 
@@ -66,7 +67,7 @@ internal val neuroEmergencySources = listOf(
         "em-neuro-esett-2019", Authority.Paper, "Randomised trial (N Engl J Med 2019;381(22):2103–2113)",
         "Randomized Trial of Three Anticonvulsant Medications for Status Epilepticus (ESETT)", "2019",
         "https://doi.org/10.1056/NEJMoa1905795",
-        status = "Abstract reviewed",
+        status = "Full text (PMC7098487) reviewed: abstract and Methods (trial treatments)",
     ),
     // --- Migraine ---------------------------------------------------------------------------------
     Source(
@@ -115,7 +116,7 @@ internal val neuroEmergencySources = listOf(
         "em-neuro-fda-sumatriptan-inj", Authority.FDA, "Prescribing information (DailyMed)",
         "Sumatriptan injection, USP — Strides Pharma Science", "2026",
         "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1909558d-8342-4af0-9487-eecdaac70070",
-        status = "Revised February 2026",
+        status = "Revised January 2026 (DailyMed SPL v4, effective 15 April 2026)",
     ),
     Source(
         "em-neuro-fda-prochlorperazine-inj", Authority.FDA, "Prescribing information (DailyMed)",
@@ -289,7 +290,8 @@ internal val neuroEmergencyProtocols = listOf(
                     "AES 2016: IM midazolam 10 mg if >40 kg, 5 mg if 13–40 kg, once; in adults without IV access it outperforms IV lorazepam (Level A).",
                     "NICE NG217: IV lorazepam if IV access and resuscitation facilities are available, otherwise buccal midazolam or rectal diazepam; second dose if not stopped 5–10 min after the first.",
                     "ICMR STW (emergency room): IV lorazepam up to 0.1 mg/kg at 2 mg/min, or IV midazolam 0.1–0.2 mg/kg bolus, or IV diazepam up to 0.25–0.4 mg/kg over 2–3 min.",
-                    "ICMR STW: out of hospital, buccal or intranasal midazolam 0.3–0.5 mg/kg; the ICMR neuroinfection STW gives 0.2 mg/kg. Neither states a maximum.",
+                    "ICMR STW: out of hospital, buccal or intranasal midazolam 0.3–0.5 mg/kg; the ICMR neuroinfection STW gives 0.2 mg/kg; neither states a maximum.",
+                    "For comparison: NCS 2012 caps IM midazolam at 10 mg (AES 2016: single 10 mg if >40 kg) and lists intranasal 0.2 mg/kg and buccal 0.5 mg/kg only as paediatric doses.",
                     "AES 2016: respiratory depression is less frequent with benzodiazepines than with placebo — untreated SE itself causes respiratory compromise (Level A).",
                 ),
                 doses = listOf(
@@ -341,7 +343,8 @@ internal val neuroEmergencyProtocols = listOf(
                 checklist = listOf(
                     "Phenytoin/fosphenytoin: infuse with cardiac monitoring — QT prolongation and arrhythmias (NCS 2012)",
                     "Phenytoin: hypotension; compatible only with saline; purple glove syndrome (NCS 2012 Table 7)",
-                    "Valproate: hyperammonaemia, pancreatitis, thrombocytopenia, hepatotoxicity (NCS 2012 Table 7)",
+                    "Valproate: hyperammonaemia, pancreatitis, thrombocytopenia, hepatotoxicity; use with caution in traumatic head injury (NCS 2012 Table 7)",
+                    "Lacosamide: PR prolongation and hypotension (NCS 2012 Table 7)",
                     "Valproate in women of childbearing potential: follow MHRA safety measures (NICE NG217); ICMR STW: avoid in women of childbearing age unless other drugs fail",
                     "Phenobarbital: hypotension and respiratory depression (NCS 2012); be prepared to intubate and ventilate (ICMR STW)",
                 ),
@@ -382,7 +385,7 @@ internal val neuroEmergencyProtocols = listOf(
                 ),
                 citations = listOf(
                     cite(SE_AES, "Figure 1 — 20–40 min second therapy phase"),
-                    cite(SE_ESETT, "Abstract — results"),
+                    cite(SE_ESETT, "Abstract — results; Methods — trial treatments"),
                     cite(SE_ACEP, "Refractory seizures — Level A"),
                     cite(SE_NICE, "Rec 7.1.9"),
                     cite(SE_ICMR, "SE algorithm — emergency room; AED table"),

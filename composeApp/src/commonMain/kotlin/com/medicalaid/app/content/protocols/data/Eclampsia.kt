@@ -87,7 +87,7 @@ internal val eclampsiaProtocols = listOf(
         id = "eclampsia",
         category = ProtocolCategory.Obstetric,
         title = "Eclampsia",
-        summary = "Care during the fit, magnesium sulfate (MoHFW Pritchard IM and IV regimens), toxicity checks, " +
+        summary = "Care during the fit, magnesium sulfate (MoHFW Pritchard regimen; WHO, NICE and ACOG IV regimens), toxicity checks, " +
             "calcium gluconate, referral, delivery and postpartum fits — attributed to MoHFW, WHO, NICE and ACOG.",
         keywords = listOf(
             "eclampsia", "fits in pregnancy", "convulsion in pregnancy", "seizure in pregnancy", "postpartum fits",
@@ -132,12 +132,13 @@ internal val eclampsiaProtocols = listOf(
                 title = "Magnesium sulfate: loading dose",
                 timing = "As soon as airway and oxygenation are secured",
                 points = listOf(
-                    "MoHFW (Pritchard), 14 g: 4 g IV as 20 mL of 20% over 5 min, then 10 g IM — 5 g of 50% deep into each buttock with 1 mL 2% lignocaine.",
+                    "MoHFW MO handbook 2009 (Pritchard), 14 g: 4 g IV as 20 mL of 20% over 5 min, then 10 g IM — 5 g of 50% deep into each buttock with 1 mL 2% lignocaine.",
                     "MoHFW Dakshata 2015: 50% ampoule = 1 g in 2 mL. For the IV dose, 8 mL (4 g) of 50% plus 12 mL normal saline, slowly over 5–10 min.",
                     "MoHFW STG: 4 g IV over 10–15 min (8 mL of 50% in 12 mL saline); maintenance IM with 1 mL 2% lidocaine 4-hourly, alternate buttocks.",
                     "WHO MCPC 2017: IM regimen as MoHFW, or IV regimen — 4 g IV, then 1 g/h, preferably by pump. WHO 2011 (Rec 14, strong): use a full regimen.",
                     "NICE NG133 (Collaborative Eclampsia Trial regimen): 4 g IV over 5–15 min, then an infusion of 1 g/h.",
                     "ACOG PB 222: 4–6 g IV over 20–30 min, then 1–2 g/h. If IV access is difficult: 10 g IM (5 g each buttock), then 5 g IM 4-hourly.",
+                    "Contraindications — FDA label: myasthenia gravis (can precipitate myasthenic crisis), heart block or myocardial damage, diabetic coma. ACOG PB 222: where MgSO4 is contraindicated (myasthenia gravis, hypocalcaemia, moderate–severe renal failure, cardiac ischaemia, heart block, myocarditis), a benzodiazepine or phenytoin is justified (step 7).",
                 ),
                 citations = listOf(
                     cite(MOH_MO, "Session 5b key points (p. 77)"),
@@ -147,6 +148,7 @@ internal val eclampsiaProtocols = listOf(
                     cite(WHO_PE, "Rec 14"),
                     cite(NICE_HTN, "Rec 1.8.4"),
                     cite(ACOG_222, "Seizure prophylaxis"),
+                    cite(FDA_MG, "4 Contraindications; 5.6 Exacerbation of Myasthenia Gravis"),
                 ),
             ),
             // 3 ------------------------------------------------------------------------------------
@@ -176,10 +178,11 @@ internal val eclampsiaProtocols = listOf(
                 points = listOf(
                     "MoHFW: 5 g of 50% IM into alternate buttocks every 4 h, each dose only after checking knee jerk, respiratory rate and urine output.",
                     "MoHFW and WHO MCPC 2017: continue 24 h after delivery or the last fit, whichever is later. WHO: if started after birth, 24 h after the last fit.",
-                    "NICE NG133: 1 g/h for 24 h, or 24 h after the last fit. ACOG PB 222: 1–2 g/h for 24 h after birth; for caesarean, start before and continue during surgery.",
+                    "NICE NG133: 1 g/h for 24 h, or 24 h after the last fit. ACOG PB 222: 1–2 g/h for 24 h after birth; for caesarean, start before and continue during surgery, though it prolongs non-depolarising muscle relaxants (FDA label: monitor the blockade, e.g. train-of-four).",
                     "Recurrent fit — MoHFW MO handbook 2009: 2 g (20%) IV over 5 min. WHO MCPC 2017: fits recurring after 15 min — 2 g of 50% IV over 5 min.",
                     "Recurrent fit — NICE NG133: 2–4 g IV over 5–15 min. ACOG PB 222 (proposed): 2–4 g IV over 5 min. MoHFW STG: 2 g (<70 kg) or 4 g (>70 kg) over 5–10 min.",
-                    "FDA label: maximum 30–40 g per 24 h; not beyond 5–7 days. NICE NG133 (MHRA): use beyond 5–7 days linked to neonatal skeletal effects and hypocalcaemia.",
+                    "FDA label (US IV premix in 5% dextrose): maximum 30–40 g per 24 h. The MoHFW/WHO MCPC Pritchard doses (14 g load, then 5 g 4-hourly) add up to 39 g in the first 24 h, more with a recurrent-fit bolus.",
+                    "Duration — FDA label: not beyond 5–7 days. NICE NG133 (MHRA): use beyond 5–7 days linked to neonatal skeletal effects and hypocalcaemia.",
                 ),
                 citations = listOf(
                     cite(MOH_MO, "Session 5b key points (p. 77)"),
@@ -188,7 +191,7 @@ internal val eclampsiaProtocols = listOf(
                     cite(NICE_HTN, "Rec 1.8.4 and footnote"),
                     cite(ACOG_222, "Seizure prophylaxis; Anesthesia considerations; What is the optimal treatment for eclampsia?"),
                     cite(MOH_STG, "Treatment and prophylaxis of seizures (p. 93)"),
-                    cite(FDA_MG, "2.2 Recommended Dosage"),
+                    cite(FDA_MG, "2.2 Recommended Dosage; 5.1 Fetal-Neonatal Toxicity; 7 Drug Interactions"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -202,13 +205,13 @@ internal val eclampsiaProtocols = listOf(
                     "ACOG PB 222: tendon reflexes are lost at 9 mg/dL (7 mEq/L), respiratory depression at 12 mg/dL (10 mEq/L), cardiac arrest at 30 mg/dL (25 mEq/L).",
                     "Calcium gluconate 10%, 10 mL (1 g) IV: WHO MCPC — over 3 min, with assisted ventilation, for respiratory arrest; ACOG — over 3 min plus IV furosemide; MoHFW Dakshata — over 10 min.",
                     "MoHFW STG: absent reflexes — stop until they return; respiratory arrest — stop, calcium gluconate 10 mL slow IV, intubate, ventilate; cardiac arrest — CPR, deliver if antenatal.",
+                    "WHO MCPC 2017: keep the antidote ready (calcium gluconate 10%; bag and mask for respiratory arrest). WHO 2011: facilities using MgSO4 should have calcium gluconate available.",
                 ),
                 checklistTitle = "Withhold or delay the next dose if",
                 checklist = listOf(
                     "Patellar (knee) reflex absent",
                     "Respiratory rate below 16/min",
                     "Urine below 30 mL/h over 4 h (WHO) or below 100 mL in 4 h (MoHFW STG)",
-                    "Calcium gluconate 10% and a bag-valve-mask kept at the bedside",
                 ),
                 citations = listOf(
                     cite(MOH_MO, "Session 5b key points (p. 77)"),
@@ -262,7 +265,7 @@ internal val eclampsiaProtocols = listOf(
                     StepDose(
                         label = "Phenytoin — MoHFW STG (other anticonvulsant)",
                         dose = WeightDose(20.0, 20.0, unit = "mg", per = "IV loading dose"),
-                        note = "MoHFW STG: in 100 mL saline, max 50 mg/min over 15–20 min, then 100 mg IV 8-hourly; ECG monitoring. NICE NG133: not an alternative to MgSO4.",
+                        note = "MoHFW STG: in 100 mL saline at no more than 50 mg/min — its '15–20 min' holds only up to 50 kg (20 mg/kg at 50 mg/min takes ≥0.4 min/kg: ≥24 min at 60 kg, ≥28 min at 70 kg); then 100 mg IV 8-hourly; ECG monitoring. WHO MCPC 2017: never exceed 50 mg/min. NICE NG133: not an alternative to MgSO4.",
                     ),
                 ),
                 citations = listOf(
@@ -270,7 +273,7 @@ internal val eclampsiaProtocols = listOf(
                     cite(NICE_HTN, "Rec 1.8.5"),
                     cite(ACOG_222, "Seizure prophylaxis; Eclampsia; What is the optimal treatment for eclampsia?"),
                     cite(MOH_STG, "Treatment and prophylaxis of seizures; Other anticonvulsant drugs (p. 93); Laboratory workup (p. 94)"),
-                    cite(WHO_MCPC, "Referral for tertiary level care (p. S-66)"),
+                    cite(WHO_MCPC, "Referral for tertiary level care (p. S-66); Epilepsy (p. S-69)"),
                 ),
             ),
             // 8 ------------------------------------------------------------------------------------
@@ -400,7 +403,7 @@ internal val eclampsiaProtocols = listOf(
                     "NICE NG133: severe hypertension not responding to treatment, or with severe headache, scotomata, vomiting, epigastric pain, oliguria, worsening blood tests, or poor fetal growth.",
                     "MoHFW Dakshata 2015: ≥160/110 with 3+–4+ proteinuria; or 140/90 to <160/110 with trace–2+ plus headache, blurred vision, epigastric pain, oliguria, pulmonary or abnormal oedema.",
                     "MoHFW STG: also platelets <100,000/mm³, raised LDH, SGOT >70 IU/L, creatinine >1.2 mg/dL, urine <400 mL/24 h, abruption or IUGR.",
-                    "ACOG PB 222, HELLP: LDH ≥600 IU/L, AST and ALT >2× upper limit, platelets <100 × 10⁹/L; up to 15% lack hypertension or proteinuria; 30% appear postpartum.",
+                    "ACOG PB 222, HELLP: LDH ≥600 IU/L, AST and ALT >2× upper limit, platelets <100 × 10⁹/L; up to 15% lack hypertension or proteinuria; in 30% it is first expressed or progresses postpartum.",
                 ),
                 checklistTitle = "Severe features — ACOG PB 222 Box 3",
                 checklist = listOf(
@@ -478,14 +481,17 @@ internal val eclampsiaProtocols = listOf(
                     "ACOG PB 203: swallow capsules — never puncture or give sublingually. ACOG PB 222 Table 3: 10–20 mg, repeat in 20 min, then 10–20 mg 2–6-hourly; maximum 180 mg/day.",
                     "WHO MCPC 2017: nifedipine IR 5–10 mg orally, repeat after 30 min if needed; maximum 30 mg acutely; use another option if not lowered within 90 min.",
                     "ACOG PB 203 order set: hydralazine 5 or 10 mg IV over 2 min; at 20 min 10 mg; at 20 min labetalol 20 mg; at 10 min labetalol 40 mg and consultation.",
-                    "Hydralazine — ACOG PB 222: maximum 20 mg cumulative (or 0.5–10 mg/h infusion). WHO MCPC 2017: 5 mg IV slowly every 5 min, or 12.5 mg IM 2-hourly; maximum 20 mg/24 h.",
+                    "Hydralazine — ACOG PB 222: 5 mg IV or IM, then 5–10 mg IV every 20–40 min to 20 mg cumulative (or 0.5–10 mg/h infusion). WHO MCPC 2017: 5 mg IV slowly every 5 min, or 12.5 mg IM 2-hourly; maximum 20 mg/24 h.",
+                    "Nifedipine with MgSO4 — ACOG PB 203: monitor maternal BP and heart rate as in the order set. FDA magnesium label: exaggerated hypotension possible with dihydropyridine calcium-channel blockers. WHO 2018: no evidence of an adverse interaction.",
                     "Refractory — ACOG PB 203: switch class at an agent's maximum; urgent specialist consultation; nicardipine or esmolol infusion second-line. MoHFW STG: nitroglycerine infusion 5–100 µg/min.",
                 ),
                 citations = listOf(
-                    cite(ACOG_203, "Boxes 4–5; Labetalol; Hydralazine; Nifedipine"),
+                    cite(ACOG_203, "Boxes 4–5 (Box 4 footnote †); Labetalol; Hydralazine; Nifedipine"),
                     cite(ACOG_222, "Table 3"),
                     cite(WHO_MCPC, "Table S-13 and footnote a (p. S-61)"),
                     cite(MOH_STG, "Treatment of hypertension (p. 94)"),
+                    cite(FDA_MG, "7 Drug Interactions"),
+                    cite(WHO_HTN, "Table 1, Rec 2 remarks"),
                 ),
             ),
             // 5 ------------------------------------------------------------------------------------
@@ -632,6 +638,10 @@ internal val eclampsiaProtocols = listOf(
                 listOf(cite(ACOG_203, "Box 4"), cite(ACOG_222, "Table 3"), cite(WHO_MCPC, "Table S-13"), cite(MOH_MO, "p. 77; p. 139")),
             ),
             ProtocolNote(
+                "Hydralazine repeat interval differs: WHO MCPC repeats 5 mg IV every 5 min; ACOG PB 222 every 20–40 min, and ACOG PB 203 notes onset takes 10–20 min, with an unpredictable hypotensive overshoot.",
+                listOf(cite(WHO_MCPC, "Table S-13"), cite(ACOG_222, "Table 3"), cite(ACOG_203, "Hydralazine")),
+            ),
+            ProtocolNote(
                 "Steroid windows differ: ACOG before 34+0; NICE offer 24+0–33+6, consider 34+0–35+6; WHO and MoHFW Dakshata 24–34 weeks; MoHFW STG 24–36 weeks.",
                 listOf(cite(ACOG_222, "Timing of delivery"), cite(NICE_PTB, "Recs 1.9.2–1.9.3"), cite(WHO_MCPC, "pp. S-63–S-64"), cite(MOH_DAK, "p. 46"), cite(MOH_STG, "p. 90")),
             ),
@@ -670,7 +680,7 @@ internal val eclampsiaProtocols = listOf(
         ),
         citations = listOf(
             cite(ACOG_222), cite(ACOG_203), cite(NICE_HTN), cite(NICE_PTB), cite(WHO_PE), cite(WHO_HTN), cite(WHO_MCPC),
-            cite(MOH_DAK), cite(MOH_STG), cite(MOH_SBA), cite(MOH_MO), cite(MOH_HDU), cite(ICMR_ANC),
+            cite(MOH_DAK), cite(MOH_STG), cite(MOH_SBA), cite(MOH_MO), cite(MOH_HDU), cite(ICMR_ANC), cite(FDA_MG),
         ),
     ),
 )
