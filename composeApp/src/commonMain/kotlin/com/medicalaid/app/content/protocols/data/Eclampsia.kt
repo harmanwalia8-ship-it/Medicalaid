@@ -23,6 +23,12 @@ import com.medicalaid.app.content.protocols.StepDose
 
 internal val eclampsiaSources = listOf(
     Source(
+        "ob-ecl-fogsi-hdp-2026", Authority.FOGSI, "FOGSI-GESTOSIS-ICOG Good Clinical Practice Recommendations, 3rd edition",
+        "Hypertensive Disorders in Pregnancy (HDP)", "2026",
+        "https://www.fogsi.org/",
+        status = "3rd edition 2026 (replaces 2019); read from the published PDF supplied by the user, Jan 2026 print",
+    ),
+    Source(
         "ob-ecl-mohfw-stg-obg", Authority.MoHFW, "Standard Treatment Guidelines (Clinical Establishments Act series)",
         "Standard Treatment Guidelines: Obstetrics & Gynaecology — Hypertension in pregnancy/Preeclampsia; Eclampsia", "2017",
         "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/4571.pdf",
@@ -78,6 +84,7 @@ private const val NICE_PTB = "ob-ecl-nice-ng25"
 private const val ACOG_222 = "acog-pb222"
 private const val ACOG_203 = "acog-pb203"
 private const val FDA_MG = "fda-label-magnesium-sulphate"
+private const val FOGSI = "ob-ecl-fogsi-hdp-2026"
 
 internal val eclampsiaProtocols = listOf(
     // =========================================================================================
@@ -317,6 +324,25 @@ internal val eclampsiaProtocols = listOf(
             ),
         ),
         notes = listOf(
+            ProtocolNote(
+                "FOGSI 2026 (India): Pritchard regimen preferred, Zuspan acceptable; 50% w/v ampoules (1 g/2 mL). Pritchard maintenance " +
+                    "5 g deep IM 4-hourly only if respiratory rate >16/min, patellar reflexes present and urine >100 mL in 4 h; Zuspan 1 g/h IV " +
+                    "with urine >30 mL/h. Fit not controlled after 15 min: 2 g slow IV over 10 min. Urine <100 mL in 4 h with no other toxicity " +
+                    "signs: reduce the next IM dose to 2.5 g or the infusion to 0.5 g/h. Respiratory depression: stop MgSO4, calcium gluconate " +
+                    "10 mL of 10% over 10 min. Continue 24 h after delivery or the last fit, whichever is later; routine serum levels not required.",
+                listOf(cite(FOGSI, "Section 10.4, Magnesium sulphate (pp. 25–26)")),
+            ),
+            ProtocolNote(
+                "FOGSI 2026 (India): recurrent fits despite MgSO4 — IV thiopentone 0.5 g in 20 mL 5% dextrose by the anaesthetist, then " +
+                    "intubation and ventilation if needed; alternatively IV levetiracetam 20–60 mg/kg over 15 min (max 3,000–4,500 mg), " +
+                    "maintenance 500–1,500 mg 12-hourly, continuing MgSO4 and involving a neurologist. Before referral: Pritchard loading dose " +
+                    "(noted in writing), nifedipine 20 mg slow release or labetalol 200 mg orally (no sublingual nifedipine), first corticosteroid " +
+                    "dose below 34 weeks. After delivery: BP every 4–6 h for 48 h; avoid NSAIDs; treat persistent BP above 140/90.",
+                listOf(
+                    cite(FOGSI, "Section 10.5, recurrent convulsions (pp. 26–27)"),
+                    cite(FOGSI, "Sections 10.9 and 10.13, post-delivery care and referral checklist (pp. 27–28)"),
+                ),
+            ),
             ProtocolNote(
                 "Regimens differ: MoHFW and WHO use the Pritchard IM regimen after an IV load; WHO and NICE also give 4 g IV then 1 g/h; ACOG gives 4–6 g IV then 1–2 g/h. All continue for 24 h.",
                 listOf(cite(MOH_MO, "p. 77"), cite(WHO_MCPC, "Box S-4"), cite(NICE_HTN, "Rec 1.8.4"), cite(ACOG_222, "Seizure prophylaxis")),
@@ -621,6 +647,19 @@ internal val eclampsiaProtocols = listOf(
             ),
         ),
         notes = listOf(
+            ProtocolNote(
+                "FOGSI 2026 (India): treat severe hypertension (≥160/110) within one hour in a monitored setting; first-line IV labetalol, " +
+                    "oral nifedipine, IV hydralazine or IV nicardipine. Labetalol 20 mg slow IV, doubling every 20–30 min up to 80 mg, total " +
+                    "maximum 300 mg (or infusion 1–2 mg/min). Nifedipine 10–30 mg orally, never sublingual, repeat within 30–45 min, maximum " +
+                    "120 mg. Hydralazine 5 mg IV/IM, then 5–10 mg every 20–40 min; change drug if not controlled with 20 mg IV or 30 mg IM. " +
+                    "Nicardipine 1.5 mg/h, up to 6 mg/h. Target ≤140/90 in severe hypertension and 135/85 for non-severe; fluids restricted to " +
+                    "80 mL/h or 1 mL/kg/h in total; MgSO4 loading for all severe pre-eclampsia. Antenatal steroids: dexamethasone 6 mg IM " +
+                    "12-hourly × 4 doses (Government of India).",
+                listOf(
+                    cite(FOGSI, "Section 8.3, severe hypertension (pp. 20–21)"),
+                    cite(FOGSI, "Sections 8.1, 8.5 and 8.6, targets, fluids and antenatal corticosteroids (pp. 19–22)"),
+                ),
+            ),
             ProtocolNote(
                 "Severe hypertension threshold: ACOG and WHO use ≥160 systolic or ≥110 diastolic; NICE NG133 defines it as over 160 systolic or over 110 diastolic.",
                 listOf(cite(ACOG_222, "Box 2"), cite(WHO_MCPC, "p. S-51"), cite(NICE_HTN, "Terms used in this guideline")),
