@@ -59,6 +59,7 @@ guideline tabs on protocol pages ("All" default), teal accent instead of purple,
 6. Then `ROADMAP.md`, sections in order — the user approved on 23 Nov 2026 going straight on without asking
    (child emergencies, infections/antibiotics, fever work-up, steroid misuse, paediatric doses, remaining drug
    phases, smaller items). Skip and list for the user: licensed skin photos, colleague review, signing key, CDSCO.
+   **iOS build: do not start without asking the user** (said 23 Nov 2026).
 
 ## Release plan (an APK to the user after each major phase)
 | Version (code) | Released groups | Notes |
@@ -74,7 +75,7 @@ guideline tabs on protocol pages ("All" default), teal accent instead of purple,
 | 0.8.0 (14) | steroid misuse + children's doses in Drugs | ROADMAP 4, 5 |
 | 0.9.0 (15) | Treatment pages phase 1 (remaining) + phase 2 | ROADMAP 6 |
 | 0.9.1 (16) | Treatment pages phase 3 (pregnancy additions) | ROADMAP 6 |
-| 0.9.2 (17) | smaller items: CURB-65 mg/dL urea, poisoning batch 2, AHA/ASA 2026 stroke correction, iOS CI build | ROADMAP 7 |
+| 0.9.2 (17) | smaller items: CURB-65 mg/dL urea, poisoning batch 2, AHA/ASA 2026 stroke correction (iOS CI build only if the user says yes) | ROADMAP 7 |
 At each: move groups to `released`, bump versionCode/versionName and `APP_VERSION`, README, tests, release APK,
 send with SendUserFile, commit and push. Move any unreviewed score file to `drafts/` before building.
 
