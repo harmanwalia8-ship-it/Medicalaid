@@ -17,9 +17,12 @@ import com.medicalaid.app.content.protocols.StepDose
  *   2024, read from the rendered flowcharts); NICE NG232, NG41, NG39 and NG24 (rec 1.12.3); the BTF 4th-edition
  *   executive summary; BTF Prehospital 3rd edition; CRASH-3; SIBICC 2019 (Figs 1–2); European guideline 2023;
  *   AANS/CNS 2013 chapters 7–8; AO Spine 2017 (methylprednisolone) and 2024 (haemodynamics; surgical timing);
- *   CSCM 2008 recommendation summary; CRASH 2004 against its abstract).
+ *   CSCM 2008 recommendation summary; CRASH 2004 against its abstract; the US FDA labels for phenytoin sodium injection,
+ *   fosphenytoin (CEREBYX) and methylprednisolone sodium succinate (SOLU-MEDROL), read via openFDA, for infusion rates,
+ *   monitoring and diluent only).
  * - Every point is attributed ("MoHFW 2025: …", "ICMR STW 2024: …", "NICE NG232: …", "BTF 4th edition: …",
- *   "BTF prehospital 2023: …", "European 2023: …", "AANS/CNS 2013: …", "AO Spine 2024: …", "CSCM 2008: …").
+ *   "BTF prehospital 2023: …", "European 2023: …", "AANS/CNS 2013: …", "AO Spine 2024: …", "CSCM 2008: …",
+ *   "FDA label: …").
  * - The ATLS manual is proprietary and is not used as a source. The MoHFW and ICMR documents are ATLS-based; their
  *   statements are reported as those bodies publish them.
  * - Locators: MoHFW 2025 — chapter and printed page; NICE — recommendation number; BTF 4th edition — table and topic;
@@ -122,6 +125,24 @@ internal val headSpineSources: List<Source> = listOf(
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC2582434/",
         status = "Paralyzed Veterans of America; no later edition found (November 2026)",
     ),
+    Source(
+        "tr-hs-fda-phenytoin", Authority.FDA, "Prescribing information (DailyMed; Hikma)",
+        "Phenytoin Sodium Injection, USP", "2024",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=035a8d4e-2063-4240-83cb-d7eebcabe301",
+        status = "Label effective April 2024, read via openFDA; cited for infusion rate, monitoring and diluent",
+    ),
+    Source(
+        "tr-hs-fda-fosphenytoin", Authority.FDA, "Prescribing information (DailyMed; Pfizer)",
+        "CEREBYX (fosphenytoin sodium) injection", "2025",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d4c36fad-0ba2-4cd4-9c5e-dcf843f38a5a",
+        status = "Label effective August 2025, read via openFDA; cited for dose units (mg PE) and infusion rate",
+    ),
+    Source(
+        "tr-hs-fda-methylprednisolone", Authority.FDA, "Prescribing information (DailyMed; Pharmacia & Upjohn)",
+        "SOLU-MEDROL (methylprednisolone sodium succinate for injection)", "2026",
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7271310c-7764-4812-aa30-a5e90987c7a9",
+        status = "Label effective June 2026, read via openFDA; cited for the high-dose infusion rate and rapid-infusion warnings",
+    ),
 )
 
 // Sources defined in this file.
@@ -139,6 +160,9 @@ private const val AO_MPSS = "tr-hs-aospine-mpss-2017"
 private const val AO_MAP = "tr-hs-aospine-haemodynamic-2024"
 private const val AO_SURG = "tr-hs-aospine-timing-2024"
 private const val CSCM = "tr-hs-cscm-2008"
+private const val FDA_PHT = "tr-hs-fda-phenytoin"
+private const val FDA_FOS = "tr-hs-fda-fosphenytoin"
+private const val FDA_MPSS = "tr-hs-fda-methylprednisolone"
 
 /** Defined in Trauma.kt — MoHFW (Dte.GHS) Standard Treatment Guidelines for Management of Trauma, 2025. */
 private const val MOH = "tr-mohfw-stg-trauma-2025"
@@ -204,8 +228,8 @@ private val headInjury = Protocol(
             title = "Airway, oxygenation and ventilation",
             timing = "Primary survey",
             points = listOf(
-                "MoHFW 2025: 100% oxygen by face mask; intubate severe TBI (GCS <8 in its primary survey; all patients with GCS 3–8 in its severe TBI section).",
-                "European 2023 (1B): intubate without delay for airway obstruction, GCS ≤8, hypoventilation or hypoxaemia; avoid hypoxaemia (1A); normoventilate (1B).",
+                "MoHFW 2025: 100% oxygen by face mask; intubate severe TBI (GCS <8 in its head-trauma primary survey; all with GCS 3–8 in its severe TBI section); its general primary survey advises a definitive airway if airway integrity is in doubt or GCS ≤10.",
+                "European 2023 (1B): intubate without delay for airway obstruction, GCS ≤8, hypoventilation or hypoxaemia; avoid hypoxaemia (1A) and hyperoxaemia unless exsanguination is imminent (2B); normoventilate (1B).",
                 "MoHFW 2025 intubation: preoxygenate with 100% oxygen for 3–5 min; remove the front of the collar and keep manual in-line stabilisation; drugs as below.",
                 "Targets: NICE NG232 — PaO₂ >13 kPa, PaCO₂ 4.5–5.0 kPa; MoHFW 2025 — SpO₂ >98%, PaO₂ >100 mm Hg, PaCO₂ around 35 mm Hg.",
                 "BTF prehospital 2023: correct SpO₂ <90% at once; ventilate to EtCO₂ 35–45 mm Hg (about 10 breaths/min) and avoid EtCO₂ <35 mm Hg.",
@@ -240,7 +264,7 @@ private val headInjury = Protocol(
                 ),
             ),
             citations = listOf(
-                cite(MOH, "Ch. 7 Head trauma — airway and breathing (pp. 34–35); severe TBI (pp. 36–37)"),
+                cite(MOH, "Ch. 2 Airway (p. 14); Ch. 7 Head trauma — airway and breathing (pp. 34–35); severe TBI (pp. 36–37)"),
                 cite(EU, "R3"),
                 cite(NG232, "Rec 1.4.6, 1.8.7–1.8.10"),
                 cite(BTF_PRE, "Treatment: airway, oxygenation and ventilation — Rec B, F"),
@@ -313,7 +337,7 @@ private val headInjury = Protocol(
                 "NICE NG24: immediate prothrombin complex concentrate to reverse warfarin with head injury and suspected intracerebral haemorrhage. MoHFW 2025: reverse anticoagulation with an intracranial bleed.",
                 "Reversal agents and doses (PCC, vitamin K, idarucizumab): see the Traumatic haemorrhage and shock protocol — Reverse anticoagulants.",
                 "NICE NG232: GCS ≤12 and no suspected active extracranial bleeding — consider tranexamic acid 2 g IV bolus (16 and over) within 2 h, before imaging.",
-                "CRASH-3 (adults within 3 h; GCS ≤12 or CT bleed): 1 g over 10 min, then 1 g over 8 h; fewer head-injury deaths in mild–moderate, not severe TBI.",
+                "CRASH-3 (adults within 3 h; GCS ≤12 or CT bleed; no major extracranial bleeding): 1 g over 10 min, then 1 g over 8 h. Head-injury death 18.5% vs 19.8% (RR 0.94, 95% CI 0.86–1.02); by severity, fewer deaths in mild–moderate (RR 0.78) but not severe TBI (RR 0.99).",
                 "BTF prehospital 2023: prehospital tranexamic acid is not generally indicated for suspected intracranial bleeding. Extracranial bleeding: see Traumatic haemorrhage and shock.",
             ),
             doses = listOf(
@@ -341,7 +365,7 @@ private val headInjury = Protocol(
                 "MoHFW 2025, normotensive: mannitol 1 g/kg IV over 5 min, then 20 g (100 mL) three times daily; osmolality <320 mOsm/L; not in extradural haematoma.",
                 "MoHFW 2025, hypotensive: 3% saline 200 mL over 10 min, sodium <155 mEq/L. ICMR STW 2024: mannitol 0.25–1 g/kg bolus or 3% saline 3 mL/kg 8-hourly.",
                 "BTF (third-edition text, not evidence-graded): mannitol 0.25–1 g/kg, avoiding SBP <90 mm Hg; before ICP monitoring only for herniation or progressive deterioration.",
-                "Hyperventilation only for herniation: European 2023 (2C); BTF prehospital 2023 — EtCO₂ 30–35 mm Hg. BTF (IIB): no prolonged prophylactic PaCO₂ ≤25 mm Hg.",
+                "Hyperventilation only for herniation: European 2023 (2C); BTF prehospital 2023 — EtCO₂ 30–35 mm Hg. BTF (IIB): no prolonged prophylactic PaCO₂ ≤25 mm Hg; its third-edition text: avoid in the first 24 h.",
                 "SIBICC 2019: head of bed 30–45°, head midline, cervical collar not too tight. ICMR STW 2024: elevate the head end and sedate.",
                 "No corticosteroids: MoHFW 2025 — contraindicated; BTF (Level I) — not recommended; CRASH — methylprednisolone raised 2-week mortality (21.1% vs 17.9%).",
             ),
@@ -389,14 +413,15 @@ private val headInjury = Protocol(
                 "BTF: insufficient evidence to prefer levetiracetam over phenytoin. SIBICC 2019: consider anti-seizure medicine for 1 week only, unless there is an indication to continue.",
                 "MoHFW 2025, seizures: phenytoin or fosphenytoin 15–20 mg/kg slowly over 30 min; adults 1 g loading, then 100 mg 8-hourly. Continuing seizures: see Status epilepticus.",
                 "ICMR STW 2024: phenytoin 20 mg/kg IV over 30 min, then 5 mg/kg in 2–3 divided doses, or levetiracetam 500 mg twice daily for 1–3 months.",
+                "FDA labels: phenytoin no faster than 50 mg/min in adults (children 1–3 mg/kg/min or 50 mg/min, whichever is slower), with continuous ECG and BP monitoring; dilute in normal saline, not dextrose. Fosphenytoin is dosed in mg PE, up to 150 mg PE/min in adults.",
                 "SIBICC 2019 basic care: ICU, analgesia and sedation, treat temperature >38 °C, CPP ≥60 mm Hg, Hb >7 g/dL, SpO₂ ≥94%, avoid hyponatraemia.",
                 "NICE NG232: treat pain, splint fractures and catheterise a full bladder, as these raise ICP. BTF (IIB): treat ICP >22 mm Hg; CPP 60–70 mm Hg.",
             ),
             doses = listOf(
                 StepDose(
                     "Phenytoin — loading (MoHFW 2025: 15–20 mg/kg; ICMR STW 2024: 20 mg/kg)",
-                    WeightDose(15.0, 20.0, unit = "mg", per = "IV, slowly over 30 min"),
-                    note = "MoHFW: in adults, 1 g loading then 100 mg 8-hourly",
+                    WeightDose(15.0, 20.0, unit = "mg", per = "IV slowly, no faster than 50 mg/min (FDA label)"),
+                    note = "MoHFW and ICMR: over 30 min — at 50 mg/min, doses above 1.5 g take longer. FDA label: children 1–3 mg/kg/min or 50 mg/min, whichever is slower; continuous ECG and BP monitoring; dilute in normal saline only. MoHFW: in adults, 1 g loading then 100 mg 8-hourly",
                 ),
                 StepDose(
                     "Phenytoin — maintenance (ICMR STW 2024)",
@@ -408,6 +433,8 @@ private val headInjury = Protocol(
                 cite(SIBICC, "Fig. 1 Tier zero; Fig. 2 Tier 1"),
                 cite(MOH, "Ch. 7 Head trauma — management of seizures (p. 37)"),
                 cite(ICMR_HEAD, "Medical management — antiepileptic drugs"),
+                cite(FDA_PHT, "Boxed warning; Dosage and administration 2.1–2.2"),
+                cite(FDA_FOS, "Boxed warning; Dosage and administration 2.1; Warnings 5.1 Dosing errors"),
                 cite(NG232, "Rec 1.3.11, 1.4.11"),
             ),
         ),
@@ -416,7 +443,7 @@ private val headInjury = Protocol(
             title = "Neurosurgical referral, transfer and specific injuries",
             points = listOf(
                 "NICE NG232: discuss new surgically significant imaging findings with a neurosurgeon. ICMR STW 2024: surgery for extradural haematoma >30 mL, or subdural >10 mm with shift >5 mm and deterioration.",
-                "MoHFW 2025: admit or transfer moderate TBI to a facility with definitive neurosurgical care; if none is readily available, a trained surgeon operates on mass lesions.",
+                "MoHFW 2025: admit or transfer moderate TBI to a facility with definitive neurosurgical care; if none is readily available, a trained surgeon operates on mass lesions. ICMR STW 2024: evacuation or decompressive craniectomy by a neurosurgeon only.",
                 "NICE NG232: transfer benefits anyone with GCS ≤8; resuscitate, stabilise and monitor first; do not move a persistently hypotensive patient until the cause is found and treated.",
                 "MoHFW 2025, penetrating: leave the object in place; NCCT head with C-spine; ceftriaxone 1 g IV, amikacin 500 mg IV twice daily, metronidazole 500 mg IV three times daily, or local policy.",
                 "MoHFW 2025: scalp wounds bleed profusely — direct pressure, clean and suture; look for a skull fracture. Depressed fracture: NCCT with C-spine and neurosurgical consult.",
@@ -464,7 +491,7 @@ private val headInjury = Protocol(
             ),
         ),
         ProtocolNote(
-            "Carbon dioxide targets differ: ICMR STW 2024 — mild to moderate hyperventilation (PaCO₂ 30–35 mm Hg) for high ICP and PaCO₂ 30–32 mm Hg in ICU care of severe injury; MoHFW 2025 — PaCO₂ around 35 mm Hg, avoid hyperventilation; NICE NG232 — 4.5–5.0 kPa unless ICP is raised; European 2023 — normoventilation; BTF — no prolonged prophylactic PaCO₂ ≤25 mm Hg.",
+            "Carbon dioxide targets differ: ICMR STW 2024 — mild to moderate hyperventilation (PaCO₂ 30–35 mm Hg) for high ICP and PaCO₂ 30–32 mm Hg in ICU care of severe injury; MoHFW 2025 — PaCO₂ around 35 mm Hg, avoid hyperventilation; NICE NG232 — 4.5–5.0 kPa unless ICP is raised; European 2023 — normoventilation; BTF — no prolonged prophylactic PaCO₂ ≤25 mm Hg (IIB), and its third-edition text (not evidence-graded): hyperventilation as a temporising measure for raised ICP, avoided in the first 24 h after injury.",
             listOf(cite(ICMR_HEAD, "Medical management; Severe head injury pathway"), cite(MOH, "Ch. 7 (pp. 35, 37)"), cite(NG232, "Rec 1.8.10"), cite(EU, "R3"), cite(BTF, "Table 1 — Ventilation therapies")),
         ),
         ProtocolNote(
@@ -476,8 +503,8 @@ private val headInjury = Protocol(
             listOf(cite(ICMR_HEAD, "Red flag signs; Prehospital care of head injury"), cite(BTF_PRE, "Treatment: hyperventilation and hyperosmolar therapy — Rec D"), cite(MOH, "Ch. 7 (p. 37)")),
         ),
         ProtocolNote(
-            "Tranexamic acid regimens differ: NICE NG232 — 2 g IV bolus within 2 h for GCS ≤12; CRASH-3 — 1 g over 10 min then 1 g over 8 h within 3 h, with benefit in mild–moderate TBI (RR 0.78) but not severe TBI (RR 0.99); BTF prehospital — not generally indicated before hospital. MoHFW 2025 gives tranexamic acid only for the severely injured, not specifically for TBI.",
-            listOf(cite(NG232, "Rec 1.3.17"), cite(CRASH3, "Abstract — Findings"), cite(EU, "R23 rationale"), cite(BTF_PRE, "Rec E (hyperventilation and hyperosmolar therapy)"), cite(MOH, "Ch. 2 Circulation (p. 14)")),
+            "Tranexamic acid regimens differ: NICE NG232 — 2 g IV bolus within 2 h for GCS ≤12; CRASH-3 — 1 g over 10 min then 1 g over 8 h within 3 h, primary outcome RR 0.94 (95% CI 0.86–1.02); by severity, benefit in mild–moderate TBI (RR 0.78) but not severe TBI (RR 0.99); BTF prehospital — not generally indicated before hospital. MoHFW 2025 gives tranexamic acid only for the severely injured, not specifically for TBI.",
+            listOf(cite(NG232, "Rec 1.3.17"), cite(CRASH3, "Abstract — Findings"), cite(EU, "R23 rationale"), cite(BTF_PRE, "Rec E (hyperventilation and hyperosmolar therapy)"), cite(MOH, "Ch. 2 Circulation with haemorrhage control (p. 15)")),
         ),
         ProtocolNote(
             "Seizure prophylaxis duration differs: BTF 4th edition and SIBICC 2019 limit it to the first week; ICMR STW 2024 lists levetiracetam for 1–3 months.",
@@ -494,7 +521,7 @@ private val headInjury = Protocol(
     ),
     citations = listOf(
         cite(MOH), cite(ICMR_HEAD), cite(NG232), cite(BTF), cite(BTF_PRE), cite(CRASH3), cite(CRASH), cite(SIBICC),
-        cite(EU), cite(NG39), cite(NG24),
+        cite(EU), cite(NG39), cite(NG24), cite(FDA_PHT), cite(FDA_FOS),
     ),
 )
 
@@ -554,7 +581,7 @@ private val spinalInjury = Protocol(
             points = listOf(
                 "NICE NG41: assess suspected cervical injury with the Canadian C-spine rule. MoHFW 2025: use NEXUS and the Canadian rule to clear the spine clinically.",
                 "NICE NG41: test neck rotation only with no high-risk factor and at least one low-risk factor. MoHFW 2025: never force the patient's neck.",
-                "NICE NG41: no immobilisation or imaging with a low-risk factor, no pain, and active rotation of 45° to the left and right.",
+                "NICE NG41: no immobilisation or imaging with a low-risk factor, no pain and active rotation of 45° to the left and right, and none of the thoracic or lumbosacral factors below (rec 1.1.7).",
                 "Stiell 2003 (alert, stable patients): the Canadian rule was more sensitive (99.4% vs 90.7%) and more specific (45.1% vs 36.8%) than NEXUS.",
                 "MoHFW 2025: image the cervical spine in every patient with altered sensorium. NICE NG41: the Canadian rule is hard to apply in children — consider developmental stage.",
             ),
@@ -642,7 +669,7 @@ private val spinalInjury = Protocol(
                 "MoHFW 2025: suspect neurogenic shock with persistent hypotension without active bleeding, or bradycardia with hypotension. CSCM 2008: exclude other injuries first — see Traumatic haemorrhage and shock.",
                 "MoHFW 2025: fluid challenge of 1 L at most; if there is no improvement, start vasopressor(s).",
                 "AANS/CNS 2013 (Level III): correct SBP <90 mm Hg as soon as possible; keep MAP 85–90 mm Hg for the first 7 days.",
-                "AO Spine 2024 (weak, very low-quality evidence): MAP at least 75–80 mm Hg but not above 90–95 mm Hg, for 3–7 days.",
+                "AO Spine 2024 (weak, very low-quality evidence): raise MAP to at least 75–80 mm Hg but do not actively augment it beyond 90–95 mm Hg (do not lower a MAP that is higher without support), for 3–7 days.",
                 "ICMR STW 2024: goal MAP ≥85 mm Hg in blunt or incomplete penetrating injury, ≥65 mm Hg in complete penetrating injury; noradrenaline 0.1–0.5 mcg/kg/min.",
                 "CSCM 2008: monitor and treat symptomatic bradycardia; monitor and regulate temperature.",
             ),
@@ -669,14 +696,14 @@ private val spinalInjury = Protocol(
                 "NICE NG41: do not use methylprednisolone, nimodipine or naloxone for neuroprotection after acute traumatic spinal cord injury. MoHFW 2025: do not give steroids.",
                 "AANS/CNS 2013 (Level I): methylprednisolone is not recommended — no Class I or II evidence of benefit; high-dose steroids cause harm, including death.",
                 "AO Spine 2017 (weak): a 24-h high-dose methylprednisolone infusion may be offered within 8 h of injury; not after 8 h; no 48-h infusion.",
-                "ICMR STW 2024: MPSS 30 mg/kg bolus, then 5.4 mg/kg/h for 23 h — consider within 8 h with incomplete injury, aware of high-dose steroid complications.",
+                "ICMR STW 2024: MPSS 30 mg/kg bolus (FDA label: over at least 30 min), then 5.4 mg/kg/h for 23 h — consider within 8 h with incomplete injury, aware of high-dose steroid complications.",
                 "ICMR STW 2024: no role after 8 h or in complete injury; contraindicated with thoracic or abdominal visceral injury. CSCM 2008: stop early if neurology is normal or recovered.",
             ),
             doses = listOf(
                 StepDose(
                     "Methylprednisolone sodium succinate — bolus (ICMR STW 2024)",
-                    WeightDose(30.0, 30.0, unit = "mg", per = "IV bolus"),
-                    note = "ICMR: consider only within 8 h with incomplete injury. NICE NG41, MoHFW 2025 and AANS/CNS 2013 advise against",
+                    WeightDose(30.0, 30.0, unit = "mg", per = "IV over at least 30 min (FDA label), not as a push"),
+                    note = "ICMR: consider only within 8 h with incomplete injury. FDA label: arrhythmias and cardiac arrest reported after >0.5 g in <10 min; bradycardia with large doses, possibly unrelated to the rate. NICE NG41, MoHFW 2025 and AANS/CNS 2013 advise against",
                 ),
                 StepDose(
                     "Methylprednisolone sodium succinate — infusion (ICMR STW 2024)",
@@ -690,6 +717,7 @@ private val spinalInjury = Protocol(
                 cite(AANS_PH, "Recommendations (Level I)"),
                 cite(AO_MPSS, "Recommendations 1–3"),
                 cite(ICMR_SPINE, "Appendix IV: MPSS guidelines"),
+                cite(FDA_MPSS, "Dosage and administration"),
                 cite(CSCM, "Recommendations 22–23"),
             ),
         ),
@@ -702,12 +730,14 @@ private val spinalInjury = Protocol(
                 "CSCM 2008: indwelling urinary catheter at the initial assessment unless contraindicated (then suprapubic); priapism is no reason to avoid a urethral catheter.",
                 "CSCM 2008: pressure-reducing mattress; turn or reposition at least every 2 h with spinal precautions; keep skin clean and dry; check under splints.",
                 "ICMR STW 2024: non-ambulatory patients with deficits need DVT prophylaxis within 72 h — LMWH or fixed low-dose unfractionated heparin, for 8–12 weeks by risk.",
-                "CSCM 2008: mechanical compression early; LMWH or unfractionated heparin once primary haemostasis is evident; start stress-ulcer prophylaxis.",
+                "CSCM 2008: mechanical compression early; LMWH or unfractionated heparin once primary haemostasis is evident — intracranial bleeding, perispinal haematoma or haemothorax are potential contraindications until bleeding has stabilised; start stress-ulcer prophylaxis.",
+                "With head injury, BTF 4th edition (Level III): LMWH or low-dose heparin risks expansion of intracranial haemorrhage — consider it once the brain injury is stable.",
             ),
             citations = listOf(
                 cite(NG41, "Rec 1.2.4–1.2.7"),
                 cite(ICMR_SPINE, "Primary care management; Appendix V: DVT prophylaxis"),
                 cite(CSCM, "Recommendations 51–56, 62–65"),
+                cite(BTF, "Table 1 — Deep vein thrombosis prophylaxis"),
             ),
         ),
         // 9 ----------------------------------------------------------------------------------------------
@@ -718,13 +748,14 @@ private val spinalInjury = Protocol(
                 "NICE NG41: take suspected cord injury, immobilised, to a major trauma centre — not straight from the scene to a spinal cord injury centre.",
                 "NICE NG41: the trauma team leader calls the on-call spinal surgeon immediately; the surgeon contacts the linked spinal cord injury centre within 4 h.",
                 "AO Spine 2024 (strong): offer early surgery (≤24 h after injury) to adults with acute spinal cord injury at any level. ICMR STW 2024: early decompression (<72 h).",
-                "ICMR STW 2024 primary care: identify, immobilise (collar, spine board, sandbags), IV Ringer's lactate, group and cross-match, catheterise, analgesia, then transfer.",
+                "ICMR STW 2024 primary care: identify, immobilise (collar, spine board, sandbags), IV Ringer's lactate, group and cross-match, catheterise, analgesia, then transfer. (European 2023 (1B): avoid Ringer's lactate in severe head trauma — see Head injury.)",
                 "ICMR STW 2024: document the Frankel or ASIA grade; score TLICS or SLIC — <4 non-operative, 4 equivocal, >4 operative (its management panel says >5 for surgery).",
             ),
             citations = listOf(
                 cite(NG41, "Rec 1.3.2–1.3.5, 1.6.1–1.6.4"),
                 cite(AO_SURG, "Key question 1 recommendation"),
                 cite(ICMR_SPINE, "Primary, secondary and tertiary care; Appendices I–III; Ancillary procedures"),
+                cite(EU, "R15"),
             ),
         ),
     ),
@@ -738,7 +769,7 @@ private val spinalInjury = Protocol(
             listOf(cite(MOH, "Ch. 2 (p. 17)"), cite(NG41, "Rec 1.1.9–1.1.13"), cite(RCUK_FA, "Cervical spinal motion restriction")),
         ),
         ProtocolNote(
-            "MAP targets differ: AANS/CNS 2013 — 85–90 mm Hg for 7 days; AO Spine 2024 — at least 75–80 but not above 90–95 mm Hg for 3–7 days; ICMR STW 2024 — ≥85 mm Hg (blunt or incomplete penetrating) or ≥65 mm Hg (complete penetrating).",
+            "MAP targets differ: AANS/CNS 2013 — 85–90 mm Hg for 7 days; AO Spine 2024 — augment to at least 75–80 mm Hg and no higher than 90–95 mm Hg (a higher unsupported MAP is not lowered), for 3–7 days; ICMR STW 2024 — ≥85 mm Hg (blunt or incomplete penetrating) or ≥65 mm Hg (complete penetrating).",
             listOf(cite(AANS_CP, "Recommendations"), cite(AO_MAP, "MAP target and duration"), cite(ICMR_SPINE, "Ancillary procedures")),
         ),
         ProtocolNote(
@@ -756,7 +787,7 @@ private val spinalInjury = Protocol(
     ),
     citations = listOf(
         cite(MOH), cite(ICMR_SPINE), cite(NG41), cite(AANS_CP), cite(AANS_PH), cite(AO_MPSS), cite(AO_MAP), cite(AO_SURG),
-        cite(CSCM), cite(RCUK_FA), cite(CCR_VS_NEXUS),
+        cite(CSCM), cite(RCUK_FA), cite(CCR_VS_NEXUS), cite(FDA_MPSS), cite(BTF), cite(EU), cite(NG232),
     ),
 )
 
