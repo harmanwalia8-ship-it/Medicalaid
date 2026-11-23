@@ -18,11 +18,11 @@ import com.medicalaid.app.content.protocols.StepDose
  *   ERC locators are section headings, tables and figures; SOGC locators are recommendation numbers.
  * - Reuses sources defined elsewhere: em-resus-aha-special-2025 (DrugTox.kt), em-resus-erc-special-2025
  *   (Resuscitation.kt), ob-ecl-mohfw-stg-obg, ob-ecl-mohfw-hdu-2016 and ob-ecl-who-mcpc-2017 (Eclampsia.kt),
- *   acog-pb181 and mohfw-td (Sources.kt).
+ *   acog-pb181 and mohfw-td (Sources.kt), tr-mohfw-stg-trauma-2025 (Trauma.kt).
  * - Not verified, so not summarised: RCOG GTG 56 full text (publisher site not reachable); SOGC 2015 and EAST 2025
  *   full texts (recommendations taken from their published abstracts, which list them); ACOG CO 723 full text
  *   (abstract only — no radiation-dose thresholds reproduced). No MoHFW, ICMR STW or FOGSI document on maternal
- *   cardiac arrest or trauma in pregnancy was found.
+ *   cardiac arrest was found; trauma in pregnancy is covered by the MoHFW trauma STG 2025, Chapter 13.
  */
 
 internal val maternalCollapseSources = listOf(
@@ -102,6 +102,7 @@ private const val MOH_HDU = "ob-ecl-mohfw-hdu-2016"
 private const val WHO_MCPC = "ob-ecl-who-mcpc-2017"
 private const val PB181 = "acog-pb181"
 private const val MOH_TD = "mohfw-td"
+private const val MOH_STG_TRAUMA = "tr-mohfw-stg-trauma-2025"
 
 internal val maternalCollapseProtocols = listOf(
     // =============================================================================================
@@ -530,6 +531,8 @@ internal val maternalCollapseProtocols = listOf(
                     "SOGC 2015: admit for 24 h observation if any adverse factor in the checklist.",
                     "SOGC 2015: obstetric ultrasound before discharge if monitored >4 h; urgent ultrasound if gestation is unknown and delivery may be needed.",
                     "MoHFW HDU 2016: pregnancy with trauma is listed for obstetric HDU care, with continuous electronic fetal monitoring.",
+                    "MoHFW STG 2025: >20 weeks — continuous tocodynamometry as soon as possible; monitor 24 h if any risk factor for fetal loss " +
+                        "(maternal HR >110/min, fetal HR >160 or <120/min, ISS >9, ejection from a vehicle, motorcycle or pedestrian collision, evidence of abruption), otherwise 4–6 h.",
                 ),
                 checklistTitle = "Admit for 24 h observation (SOGC 2015, ≥23 weeks) if",
                 checklist = listOf(
@@ -546,6 +549,7 @@ internal val maternalCollapseProtocols = listOf(
                     cite(EAST, "Abstract — Results"),
                     cite(SOGC, "Rec 12, 20–21, 24–25"),
                     cite(MOH_HDU, "Scope of obstetric HDU (p. 8); Care for fetus (p. 22)"),
+                    cite(MOH_STG_TRAUMA, "Ch. 13 Trauma in pregnancy — Foetus (p. 58)"),
                 ),
             ),
             // 6 ------------------------------------------------------------------------------------
@@ -571,6 +575,7 @@ internal val maternalCollapseProtocols = listOf(
                 timing = "Ideally within 72 h (ACOG PB 181); later doses may still protect",
                 points = listOf(
                     "SOGC 2015 and ACOG PB 181: give anti-D immunoglobulin to every Rh(D)-negative pregnant woman after (abdominal) trauma.",
+                    "MoHFW STG 2025: 1 ampoule of Rh immunoglobulin (300 micrograms) IM within 72 h of injury in all Rh-negative injured patients.",
                     "SOGC 2015 and ACOG PB 181: quantify fetomaternal haemorrhage, e.g. Kleihauer–Betke, to decide whether additional anti-D doses are needed.",
                     "EAST 2025: Kleihauer–Betke testing in Rh-negative patients to determine an appropriate anti-D dose.",
                     "ACOG PB 181: 300 micrograms of anti-D covers up to 30 mL of Rh(D)-positive fetal whole blood (15 mL fetal red cells).",
@@ -581,6 +586,7 @@ internal val maternalCollapseProtocols = listOf(
                     cite(SOGC, "Rec 22–23"),
                     cite(PB181, "Box 1; Anti-D immune globulin; abdominal trauma question; missed-dose question (pp. e65–e66); Summary of recommendations"),
                     cite(EAST, "Abstract — Results"),
+                    cite(MOH_STG_TRAUMA, "Ch. 13 Trauma in pregnancy — Definitive care (p. 59)"),
                 ),
             ),
             // 8 ------------------------------------------------------------------------------------
@@ -590,6 +596,7 @@ internal val maternalCollapseProtocols = listOf(
                     "SOGC 2015: tetanus vaccination is safe in pregnancy and should be given when indicated.",
                     "CDC: vaccinate for any wound if history unknown or incomplete; complete series — clean minor wound if last dose ≥10 years, dirty or major ≥5 years.",
                     "CDC: tetanus immune globulin 250 IU IM for dirty or major wounds with unknown, absent or incomplete vaccination, HIV or severe immunodeficiency; never for clean minor wounds.",
+                    "MoHFW STG 2025 (trauma in pregnancy): 'administer tetanus immunoglobulin' is listed under definitive care, without criteria.",
                     "MoHFW Td: Td has replaced TT, including in pregnancy — 0.5 mL IM, upper arm; earlier TT doses remain valid.",
                     "SOGC 2015: ask every injured woman specifically about domestic or intimate partner violence.",
                     "SOGC 2015: document fetal well-being carefully in cases involving violence, especially for legal purposes.",
@@ -598,6 +605,7 @@ internal val maternalCollapseProtocols = listOf(
                     cite(SOGC, "Rec 26, 28–29"),
                     cite(CDC_TET, "Wound assessment and care — vaccination and TIG"),
                     cite(MOH_TD, "UIP schedule after Td introduction; key messages"),
+                    cite(MOH_STG_TRAUMA, "Ch. 13 Trauma in pregnancy — Definitive care (p. 59)"),
                 ),
             ),
             // 9 ------------------------------------------------------------------------------------
@@ -636,8 +644,14 @@ internal val maternalCollapseProtocols = listOf(
                 ),
             ),
             ProtocolNote(
-                "India: no MoHFW, ICMR STW or FOGSI guideline on trauma in pregnancy was found (November 2026). Under the UIP, pregnant women receive Td, not Tdap.",
-                listOf(cite(MOH_HDU, "Scope of obstetric HDU (p. 8)"), cite(MOH_TD, "UIP schedule after Td introduction")),
+                "India: the MoHFW Standard Treatment Guidelines for Management of Trauma 2025 have a trauma-in-pregnancy chapter (Ch. 13): ATLS-based primary and secondary survey, " +
+                    "a wedge under the right hip with about 30° left tilt, fetal monitoring, tetanus immunoglobulin (no criteria given) and anti-D 300 micrograms IM within 72 h for Rh-negative patients, " +
+                    "disposition and perimortem caesarean. No ICMR STW or FOGSI guideline on trauma in pregnancy was found (November 2026). Under the UIP, pregnant women receive Td, not Tdap.",
+                listOf(
+                    cite(MOH_STG_TRAUMA, "Ch. 13 Trauma in pregnancy (pp. 57–59)"),
+                    cite(MOH_HDU, "Scope of obstetric HDU (p. 8)"),
+                    cite(MOH_TD, "UIP schedule after Td introduction"),
+                ),
             ),
             ProtocolNote(
                 "SOGC 2015 (prevention): emphasise wearing seatbelts properly at all times at antenatal visits; insufficient evidence to support disabling air bags.",
@@ -645,7 +659,7 @@ internal val maternalCollapseProtocols = listOf(
             ),
         ),
         citations = listOf(
-            cite(SOGC), cite(EAST), cite(CO723), cite(PB181), cite(AHA), cite(ERC), cite(WHO_MCPC), cite(MOH_HDU), cite(MOH_TD), cite(CDC_TET),
+            cite(SOGC), cite(EAST), cite(CO723), cite(PB181), cite(AHA), cite(ERC), cite(WHO_MCPC), cite(MOH_HDU), cite(MOH_TD), cite(CDC_TET), cite(MOH_STG_TRAUMA),
         ),
     ),
 )
