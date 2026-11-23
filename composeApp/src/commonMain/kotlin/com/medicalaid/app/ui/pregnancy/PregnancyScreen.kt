@@ -83,13 +83,13 @@ import kotlinx.datetime.daysUntil
 private enum class PickerTarget { Lmp, Scan }
 
 @Composable
-fun PregnancyScreen(state: PregnancyState, today: LocalDate, contentPadding: PaddingValues, onMenu: (() -> Unit)? = null) {
+fun PregnancyScreen(state: PregnancyState, today: LocalDate, contentPadding: PaddingValues, onMenu: (() -> Unit)? = null, onBack: (() -> Unit)? = null) {
     var picker by remember { mutableStateOf<PickerTarget?>(null) }
     val outcome = state.outcome(today)
     val result = (outcome as? DatingOutcome.Ok)?.result
 
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
-        item { ScreenTitle("Pregnancy", "Dating, due date and the antenatal schedule", onMenu = onMenu) }
+        item { ScreenTitle("Dating & antenatal schedule", "EDD, gestational age, scans, tests and vaccines", onMenu = onMenu, onBack = onBack) }
 
         item {
             InputCard(

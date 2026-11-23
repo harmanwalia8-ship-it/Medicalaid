@@ -25,6 +25,15 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material.icons.outlined.PushPin
+import androidx.compose.material.icons.filled.PushPin
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.rotate
+import com.medicalaid.app.ui.Library
+import com.medicalaid.app.ui.LocalCurrentPage
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -136,22 +145,16 @@ fun GuidelineBasis(citations: List<Citation>, modifier: Modifier = Modifier, com
     }
     val c = Theme.colors
     val uri = LocalUriHandler.current
+    var open by remember(citations) { mutableStateOf(false) }
     Column(
         modifier
             .fillMaxWidth()
             .clip(Radius.inner)
             .background(c.surfaceMuted)
-            .padding(vertical = 6.dp),
+            .padding(vertical = 4.dp),
     ) {
-        Row(
-            Modifier.padding(start = 14.dp, end = 14.dp, top = 6.dp, bottom = 2.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(Icons.Outlined.Info, null, tint = c.accent, modifier = Modifier.size(14.dp))
-            Spacer(Modifier.width(6.dp))
-            Text("Guideline basis", style = Theme.type.label, color = c.accent)
-        }
-        citations.distinct().forEach { citation ->
+        SourcesToggle(citations, open, Modifier.padding(horizontal = 14.dp, vertical = 6.dp)) { open = !open }
+        if (open) citations.distinct().forEach { citation ->
             val source = Sources.byId(citation.sourceId)
             Row(
                 Modifier
@@ -185,6 +188,30 @@ fun GuidelineBasis(citations: List<Citation>, modifier: Modifier = Modifier, com
     }
 }
 
+/**
+ * One line that names the bodies behind a recommendation ("Sources · NICE, MoHFW +1") and expands to the full,
+ * tappable list. Sources stay one tap away without crowding the clinical text.
+ */
+@Composable
+private fun SourcesToggle(citations: List<Citation>, open: Boolean, modifier: Modifier, onToggle: () -> Unit) {
+    val c = Theme.colors
+    val bodies = citations.map { Sources.byId(it.sourceId).authority.short }.distinct()
+    val shown = bodies.take(2).joinToString(", ") + if (bodies.size > 2) " +${bodies.size - 2}" else ""
+    Row(
+        Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)).clickable(onClick = onToggle).then(modifier),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(Icons.Outlined.Info, null, tint = c.textTertiary, modifier = Modifier.size(13.dp))
+        Spacer(Modifier.width(6.dp))
+        Text("Sources · $shown", style = Theme.type.caption, color = c.textTertiary, modifier = Modifier.weight(1f),
+            maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Icon(
+            Icons.Outlined.ExpandMore, if (open) "Hide sources" else "Show sources", tint = c.textTertiary,
+            modifier = Modifier.size(16.dp).rotate(if (open) 180f else 0f),
+        )
+    }
+}
+
 /** "NICE Guideline NG201", without repeating the body when the document name already includes it. */
 fun sourceLabel(source: com.medicalaid.app.content.Source): String = when {
     // Journal articles: the citation itself ("Review (J Emerg Trauma Shock 2011;4:378–384)") says what it is.
@@ -198,10 +225,12 @@ fun sourceLabel(source: com.medicalaid.app.content.Source): String = when {
 private fun CompactBasis(citations: List<Citation>, modifier: Modifier = Modifier) {
     val c = Theme.colors
     val uri = LocalUriHandler.current
+    var open by remember(citations) { mutableStateOf(false) }
     Column(modifier.fillMaxWidth()) {
         Hairline()
-        Spacer(Modifier.height(8.dp))
-        citations.distinct().forEach { citation ->
+        Spacer(Modifier.height(6.dp))
+        SourcesToggle(citations, open, Modifier.padding(vertical = 2.dp)) { open = !open }
+        if (open) citations.distinct().forEach { citation ->
             val source = Sources.byId(citation.sourceId)
             Row(
                 Modifier
@@ -242,7 +271,8 @@ fun ScreenTitle(
 ) {
     Column(modifier.fillMaxWidth().padding(horizontal = Gutter).padding(top = 12.dp, bottom = 8.dp)) {
         val action = onBack ?: onMenu
-        if (action != null) {
+        val page = if (onBack != null) LocalCurrentPage.current else null
+        if (action != null) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
             Box(
                 Modifier
                     .padding(bottom = 14.dp)
@@ -257,6 +287,26 @@ fun ScreenTitle(
                     Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Theme.colors.text, modifier = Modifier.size(20.dp))
                 } else {
                     Icon(Icons.Outlined.Menu, "Menu", tint = Theme.colors.text, modifier = Modifier.size(20.dp))
+                }
+            }
+            if (page != null) {
+                val pinned = Library.isPinned(page)
+                Spacer(Modifier.weight(1f))
+                Box(
+                    Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(if (pinned) Theme.colors.accentSoft else Theme.colors.surface)
+                        .border(1.dp, Theme.colors.hairline, CircleShape)
+                        .clickable { Library.togglePin(page) },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        if (pinned) Icons.Filled.PushPin else Icons.Outlined.PushPin,
+                        if (pinned) "Unpin" else "Pin to Home",
+                        tint = if (pinned) Theme.colors.accent else Theme.colors.textSecondary,
+                        modifier = Modifier.size(19.dp),
+                    )
                 }
             }
         }

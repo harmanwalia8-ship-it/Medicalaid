@@ -15,4 +15,10 @@ actual object Prefs {
     actual fun putInt(key: String, value: Int) {
         prefs?.edit()?.putInt(key, value)?.apply()
     }
+
+    actual fun getString(key: String, default: String): String = prefs?.getString(key, default) ?: default
+
+    actual fun putString(key: String, value: String) {
+        prefs?.edit()?.putString(key, value)?.apply()
+    }
 }

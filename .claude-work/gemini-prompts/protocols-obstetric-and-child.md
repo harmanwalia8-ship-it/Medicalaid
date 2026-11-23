@@ -47,7 +47,7 @@ output format exactly**.
 
 ## Protocol: <protocol-id>
 - **Title:** <title>
-- **Summary:** <one line, ≤ 20 words>
+- **Summary:** <≤ 10 words, a list-row subtitle, e.g. "Atropine titration, pralidoxime, ventilation">
 - **Category:** <Obstetric | Neuro | Respiratory | Metabolic | Infection | Cardiac>
 - **Keywords:** `kw1`, `kw2`, `kw3`
 

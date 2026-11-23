@@ -30,6 +30,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Calculate
 import androidx.compose.material.icons.outlined.Checklist
+import androidx.compose.material.icons.outlined.Coronavirus
 import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
@@ -71,6 +72,12 @@ import com.medicalaid.app.ui.home.IntendedUseDialog
 import com.medicalaid.app.ui.medicines.ConditionScreen
 import com.medicalaid.app.ui.medicines.MedicinesScreen
 import com.medicalaid.app.ui.pregnancy.PregnancyScreen
+import com.medicalaid.app.ui.pregnancy.PregnancyHubScreen
+import com.medicalaid.app.ui.Library
+import com.medicalaid.app.ui.LocalCurrentPage
+import com.medicalaid.app.ui.LocalOpenPage
+import com.medicalaid.app.ui.PageKey
+import androidx.compose.runtime.CompositionLocalProvider
 import com.medicalaid.app.ui.pregnancy.PregnancyState
 import com.medicalaid.app.ui.sources.SourcesScreen
 import com.medicalaid.app.ui.theme.AppTheme
@@ -83,13 +90,15 @@ import kotlinx.coroutines.launch
 @Composable
 expect fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit)
 
+/** Sections by clinical situation; the menu draws a divider after Home, Drugs and Calculators. */
 enum class Destination(val label: String, val icon: ImageVector) {
     Home("Home", Icons.Outlined.Home),
-    Pregnancy("Pregnancy", Icons.Outlined.PregnantWoman),
-    Treatment("Treatment", Icons.Outlined.MedicalServices),
+    Emergency("Emergency", Icons.Outlined.Emergency),
+    Pregnancy("Pregnancy & labour", Icons.Outlined.PregnantWoman),
+    Infections("Infections", Icons.Outlined.Coronavirus),
+    Adult("Adult medicine", Icons.Outlined.MedicalServices),
     Drugs("Drugs", Icons.Outlined.Medication),
     Scores("Scores", Icons.Outlined.Checklist),
-    Protocols("Protocols", Icons.Outlined.Emergency),
     Calculators("Calculators", Icons.Outlined.Calculate),
     Sources("Sources", Icons.AutoMirrored.Outlined.MenuBook),
     About("About", Icons.Outlined.Info),
@@ -102,6 +111,25 @@ sealed interface Detail {
     data class ToolPage(val kind: com.medicalaid.app.content.ToolKind) : Detail
     data class ScorePage(val id: String) : Detail
     data class ProtocolPage(val id: String) : Detail
+    /** Dating, EDD and antenatal schedule (opened from Pregnancy & labour). */
+    data object Dating : Detail
+}
+
+/** The pinnable page a detail screen shows, if any. */
+private fun Detail.pageKey(): PageKey? = when (this) {
+    is Detail.ConditionPage -> PageKey('c', id)
+    is Detail.DrugPage -> PageKey('d', id)
+    is Detail.ScorePage -> PageKey('s', id)
+    is Detail.ProtocolPage -> PageKey('p', id)
+    else -> null
+}
+
+private fun PageKey.toDetail(): Detail? = when (type) {
+    'c' -> Detail.ConditionPage(id, null)
+    'd' -> Detail.DrugPage(id)
+    's' -> Detail.ScorePage(id)
+    'p' -> Detail.ProtocolPage(id)
+    else -> null
 }
 
 private const val INTRO_KEY = "intro_ack"
@@ -113,11 +141,12 @@ fun App() {
         var root by remember { mutableStateOf(Destination.Home) }
         var stack by remember { mutableStateOf(listOf<Detail>()) }
         var homeQuery by remember { mutableStateOf("") }
-        var treatmentQuery by remember { mutableStateOf("") }
+        var infectionQuery by remember { mutableStateOf("") }
+        var adultQuery by remember { mutableStateOf("") }
+        var pregnancyQuery by remember { mutableStateOf("") }
         var drugQuery by remember { mutableStateOf("") }
         var scoreQuery by remember { mutableStateOf("") }
         var protocolQuery by remember { mutableStateOf("") }
-        var population by remember { mutableStateOf(Population.Pregnancy) }
         var introAccepted by remember { mutableStateOf(Prefs.getInt(INTRO_KEY, 0) >= INTRO_VERSION) }
         val today = remember { today() }
         val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -128,7 +157,10 @@ fun App() {
             stack = emptyList()
             scope.launch { drawerState.close() }
         }
-        fun push(detail: Detail) { stack = stack + detail }
+        fun push(detail: Detail) {
+            stack = stack + detail
+            detail.pageKey()?.let { Library.opened(it) }
+        }
         fun pop() { stack = stack.dropLast(1) }
         val openMenu: () -> Unit = { scope.launch { drawerState.open() } }
 
@@ -145,6 +177,7 @@ fun App() {
             drawerState = drawerState,
             drawerContent = { Drawer(root) { navigate(it) } },
         ) {
+            CompositionLocalProvider(LocalOpenPage provides { key: PageKey -> key.toDetail()?.let { push(it) } }) {
             Box(Modifier.fillMaxSize().background(Theme.colors.background).imePadding()) {
                 AnimatedContent(
                     targetState = root to stack,
@@ -159,7 +192,9 @@ fun App() {
                     },
                     label = "screen",
                 ) { (currentRoot, currentStack) ->
+                    CompositionLocalProvider(LocalCurrentPage provides currentStack.lastOrNull()?.pageKey()) {
                     when (val detail = currentStack.lastOrNull()) {
+                        Detail.Dating -> PregnancyScreen(pregnancy, today, padding, onBack = { pop() })
                         is Detail.ConditionPage -> Conditions.byId(detail.id)?.let { condition ->
                             ConditionScreen(
                                 condition, detail.drug, trimester,
@@ -193,15 +228,41 @@ fun App() {
                                 onOpenScore = { push(Detail.ScorePage(it)) },
                                 onOpenProtocol = { push(Detail.ProtocolPage(it)) },
                             )
-                            Destination.Pregnancy -> PregnancyScreen(pregnancy, today, padding, onMenu = openMenu)
-                            Destination.Treatment -> MedicinesScreen(
-                                query = treatmentQuery,
-                                onQueryChange = { treatmentQuery = it },
-                                population = population,
-                                onPopulationChange = { population = it },
+                            Destination.Emergency -> com.medicalaid.app.ui.scores.ProtocolsScreen(
+                                onOpen = { push(Detail.ProtocolPage(it)) }, onMenu = openMenu, contentPadding = padding,
+                                query = protocolQuery, onQueryChange = { protocolQuery = it },
+                                tools = listOf(
+                                    "GCS" to { push(Detail.ScorePage("gcs")) },
+                                    "qSOFA" to { push(Detail.ScorePage("qsofa")) },
+                                    "CT head rule" to { push(Detail.ScorePage("canadian-ct-head")) },
+                                    "C-spine rule" to { push(Detail.ScorePage("canadian-c-spine")) },
+                                    "Burns chart" to { push(Detail.ToolPage(com.medicalaid.app.content.ToolKind.Burns)) },
+                                    "ABG" to { push(Detail.ToolPage(com.medicalaid.app.content.ToolKind.AcidBase)) },
+                                    "HEART" to { push(Detail.ScorePage("heart")) },
+                                ),
+                            )
+                            Destination.Pregnancy -> PregnancyHubScreen(
+                                pregnancyQuery, { pregnancyQuery = it },
+                                onOpenDating = { push(Detail.Dating) },
+                                onOpenProtocol = { push(Detail.ProtocolPage(it)) },
+                                onOpenCondition = { push(Detail.ConditionPage(it, null)) },
+                                onMenu = openMenu, contentPadding = padding,
+                            )
+                            Destination.Infections -> MedicinesScreen(
+                                query = infectionQuery, onQueryChange = { infectionQuery = it },
+                                population = Population.Infections, onPopulationChange = {},
                                 onOpen = { id, drug -> push(Detail.ConditionPage(id, drug)) },
-                                contentPadding = padding,
-                                onMenu = openMenu,
+                                contentPadding = padding, onMenu = openMenu,
+                                title = "Infections", subtitle = "A–Z: investigation and drug of choice, what to avoid, red flags",
+                                fixedPopulation = true,
+                            )
+                            Destination.Adult -> MedicinesScreen(
+                                query = adultQuery, onQueryChange = { adultQuery = it },
+                                population = Population.General, onPopulationChange = {},
+                                onOpen = { id, drug -> push(Detail.ConditionPage(id, drug)) },
+                                contentPadding = padding, onMenu = openMenu,
+                                title = "Adult medicine", subtitle = "Long-term care: BP, diabetes, thyroid, heart, kidney",
+                                fixedPopulation = true,
                             )
                             Destination.Drugs -> DrugsScreen(
                                 query = drugQuery,
@@ -213,16 +274,14 @@ fun App() {
                             Destination.Scores -> com.medicalaid.app.ui.scores.ScoresScreen(
                                 scoreQuery, { scoreQuery = it }, onOpen = { push(Detail.ScorePage(it)) }, onMenu = openMenu, contentPadding = padding,
                             )
-                            Destination.Protocols -> com.medicalaid.app.ui.scores.ProtocolsScreen(
-                                onOpen = { push(Detail.ProtocolPage(it)) }, onMenu = openMenu, contentPadding = padding,
-                                query = protocolQuery, onQueryChange = { protocolQuery = it },
-                            )
                             Destination.Calculators -> CalculatorsScreen(trimester, { navigate(it) }, openMenu, padding)
                             Destination.Sources -> SourcesScreen(padding, onMenu = openMenu)
                             Destination.About -> AboutScreen(openMenu, padding)
                         }
                     }
+                    }
                 }
+            }
             }
         }
 
@@ -265,7 +324,7 @@ private fun Drawer(current: Destination, onSelect: (Destination) -> Unit) {
                     Spacer(Modifier.width(14.dp))
                     Text(d.label, style = Theme.type.bodyStrong, color = if (active) c.accent else c.text)
                 }
-                if (d == Destination.Home || d == Destination.Calculators) {
+                if (d == Destination.Home || d == Destination.Drugs || d == Destination.Calculators) {
                     Box(Modifier.padding(vertical = 8.dp, horizontal = 16.dp).fillMaxWidth().height(1.dp).background(c.hairline))
                 }
             }

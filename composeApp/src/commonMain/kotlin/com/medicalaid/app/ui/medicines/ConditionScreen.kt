@@ -223,6 +223,8 @@ fun ConditionScreen(
             }
         }
 
+        item { com.medicalaid.app.ui.RelatedLinks(com.medicalaid.app.ui.PageKey.condition(condition.id)) }
+
         item {
             Column(Modifier.padding(horizontal = Gutter).padding(top = 28.dp)) {
                 Text("All sources on this page", style = Theme.type.label, color = Theme.colors.textSecondary)

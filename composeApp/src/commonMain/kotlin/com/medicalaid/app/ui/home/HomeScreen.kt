@@ -102,25 +102,36 @@ fun HomeScreen(
             return@LazyColumn
         }
 
+        val pinned = com.medicalaid.app.ui.Library.pinned
+        val recent = com.medicalaid.app.ui.Library.recent.filter { it !in pinned }.take(4)
+        if (pinned.isNotEmpty()) {
+            item { SectionHeader("Pinned", Modifier.padding(horizontal = Gutter)) }
+            item { com.medicalaid.app.ui.PageRows(pinned) }
+        }
+        if (recent.isNotEmpty()) {
+            item { SectionHeader("Recent", Modifier.padding(horizontal = Gutter)) }
+            item { com.medicalaid.app.ui.PageRows(recent) }
+        }
         item {
             Column(Modifier.padding(horizontal = Gutter).padding(top = 20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Tile(Destination.Pregnancy, "EDD, dating scan, antenatal schedule", Modifier.weight(1f), onNavigate)
-                    Tile(Destination.Treatment, "${plural(Conditions.all.size, "topic")} by complaint", Modifier.weight(1f), onNavigate)
+                    Tile(Destination.Emergency, "Resuscitation, poisoning, trauma, sepsis", Modifier.weight(1f), onNavigate)
+                    Tile(Destination.Pregnancy, "Dating, PPH, eclampsia, labour room", Modifier.weight(1f), onNavigate)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Tile(Destination.Drugs, "${plural(Drugs.all.size, "drug")} · side effects, kinetics", Modifier.weight(1f), onNavigate)
+                    Tile(Destination.Infections, "${Conditions.infections.size} diseases A–Z · IOC, DOC", Modifier.weight(1f), onNavigate)
+                    Tile(Destination.Adult, "BP, diabetes, thyroid, heart, kidney", Modifier.weight(1f), onNavigate)
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Tile(Destination.Drugs, "${plural(Drugs.all.size, "drug")} · doses, side effects", Modifier.weight(1f), onNavigate)
                     Tile(Destination.Scores, "${plural(com.medicalaid.app.content.scores.Scores.all.size, "score")} · Wells, CURB-65…", Modifier.weight(1f), onNavigate)
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Tile(Destination.Protocols, "DKA, MI, burns, stroke, poisoning", Modifier.weight(1f), onNavigate)
-                    Tile(Destination.Calculators, "Burns, ABG, eGFR, HbA1c, TSH", Modifier.weight(1f), onNavigate)
                 }
             }
         }
         item {
             RowGroup(
                 listOf(
+                    Triple(Destination.Calculators.label, "Burns, ABG, eGFR, HbA1c, TSH") { onNavigate(Destination.Calculators) },
                     Triple(Destination.Sources.label, "${Sources.all.size} guidelines and labels") { onNavigate(Destination.Sources) },
                     Triple(Destination.About.label, "Intended use, disclaimer, licences") { onNavigate(Destination.About) },
                 ),

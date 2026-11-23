@@ -8,8 +8,13 @@ Works fully offline and stores no patient data.
 
 ## What's in it
 
-Navigation is a side menu: **Home** (search everything), **Pregnancy**, **Treatment**, **Drugs**, **Scores**,
-**Protocols**, **Calculators**, **Sources**, **About**. A one-time "for clinicians" notice explains the intended use.
+Organised by clinical situation (0.7.0). Side menu: **Home** (search everything, Pinned, Recent), **Emergency**
+(protocols by category with chips, bedside tools: GCS, qSOFA, CT-head and C-spine rules, burns chart, ABG, HEART),
+**Pregnancy & labour** (dating and antenatal schedule, obstetric emergencies, treatment in pregnancy), **Infections**
+(A–Z), **Adult medicine**, **Drugs**, then **Scores**, **Calculators**, **Sources**, **About**. Every topic page has a pin
+button (pinned and recent pages are stored on the device like settings — page ids only), "Related" links to the same
+subject in other sections, and sources collapsed to one line ("Sources · NICE, MoHFW") that expands on tap. Protocols
+open with a step outline to jump to any step. A one-time "for clinicians" notice explains the intended use.
 
 **Pregnancy**
 - LMP → EDD (Naegele, +280 days), gestational age (weeks + days), trimester, term category.

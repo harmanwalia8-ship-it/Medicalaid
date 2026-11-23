@@ -1,7 +1,7 @@
 # Handoff — where the work stands (23 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.6.1** (versionCode 9), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.7.0** (versionCode 10), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
 scheduled task is disabled. Do not restart protocol writing without the user's go-ahead.
 
 ## Build and check
@@ -112,6 +112,14 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    (child emergencies, infections/antibiotics, fever work-up, steroid misuse, paediatric doses, remaining drug
    phases, smaller items). Skip and list for the user: licensed skin photos, colleague review, signing key, CDSCO.
    **iOS build: do not start without asking the user** (said 23 Nov 2026).
+
+## Navigation (0.7.0, user request 23 Nov 2026)
+Menu by clinical situation: Home (search, Pinned, Recent) · Emergency (`ProtocolsScreen`, non-obstetric, category
+chips, bedside-tool chips) · Pregnancy & labour (`PregnancyHubScreen`: dating → `Detail.Dating`, obstetric protocols,
+pregnancy conditions) · Infections / Adult medicine (`MedicinesScreen` with `fixedPopulation`) · Drugs · Scores ·
+Calculators · Sources · About. `ui/Library.kt`: PageKey, Library (recent/pinned in Prefs strings), Related (curated
+groups — add new pages there; RelatedLinksTest checks they exist), NavRows/PageRows/RelatedLinks. Sources collapse
+to one line (`SourcesToggle` in Components.kt). Protocol pages have a step outline.
 
 ## Release plan (an APK to the user after each major phase)
 | Version (code) | Released groups | Notes |

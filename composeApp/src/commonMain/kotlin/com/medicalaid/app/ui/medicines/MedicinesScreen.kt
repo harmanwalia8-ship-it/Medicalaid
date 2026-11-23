@@ -56,12 +56,18 @@ fun MedicinesScreen(
     onOpen: (conditionId: String, drugName: String?) -> Unit,
     contentPadding: PaddingValues,
     onMenu: (() -> Unit)? = null,
+    title: String = "Treatment",
+    subtitle: String = "By complaint — doses as the guideline states them, with the source behind each",
+    /** Hubs (Infections, Adult medicine) show one population, without the tabs, and search only within it. */
+    fixedPopulation: Boolean = false,
 ) {
-    val hits = remember(query) { Search.run(query) }
+    val hits = remember(query, population, fixedPopulation) {
+        Search.run(query).filter { !fixedPopulation || it.condition.population == population }
+    }
     val focus = LocalFocusManager.current
 
     LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
-        item { ScreenTitle("Treatment", "By complaint — doses as the guideline states them, with the source behind each", onMenu = onMenu) }
+        item { ScreenTitle(title, subtitle, onMenu = onMenu) }
         item {
             SearchField(
                 query, onQueryChange, onDone = { focus.clearFocus() },
@@ -70,14 +76,14 @@ fun MedicinesScreen(
         }
 
         if (query.isBlank()) {
-            item {
+            if (!fixedPopulation) item {
                 Segmented(
                     Population.entries.map { it to it.label }, population, onPopulationChange,
                     modifier = Modifier.padding(horizontal = Gutter).padding(top = 16.dp),
                 )
             }
             val list = Conditions.of(population)
-            item { SectionHeader("Browse", Modifier.padding(horizontal = Gutter), trailing = "${list.size}") }
+            item { SectionHeader(if (population == Population.Infections) "A–Z" else "Browse", Modifier.padding(horizontal = Gutter), trailing = "${list.size}") }
             item {
                 GroupedList(
                     rows = list.map { Row(it.title, it.summary) { onOpen(it.id, null) } },
@@ -149,7 +155,7 @@ private fun GroupedList(rows: List<Row>, modifier: Modifier = Modifier) {
                 Column(Modifier.weight(1f)) {
                     Text(row.title, style = Theme.type.bodyStrong, color = c.text)
                     Spacer(Modifier.height(1.dp))
-                    Text(row.subtitle, style = Theme.type.caption, color = c.textSecondary, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                    Text(row.subtitle, style = Theme.type.caption, color = c.textSecondary, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 }
                 Spacer(Modifier.width(10.dp))
                 Icon(Icons.Outlined.ChevronRight, null, tint = c.textTertiary, modifier = Modifier.size(20.dp))

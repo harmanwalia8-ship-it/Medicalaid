@@ -3,16 +3,16 @@ package com.medicalaid.app.content.protocols
 import com.medicalaid.app.content.Citation
 import com.medicalaid.app.content.WeightDose
 
-enum class ProtocolCategory(val label: String) {
-    Cardiac("Cardiac & resuscitation"),
-    Respiratory("Respiratory & allergy"),
-    Neuro("Neurological"),
-    Metabolic("Metabolic, endocrine & acid–base"),
-    Infection("Sepsis, infection & bleeding"),
-    Obstetric("Obstetric emergencies"),
-    Trauma("Trauma"),
-    Environmental("Burns & environmental"),
-    Poisoning("Poisoning & envenomation"),
+enum class ProtocolCategory(val label: String, val short: String) {
+    Cardiac("Cardiac & resuscitation", "Cardiac"),
+    Respiratory("Respiratory & allergy", "Respiratory"),
+    Neuro("Neurological", "Neuro"),
+    Metabolic("Metabolic, endocrine & acid–base", "Metabolic"),
+    Infection("Sepsis, infection & bleeding", "Sepsis & bleeding"),
+    Obstetric("Obstetric emergencies", "Obstetric"),
+    Trauma("Trauma", "Trauma"),
+    Environmental("Burns & environmental", "Burns"),
+    Poisoning("Poisoning & envenomation", "Poisoning"),
 }
 
 /** A weight-based dose shown with a calculator when the clinician enters a weight. */

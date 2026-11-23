@@ -19,6 +19,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccessTime
@@ -74,7 +79,12 @@ fun ProtocolScreen(
         protocol.steps.flatMap { it.points + listOfNotNull(it.checklistTitle) }
             .mapNotNull { GuidelineGroup.of(it) }.distinct().sortedBy { it.ordinal }
     }
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = contentPadding) {
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+    // Items above the first step, so the outline chips can jump to a step.
+    val firstStepIndex = 1 + (if (groupsOnPage.size >= 2) 1 else 0) + (if (hasDoses) 1 else 0) +
+        (if (protocol.notes.isNotEmpty()) 1 else 0) + (if (protocol.steps.size >= 3) 1 else 0) + 1
+    LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = contentPadding) {
         item { ScreenTitle(protocol.title, protocol.summary, onBack = onBack) }
         if (groupsOnPage.size >= 2) {
             item {
@@ -100,10 +110,29 @@ fun ProtocolScreen(
         if (protocol.notes.isNotEmpty()) {
             item { NotesCard(protocol) }
         }
+        if (protocol.steps.size >= 3) {
+            // Step outline: tap a step to jump to it.
+            item {
+                Row(
+                    Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = Gutter).padding(top = 12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    protocol.steps.forEachIndexed { i, s ->
+                        Text(
+                            "${i + 1}  ${s.title}", style = Theme.type.label, color = c.textSecondary, maxLines = 1,
+                            modifier = Modifier.clip(Radius.chip).background(c.surfaceMuted)
+                                .clickable { scope.launch { listState.animateScrollToItem(firstStepIndex + i) } }
+                                .padding(horizontal = 12.dp, vertical = 8.dp),
+                        )
+                    }
+                }
+            }
+        }
         item { Spacer(Modifier.height(16.dp)) }
         itemsIndexed(protocol.steps, key = { i, s -> "$i-${s.title}" }) { index, step ->
             StepRow(index + 1, step, isLast = index == protocol.steps.lastIndex, onOpenScore = onOpenScore, weightKg = weightKg, filter = filter)
         }
+        item { com.medicalaid.app.ui.RelatedLinks(com.medicalaid.app.ui.PageKey.protocol(protocol.id)) }
         item {
             Column(Modifier.padding(horizontal = Gutter).padding(top = 20.dp)) {
                 Text("Sources", style = Theme.type.label, color = c.textSecondary)

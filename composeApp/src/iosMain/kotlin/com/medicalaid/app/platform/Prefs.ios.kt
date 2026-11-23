@@ -11,4 +11,10 @@ actual object Prefs {
     actual fun putInt(key: String, value: Int) {
         defaults.setInteger(value.toLong(), key)
     }
+
+    actual fun getString(key: String, default: String): String = defaults.stringForKey(key) ?: default
+
+    actual fun putString(key: String, value: String) {
+        defaults.setObject(value, key)
+    }
 }

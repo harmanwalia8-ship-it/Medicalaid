@@ -122,6 +122,14 @@ class Screenshots {
         }
         shot("35-scores-list", heightDp = 1500) { com.medicalaid.app.ui.scores.ScoresScreen("", {}, {}, {}, pad) }
         shot("36-home-v3") { HomeScreen("", {}, {}, {}, {}, {}, pad) }
+        shot("60-home-situations", heightDp = 1300) { HomeScreen("", {}, {}, {}, {}, {}, pad) }
+        shot("61-emergency", heightDp = 1500) {
+            com.medicalaid.app.ui.scores.ProtocolsScreen({}, {}, pad, tools = listOf("GCS" to {}, "qSOFA" to {}, "CT head rule" to {}, "C-spine rule" to {}, "Burns chart" to {}, "ABG" to {}))
+        }
+        shot("62-pregnancy-hub", heightDp = 1700) { com.medicalaid.app.ui.pregnancy.PregnancyHubScreen("", {}, {}, {}, {}, {}, pad) }
+        shot("63-protocol-pph", heightDp = 2600) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("pph")!!, {}, {}, pad)
+        }
         shot("37-treatment-general", heightDp = 1300) { MedicinesScreen("", {}, Population.General, {}, { _, _ -> }, pad) }
         shot("37b-treatment-infections", heightDp = 1300) { MedicinesScreen("", {}, Population.Infections, {}, { _, _ -> }, pad) }
         shot("37c-infection-dengue", heightDp = 3200) { ConditionScreen(Conditions.byId("inf-dengue")!!, null, null, {}, pad) }
