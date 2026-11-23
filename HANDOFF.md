@@ -71,7 +71,12 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    describes the intended model (Population.Infections, ConditionImage, Conditions released/inReview infections,
    Sources registration, ContentIntegrityTest checks, collapsible photo card in ConditionScreen). Overlaps with
    released protocols — bacterial meningitis (NeuroEmergencies) and severe dengue (InfectionEmergencies) — must be
-   consistent and cross-linked; reviewers should compare them. User decisions:
+   consistent and cross-linked; reviewers should compare them. Batches 3–5 also saved (23 Nov 2026):
+   `gemini-batch3-H-L.md` (hepatitis C, herpes, HIV, hookworm, influenza, JE, kala-azar, leprosy),
+   `gemini-batch4-L-R.md` (leptospirosis, malaria, measles, mumps, pertussis, plague, rabies/animal-bite PEP, rubella),
+   `gemini-batch5-S-Z.md` (scabies, scrub typhus, syphilis, tetanus, TB/NTEP, UTI, VHF — CCHF/KFD/Ebola, Zika):
+   40 diseases in 5 batches, 8 photos each. More overlaps with released protocols: rabies/animal-bite PEP and tetanus
+   (WoundsBites.kt), severe malaria and severe dengue (InfectionEmergencies). User decisions:
    - **No review cycle for the Gemini infection batches** (user decision 23 Nov 2026, superseding the earlier
      "treat as drafts" answer, to save tokens: "just compile whatever Gemini has done"). Convert the content as
      written; only compile + ContentIntegrityTest (citations resolve, no unused sources, https URLs). Do not run
