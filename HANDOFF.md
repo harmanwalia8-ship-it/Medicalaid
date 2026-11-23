@@ -62,7 +62,18 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 4. Done: limb/abdomen reviewed and fixed; 0.5.2 released and sent (23 Nov 2026). Trauma section complete.
 5. **Obstetric batch 2**, one group at a time: `earlypreg` → `aph` → release 0.5.3; `labour` → `maternalmed` →
    release 0.5.4. Each: write → numbers review → safety review → fixer.
-6. Then `ROADMAP.md`, sections in order — the user approved on 23 Nov 2026 going straight on without asking
+5b. **Infections A–Z next, before child emergencies** (user decision 23 Nov 2026). The user is having Gemini draft
+   infection pages from a 0.5.1 repo zip: Batch 2 (D–H: dengue, diphtheria, enteric fever, filariasis, giardiasis,
+   gonorrhoea, hepatitis A/E, hepatitis B) is saved at `.claude-work/infections/gemini-batch2-D-H.md`; the user
+   will upload Batch 1 (A–C) — save it beside it. User decisions:
+   - Treat Gemini's documents as **writer drafts**: convert to app pages, then numbers review → safety review →
+     fixer against the primary sources, exactly like protocols. Gemini's "verified" claims are not trusted.
+   - **Include the open-licence photos**: verify each Wikimedia licence and author on the file page, show the
+     credit and licence under the photo, bundle images offline. Drop any photo whose licence cannot be confirmed.
+   - The drafts assume a content model that does not exist yet (`Population.Infections`, `ConditionImage` +
+     `Condition.image`, grouped released/in-review infection conditions, an image fetch script). Build it to fit the
+     existing Condition model and the app's UI rules, with in-review gating like `Protocols.inReview`.
+6. Then `ROADMAP.md`, sections in order (infections already done per 5b) — the user approved on 23 Nov 2026 going straight on without asking
    (child emergencies, infections/antibiotics, fever work-up, steroid misuse, paediatric doses, remaining drug
    phases, smaller items). Skip and list for the user: licensed skin photos, colleague review, signing key, CDSCO.
    **iOS build: do not start without asking the user** (said 23 Nov 2026).
@@ -74,14 +85,15 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 | 0.5.2 (7) | limb/abdomen trauma | trauma complete |
 | 0.5.3 (8) | early pregnancy + APH/preterm labour | |
 | 0.5.4 (9) | labour-room emergencies + maternal medical (sepsis, VTE, DKA in pregnancy) | obstetric complete |
-| 0.6.0 (10) | child emergencies part 1: arrest/seriously ill child, neonatal resuscitation, sepsis, seizures, DKA | ROADMAP 1 |
-| 0.6.1 (11) | child emergencies part 2: asthma/bronchiolitis/croup, diarrhoea, SAM, anaphylaxis/dengue/malaria | ROADMAP 1 |
-| 0.7.0 (12) | antibiotics in Drugs + Infections A–Z | ROADMAP 2; split into two APKs if large |
-| 0.7.1 (13) | fever work-up | ROADMAP 3 |
-| 0.8.0 (14) | steroid misuse + children's doses in Drugs | ROADMAP 4, 5 |
-| 0.9.0 (15) | Treatment pages phase 1 (remaining) + phase 2 | ROADMAP 6 |
-| 0.9.1 (16) | Treatment pages phase 3 (pregnancy additions) | ROADMAP 6 |
-| 0.9.2 (17) | smaller items: CURB-65 mg/dL urea, poisoning batch 2, AHA/ASA 2026 stroke correction (iOS CI build only if the user says yes) | ROADMAP 7 |
+| 0.6.0 (10) | Infections A–Z from Gemini drafts, reviewed: Batch 1 A–C (when uploaded) + Batch 2 D–H, with photos | user moved ahead of ROADMAP 1 |
+| 0.6.1 (11) | child emergencies part 1: arrest/seriously ill child, neonatal resuscitation, sepsis, seizures, DKA | ROADMAP 1 |
+| 0.6.2 (12) | child emergencies part 2: asthma/bronchiolitis/croup, diarrhoea, SAM, anaphylaxis/dengue/malaria | ROADMAP 1 |
+| 0.7.0 (13) | antibiotics in Drugs + remaining Infections A–Z | ROADMAP 2; split into two APKs if large |
+| 0.7.1 (14) | fever work-up | ROADMAP 3 |
+| 0.8.0 (15) | steroid misuse + children's doses in Drugs | ROADMAP 4, 5 |
+| 0.9.0 (16) | Treatment pages phase 1 (remaining) + phase 2 | ROADMAP 6 |
+| 0.9.1 (17) | Treatment pages phase 3 (pregnancy additions) | ROADMAP 6 |
+| 0.9.2 (18) | smaller items: CURB-65 mg/dL urea, poisoning batch 2, AHA/ASA 2026 stroke correction (iOS CI build only if the user says yes) | ROADMAP 7 |
 At each: move groups to `released`, bump versionCode/versionName and `APP_VERSION`, README, tests, release APK,
 send with SendUserFile, commit and push. Move any unreviewed score file to `drafts/` before building.
 
