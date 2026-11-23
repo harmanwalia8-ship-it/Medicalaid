@@ -1,7 +1,7 @@
-# Handoff — where the work stands (22 Nov 2026)
+# Handoff — where the work stands (23 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.5.0** (versionCode 5).
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.5.1** (versionCode 6), sent 23 Nov 2026.
 
 ## Build and check
 ```
@@ -17,6 +17,9 @@ Fresh cloud container setup (neither survives a new container):
   accept licences, then `sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"`.
 - Maven Central rate-limits the shared proxy (HTTP 429). Use Google's mirror via an init script:
   `mkdir -p ~/.gradle/init.d && cp .claude-work/gradle-mirror.init.gradle.kts ~/.gradle/init.d/`
+- Signing: release APKs are signed with the container's debug key (`~/.android/debug.keystore`, created by the first
+  build). A new container makes a new key, so the user must uninstall the old APK before installing (0.5.0 → 0.5.1
+  needed this). 0.5.1 key SHA-256: 2cca6dc7…afdbd28. A stable key is a decision for the user (asked 23 Nov 2026).
 
 ## How content is gated
 `content/protocols/Protocols.kt` has two lists: `released` (shown) and `inReview` (compiled and tested, never
@@ -33,30 +36,25 @@ verifyPrompt, fixPrompt). Run with the Workflow tool if available, otherwise one
 The user is on a smaller plan: **one job at a time**.
 
 ## State
-**Released (in 0.5.0):** stroke; 22 poisoning protocols + cocaine use disorder page; all medical emergencies
-(endocrine, acid–base, electrolytes, cardiac, cardiac arrest/arrhythmias, respiratory, neuro, environmental incl.
-burns, infection/bleeding); obstetric batch 1 (eclampsia, PPH, maternal collapse/trauma in pregnancy);
-burns chart and ABG interpreter (usual ranges, StatPearls; compensation per Berend).
+**Released (in 0.5.1):** everything in 0.5.0 (stroke; 22 poisoning protocols + cocaine use disorder page; all
+medical emergencies; obstetric batch 1; burns chart; ABG interpreter) plus trauma (major trauma, haemorrhage, chest,
+traumatic arrest), head injury and spinal injury with the Canadian C-spine Rule and NEXUS, animal bites/rabies PEP
+and tetanus prophylaxis; FOGSI 2026 eclampsia notes; teal/square UI with guideline tabs; score panel "Show more".
+Review findings for 0.5.1 work are in `.claude-work/reviews/` (headspine-*, wounds-*).
 
-**Done since 0.5.0, not yet in an APK:** FOGSI 2026 notes in the eclampsia protocols (commit ae6d4af); UI change —
-guideline tabs on protocol pages ("All" default), teal accent instead of purple, square-ish shapes (66f171b).
+**Follow-ups for a clinician (not blocking):** README "Known gaps" — rabies monoclonal antibody doses from trials;
+CDC/ACIP tetanus table; MoHFW STG 2025 Ch. 13 trauma-in-pregnancy statements not added (50% more crystalloid,
+PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 
 **In review (hidden):**
-- `Trauma.kt` (major trauma, haemorrhage, chest, traumatic arrest) — reviewed and fixed (f4b4d36). Release it only
-  together with head/spine and wounds, because it links to them.
-- `TraumaHeadSpine.kt` + `scores/data/TraumaScores.kt` + `TraumaScoresTest.kt` (Canadian C-spine, NEXUS) —
-  **reviewed and fixed** (23 Nov 2026): numbers review 2 minor, safety review 3 major + 11 minor, all 16 confirmed
-  and applied (findings in `.claude-work/reviews/headspine-*.json`); tests pass. The C-spine scores are live in the
-  app (scores are not gated) and now reviewed. Release the protocols with trauma + wounds in 0.5.1.
-- `WoundsBites.kt` (animal-bite-rabies, tetanus-prophylaxis) — **written** 23 Nov 2026, tests pass; numbers review →
-  safety review → fixer still to run (findings go to `.claude-work/reviews/wounds-*.json`).
 - `TraumaLimbAbdomen.kt` (abdominal/pelvic, open fractures, compartment/crush) — placeholder.
 - Obstetric batch 2 — placeholders `EarlyPregnancy.kt`, `AntepartumHaemorrhage.kt`, `LabourEmergencies.kt`,
   `MaternalMedical.kt` (briefs in the GROUPS array: earlypreg, aph, labour, maternalmed).
 
 ## Next steps, in order
-1. ~~Head/spine: two reviews → fixer~~ (done). 2. Wounds/bites: write → reviews → fixer. 3. Release trauma + head/spine +
-   wounds; build **0.5.1** (versionCode 6), README, APK, send. 4. Limb/abdomen. 5. Obstetric batch 2.
+1–3. Done: head/spine and wounds/bites reviewed and fixed; 0.5.1 released and sent (23 Nov 2026).
+4. **Limb/abdomen** (group `limb`): write → numbers review → safety review → fixer → release **0.5.2**.
+5. Obstetric batch 2 (0.5.3: earlypreg + aph; 0.5.4: labour + maternalmed).
 6. Then `ROADMAP.md`, sections in order — the user approved on 23 Nov 2026 going straight on without asking
    (child emergencies, infections/antibiotics, fever work-up, steroid misuse, paediatric doses, remaining drug
    phases, smaller items). Skip and list for the user: licensed skin photos, colleague review, signing key, CDSCO.

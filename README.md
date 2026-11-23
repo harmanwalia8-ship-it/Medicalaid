@@ -30,8 +30,9 @@ distribution, metabolism, elimination, half-life), key interactions, pregnancy a
 cites the label section it came from. "Look up elsewhere" links open DailyMed, LiverTox, LactMed, BNF, Medscape,
 Drugs.com and UpToDate in the browser — linked, never copied. Condition pages link to the drug profile.
 
-**Scores** — 23 clinical scores (Wells, HEART, CURB-65, NIHSS, ABCD², qSOFA, Glasgow-Blatchford and others), each
-with its derivation paper and endorsing guideline.
+**Scores** — 25 clinical scores and decision rules (Wells, HEART, CURB-65, NIHSS, ABCD², qSOFA, Glasgow-Blatchford,
+Canadian C-spine Rule, NEXUS and others), each with its derivation paper and endorsing guideline. Long results
+end with "Show more"; tap the result panel to read all of it.
 
 **Protocols** — step-by-step pathways with timing, checklists, weight-based dose calculation and the source behind
 every step; "Where guidelines differ" notes compare India and international guidance.
@@ -54,10 +55,12 @@ finished this cycle stay in `Protocols.inReview`: they are compiled and tested b
   body chart), heat stroke, electrical injury; sepsis, upper GI bleed, severe dengue, severe malaria.
 - *Obstetric emergencies (0.5.0):* eclampsia and severe pre-eclampsia, postpartum haemorrhage, maternal collapse
   and perimortem caesarean, trauma in pregnancy.
+- *Trauma (0.5.1):* major trauma (primary survey), traumatic haemorrhage, chest trauma, traumatic cardiac arrest;
+  head injury (CT criteria, raised ICP, CRASH-3) and spinal injury (with the Canadian C-spine Rule and NEXUS);
+  animal bites and rabies post-exposure prophylaxis (NCDC 2019), tetanus prophylaxis.
 
-Written and still in review (hidden until reviewed): major trauma, head/spine injury (and the C-spine rules,
-kept in `drafts/`), abdominal/limb trauma, bites/rabies/tetanus, and the second obstetric batch (ectopic,
-miscarriage, hyperemesis, APH, preterm labour, labour-room emergencies, sepsis/VTE/DKA in pregnancy).
+Written and still in review (hidden until reviewed): abdominal/limb trauma, and the second obstetric batch
+(ectopic, miscarriage, hyperemesis, APH, preterm labour, labour-room emergencies, sepsis/VTE/DKA in pregnancy).
 
 **Calculators**
 - Burns: tappable Lund–Browder body chart (six age columns) → %TBSA → fluid plan. Adults: Parkland 4 and ABA 2024
@@ -98,6 +101,13 @@ miscarriage, hyperemesis, APH, preterm labour, labour-room emergencies, sepsis/V
 - **Poisoning:** India-availability of physostigmine and digoxin-specific Fab, and the AHA 2008 cocaine statement,
   could not be verified; the protocols say so. No ICMR STW exists for most poisons; Indian content comes from
   ISCCM/IJCCM reviews and national programme documents.
+- **Rabies monoclonal antibodies (Rabishield, Twinrab):** no CDSCO approval text or package insert was found online;
+  doses come from the (manufacturer-funded) trials and the manufacturer's page. India's NCDC 2019 guideline has not
+  adopted them. rabiesfreeindia.mohfw.gov.in and NCDC's 2024–2025 rabies documents could not be opened.
+- **Tetanus:** no Indian body publishes a tetanus-by-vaccination-history table, so that table is CDC/ACIP.
+- **Trauma in pregnancy:** MoHFW STG Trauma 2025 Ch. 13 also advises 50% more IV crystalloid, PaCO₂ 30 mm Hg, pelvic
+  examination only after placental localisation, and perimortem caesarean only in non-hypovolaemic arrest; these
+  need a clinical decision before being added. The tilt angle differs (MoHFW HDU 2016: 15°; STG 2025: about 30°).
 
 ## Project layout
 
