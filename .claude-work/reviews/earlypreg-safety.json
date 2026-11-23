@@ -1,0 +1,194 @@
+{
+ "checked": 240,
+ "issues": [
+  {
+   "protocolId": "nvp",
+   "step": "Step 4b · With dehydration — Thiamine",
+   "claim": "\"For women needing IV hydration who have vomited for more than 3 weeks.\"",
+   "problem": "Thiamine is limited to women who have vomited for more than 3 weeks. RCOG GTG 69 (2024) gives thiamine to every woman admitted with vomiting or severely reduced intake. It also says thiamine stores can run out within one week. With the 3-week threshold, women admitted in their first or second week of vomiting get no thiamine, and they may then receive dextrose and develop Wernicke's encephalopathy. The early-pregnancy protocol in the app follows RCOG and so contradicts this page. ACOG PB 189 is the only source cited for the 3-week wording, and its full text could not be checked.",
+   "correction": "Replace the caution with: \"RCOG GTG 69 (2024): give thiamine to all women admitted with vomiting or severely reduced intake — oral 100 mg three times daily or IV as vitamin B complex — especially before any dextrose or parenteral nutrition. (ACOG PB 189 restricts it to women who have vomited for more than 3 weeks.)\" Add cite(\"ob-ep-rcog-gtg69\", \"§5.2.3; Key recommendations\").",
+   "evidence": "RCOG GTG 69 (BJOG 2024;131(7):e1–e30, DOI 10.1111/1471-0528.17739; publisher PDF via https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/the-management-of-nausea-and-vomiting-of-pregnancy-and-hyperemesis-gravidarum-green-top-guideline-no-69/), §5.2.3 recommendation [Grade D]: 'Thiamine supplementation (either oral 100 mg tds or intravenous as part of vitamin B complex (Pabrinex®)) should be given to all women admitted with vomiting, or severely reduced dietary intake, especially before administration of dextrose or parenteral nutrition.' §5.1: 'Thiamine stores in a previously healthy individual can deplete rapidly and cause symptoms of tachycardia, weakness and decreased deep tendon reflexes within one week without intake.' §5.2.3: 'Therefore thiamine supplementation is recommended for all women admitted with HG.'",
+   "severity": "major"
+  },
+  {
+   "protocolId": "nvp",
+   "step": "Escalate / admission (and Step 4b)",
+   "claim": "\"Admit if she cannot tolerate liquids without vomiting and has not responded to outpatient management.\" — the page has no thromboprophylaxis anywhere.",
+   "problem": "The page tells doctors to admit but never mentions VTE prophylaxis. RCOG GTG 69 (2024) offers LMWH to every woman admitted with HG (Grade C; HG raises VTE risk, OR 2.5). The RCOG 2026 position statement on GTG 37a says LMWH should continue until the risk resolves and for 7 days after. The app's hyperemesis protocol already says this, so the two pages disagree. The RCOG sources support the protocol, not this page.",
+   "correction": "Add to escalate: \"RCOG GTG 69 (2024): offer LMWH thromboprophylaxis to women admitted with HG (graduated stockings if LMWH is contraindicated); see the Hyperemesis gravidarum protocol for doses and duration.\" Cite ob-ep-rcog-gtg69 §5.2.3 and ob-ep-rcog-gtg37a-ps-2026.",
+   "evidence": "RCOG GTG 69 (BJOG 2024;131(7):e1–e30, DOI 10.1111/1471-0528.17739; publisher PDF via https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/the-management-of-nausea-and-vomiting-of-pregnancy-and-hyperemesis-gravidarum-green-top-guideline-no-69/), §5.2.3 [Grade C]: 'Women admitted with HG should be offered thromboprophylaxis with low-molecular-weight heparin and those being managed in the community should be assessed for VTE risk (see GTG 37a). Graduated compression stockings should be used when low-molecular-weight heparin is contra-indicated' — rationale: 'Women with HG have increased risk of venous thromboembolism with odds ratio 2.5 (95% CI 2–3.2).' RCOG Position statement on GTG 37a (September 2026, https://www.rcog.org.uk/media/bzkdicre/position-statement-gtg37a-final-version.pdf): 'Women admitted to hospital during pregnancy because of HG ... should receive LMWH thromboprophylaxis for the duration of the increased risk. Treatment should be continued until the transient risk factor has resolved and for a further week thereafter.'",
+   "severity": "major"
+  },
+  {
+   "protocolId": "nvp",
+   "step": "Step 1 · Start here — Ginger",
+   "claim": "\"Ginger\" — \"250 mg capsules orally four times daily.\" as the Step 1 starting treatment for a page that is also keyed to \"hyperemesis gravidarum\" and \"HG\".",
+   "problem": "Ginger is offered to everyone as the first step. RCOG GTG 69 (2024) says clinicians should not suggest ginger in severe NVP or HG. In a survey of 512 women with HG, ginger had little or no benefit, and 54% had unpleasant effects or worse symptoms. Suggesting it may also delay effective treatment. ACOG PB 189 does support ginger for milder NVP, so this is a real difference between guidelines. The page presents ginger without attribution or any limit on severity, and it contradicts the note on the app's hyperemesis protocol.",
+   "correction": "Relabel the tier \"Step 1 · Mild NVP only\" and add a caution to the ginger entry: \"RCOG GTG 69 (2024): do not suggest ginger for severe NVP or hyperemesis gravidarum — little or no benefit and worse symptoms in over half; it may delay effective treatment.\" Cite ob-ep-rcog-gtg69 §5.2.1.",
+   "evidence": "RCOG GTG 69 (BJOG 2024;131(7):e1–e30, DOI 10.1111/1471-0528.17739; publisher PDF via https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/the-management-of-nausea-and-vomiting-of-pregnancy-and-hyperemesis-gravidarum-green-top-guideline-no-69/), §5.2.1: 'There are no trials of community use of ginger for severe NVP and HG. A large cross-sectional survey of 512 women with HG found that ginger foodstuffs or over the counter tablets have little or no efficacy but caused unpleasant adverse effects and worsening of symptoms in over half (54%) of participants. ... HCPs should not suggest it and doing so may delay access to effective treatment.'",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "nvp",
+   "step": "Step 5 · Refractory — Methylprednisolone",
+   "claim": "\"Last-resort treatment. Avoid as a first-line agent before 10 weeks (oral clefts).\"",
+   "problem": "The oral-cleft caution is given as fact, with no attribution. It comes from older ACOG data, cited to PB 189. RCOG GTG 69 (2024) reviewed later data and found no increase in orofacial clefts, cardiac defects or hypospadias after corticosteroid use in the first trimester (about 3,500 exposures). The app's hyperemesis protocol already notes this conflict. Keeping 'last-resort' is consistent with both sources. The unqualified cleft claim is not supported by the current RCOG guideline.",
+   "correction": "Replace with: \"Last-resort treatment, after IV fluids and regular antiemetics have failed (RCOG GTG 69; ACOG PB 189). ACOG PB 189 advises avoiding it before 10 weeks because of a possible oral-cleft risk; RCOG GTG 69 (2024) reports no increase in orofacial clefts, cardiac defects or hypospadias after first-trimester corticosteroids (data limited to about 3500 exposures).\" Cite acog-pb189 and ob-ep-rcog-gtg69 §5.2.2.",
+   "evidence": "RCOG GTG 69 (BJOG 2024;131(7):e1–e30, DOI 10.1111/1471-0528.17739; publisher PDF via https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/the-management-of-nausea-and-vomiting-of-pregnancy-and-hyperemesis-gravidarum-green-top-guideline-no-69/), §5.2.2: 'Data confirm that corticosteroid use in the first trimester is not associated with an increase in risk of congenital malformations overall and specifically no increase in orofacial clefting, cardiac defects or hypospadias following first trimester use of corticosteroids. Data on corticosteroids use in the first trimester is limited to a maximum of approximately 3500 exposures'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "nvp",
+   "step": "Step 4b · With dehydration — Ondansetron",
+   "claim": "cautions = listOf(\"FDA: do not give more than 16 mg IV in a single dose.\"), citations = pb189",
+   "problem": "The line names the FDA, but its only citation is ACOG PB 189, whose full text could not be checked. The FDA ondansetron source already in the app (fda-label-ondansetron, an Ipca tablets label) has no IV maximum; its only 16 mg is an oral pre-anaesthesia dose. The 16 mg-per-IV-dose limit does appear in FDA ondansetron injection labels. As written, the statement is not supported by the source it cites.",
+   "correction": "Add an FDA ondansetron injection label as a Source (e.g. DailyMed setid 60d09eb8-40e8-48f8-bbbf-70ba701754e2, Apotex, effective March 2026) and cite it for this caution, locators §2 and §5.2. Reword: \"FDA injection label: maximum 16 mg per IV dose; ondansetron prolongs QT in a dose-dependent manner.\"",
+   "evidence": "FDA label, Ondansetron Injection (Apotex), https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=60d09eb8-40e8-48f8-bbbf-70ba701754e2, §2: 'The recommended dosage is 0.15 mg/kg per dose for 3 doses (maximum of 16 mg per dose), infused intravenously over 15 minutes.' §5.2: 'Ondansetron prolongs the QT interval in a dose-dependent manner'. The app's cited tablets label (setid 7ab3210e-eed1-479a-afc0-f72b5b776883) mentions 16 mg only as 'Postoperative 16 mg administered 1 hour before induction of anesthesia'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "nvp",
+   "step": "Step 4a / 4b — Metoclopramide",
+   "claim": "\"Metoclopramide\", \"5–10 mg every 6–8 hours, orally or intramuscularly.\" and \"Metoclopramide\", \"5–10 mg IV every 8 hours.\"",
+   "problem": "At 10 mg every 6 hours the daily dose is 40 mg. That is above the EMA maximum of 30 mg or 0.5 mg/kg in 24 hours, which RCOG GTG 69 quotes and which the app's hyperemesis protocol uses as its dose cap. RCOG Appendix III gives 5–10 mg every 8 hours. The IV entry also leaves out RCOG's advice to give IV doses by slow bolus over at least 3 minutes to reduce extrapyramidal effects. ACOG supports the 6–8-hourly wording, so this is a difference between guidelines that the page does not state.",
+   "correction": "Add cautions: \"EMA (quoted by RCOG GTG 69): maximum 30 mg or 0.5 mg/kg in 24 h, whichever is lower; RCOG GTG 69 gives 5–10 mg 8-hourly.\" On the IV entry add: \"RCOG GTG 69: give IV doses by slow bolus over at least 3 minutes (extrapyramidal effects, oculogyric crisis).\" Cite ob-ep-rcog-gtg69 §5.2.2 and Appendix III.",
+   "evidence": "RCOG GTG 69 (BJOG 2024;131(7):e1–e30, DOI 10.1111/1471-0528.17739), §5.2.2: 'The review recommends metoclopramide should only be prescribed for short-term use (maximum dose of 30 mg in 24 hours or 0.5 mg/kg body weight in 24 hours [whichever is lowest] and maximum duration of 5 days) and that intravenous doses should be administered by slow bolus injection over at least 3 minutes to help minimise these risks.' Appendix III: 'Metoclopramide 5–10 mg 8 hourly PO, IV/IM/SC'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "ectopic-pregnancy",
+   "step": "Source ob-ecl-mohfw-stg-obg (defined in Eclampsia.kt), reused for the ectopic steps",
+   "claim": "title = \"Standard Treatment Guidelines: Obstetrics & Gynaecology — Hypertension in pregnancy/Preeclampsia; Eclampsia\"",
+   "problem": "The writer's concern is confirmed. The PDF at this URL (772,075 bytes, 102 pages, created October 2017) is the whole MoHFW O&G Standard Treatment Guidelines, with 14 chapters including Ectopic pregnancy (p. 48). It is not just the two hypertension chapters. When the ectopic protocol cites this source, the reference list shows a hypertension/eclampsia title, so the attribution looks wrong.",
+   "correction": "In Eclampsia.kt, change the title to \"Standard Treatment Guidelines: Obstetrics & Gynaecology\" and leave the chapter to the locators (e.g. \"Ectopic pregnancy — …\", \"Eclampsia — …\"). Optionally add status: \"Whole O&G STG (14 chapters); undated, PDF created October 2017\".",
+   "evidence": "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/4571.pdf (HEAD: content-length 772075, application/pdf), title page 'STANDARD TREATMENT GUIDELINES OBSTETRICS & GYNAECOLOGY'; Contents: '1 LEIOMYOMA UTERUS … 5', '6 ECTOPIC PREGNANCY 48', '7 ANEMIA IN PREGNANCY 55', … '12 HYPERTENSION IN PREGNANCY/PREECLAMPSIA 87', '13 ECLAMPSIA 92', '14 PELVIC ORGAN PROLAPSE 96'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "ectopic-pregnancy",
+   "step": "Pregnancy of unknown location: serial hCG",
+   "claim": "\"NICE NG126: rise >63% in 48 h — likely intrauterine (ectopic not excluded); TVS in 7–14 days, earlier if hCG ≥1,500 IU/L.\"",
+   "problem": "The step leaves out NICE's instruction for when the follow-up scan does not show a viable intrauterine pregnancy: refer for immediate review by a senior gynaecologist. Without it, a rising hCG reads as reassuring. That is the PUL pattern in which an ectopic pregnancy can be missed.",
+   "correction": "\"NICE NG126: rise >63% in 48 h — likely intrauterine (ectopic not excluded); TVS in 7–14 days, earlier if hCG ≥1,500 IU/L; if a viable intrauterine pregnancy is not confirmed, immediate review by a senior gynaecologist.\"",
+   "evidence": "NICE NG126 rec 1.8.7 (https://www.nice.org.uk/guidance/ng126/chapter/Diagnosis-of-viable-intrauterine-pregnancy-and-of-tubal-ectopic-pregnancy): 'Offer her a transvaginal ultrasound scan to determine the location of the pregnancy between 7 and 14 days later. Consider an earlier scan for women with a serum hCG level greater than or equal to 1,500 IU/litre. … If a viable intrauterine pregnancy is not confirmed, refer her for immediate clinical review by a senior gynaecologist.'",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "ectopic-pregnancy",
+   "step": "Methotrexate: regimen, cautions, follow-up — checklist 'Do not give methotrexate'",
+   "claim": "\"Breastfeeding (MoHFW STG; FDA label)\"",
+   "problem": "The FDA label does not list breastfeeding as a contraindication. §4 lists only severe hypersensitivity and pregnancy in non-neoplastic disease. §8.2 advises not breastfeeding during treatment and for 1 week after. Only MoHFW STG calls breastfeeding an absolute contraindication, so the dual attribution is wrong.",
+   "correction": "\"Breastfeeding (MoHFW STG: absolute contraindication; FDA label §8.2: do not breastfeed during treatment and for 1 week after)\"",
+   "evidence": "FDA label Methotrexate Injection, Hospira (https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0d63ba29-b692-41b4-87e8-351265c8273f) §4: 'Methotrexate Injection is contraindicated in: • Patients with history of severe hypersensitivity to methotrexate … • Pregnancy in patients with non-neoplastic diseases'; §8.2: 'advise women not to breastfeed during treatment with Methotrexate Injection and for 1 week after the last dose.' MoHFW STG O&G (4571.pdf) p. 52: 'Absolute contraindications are breast feeding, immunodeficiency, alcoholism, blood dyscrasias…'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "ectopic-pregnancy",
+   "step": "Keywords / Stable tubal ectopic: choose management",
+   "claim": "keywords include \"caesarean scar pregnancy\"; the steps give only tubal-ectopic criteria (NICE 1.14–1.17) and the scope note says GTG 21 'could not be reviewed'",
+   "problem": "A search for 'caesarean scar pregnancy' opens this protocol, which gives no guidance on it. Its management steps (expectant care, methotrexate criteria, salpingectomy) and the linked miscarriage protocol (vacuum aspiration) are written for tubal or intrauterine pregnancy. The only scope warning is in a note at the end. NICE NG126 covers tubal ectopic pregnancy only, and RCOG GTG 21 lists caesarean scar and cervical pregnancies as separate entities.",
+   "correction": "Remove \"caesarean scar pregnancy\" from keywords, or add a point to step 5: \"Scope: these criteria are for tubal ectopic pregnancy only (NICE NG126). Cervical, caesarean scar, interstitial and cornual pregnancies are covered separately by RCOG GTG 21 and are not summarised here.\" Cite NG126 Rec 1.14–1.17 and GTG21 Summary.",
+   "evidence": "RCOG GTG 21 page (https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/diagnosis-and-management-of-ectopic-pregnancy-green-top-guideline-no-21/): 'This guideline will cover the following ectopic pregnancies: tubal, cervical, caesarean scar, interstitial, cornual, ovarian, abdominal and heterotopic.' NICE NG126 §1.14–1.17 (https://www.nice.org.uk/guidance/ng126/chapter/Management-of-tubal-ectopic-pregnancy) are headed 'Management of tubal ectopic pregnancy'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Medical management: misoprostol ± mifepristone",
+   "claim": "The step gives misoprostol and mifepristone regimens (\"WHO 2024: incomplete abortion, uterus <14 weeks — misoprostol 600 µg orally…\", \"…missed miscarriage — mifepristone 200 mg orally, then misoprostol 800 µg…\", \"MoHFW CAC 2023: incomplete abortion — misoprostol 400 µg sublingual or 600 µg oral…\") but lists no contraindications or precautions apart from WHO's 'caution with a previous uterine incision' at ≥14 weeks.",
+   "problem": "This is a dangerous omission. The Indian source already cited, MoHFW CAC 2023, lists contraindications and precautions for these drugs. They include: suspected ectopic or undiagnosed adnexal mass (the drugs cannot treat an ectopic); an IUCD in situ, which must be removed first; a uterine scar from caesarean, hysterotomy or myomectomy; Hb <8 g/dL; BP >160/100; chronic adrenal failure; inherited porphyria; and coagulopathy or anticoagulants. In Indian practice, a previous caesarean and an IUCD in situ are both common.",
+   "correction": "Add a checklist to this step: \"Before misoprostol/mifepristone (MoHFW CAC 2023, listed for medical methods of abortion): do not use — confirmed or suspected ectopic or undiagnosed adnexal mass; Hb <8 g/dL; BP >160/100 mmHg; chronic adrenal failure; severe renal, liver or respiratory disease; uncontrolled seizures; inherited porphyria; glaucoma; allergy to mifepristone/misoprostol. Caution — IUCD in situ (remove it first); uterine scar (caesarean, hysterotomy, myomectomy); long-term systemic corticosteroids; coagulopathy or anticoagulants; heart disease or cardiovascular risk factors.\" Cite CAC23 \"Ch. 7 — Contraindications; Special precautions (pp. 55–56)\".",
+   "evidence": "MoHFW Comprehensive Abortion Care Training and Service Delivery Guidelines, 3rd ed. 2023 (https://nhm.gov.in/images/pdf/programmes/maternal-health/guidelines/CAC_Training_&_Service_Guidelines_2023.pdf; local copy of the same PDF read, as nhm.gov.in was not re-fetched), Ch. 7 p. 55: 'Medical methods of abortion is contraindicated in women with: Confirmed or suspected ectopic pregnancy or undiagnosed adnexal mass, as mifepristone or misoprostol cannot treat ectopic pregnancy; Anaemia (haemoglobin <8gm %); Uncontrolled hypertension with BP >160/100mm Hg; Chronic adrenal failure; Severe renal, liver or respiratory diseases; Uncontrolled seizure disorder; Inherited porphyria; Glaucoma; Allergy or intolerance to mifepristone/misoprostol or other prostaglandins' … '(C) Special precautions … Coagulopathy or on anticoagulant therapy … Pregnancy with in situ intrauterine contraceptive device. IUCD has to be removed before giving drugs for abortion'; p. 56: 'Pregnancy with uterine scar. Caution should be exercised when MMA is offered to women with a previous history of caesarean section, hysterotomy or myomectomy'.",
+   "severity": "major"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Identify the type of miscarriage (checklist) — no molar pregnancy management anywhere",
+   "claim": "\"Molar — heavy bleeding, dilated cervix, uterus larger than dates, grape-like tissue\"",
+   "problem": "The checklist helps doctors recognise a molar pregnancy, but no step says what to do next. The protocol's steps on misoprostol and choosing a method could then be applied to a mole. WHO MCPC 2017, which the protocol already cites, gives specific management: vacuum aspiration rather than sharp curettage, oxytocin once evacuation is under way, hormonal contraception, and urine pregnancy tests every 8 weeks for at least a year with referral if positive, because of the risk of choriocarcinoma.",
+   "correction": "Add a point to step 2 or step 6: \"WHO MCPC 2017: molar pregnancy — cross-match, evacuate by vacuum aspiration (sharp curettage carries a high perforation risk); oxytocin 20 units in 1 L NS/RL at 60 drops/min once evacuation is under way; hormonal contraception for at least 1 year; urine pregnancy test every 8 weeks for at least 1 year — refer urgently to a tertiary centre if not negative after 8 weeks or positive again.\" Cite WHO_MCPC \"Molar pregnancy (pp. S-17–S-18)\".",
+   "evidence": "WHO Managing complications in pregnancy and childbirth, 2nd ed. 2017 (https://www.who.int/publications/i/item/9789241565493), Molar pregnancy pp. S-17–S-18: 'cross-match blood if possible and arrange for evacuation of the uterus … Use vacuum aspiration … Manual vacuum aspiration is safer and associated with less blood loss than sharp metal curettage. The risk of perforation using the metal curette is high … Infuse oxytocin 20 units in 1 L IV fluids (normal saline or Ringer's lactate) at a rate of 60 drops per minute to prevent haemorrhage once evacuation is under way … Follow up every eight weeks for at least one year with urine pregnancy tests because of the risk of persistent trophoblastic disease or choriocarcinoma … If the urine pregnancy test is not negative after eight weeks or if it becomes positive again within the first year, urgently refer the woman to a tertiary care centre'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Septic abortion: antibiotics, then evacuate",
+   "claim": "\"SSC 2026: possible, probable or definite septic shock — antimicrobials immediately, ideally within 1 h. Cultures, lactate, fluids, vasopressors: see the Sepsis and septic shock protocol.\"",
+   "problem": "Only the septic-shock timing is quoted. Most women with septic abortion present with sepsis but without shock, and for them SSC 2026 also says to give antimicrobials immediately, ideally within 1 hour (strong recommendation). SSC 2026 also suggests source control within 6 hours, and in septic abortion that means evacuating retained products. Without both statements, the step can be read as allowing delay in the non-shocked patient.",
+   "correction": "\"SSC 2026 (strong): septic shock, or probable or definite sepsis without shock — antimicrobials immediately, ideally within 1 h of recognition. SSC 2026 (conditional): source control (here, evacuation of retained products) early, ideally within 6 h. Cultures, lactate, fluids, vasopressors: see the Sepsis and septic shock protocol.\" Cite SSC26 'Antibiotic initiation; Source control'.",
+   "evidence": "SCCM guideline page, Surviving Sepsis Campaign 2026 (https://www.sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026): 'For adults with probable or definite sepsis without shock, we recommend administering antimicrobial therapy immediately, ideally within 1 hr of recognition' and 'we suggest early source control over late source control, ideally within 6 hr of diagnosis of sepsis or septic shock requiring source control.' The app's own sepsis protocol (InfectionBleeding.kt, step 3) already carries the sepsis-without-shock line.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Septic abortion: antibiotics, then evacuate",
+   "claim": "scoreIds = listOf(\"qsofa\", \"news2\")",
+   "problem": "The step links NEWS2 for a woman who is pregnant or has just had an abortion. The app's own NEWS2 page carries the RCP caveat that NEWS2 should not be used in pregnancy, and the RCP executive summary says so too. The linked score will mislead in this group, because pregnancy changes the physiological response to acute illness.",
+   "correction": "Remove \"news2\" from scoreIds (or add a point: \"RCP: NEWS2 is not for use in pregnancy — use the local obstetric early warning chart\"). Keep qSOFA only with the SSC caveat that it is not to be used as a single screening tool.",
+   "evidence": "RCP NEWS2 executive summary (https://www.rcp.ac.uk/media/ctulqqbn/news2-executive-summary_0.pdf), recommendation 2: 'The NEWS should not be used in children (ie aged <16 years) or in women who are pregnant, because the physiological response to acute illness can be modified in children and by pregnancy.' The app's NEWS2 score (scores/data/AcuteCare.kt) has the caveat 'RCP: NEWS2 should not be used in children (under 16) or in pregnancy'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Unsafe abortion: injury and tetanus",
+   "claim": "\"WHO MCPC 2017 (unsafe abortion): immunised — tetanus toxoid booster 0.5 mL IM; not immunised — antitetanus serum 1500 units IM and toxoid 0.5 mL IM after 4 weeks.\"",
+   "problem": "The quote matches WHO MCPC, but it is out of date and conflicts with the app's Tetanus prophylaxis protocol. (1) For a woman who is not immunised, it puts off the first vaccine dose for 4 weeks. The tetanus protocol (ACIP/CDC) gives vaccine now, plus TIG, for any tetanus-prone exposure in someone with fewer than 3 doses. (2) It gives equine antitetanus serum, while WHO's 2017 tetanus position paper prefers TIG of human origin. (3) In India Td has replaced TT under the UIP. Unsafe abortion with instrumentation is a tetanus-prone exposure, and the source attribution does not make these differences visible to the reader.",
+   "correction": "Keep the WHO MCPC line but add: \"Unsafe abortion is tetanus-prone — see the Tetanus prophylaxis protocol: vaccine now (Td in India) and, if fewer than 3 doses or unknown, TIG 250 IU (WHO 2017: preferably human) at a separate site.\" Cite tr-wb-who-tetanus-2017 'Immunization in the case of injury (p. 74)'.",
+   "evidence": "WHO Managing complications in pregnancy and childbirth, 2nd ed. 2017 (https://www.who.int/publications/i/item/9789241565493), Box S-6 (p. S-68): 'If an immunized woman has had an unsafe abortion … give her a booster injection of tetanus toxoid 0.5 mL IM. If she has not been immunized before, give her antitetanus serum 1500 units IM and a booster injection of tetanus toxoid 0.5 mL IM after four weeks.' WHO Tetanus vaccines position paper, WER 2017;92(6):53–76 (https://iris.who.int/handle/10665/254583), p. 74: 'physicians may give a dose of TTCV, preferably Td, in the case of an injury … In addition, passive immunization using TIG, preferably of human origin, may be needed for prophylaxis in cases of dirty wounds in incompletely immunized patients.' The app's Tetanus prophylaxis protocol (WoundsBites.kt) says: 'Unknown or <3 doses + all other wounds: vaccine YES, TIG YES' and 'MoHFW UIP: Td has replaced TT for all age groups, including pregnant women'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Note: India — MTP (Amendment) Act 2021",
+   "claim": "\"India — MoHFW CAC 2023: the MTP (Amendment) Act 2021 and Rules 2021 allow termination up to 20 weeks on extended indications for any woman, up to 24 weeks for special categories, and at any gestation for substantial fetal abnormality approved by a Medical Board.\"",
+   "problem": "The note gives gestation limits but not the conditions that make a termination legal. It must be done by a registered medical practitioner with the training the MTP Rules require, at a government or approved site; medical abortion up to 9 weeks may be prescribed from a clinic that has a link to an approved site. Two RMP opinions are needed at 20–24 weeks, and Form C consent is required. The protocol's keywords include 'MTP', 'MTP kit' and 'Mifegest', and it gives a mifepristone and misoprostol regimen, so readers looking for induced abortion will arrive here. The limits on who may provide are what the caller asked to see.",
+   "correction": "Append: \"Legal only if performed by a registered medical practitioner with the training the MTP Rules prescribe, at a government hospital or approved place (MMA up to 9 weeks may be prescribed in a clinic with referral access to an approved site); opinion of one RMP up to 20 weeks, two RMPs for 20–24 weeks, Medical Board beyond 24 weeks; written consent in Form C.\" Cite CAC23 'Ch. 2 (pp. 5–9)'.",
+   "evidence": "MoHFW Comprehensive Abortion Care Training and Service Delivery Guidelines, 3rd ed. 2023 (https://nhm.gov.in/images/pdf/programmes/maternal-health/guidelines/CAC_Training_&_Service_Guidelines_2023.pdf; local copy of the same PDF read, as nhm.gov.in was not re-fetched), Ch. 2 p. 5: 'An abortion is legal only when it fulfills the following conditions: It is performed by a registered medical practitioner, who is allowed to terminate the pregnancy, as defined by the MTP Act; It is performed at a place that has been approved to terminate pregnancy under the MTP Act. For Medical Methods of Abortion (MMA), up to nine weeks gestation, drugs can be prescribed in outdoor clinics with an established referral linkage to an MTP approved site'; p. 9: 'Form I (for MTP upto 20 weeks by one RMP); Form E (for MTPs between 20 – 24 weeks by two RMPs); Form D (for MTPs beyond 24 weeks by Medical Board members)'; p. 5: 'The consent is to be obtained in Form C'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Anti-D, follow-up and contraception",
+   "claim": "\"WHO 2024: medical or surgical abortion <12 weeks — recommend against anti-D; standard care applies from 12 weeks. Rh testing is not required.\"",
+   "problem": "WHO says Rh testing is not a prerequisite for abortion services, meaning it must not hold up or block care. It does not say that Rh status need not be known. Placed directly after 'standard care applies from 12 weeks', 'Rh testing is not required' reads as if no Rh typing is needed at 12 weeks or more. That conflicts with NICE NG126, quoted in the same step, which offers anti-D to RhD-negative women at 12+0 to 12+6 weeks and so requires their RhD status. In India, MoHFW CAC 2023 gives anti-D to Rh-negative women.",
+   "correction": "\"WHO 2024: medical or surgical abortion <12 weeks — recommend against anti-D; standard care applies from 12 weeks. WHO: Rh testing is not a prerequisite for abortion care (it should not delay or prevent care).\"",
+   "evidence": "WHO Abortion care guideline 2nd ed. (https://www.who.int/publications/i/item/9789240104204), Rec 8 (p. 44): 'For both medical and surgical abortion at < 12 weeks: Recommend against anti-D immunoglobulin administration. Remark: Standard of care applies for anti-D administration at gestational ages ≥ 12 weeks.' Implementation considerations: 'Routine laboratory testing, including Rh testing, is not a requirement for abortion services at any gestational age. Determination of Rh status and the offer of anti-D prophylaxis are not considered prerequisites for early medical abortion at gestational ages before 12 weeks.' NICE NG126 rec 1.18.2: 'Offer anti-D immunoglobulin prophylaxis … to women … who are RhD-negative and are at 12+0 to 12+6 completed weeks'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "miscarriage-septic-abortion",
+   "step": "Source ob-ep-acog-pb200 (status line)",
+   "claim": "status = \"Reaffirmed 2025; Rh guidance revised by a 2024 Clinical Practice Update (…); full texts paywalled — cited only from the ACOG abstracts\"",
+   "problem": "ACOG's own page labels PB 200 'Free Access'. Only PB 189 and PB 193 are 'Full Member Benefit'. Calling PB 200 'paywalled' misstates why its full text was not used: the journal site blocks automated retrieval (it returned HTTP 403 in this review). The cause should be stated accurately.",
+   "correction": "status = \"Reaffirmed 2025; Rh guidance revised by a 2024 Clinical Practice Update (Obstet Gynecol 2024;144:e140–e143); full text (free access on ACOG) could not be retrieved automatically — cited only from the ACOG abstract\"",
+   "evidence": "https://www.acog.org/clinical/guidance/practice-bulletin/2018/11/early-pregnancy-loss: 'Free Access … Early Pregnancy Loss NUMBER 200 NOVEMBER 2018 REAFFIRMED 2025'. By contrast, the PB 189 and PB 193 pages say 'Full Member Benefit'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "hyperemesis-gravidarum",
+   "step": "Antiemetics: step up and combine",
+   "claim": "\"FDA labels: ondansetron — ECG monitoring if hypokalaemia or hypomagnesaemia, avoid in congenital long QT; metoclopramide — boxed warning for tardive dyskinesia, shortest duration.\"",
+   "problem": "The ondansetron warning is cut short at the point that matters here. The same step tells doctors to combine antiemetics from different classes, yet the line leaves out the label's ECG-monitoring advice for patients taking other QT-prolonging drugs or with heart failure or bradyarrhythmia. It also leaves out the serotonin-syndrome warning. HG patients are often hypokalaemic as well, which the line does mention.",
+   "correction": "\"FDA labels: ondansetron — avoid in congenital long QT; ECG monitoring with hypokalaemia or hypomagnesaemia, heart failure, bradyarrhythmia or other QT-prolonging drugs; serotonin syndrome reported, mostly with serotonergic drugs. Metoclopramide — boxed warning for tardive dyskinesia, shortest duration.\"",
+   "evidence": "FDA label, Ondansetron tablets (Ipca), https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7ab3210e-eed1-479a-afc0-f72b5b776883, §5.2: 'Avoid ondansetron in patients with congenital long QT syndrome. ECG monitoring is recommended in patients with electrolyte abnormalities (e.g., hypokalemia or hypomagnesemia), congestive heart failure, bradyarrhythmias, or patients taking other medicinal products that lead to QT prolongation'; §5.3: 'The development of serotonin syndrome has been reported with 5-HT3 receptor antagonists alone. Most reports have been associated with concomitant use of serotonergic drugs'.",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "hyperemesis-gravidarum",
+   "step": "Antiemetics: step up and combine",
+   "claim": "The step gives metoclopramide (IV over ≥3 min) and phenothiazines (prochlorperazine, chlorpromazine, promethazine) but no warning about acute dystonia or oculogyric crisis and no instruction to stop the drug.",
+   "problem": "Two RCOG GTG 69 key recommendations are missing: phenothiazines and metoclopramide can cause extrapyramidal symptoms and oculogyric crises, and women should be asked about previous reactions, with the drug stopped promptly if one occurs. Young women given IV metoclopramide or prochlorperazine are the group most at risk of acute dystonia, and the only adverse effect the step mentions is the tardive dyskinesia boxed warning.",
+   "correction": "Add: \"RCOG GTG 69: phenothiazines and metoclopramide can cause extrapyramidal symptoms and oculogyric crises — ask about previous reactions before prescribing and stop the drug promptly if one occurs.\" Cite GTG69 'Key recommendations; §5.2.2'.",
+   "evidence": "RCOG GTG 69 (BJOG 2024;131(7):e1–e30, DOI 10.1111/1471-0528.17739), §5.2.2: 'Drug-induced extrapyramidal symptoms and oculogyric crises can occur with the use of phenothiazines and metoclopramide.' Key recommendation [GPP]: 'Women should be asked about previous adverse reactions to antiemetic therapies. If adverse reactions occur, there should be prompt cessation of the medications.'",
+   "severity": "minor"
+  },
+  {
+   "protocolId": "hyperemesis-gravidarum",
+   "step": "IV fluids: saline with potassium, no dextrose before thiamine",
+   "claim": "\"MoHFW 2009: admit, IV Ringer lactate or DNS, urine ketones 4-hourly until negative, antiemetics and multivitamins; discharge 24 h after vomiting stops and dehydration is corrected.\"",
+   "problem": "This step's own title says 'no dextrose before thiamine', yet the Indian national source quoted in it offers DNS (dextrose–normal saline) with no thiamine first. A doctor following the MoHFW line alone could start dextrose in a thiamine-deficient woman, which is the cause of Wernicke's encephalopathy that RCOG warns about. The conflict is explained only in a note at the end of the protocol, not at the point of use.",
+   "correction": "\"MoHFW 2009: admit, IV Ringer lactate or DNS, urine ketones 4-hourly until negative, antiemetics and multivitamins; discharge 24 h after vomiting stops and dehydration is corrected. RCOG GTG 69: avoid dextrose-containing fluids such as DNS until parenteral thiamine has been given, and do not use ketones to guide treatment.\"",
+   "evidence": "RCOG GTG 69 (BJOG 2024, DOI 10.1111/1471-0528.17739) §6.1: 'Dextrose-containing solutions can precipitate Wernicke encephalopathy in thiamine-deficient states (see section 7.1); hence, they should be avoided, and high (e.g. 100 mg) doses of parenteral thiamine should be given to prevent Wernicke encephalopathy.' §6: 'Level of ketones should not be used to inform clinical decision making about treatments or hydration status.' MoHFW MO trainees' handbook 2009, Case study 25 (p. 143): 'Admit the patient … start I.V. fluids either RL or DNS, send for urine ketones & repeat every 4 hours till it becomes negative, give antiemetics and multivitamins.'",
+   "severity": "minor"
+  }
+ ]
+}
