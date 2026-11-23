@@ -17,13 +17,18 @@ output format exactly**.
    guidelines, facility-based newborn care, IMNCI, SAM guidelines), ICMR Standard Treatment Workflows, NCVBDC,
    IAP, FOGSI, NNF. Then WHO, NICE, RCOG, ACOG, SMFM, ERC/AHA 2025, ISPAD, BTS/SIGN, as relevant. Use the
    **latest edition** (check for 2024–2026 updates).
-2. **Every statement is attributed and cited.** The app reports what sources say; it does not instruct. Where
-   sources differ, write both, attributed: "MoHFW: …; RCOG GTG 63: …". Put real disagreements in **Notes**.
+2. **Write it like a quick-reference card, as in the Infections A–Z pages.** Short, direct statements a busy doctor
+   can act on, e.g. "Give MgSO4 4 g IV over 15–20 min, then 1 g/h IV". **Do not name the guideline in the sentence**:
+   put the source link at the end of the line — the app turns the links into a tappable source list under each
+   step, so the text stays clean. Name sources in the text **only** where two guidelines genuinely disagree on that
+   point and it changes management ("RCOG: …; WHO: …"), and explain it in a Note.
 3. **Verify every dose, rate, threshold, time window and gestational/weight cut-off in the primary document.**
    Never fill from memory; if you cannot verify something, leave it out.
 4. Do not copy the proprietary **ATLS** or **APLS** manuals; use openly published guidelines.
-5. 5–9 steps per protocol, 2–6 points per step, each point ≤ ~25 words. Use `Timing` for time-critical steps and a
-   `Checklist` for criteria, contraindications, red flags or don'ts.
+5. Keep it lean: 4–8 steps per protocol, 2–5 points per step, each point ≤ 20 words; summary one line. Use `Timing`
+   for time-critical steps and a `Checklist` for criteria, contraindications, red flags or don'ts. **Notes**: at most
+   3 per protocol, only for real disagreements or important caveats — no history, no evidence grading, no trial
+   details.
 6. **Weight-based doses** go in `Dose` lines (they become calculators) **only** when the dose is one simple
    per-kg figure or range for one drug. Anything compound (loading + maintenance, multi-drug, by-age bands) goes
    in a point as text instead.
@@ -42,14 +47,14 @@ output format exactly**.
 
 ## Protocol: <protocol-id>
 - **Title:** <title>
-- **Summary:** <one or two sentences>
+- **Summary:** <one line, ≤ 20 words>
 - **Category:** <Obstetric | Neuro | Respiratory | Metabolic | Infection | Cardiac>
 - **Keywords:** `kw1`, `kw2`, `kw3`
 
 ### Step: <step title>
 - **Timing:** <time target>                         (optional)
 - **Points:**
-  - <statement, attributed> ([Short label — locator](https://full.url))
+  - <short direct statement> ([Short label — locator](https://full.url))
   - <statement> ([Label — locator](https://url); [Label2 — locator](https://url2))
 - **Checklist:** <checklist title>                   (optional)
   - <item>
@@ -59,7 +64,7 @@ output format exactly**.
 - **Citations:** [Label — locator](https://url), [Label — locator](https://url)
 
 ### Note
-- <where guidelines differ / evidence controversy, attributed> ([Label — locator](https://url))
+- <only a real disagreement or key caveat, ≤ 30 words> ([Label — locator](https://url))
 
 ## Sources
 | Source ID | Authority | Document | Title | Year | URL |
@@ -70,7 +75,7 @@ output format exactly**.
   CDC FDA AHA ERC RCUK ESC IDSA GINA BTS ILAE Paper`.
 - Every URL used in a link must appear in the Sources table (exact same URL). Full https URLs, no shorteners.
 - The **locator** (after " — " in the link label) is the section/table/recommendation/page, e.g. "Rec 12", "Table 3",
-  "§4.2", "p. 37".
+  "§4.2", "p. 37". It appears only in the source list, never in the sentence.
 - Every Step has a `Citations` line; every Note has at least one link. Source IDs use the batch prefix given below.
 - Write `Dose` lines only in the exact `|`-separated form above.
 

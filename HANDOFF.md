@@ -68,7 +68,8 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    then CH-A/CH-B child emergencies). When a batch arrives: save it under `.claude-work/gemini-protocols/`, write
    (once) a protocol converter like `.claude-work/infections/convert.py` for that exact format (map URLs to existing
    app Source ids where the URL matches, else new Sources; Dose lines → StepDose only in the exact `|` form; every
-   Step/Note must end up cited), generate into the placeholder data files, add to `released`, compile + tests, note
+   Step/Note must end up cited), strip links out of the point text (as convert.py does) so text stays clean and links become the step's citations;
+   generate into the placeholder data files, add to `released`, compile + tests, note
    "not independently reviewed" in README, build the APK.
 5b-done. Infections A–Z (all 40, batches 1–5) compiled as written and released in 0.6.0.
 5b. **Infections A–Z next, before child emergencies** (user decision 23 Nov 2026). The user is having Gemini draft
@@ -128,6 +129,8 @@ disables itself and sends the user a summary of what still needs them.
 ## User preferences
 - Clinician decision support for doctors in India (Punjab); sources India first, every statement cited.
 - Uncluttered, premium UI; no purple, no pill shapes; side menu, search everywhere.
+- Content style (23 Nov 2026): short direct quick-reference lines like the Infections A–Z pages; sources as tappable
+  lists, not named in the sentence unless guidelines disagree. The older protocols are wordier.
 - Keep ESC content for now (permission needed before public release). Before sharing widely: colleague review,
   signing key, CDSCO check (README checklist).
 - Ask before starting big batches; keep usage low. (23 Nov 2026: the whole HANDOFF + ROADMAP queue is approved.)
