@@ -62,8 +62,14 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 ## Next steps, in order
 1–3. Done: head/spine and wounds/bites reviewed and fixed; 0.5.1 released and sent (23 Nov 2026).
 4. Done: limb/abdomen reviewed and fixed; 0.5.2 released and sent (23 Nov 2026). Trauma section complete.
-5. Obstetric batch 2: `earlypreg` done and released in 0.6.0. Remaining `aph`, `labour`, `maternalmed` — paused by
-   the user (23 Nov 2026) as too slow/expensive at writer + 2 reviewers + fixer; ask how to proceed (lighter process?).
+5. Obstetric batch 2: `earlypreg` done and released in 0.6.0. **Remaining protocols are now written by Gemini**
+   (user decision 23 Nov 2026: "let Gemini handle it"), compiled as written like the infections. The prompt is
+   `.claude-work/gemini-prompts/protocols-obstetric-and-child.md` (batches OB-A aph, OB-B labour, OB-C maternalmed,
+   then CH-A/CH-B child emergencies). When a batch arrives: save it under `.claude-work/gemini-protocols/`, write
+   (once) a protocol converter like `.claude-work/infections/convert.py` for that exact format (map URLs to existing
+   app Source ids where the URL matches, else new Sources; Dose lines → StepDose only in the exact `|` form; every
+   Step/Note must end up cited), generate into the placeholder data files, add to `released`, compile + tests, note
+   "not independently reviewed" in README, build the APK.
 5b-done. Infections A–Z (all 40, batches 1–5) compiled as written and released in 0.6.0.
 5b. **Infections A–Z next, before child emergencies** (user decision 23 Nov 2026). The user is having Gemini draft
    infection pages from a 0.5.1 repo zip: Batch 2 (D–H: dengue, diphtheria, enteric fever, filariasis, giardiasis,
