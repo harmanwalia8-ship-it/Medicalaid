@@ -48,6 +48,7 @@ object Protocols {
         // Gemini-written, compiled as written (not independently reviewed) — 0.6.1
         Group(antepartumProtocols, antepartumSources),
         Group(maternalMedicalProtocols, maternalMedicalSources),
+        Group(labourEmergencyProtocols, labourEmergencySources),
         // Child emergencies — Gemini-written, compiled as written (0.8.0)
         Group(paediatricAProtocols, paediatricASources),
         Group(paediatricBProtocols, paediatricBSources),
@@ -57,10 +58,9 @@ object Protocols {
      * Written but not yet fully reviewed. They compile and are checked by the integrity tests, but are
      * never shown. Move a group to [released] once its review and fixes are complete.
      */
-    private val inReview = listOf(
+    private val inReview = listOf<Group>(
         // Medical emergencies
         // Obstetric emergencies and trauma
-        Group(labourEmergencyProtocols, labourEmergencySources),
     )
 
     val all: List<Protocol> = released.flatMap { it.protocols }

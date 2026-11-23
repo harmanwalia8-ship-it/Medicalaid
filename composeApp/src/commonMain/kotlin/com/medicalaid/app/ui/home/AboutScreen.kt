@@ -29,7 +29,7 @@ import com.medicalaid.app.ui.components.SurfaceCard
 import com.medicalaid.app.ui.theme.Radius
 import com.medicalaid.app.ui.theme.Theme
 
-const val APP_VERSION = "0.8.0"
+const val APP_VERSION = "0.8.1"
 
 /** Bump to show the intended-use notice again after material changes. */
 const val INTRO_VERSION = 1

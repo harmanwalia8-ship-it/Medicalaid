@@ -79,9 +79,8 @@ finished this cycle stay in `Protocols.inReview`: they are compiled and tested b
 - *Child emergencies (0.8.0, Gemini-written; "Children" in Emergency):* cardiac arrest and the seriously ill child,
   neonatal resuscitation, sepsis, status epilepticus and febrile seizures, DKA, acute asthma, bronchiolitis, croup,
   diarrhoea and dehydration, SAM with complications, anaphylaxis/severe dengue/severe malaria in children.
-
-Not yet written (placeholder, hidden): labour-room emergencies (cord prolapse, shoulder dystocia, uterine inversion,
-retained placenta).
+- *Labour-room emergencies (0.8.1, Gemini-written):* cord prolapse, shoulder dystocia, uterine inversion, retained
+  placenta. All obstetric emergency protocols are now written.
 
 **Calculators**
 - Burns: tappable Lund–Browder body chart (six age columns) → %TBSA → fluid plan. Adults: Parkland 4 and ABA 2024
@@ -105,7 +104,8 @@ retained placenta).
 4. Sources were checked against the issuing body's own page in **November 2026** (`Sources.REVIEWED`).
 
 ### Known gaps — review before clinical release
-- **Gemini-written protocols (APH, preterm labour; maternal sepsis, VTE, DKA in pregnancy; all child emergencies)**
+- **Gemini-written protocols (APH, preterm labour, labour-room emergencies; maternal sepsis, VTE, DKA in pregnancy; all
+  child emergencies)**
   were compiled as written by
   `.claude-work/gemini-protocols/convert_protocols.py`, without the two-reviewer check the earlier protocols had.
 - **Infections A–Z (40 pages) were not independently reviewed.** They were drafted with Gemini from Indian and

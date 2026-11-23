@@ -23,7 +23,8 @@ import com.medicalaid.app.ui.theme.Theme
 
 /** Most-needed first; anything not listed follows alphabetically. */
 private val EMERGENCY_ORDER = listOf(
-    "pph", "eclampsia", "severe-pre-eclampsia", "antepartum-haemorrhage", "maternal-collapse", "preterm-labour",
+    "pph", "eclampsia", "severe-pre-eclampsia", "antepartum-haemorrhage", "maternal-collapse", "shoulder-dystocia",
+    "cord-prolapse", "retained-placenta", "uterine-inversion", "preterm-labour",
     "maternal-sepsis", "ectopic-pregnancy", "miscarriage-septic-abortion", "vte-in-pregnancy", "dka-in-pregnancy",
     "trauma-in-pregnancy", "hyperemesis-gravidarum",
 )

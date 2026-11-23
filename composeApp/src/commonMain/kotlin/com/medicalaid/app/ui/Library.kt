@@ -126,6 +126,8 @@ object Related {
         c("headache") + p("migraine-acute", "subarachnoid-haemorrhage"),
         // Protocol families
         p("pph", "antepartum-haemorrhage", "maternal-collapse"),
+        p("pph", "uterine-inversion", "retained-placenta"),
+        p("cord-prolapse", "shoulder-dystocia", "neonatal-resuscitation"),
         p("antepartum-haemorrhage", "preterm-labour"),
         p("ectopic-pregnancy", "miscarriage-septic-abortion"),
         p("major-trauma", "traumatic-haemorrhage", "head-injury", "spinal-injury", "chest-trauma", "abdominal-pelvic-trauma", "trauma-in-pregnancy"),

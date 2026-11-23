@@ -66,8 +66,8 @@ android {
         applicationId = "com.medicalaid.app"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 11
-        versionName = "0.8.0"
+        versionCode = 12
+        versionName = "0.8.1"
     }
     packaging {
         resources {

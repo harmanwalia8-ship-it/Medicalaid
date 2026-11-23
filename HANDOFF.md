@@ -1,7 +1,7 @@
 # Handoff — where the work stands (23 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.8.0** (versionCode 11), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.8.1** (versionCode 12), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
 scheduled task is disabled. Do not restart protocol writing without the user's go-ahead.
 
 ## Build and check
@@ -64,7 +64,7 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 4. Done: limb/abdomen reviewed and fixed; 0.5.2 released and sent (23 Nov 2026). Trauma section complete.
 5. Obstetric batch 2: `earlypreg` done and released in 0.6.0; **OB-A (APH, preterm labour) converted and released in
    0.6.1**; **OB-C, CH-A, CH-B released in 0.8.0** (child protocols forced into the new `Paediatric` category via the
-   converter's 6th argument; files PaediatricEmergencies.kt / PaediatricEmergencies2.kt). **OB-B still awaited.**
+   converter's 6th argument; files PaediatricEmergencies.kt / PaediatricEmergencies2.kt). **OB-B released in 0.8.1** (LabourEmergencies.kt) — obstetric batch 2 complete.
    (`.claude-work/gemini-protocols/ob-a.md` → AntepartumHaemorrhage.kt via `convert_protocols.py`; usage:
    `python3 -I convert_protocols.py <repo> <batch.md> <File.kt> <sourcesVal> <protocolsVal>`). OB-B → LabourEmergencies.kt
    (labourEmergencySources/labourEmergencyProtocols); OB-C → MaternalMedical.kt (maternalMedicalSources/
