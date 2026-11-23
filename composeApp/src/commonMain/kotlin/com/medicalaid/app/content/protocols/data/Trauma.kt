@@ -175,6 +175,9 @@ private const val AHA_SPECIAL = "em-resus-aha-special-2025"
 /** Defined in MaternalCollapse.kt — EAST 2025 trauma in pregnancy guideline. */
 private const val EAST_PREG = "ob-mat-east-2025"
 
+/** Defined in TraumaLimbAbdomen.kt — EAST 2025 REBOA guideline (released together with that group). */
+private const val EAST_REBOA = "tr-la-east-reboa-2025"
+
 /** Defined in Sources.kt — MoHFW UIP Td vaccine operational guidelines (2018). */
 private const val MOH_TD = "mohfw-td"
 
@@ -483,13 +486,15 @@ private val traumaticHaemorrhage = Protocol(
                 "NICE NG39: purpose-made pelvic binder for suspected pelvic bleeding after blunt high-energy trauma. European 2023: close and stabilise the pelvic ring early in shock.",
                 "MoHFW 2025: centre the binder over the greater trochanters with legs internally rotated; apply it before intubation, as paralysis may let the pelvis expand.",
                 "European 2023: extraperitoneal packing if bleeding continues or angioembolisation is delayed. NICE NG39: interventional radiology for active arterial pelvic bleeding.",
-                "European 2023: REBOA may be considered as a bridge in noncompressible bleeding; ERC 2025 does not recommend REBOA outside clinical trials.",
+                "REBOA — sources differ: European 2023 suggests considering it as a bridge in noncompressible life-threatening bleeding (2C); EAST 2025 conditionally recommends against it " +
+                    "in unstable patients with suspected subdiaphragmatic bleeding or pelvic fracture; ERC 2025 does not recommend it outside clinical trials.",
             ),
             citations = listOf(
                 cite(EU, "R1, R6–R7, R20–R21"),
                 cite(NICE, "Rec 1.5.3, 1.5.40–1.5.42"),
                 cite(MOH, "Ch. 6 Pelvic stabilisation (p. 30)"),
                 cite(ERC, "Treatment of the reversible causes — Hypovolaemia"),
+                cite(EAST_REBOA, "Table 1 — PICO 1 and 2"),
             ),
         ),
         // 3 ----------------------------------------------------------------------------------------------
@@ -1114,8 +1119,10 @@ private val traumaticCardiacArrest = Protocol(
             listOf(cite(WTA, "Summary and conclusion; Section F")),
         ),
         ProtocolNote(
-            "REBOA: the European guideline 2023 suggests considering it for noncompressible bleeding as a bridge; ERC 2025 does not recommend it outside clinical trials.",
-            listOf(cite(EU, "R21"), cite(ERC, "Treatment of the reversible causes — Hypovolaemia")),
+            "REBOA: the European guideline 2023 suggests considering it for noncompressible bleeding as a bridge; ERC 2025 does not recommend it outside clinical trials. " +
+                "EAST 2025 conditionally recommends REBOA over resuscitative thoracotomy in traumatic arrest from suspected subdiaphragmatic bleeding when there is no other indication for thoracotomy " +
+                "(very low certainty), makes no recommendation for impending arrest, and says REBOA must be part of a protocolised haemorrhage-control strategy with trained operators.",
+            listOf(cite(EU, "R21"), cite(ERC, "Treatment of the reversible causes — Hypovolaemia"), cite(EAST_REBOA, "Table 1 — PICO 3 and 4 and footnote; Using these guidelines in clinical practice; Conclusion")),
         ),
         ProtocolNote(
             "India: no MoHFW or ICMR traumatic cardiac arrest algorithm was found (November 2026); the MoHFW 2025 trauma guideline addresses only perimortem caesarean in pregnancy.",

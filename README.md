@@ -58,9 +58,12 @@ finished this cycle stay in `Protocols.inReview`: they are compiled and tested b
 - *Trauma (0.5.1):* major trauma (primary survey), traumatic haemorrhage, chest trauma, traumatic cardiac arrest;
   head injury (CT criteria, raised ICP, CRASH-3) and spinal injury (with the Canadian C-spine Rule and NEXUS);
   animal bites and rabies post-exposure prophylaxis (NCDC 2019), tetanus prophylaxis.
+- *Trauma (0.5.2):* abdominal and pelvic trauma (eFAST, pelvic binder, non-operative management, REBOA positions),
+  open fractures (antibiotics by source, bleeding control, gentamicin renal cautions), compartment syndrome and
+  crush injury (pressure thresholds, fasciotomy, crush fluids, hyperkalaemia and dialysis).
 
-Written and still in review (hidden until reviewed): abdominal/limb trauma, and the second obstetric batch
-(ectopic, miscarriage, hyperemesis, APH, preterm labour, labour-room emergencies, sepsis/VTE/DKA in pregnancy).
+Written and still in review (hidden until reviewed): the second obstetric batch (ectopic, miscarriage,
+hyperemesis, APH, preterm labour, labour-room emergencies, sepsis/VTE/DKA in pregnancy).
 
 **Calculators**
 - Burns: tappable Lund–Browder body chart (six age columns) → %TBSA → fluid plan. Adults: Parkland 4 and ABA 2024
@@ -108,6 +111,10 @@ Written and still in review (hidden until reviewed): abdominal/limb trauma, and 
 - **Trauma in pregnancy:** MoHFW STG Trauma 2025 Ch. 13 also advises 50% more IV crystalloid, PaCO₂ 30 mm Hg, pelvic
   examination only after placental localisation, and perimortem caesarean only in non-hypovolaemic arrest; these
   need a clinical decision before being added. The tilt angle differs (MoHFW HDU 2016: 15°; STG 2025: about 30°).
+- **Crush injury:** the ISN/ERBP 2012 recommendations are paywalled; their fluid algorithm and dialysis criteria are
+  shown as reproduced by ISN task-force authors (Sever 2023, RMMJ 2011). NDMA/NDRF guidance could not be retrieved.
+  Children's crush-fluid doses have no source-stated maximum (the app says so). MoHFW STG 2025 Table 5 prints
+  "2.5 m/kg" for gentamicin; read as mg/kg.
 
 ## Project layout
 

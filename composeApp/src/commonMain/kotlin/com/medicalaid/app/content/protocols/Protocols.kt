@@ -41,6 +41,8 @@ object Protocols {
         Group(traumaProtocols, traumaSources),
         Group(headSpineProtocols, headSpineSources),
         Group(woundsBitesProtocols, woundsBitesSources),
+        // Trauma — reviewed for 0.5.2 (completes the trauma section)
+        Group(limbAbdomenProtocols, limbAbdomenSources),
     )
 
     /**
@@ -54,7 +56,6 @@ object Protocols {
         Group(antepartumProtocols, antepartumSources),
         Group(labourEmergencyProtocols, labourEmergencySources),
         Group(maternalMedicalProtocols, maternalMedicalSources),
-        Group(limbAbdomenProtocols, limbAbdomenSources),
     )
 
     val all: List<Protocol> = released.flatMap { it.protocols }

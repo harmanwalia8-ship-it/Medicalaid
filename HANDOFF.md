@@ -1,7 +1,7 @@
 # Handoff — where the work stands (23 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.5.1** (versionCode 6), sent 23 Nov 2026.
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.5.2** (versionCode 7), sent 23 Nov 2026.
 
 ## Build and check
 ```
@@ -36,28 +36,26 @@ verifyPrompt, fixPrompt). Run with the Workflow tool if available, otherwise one
 The user is on a smaller plan: **one job at a time**.
 
 ## State
-**Released (in 0.5.1):** everything in 0.5.0 (stroke; 22 poisoning protocols + cocaine use disorder page; all
+**Released (in 0.5.2):** everything in 0.5.0 (stroke; 22 poisoning protocols + cocaine use disorder page; all
 medical emergencies; obstetric batch 1; burns chart; ABG interpreter) plus trauma (major trauma, haemorrhage, chest,
 traumatic arrest), head injury and spinal injury with the Canadian C-spine Rule and NEXUS, animal bites/rabies PEP
-and tetanus prophylaxis; FOGSI 2026 eclampsia notes; teal/square UI with guideline tabs; score panel "Show more".
-Review findings for 0.5.1 work are in `.claude-work/reviews/` (headspine-*, wounds-*).
+and tetanus prophylaxis; (0.5.2) abdominal/pelvic trauma, open fractures, compartment syndrome/crush, and the
+EAST 2025 REBOA position added to the released traumatic haemorrhage/arrest protocols; FOGSI 2026 eclampsia notes; teal/square UI with guideline tabs; score panel "Show more".
+Review findings are in `.claude-work/reviews/` (headspine-*, wounds-*, limb-*).
 
 **Follow-ups for a clinician (not blocking):** README "Known gaps" — rabies monoclonal antibody doses from trials;
 CDC/ACIP tetanus table; MoHFW STG 2025 Ch. 13 trauma-in-pregnancy statements not added (50% more crystalloid,
 PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 
 **In review (hidden):**
-- `TraumaLimbAbdomen.kt` (abdominal-pelvic-trauma, open-fractures, compartment-syndrome-crush) — **written** 23 Nov 2026,
-  tests pass; numbers review → safety review → fixer still to run (findings → `.claude-work/reviews/limb-*.json`).
-  The writer flagged the released `Trauma.kt` REBOA point (cites only European 2023 / ERC 2025; EAST 2025 recommends
-  against REBOA in unstable patients) — let the limb fixer verify and correct that one point.
 - Obstetric batch 2 — placeholders `EarlyPregnancy.kt`, `AntepartumHaemorrhage.kt`, `LabourEmergencies.kt`,
   `MaternalMedical.kt` (briefs in the GROUPS array: earlypreg, aph, labour, maternalmed).
 
 ## Next steps, in order
 1–3. Done: head/spine and wounds/bites reviewed and fixed; 0.5.1 released and sent (23 Nov 2026).
-4. **Limb/abdomen** (group `limb`): write → numbers review → safety review → fixer → release **0.5.2**.
-5. Obstetric batch 2 (0.5.3: earlypreg + aph; 0.5.4: labour + maternalmed).
+4. Done: limb/abdomen reviewed and fixed; 0.5.2 released and sent (23 Nov 2026). Trauma section complete.
+5. **Obstetric batch 2**, one group at a time: `earlypreg` → `aph` → release 0.5.3; `labour` → `maternalmed` →
+   release 0.5.4. Each: write → numbers review → safety review → fixer.
 6. Then `ROADMAP.md`, sections in order — the user approved on 23 Nov 2026 going straight on without asking
    (child emergencies, infections/antibiotics, fever work-up, steroid misuse, paediatric doses, remaining drug
    phases, smaller items). Skip and list for the user: licensed skin photos, colleague review, signing key, CDSCO.

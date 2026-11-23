@@ -252,6 +252,7 @@ private val abdominalPelvicTrauma = Protocol(
                 "MoHFW 2025: bedside AP chest and pelvis X-ray and eFAST are mandatory for major trauma and for all yellow-area patients; chest X-ray for air under the diaphragm.",
                 "WSES 2020: eFAST is rapid in detecting free fluid but may be falsely negative (clotted blood, poor views); in children its sensitivity is 42–52%.",
                 "NICE NG39: a negative FAST does not exclude intraperitoneal or retroperitoneal haemorrhage. Do not use FAST before immediate CT or to decide who needs CT.",
+                "European 2023: POCUS including FAST in thoracoabdominal injury (1C); early contrast whole-body CT to find the injury and the bleeding source (1B).",
                 "WSES 2017 (citing EAST): eFAST is not sensitive enough to exclude pelvic bleeding but may exclude the need for laparotomy in unstable patients.",
                 "NICE NG39: unstable and not responding to volume — limit imaging (chest and pelvis X-ray, FAST) to the minimum needed to direct intervention.",
                 "WSES 2020: diagnostic peritoneal lavage where CT or ultrasound is not promptly available (low-resource settings); complications up to 2%.",
@@ -340,7 +341,7 @@ private val abdominalPelvicTrauma = Protocol(
         // 6 ----------------------------------------------------------------------------------------------
         Step(
             title = "Unstable pelvic fracture: packing, angioembolisation, REBOA",
-            timing = "After binder, haemostatic resuscitation and exclusion of other bleeding sources (WSES 2017)",
+            timing = "Angioembolisation after pelvic stabilisation, haemostatic resuscitation and exclusion of extra-pelvic bleeding (WSES 2017)",
             points = listOf(
                 "MoHFW 2025 (Fig. 12): alert orthopaedics, theatre and interventional radiology; FAST/DPL — haemoperitoneum: laparotomy, preperitoneal packing, ex-fix if amenable, then angiography.",
                 "MoHFW 2025 (Fig. 12): no significant haemoperitoneum — angiography if immediately available; otherwise ex-fix and preperitoneal packing, then angiography.",
@@ -452,8 +453,9 @@ private val abdominalPelvicTrauma = Protocol(
             listOf(cite(LA_MOH, "Ch. 6 Primary survey (p. 29)"), cite(WSES_PELVIC, "Recommendations for diagnostic tools — rationale")),
         ),
         ProtocolNote(
-            "FAST differs: MoHFW 2025 makes eFAST mandatory for major trauma and for all yellow-area patients; NICE NG39 advises against FAST before immediate CT or as a screen for CT.",
-            listOf(cite(LA_MOH, "Table 1 (p. 11); Yellow area (p. 12)"), cite(LA_NG39, "Rec 1.5.32–1.5.33")),
+            "FAST differs: MoHFW 2025 makes eFAST mandatory for major trauma and for all yellow-area patients; NICE NG39 advises against FAST before immediate CT or as a screen for CT; " +
+                "European 2023 recommends POCUS including FAST in thoracoabdominal injury, with early contrast whole-body CT.",
+            listOf(cite(LA_MOH, "Table 1 (p. 11); Yellow area (p. 12)"), cite(LA_NG39, "Rec 1.5.32–1.5.33"), cite(LA_EU, "R8")),
         ),
         ProtocolNote(
             "Resource setting: WSES 2020 accepts non-operative liver management in low-resource settings only with stability, no associated injuries and negative serial checks, and DPL where CT or ultrasound is unavailable; " +
@@ -478,7 +480,7 @@ private val openFractures = Protocol(
     category = ProtocolCategory.Trauma,
     title = "Open fractures",
     summary = "Gustilo–Anderson grading, antibiotic timing, agents, penicillin-allergy alternatives and duration, wound care, " +
-        "splinting, tetanus, neurovascular checks, arterial injury, debridement and soft-tissue cover — attributed to BOAST, " +
+        "splinting, tetanus, bleeding control, neurovascular checks, arterial injury, debridement and soft-tissue cover — attributed to BOAST, " +
         "NICE NG37, ICMR STW 2024, MoHFW 2025, EAST 2011 and GAIS/WSES 2024.",
     keywords = listOf(
         "open fracture", "compound fracture", "open long bone fracture", "open tibia fracture", "open femur fracture",
@@ -495,7 +497,7 @@ private val openFractures = Protocol(
             timing = "At first contact, after the primary survey",
             points = listOf(
                 "ICMR STW 2024: open when the fracture or its haematoma communicates with the external environment; preserve life first, then limb, then function.",
-                "MoHFW 2025: an open long-bone or pelvic fracture is a red-triage criterion; manage ABCD first and immobilise life-threatening fractures in the primary survey.",
+                "MoHFW 2025: open long-bone fractures and any pelvic fracture are red-triage criteria; manage ABCD first and immobilise life-threatening fractures in the primary survey.",
                 "ICMR STW 2024: expose the entire limb — wound size, muscle crush or loss, periosteal stripping or bone loss, contamination and neurovascular status.",
                 "MoHFW 2025: open fractures and open joint injuries are limb-threatening injuries, managed together.",
                 "EAST 2011 (Gustilo): type III includes segmental fractures and traumatic amputation; gunshot and farm-injury open fractures are special type III categories.",
@@ -545,28 +547,32 @@ private val openFractures = Protocol(
                 "MoHFW 2025: cefazolin 8-hourly — 1 g (<50 kg), 2 g (50–100 kg), 3 g (>100 kg); anaphylactic penicillin allergy — clindamycin 600 mg (<80 kg) or 900 mg (>80 kg) 8-hourly.",
                 "MoHFW 2025: severe soft-tissue damage and substantial contamination with associated vascular injury — add a gentamicin loading dose in the emergency department (below).",
                 "MoHFW 2025: farmyard, soil or standing-water contamination, whatever the wound size — piperacillin–tazobactam 3.375 g 6-hourly (<100 kg) or 4.5 g 6-hourly (>100 kg).",
+                "Gentamicin cautions — INSARAG 2023: avoid aminoglycosides in crush injury (see Compartment syndrome and crush injury). GAIS/WSES 2024 (abdominal trauma): avoid where possible; adjust doses in haemorrhagic shock with AKI.",
+                "ICMR 2019, gentamicin and renal function: CrCl 40–60 mL/min — 5 mg/kg every 36 h; <40 — 4 mg/kg, next dose preferably guided by drug level and only if definitely needed.",
             ),
             doses = listOf(
                 StepDose(
                     "Gentamicin — Gustilo III (GAIS/WSES 2024; ICMR STW 2024)",
                     WeightDose(5.0, 5.0, unit = "mg", per = "IV every 24 h"),
-                    note = "Added to cefazolin (GAIS/WSES 2024) or cefuroxime (ICMR STW 2024)",
+                    note = "Added to cefazolin (GAIS/WSES 2024) or cefuroxime (ICMR STW 2024). Avoid in crush injury (INSARAG 2023); renal impairment or shock — see the cautions above",
                 ),
                 StepDose(
                     "Gentamicin — ED loading dose, adult (MoHFW 2025)",
                     WeightDose(5.0, 5.0, unit = "mg", per = "IV loading dose"),
-                    note = "MoHFW Table 5 example: 150-lb patient = 340 mg",
+                    note = "MoHFW Table 5 example: 150-lb patient = 340 mg. Avoid in crush injury (INSARAG 2023); renal impairment or shock — see the cautions above",
                 ),
                 StepDose(
                     "Gentamicin — ED loading dose, child or <50 kg (MoHFW 2025)",
                     WeightDose(2.5, 2.5, unit = "mg", per = "IV loading dose"),
-                    note = "Printed as ‘2.5 m/kg for child (or <50 kg)’ in MoHFW Table 5",
+                    note = "Printed as ‘2.5 m/kg for child (or <50 kg)’ in MoHFW Table 5. Avoid in crush injury (INSARAG 2023); renal impairment or shock — see the cautions above",
                 ),
             ),
             citations = listOf(
                 cite(ICMR_OPENFX, "Antibiotic — which, when and for how long?"),
-                cite(ABX_2024, "Fig. 1 — Antibiotic prophylaxis decision algorithm in open fractures"),
+                cite(ABX_2024, "Fig. 1 — Antibiotic prophylaxis decision algorithm in open fractures; Abdominal trauma — recommendations"),
                 cite(LA_MOH, "Table 5 Treatment by antibiotics (p. 50)"),
+                cite(INSARAG, "§5 Medications — antibiotics"),
+                cite(ICMR_AMR, "Ch. 14 Table 14.1 — gentamicin (dose modification with CrCl)"),
             ),
         ),
         // 4 ----------------------------------------------------------------------------------------------
@@ -609,9 +615,11 @@ private val openFractures = Protocol(
         ),
         // 6 ----------------------------------------------------------------------------------------------
         Step(
-            title = "Neurovascular status and arterial injury",
-            timing = "Revascularisation started within 1 h of arrival (BOAST 2026)",
+            title = "Bleeding, neurovascular status and arterial injury",
+            timing = "Control haemorrhage immediately; revascularisation started within 1 h of arrival (BOAST 2026)",
             points = listOf(
+                "Bleeding — BOAST 2026: control at once by direct pressure, wound packing or a tourniquet applied as distally as possible; no blind clamping; unstable with uncontrolled bleeding — resuscitate and operate together.",
+                "MoHFW 2025, stepwise: manual pressure, pressure dressing, occlude the proximal artery, manual tourniquet, then realign, reduce and immobilise. ICMR STW 2024: local pressure; if it does not stop, pack the wound. Tourniquets: see the <C> step of Major trauma.",
                 "BOAST 2017: document vascular and neurological status; repeat after reduction or splinting. NICE NG37: record both limbs — nerves, MRC motor grade, pulses — and time each check.",
                 "NICE NG37: diagnose vascular injury by hard signs; do not rely on capillary return or a Doppler signal to exclude it.",
                 "MoHFW 2025: absent or feeble distal pulse suggests vascular compromise, as does ankle–brachial index <0.9; immobilise gently, reduce, consult a surgeon immediately.",
@@ -629,7 +637,8 @@ private val openFractures = Protocol(
                 cite(BOAST_OPENFX, "Standards 4, 6"),
                 cite(NG37, "Rec 1.2.1–1.2.5, 1.3.7"),
                 cite(LA_MOH, "Ch. 10 Major arterial haemorrhage (p. 48); Physical examination; Vascular injuries (p. 49)"),
-                cite(BOAST_ARTERIAL, "Standards 4, 5, 7, 8, 10, 11, 15; footnote ii"),
+                cite(BOAST_ARTERIAL, "Standards 2–5, 7, 8, 10, 11, 15; footnote ii"),
+                cite(ICMR_OPENFX, "Initial emergency treatment — obvious bleed"),
             ),
         ),
         // 7 ----------------------------------------------------------------------------------------------
@@ -686,7 +695,7 @@ private val openFractures = Protocol(
     ),
     citations = listOf(
         cite(BOAST_OPENFX), cite(NG37), cite(ICMR_OPENFX), cite(LA_MOH), cite(EAST_OPENFX), cite(ABX_2024), cite(ICMR_AMR),
-        cite(BOAST_ARTERIAL), cite(LA_WHO), cite(LA_CDC_TT),
+        cite(BOAST_ARTERIAL), cite(LA_WHO), cite(LA_CDC_TT), cite(INSARAG),
     ),
 )
 
@@ -715,13 +724,15 @@ private val compartmentSyndromeCrush = Protocol(
                 "BOAST 2025: assess for compartment syndrome routinely after limb injury, extremity surgery or prolonged procedures; hourly with documented findings while at risk.",
                 "BOAST 2025: record times, mechanism, consciousness, neurovascular status, pain and response to analgesia, and the dose and rate of opioids.",
                 "NICE NG37: tibial fractures — stay alert for 48 h after injury or fixation; consider continuous pressure monitoring if signs cannot be assessed (unconscious, nerve block).",
-                "AAOS 2025: neuraxial anaesthesia may complicate diagnosis — examine frequently and/or monitor pressure. BOAST 2025: regional anaesthesia by joint, documented decision.",
+                "Regional anaesthesia — Association of Anaesthetists 2021 (lower leg trauma): avoid neuraxial or peripheral blocks that are dense and last well beyond surgery; lower-concentration peripheral nerve blocks without adjuncts are not linked to delayed diagnosis if surveillance is effective.",
+                "BOAST 2025: regional anaesthesia by joint, documented decision (patient, anaesthetist, surgeon) with an agreed policy on who monitors after surgery — invasive monitoring or review by trained staff. AAOS 2025: after neuraxial anaesthesia, examine frequently and/or monitor pressure.",
                 "INSARAG 2023: anyone entrapped in a structural collapse has some crush element until proven otherwise; crush syndrome may follow 1 h of compression, even by body weight alone.",
             ),
             citations = listOf(
-                cite(BOAST_CS, "Standards 2–6"),
+                cite(BOAST_CS, "Standards 2–6 and footnote **"),
                 cite(NG37, "Rec 1.2.7"),
                 cite(AAOS_ACS, "Pain management effects on diagnosis (consensus)"),
+                cite(AOA_ACS, "Recommendations; Pain relief after lower leg trauma"),
                 cite(INSARAG, "§3 Clinical presentation; §4 General management strategy"),
             ),
         ),
@@ -816,9 +827,10 @@ private val compartmentSyndromeCrush = Protocol(
             ),
             doses = listOf(
                 StepDose(
-                    "Children — initial fluid bolus (INSARAG 2023)",
+                    "Children and infants — initial fluid bolus (INSARAG 2023)",
                     WeightDose(15.0, 20.0, unit = "mL", per = "IV bolus, warmed isotonic potassium-free fluid"),
-                    note = "INSARAG gives this as an example (‘e.g. initial bolus 15–20 ml/kg’); fluid infusions need constant re-evaluation",
+                    note = "INSARAG gives this as an example (‘e.g. initial bolus 15–20 ml/kg’); no maximum stated, and no adult bolus volume is given " +
+                        "(adults: 1–1.5 L/h for the first 2 h). Fluid infusions need constant re-evaluation",
                 ),
             ),
             citations = listOf(
@@ -842,7 +854,8 @@ private val compartmentSyndromeCrush = Protocol(
                 StepDose(
                     "Children — isotonic saline after extrication, none given before (ISN RDRTF)",
                     WeightDose(15.0, 20.0, unit = "mL", per = "per hour, IV isotonic saline"),
-                    note = "Adults 1,000 mL/h (RMMJ 2011); once 6 L has been given, evaluate urine output and volume status",
+                    note = "No maximum stated. Adults 1,000 mL/h (RMMJ 2011) — above 50 kg, 20 mL/kg/h exceeds the adult rate; treating that rate as a ceiling " +
+                        "is an inference, not an RMMJ statement. RMMJ: once the victim has received 6 L in total (no children's figure given), evaluate urine output and volume status",
                 ),
             ),
             citations = listOf(
@@ -860,7 +873,7 @@ private val compartmentSyndromeCrush = Protocol(
             points = listOf(
                 "Sever 2023: hyperkalaemia is the most critical and frequent laboratory finding in crush victims — monitor potassium and ECG. INSARAG 2023: peaked T, wide QRS, bradycardia.",
                 "Sever 2023 (ISN): potassium >7 mmol/L is an emergency; a rapid rise needs treatment at lower levels; calcium, insulin–glucose, bicarbonate and β2-agonists act briefly — dialysis works best.",
-                "ICMR STW AKI 2026: 10 mL 10% calcium gluconate over 2–5 min under ECG (up to 3 times), nebulised salbutamol 10 mg, insulin 10 U with dextrose. See the Hyperkalaemia protocol.",
+                "ICMR STW AKI 2026: 10 mL 10% calcium gluconate slow IV over 2–5 min under ECG (up to 3 times), inhaled salbutamol 10 mg, insulin 10 U in 50 mL of 50% or 100 mL of 25% dextrose. See the Hyperkalaemia protocol.",
                 "Sever 2023 (ISN): IV bicarbonate only if serum bicarbonate <10 mEq/L — alkali can trigger hypocalcaemia and tetany; for more severe acidosis, bicarbonate plus dialysis.",
                 "INSARAG 2023: avoid nephrotoxic drugs (NSAIDs, aminoglycosides); furosemide is discouraged; evidence for mannitol is inconclusive.",
             ),
@@ -883,7 +896,7 @@ private val compartmentSyndromeCrush = Protocol(
             title = "Crush in disasters: fasciotomy, amputation, infection",
             points = listOf(
                 "INSARAG 2023: fasciotomy in the austere collapsed-structure environment is discouraged because of bleeding and sepsis risk.",
-                "Sever 2023: not routine in disasters — only when clearly indicated (absent distal pulses from compression, disproportionate pain, radical debridement) or pressures 30–40 mm Hg not falling over 6 h.",
+                "Sever 2023: not routine in disasters — only when clearly indicated (absent distal pulses from compression, disproportionate pain, radical debridement) or compartment pressures of 30–40 mm Hg, especially if not falling over 6 h.",
                 "Sever 2023: if indicated, operate as soon as possible — less harm within 12 h of muscle swelling; mannitol is never an alternative to fasciotomy.",
                 "Sever 2023: on-site amputation to free a trapped limb only on very strict criteria — as distal as possible, guillotine, with a tourniquet above.",
                 "INSARAG 2023: broad-spectrum antibiotics with anaerobic cover for contaminated crush wounds, avoiding aminoglycosides. Tetanus: see the Tetanus prophylaxis protocol.",

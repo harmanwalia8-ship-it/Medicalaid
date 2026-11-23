@@ -135,7 +135,7 @@ internal val neuroEmergencySources = listOf(
         "em-neuro-icmr-amr-2019", Authority.ICMR, "Treatment guidelines, 2nd edition",
         "Treatment Guidelines for Antimicrobial Use in Common Syndromes", "2019",
         "https://www.icmr.gov.in/icmrobject/custom_data/pdf/resource-guidelines/Treatment_Guidelines_2019_Final.pdf",
-        status = "Chapter 8 (CNS infections) reviewed. ICMR lists a 2022 edition that could not be retrieved",
+        status = "Chapters 8 (CNS infections), 10 and 14 (incl. Table 14.1 renal dosing) reviewed. ICMR lists a 2022 edition that could not be retrieved",
     ),
     Source(
         "em-neuro-who-meningitis-2025", Authority.WHO, "Guideline (ISBN 978-92-4-010804-2)",
