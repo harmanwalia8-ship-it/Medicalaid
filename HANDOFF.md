@@ -47,7 +47,8 @@ CDC/ACIP tetanus table; MoHFW STG 2025 Ch. 13 trauma-in-pregnancy statements not
 PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 
 **In review (hidden):**
-- `TraumaLimbAbdomen.kt` (abdominal/pelvic, open fractures, compartment/crush) — placeholder.
+- `TraumaLimbAbdomen.kt` (abdominal/pelvic, open fractures, compartment/crush) — placeholder. The writer was started
+  23 Nov 2026 (~5:40 IST) and cut off by the usage limit before writing: **restart the writer** (group `limb`).
 - Obstetric batch 2 — placeholders `EarlyPregnancy.kt`, `AntepartumHaemorrhage.kt`, `LabourEmergencies.kt`,
   `MaternalMedical.kt` (briefs in the GROUPS array: earlypreg, aph, labour, maternalmed).
 
