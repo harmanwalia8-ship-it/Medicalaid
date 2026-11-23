@@ -1,7 +1,7 @@
 # Handoff — where the work stands (23 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.8.1** (versionCode 12), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.8.2** (versionCode 13), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
 scheduled task is disabled. Do not restart protocol writing without the user's go-ahead.
 
 ## Build and check
@@ -78,7 +78,10 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    Step/Note must end up cited), strip links out of the point text (as convert.py does) so text stays clean and links become the step's citations;
    generate into the placeholder data files, add to `released`, compile + tests, note
    "not independently reviewed" in README, build the APK.
-5c. **Rewrite all 73 released protocols in the lean style** (user approved 23 Nov 2026), also by Gemini:
+5c. **R1 done (0.8.2)**: `convert_protocols.py <repo> <batch.md> --rewrite` (restore the target files with git checkout
+   before re-running — it reads the old protocols from the current files). Read `<batch>-numbercheck.json`; trial/evidence
+   numbers are expected; restore any dropped bedside rule into the batch .md from the original (as done for snakebite).
+   **Rewrite all 73 released protocols in the lean style** (user approved 23 Nov 2026), also by Gemini:
    prompt `.claude-work/gemini-prompts/rewrite-existing-protocols.md` (batches R1–R8 by file), Gemini given a zip of
    the current protocol files. On each returned batch: convert with the same protocol converter (Source ids/URLs are
    the existing ones), run a **number-preservation check** (every number/unit in each old protocol must appear in the

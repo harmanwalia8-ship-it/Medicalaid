@@ -271,4 +271,129 @@ if sys.argv[3] != "--rewrite":
 report["protocols"] = [(p["id"], len(p["steps"]), len(p["notes"]), sum(len(s["doses"]) for s in p["steps"])) for p in protocols]
 report["new_sources"] = len(new_sources)
 report["reused_sources"] = len(srcs) - len(new_sources)
-print(json.dumps(report, indent=1, ensure_ascii=False))
+if sys.argv[3] != "--rewrite":
+    print(json.dumps(report, indent=1, ensure_ascii=False))
+
+
+# ------------------------------------------------------------------------------------------------------------
+# --rewrite: replace existing protocols (same ids) in the files that define them, keeping their sources.
+# ------------------------------------------------------------------------------------------------------------
+def call_spans(text, name):
+    """(start, end) of every `name(` call, with balanced parentheses, ignoring parentheses inside strings."""
+    spans, i = [], 0
+    while True:
+        i = text.find(name + "(", i)
+        if i < 0:
+            return spans
+        if i > 0 and (text[i - 1].isalnum() or text[i - 1] == "_"):
+            i += 1
+            continue
+        j, depth, in_str = i + len(name), 0, False
+        while j < len(text):
+            ch = text[j]
+            if in_str:
+                if ch == "\\":
+                    j += 1
+                elif ch == '"':
+                    in_str = False
+            elif ch == '"':
+                in_str = True
+            elif ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    break
+            j += 1
+        spans.append((i, j + 1))
+        i = j + 1
+
+
+CITE = re.compile(r'cite\((?:"(?:[^"\\]|\\.)*"|\w+)(?:,\s*"(?:[^"\\]|\\.)*")?\)')
+# Evidence detail the rewrite drops on purpose: trial sizes and results, e.g. "n=235", "24.8% vs 15.8%".
+TRIAL = re.compile(r"\bn\s*=\s*[\d,]+|\d+(?:\.\d+)?%\s*vs\.?\s*\d+(?:\.\d+)?%|\(\d+ RCTs?[^)]*\)")
+NUM = re.compile(r"(?<![\w.])(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?)")
+
+
+def numbers(text):
+    out = set()
+    for n in NUM.findall(text):
+        n = n.replace(",", "")
+        if re.fullmatch(r"(19[5-9]\d|20[0-3]\d)", n):
+            continue  # years (paper and guideline dates), dropped on purpose
+        out.add(n.rstrip("0").rstrip(".") if "." in n else n)
+    return out
+
+
+if sys.argv[3] == "--rewrite":
+    new_by_id = {p["id"]: p for p in protocols}
+    files = {}
+    for f in DATA.glob("*.kt"):
+        txt = f.read_text()
+        for a, b in call_spans(txt, "Protocol"):
+            m = re.search(r'id = "([a-z0-9-]+)"', txt[a:b])
+            if m and m.group(1) in new_by_id:
+                files.setdefault(f, []).append((m.group(1), txt[a:b]))
+    found = {pid for v in files.values() for pid, _ in v}
+    for pid in new_by_id:
+        if pid not in found:
+            warn(f"{pid}: no existing protocol with this id; skipped")
+    numcheck = {}
+    for f, olds in files.items():
+        txt = f.read_text()
+        sval = re.search(r"internal val (\w+)(?:: List<Source>)? = listOf\(", txt).group(1)
+        pval = re.search(r"internal val (\w+)(?:: List<Protocol>)? = listOf\(", txt[txt.index(sval) + len(sval):]).group(1)
+        all_ids_in_file = [re.search(r'id = "([a-z0-9-]+)"', txt[a:b]).group(1) for a, b in call_spans(txt, "Protocol")
+                           if re.search(r'id = "([a-z0-9-]+)"', txt[a:b])]
+        if set(all_ids_in_file) != {pid for pid, _ in olds}:
+            warn(f"{f.name}: batch does not cover all its protocols ({sorted(set(all_ids_in_file) - found)}); file left unchanged")
+            continue
+        order = [pid for pid in all_ids_in_file]
+        for pid, old in olds:
+            p = new_by_id[pid]
+            p["title"] = re.search(r'title = "((?:[^"\\]|\\.)*)"', old).group(1).replace('\\"', '"').replace("\\$", "$")
+            p["category"] = re.search(r"category = ProtocolCategory\.(\w+)", old).group(1)
+            old_text = TRIAL.sub("", CITE.sub("", old))
+            new_md = re.split(r"^(?=## Protocol: )", md, flags=re.M)
+            new_block = next(b for b in new_md if b.startswith(f"## Protocol: {pid}\n"))
+            new_text = LINK.sub("", new_block.split("\n## Sources")[0])
+            missing = sorted(numbers(old_text) - numbers(new_text), key=lambda x: float(x))
+            if missing:
+                ctx = {}
+                for n in missing:
+                    for s_ in re.findall(r'"((?:[^"\\]|\\.)*)"', old_text):
+                        if n in numbers(s_):
+                            ctx[n] = s_[:160]
+                            break
+                numcheck[pid] = ctx
+            for what, pat, newcount in (("dose calculators", r"StepDose\(", sum(len(s["doses"]) for s in p["steps"])),
+                                        ("tools", r"tool = ProtocolTool", sum(1 for s in p["steps"] if s["tool"])),
+                                        ("score links", r"scoreIds = listOf", sum(1 for s in p["steps"] if s["scores"]))):
+                oldcount = len(re.findall(pat, old))
+                if newcount < oldcount:
+                    warn(f"{pid}: {what} {oldcount} -> {newcount}")
+        new_ps = [new_by_id[pid] for pid in order]
+        # Sources: keep the file's own block, dropping only sources nothing in the app cites any more.
+        sa = txt.index(f"internal val {sval}")
+        s_start, s_end = next((a, b) for a, b in call_spans(txt, "listOf") if a > sa)
+        src_block = txt[s_start:s_end]
+        others = "\n".join(x.read_text() for x in CONTENT.rglob("*.kt") if x.resolve() != f.resolve())
+        used_here = used_ids(new_ps)
+        kept, dropped = [], []
+        for a, b in call_spans(src_block, "Source"):
+            sid = re.search(r'Source\(\s*"([a-z0-9-]+)"', src_block[a:b]).group(1)
+            (kept if sid in used_here or f'"{sid}"' in others else dropped).append(src_block[a:b])
+        for sid, auth, doc, title, year, url in new_sources:
+            if sid in used_here:
+                kept.append(f"Source({kt(sid)}, Authority.{auth}, {kt(doc)}, {kt(title)}, {kt(year)}, {kt(url)})")
+        if dropped:
+            warn(f"{f.name}: {len(dropped)} source(s) no longer cited, removed")
+        body = [HEADER, f"// Rewritten in quick-reference style by Gemini ({BATCH.name}); converted by convert_protocols.py --rewrite.",
+                "// Clinical content checked only by the automatic number-preservation check (see the batch report).", "",
+                f"internal val {sval}: List<Source> = listOf("] + [f"    {s.strip()}," for s in kept] + [")", "",
+                f"internal val {pval}: List<Protocol> = listOf("] + [emit_protocol(p) for p in new_ps] + [")"]
+        f.write_text("\n".join(body) + "\n")
+        report.setdefault("rewritten", []).append(f.name)
+    report["number_check"] = numcheck
+    (ROOT / ".claude-work/gemini-protocols" / (BATCH.stem + "-numbercheck.json")).write_text(json.dumps(numcheck, indent=1, ensure_ascii=False))
+    print(json.dumps({k: v for k, v in report.items() if k != "number_check"} | {"protocols_with_missing_numbers": {k: len(v) for k, v in numcheck.items()}}, indent=1, ensure_ascii=False))

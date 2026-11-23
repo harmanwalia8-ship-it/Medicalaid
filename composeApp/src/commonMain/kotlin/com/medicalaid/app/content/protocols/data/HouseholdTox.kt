@@ -7,21 +7,14 @@ import com.medicalaid.app.content.cite
 import com.medicalaid.app.content.protocols.Protocol
 import com.medicalaid.app.content.protocols.ProtocolCategory
 import com.medicalaid.app.content.protocols.ProtocolNote
+import com.medicalaid.app.content.protocols.ProtocolTool
 import com.medicalaid.app.content.protocols.Step
 import com.medicalaid.app.content.protocols.StepDose
 
-/*
- * Household and general poisoning: first steps, corrosives, carbon monoxide, hydrocarbons.
- * Rules:
- * - Doses, thresholds and windows exactly as the cited document states them; nothing filled from memory.
- * - Every point is attributed ("WHO (children): …", "AACT/EAPCCT 2013: …", "WSES 2019: …", "IJCCM review: …").
- * - IJCCM = Indian Journal of Critical Care Medicine (ISCCM journal); these are invited reviews, not society guidelines.
- * - CTRC 2026 and ISG 2025 were reviewed from their published abstracts only (full text paywalled).
- * - Checked November 2026.
- */
+// Rewritten in quick-reference style by Gemini (r1.md); converted by convert_protocols.py --rewrite.
+// Clinical content checked only by the automatic number-preservation check (see the batch report).
 
-internal val householdToxSources = listOf(
-    // General approach and decontamination ------------------------------------------------------
+internal val householdToxSources: List<Source> = listOf(
     Source(
         "tx-hh-who-pocketbook-2013", Authority.WHO, "Pocket book, 2nd edition (ISBN 978-92-4-154837-3)",
         "Pocket book of hospital care for children: guidelines for the management of common childhood illnesses", "2013",
@@ -86,7 +79,6 @@ internal val householdToxSources = listOf(
         "https://aiims.edu/index.php/en/npic_intro",
         status = "Contact numbers as shown on the AIIMS website, checked 21 November 2026",
     ),
-    // Self-harm ----------------------------------------------------------------------------------
     Source(
         "tx-hh-nice-ng225", Authority.NICE, "Guideline NG225",
         "Self-harm: assessment, management and preventing recurrence", "2022",
@@ -104,7 +96,6 @@ internal val householdToxSources = listOf(
         "Tele Mental Health Assistance and Networking Across States (Tele-MANAS) initiative launched", "2022",
         "https://www.pib.gov.in/PressReleasePage.aspx?PRID=1866498",
     ),
-    // Corrosives ---------------------------------------------------------------------------------
     Source(
         "tx-hh-wses-caustic-2015", Authority.WSES, "Consensus conference (World J Emerg Surg 2015;10:44)",
         "Foregut caustic injuries: results of the World Society of Emergency Surgery consensus conference", "2015",
@@ -137,7 +128,6 @@ internal val householdToxSources = listOf(
         "https://doi.org/10.5005/jp-journals-10071-23305",
         status = "Review article, not a society guideline",
     ),
-    // Carbon monoxide ----------------------------------------------------------------------------
     Source(
         "tx-hh-acep-co-2025", Authority.ACEP, "Clinical policy (Ann Emerg Med 2025;85:e45–e59)",
         "A critical issue in the management of adult patients presenting to the emergency department with acute carbon monoxide poisoning",
@@ -183,7 +173,6 @@ internal val householdToxSources = listOf(
         "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ff4941b3-9901-4aab-adcf-c5327bede34e",
         status = "Label effective October 2025",
     ),
-    // Hydrocarbons -------------------------------------------------------------------------------
     Source(
         "tx-hh-ijccm-kerosene-2019", Authority.Paper, "Invited review, Indian J Crit Care Med 2019;23(Suppl 4):S278–S281 (PGIMER authors)",
         "Kerosene, camphor, and naphthalene poisoning in children", "2019",
@@ -197,830 +186,352 @@ internal val householdToxSources = listOf(
     ),
 )
 
-private const val HH_WHO = "tx-hh-who-pocketbook-2013"
-private const val HH_SDAC = "tx-hh-aact-sdac-2005"
-private const val HH_LAVAGE = "tx-hh-aact-lavage-2013"
-private const val HH_IPECAC = "tx-hh-aact-ipecac-2013"
-private const val HH_MDAC = "tx-hh-aact-mdac-1999"
-private const val HH_WBI = "tx-hh-aact-wbi-2015"
-private const val HH_CTRC = "tx-hh-ctrc-charcoal-2026"
-private const val HH_IJCCM = "tx-hh-ijccm-initial-2019"
-private const val HH_ANZ = "tx-hh-anz-paracetamol-2020"
-private const val HH_NCDC = "tx-hh-ncdc-chem-2025"
-private const val HH_NPIC = "tx-hh-aiims-npic"
-private const val HH_NICE = "tx-hh-nice-ng225"
-private const val HH_MHCA = "tx-hh-mhca-2017"
-private const val HH_TELEMANAS = "tx-hh-telemanas-2022"
-private const val HH_WSES15 = "tx-hh-wses-caustic-2015"
-private const val HH_WSES19 = "tx-hh-wses-esophageal-2019"
-private const val HH_ISG = "tx-hh-isg-caustic-2025"
-private const val HH_ZARGAR = "tx-hh-zargar-1991"
-private const val HH_CORR = "tx-hh-ijccm-corrosive-2019"
-private const val HH_ACEP25 = "tx-hh-acep-co-2025"
-private const val HH_ACEP17 = "tx-hh-acep-co-2017"
-private const val HH_ECHM = "tx-hh-echm-2016"
-private const val HH_CDC = "tx-hh-cdc-co-guidance"
-private const val HH_HAN = "tx-hh-cdc-han-00476"
-private const val HH_CYANOKIT = "tx-hh-fda-cyanokit"
-private const val HH_NITHIODOTE = "tx-hh-fda-nithiodote"
-private const val HH_KERO = "tx-hh-ijccm-kerosene-2019"
-private const val HH_ANAS = "tx-hh-anas-1981"
-
-internal val householdToxProtocols = listOf(
-    // =============================================================================================
-    // 1. Poisoned patient: first steps
-    // =============================================================================================
+internal val householdToxProtocols: List<Protocol> = listOf(
     Protocol(
         id = "poisoning-general",
         title = "Poisoned patient: first steps",
-        summary = "Resuscitation, history, toxidromes, bedside tests, charcoal, lavage and emesis, enhanced elimination, " +
-            "poison-centre advice and psychosocial care — attributed to WHO, AACT/EAPCCT, CTRC, NICE and Indian sources.",
-        keywords = listOf(
-            "poisoning", "poisoned patient", "overdose", "OD", "self-poisoning", "deliberate self-harm", "DSH",
-            "suicide attempt", "zeher", "zehar", "unknown poison", "unknown ingestion", "toxidrome", "activated charcoal",
-            "charcoal", "gastric lavage", "stomach wash", "ipecac", "induced vomiting", "decontamination",
-            "whole bowel irrigation", "urine alkalinisation", "poison centre", "poison information", "NPIC",
-            "AIIMS poison helpline", "1800 116 117",
-        ),
+        summary = "Resuscitation, toxidrome exam, bedside tests, charcoal, lavage don'ts, enhanced elimination, and psychosocial care for acute poisoning.",
+        keywords = listOf("poisoning", "poisoned patient", "overdose", "OD", "self-poisoning", "deliberate self-harm", "DSH", "suicide attempt", "zeher", "zehar", "unknown poison", "toxidrome", "activated charcoal", "gastric lavage", "stomach wash", "ipecac", "decontamination", "whole bowel irrigation", "urine alkalinisation", "NPIC", "1800 116 117"),
         category = ProtocolCategory.Poisoning,
         steps = listOf(
-            // 1 ------------------------------------------------------------------------------------
             Step(
                 title = "Resuscitate first",
                 timing = "At first contact",
                 points = listOf(
-                    "IJCCM review: airway, breathing and circulation take priority; evaluation and treatment often run together; protect staff safety.",
-                    "WHO (children): assess emergency signs — airway, breathing, circulation, consciousness — as some poisons depress breathing, cause shock or induce coma.",
-                    "WHO (children): check for hypoglycaemia; if glucose cannot be measured and consciousness is reduced, treat as hypoglycaemia.",
-                    "IJCCM review: lost airway reflexes or respiratory failure — secure the airway; rapid sequence intubation is preferred unless the patient is moribund.",
-                    "WHO (children): keep unconscious children in the recovery position.",
+                    "Prioritise airway, breathing, circulation, and staff safety; secure airway by rapid sequence intubation if reflexes lost or respiratory failure.",
+                    "Check blood glucose immediately; if unmeasurable and consciousness is reduced, treat empirically as hypoglycaemia.",
+                    "Keep unconscious children in the recovery position.",
                 ),
-                citations = listOf(
-                    cite(HH_IJCCM, "Initial assessment; Supportive care — airway management"),
-                    cite(HH_WHO, "§1.6.1 Principles for ingested poisons (pp. 27–28)"),
-                ),
+                citations = listOf(cite("tx-hh-ijccm-initial-2019", "Airway"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, pp. 27–28"), cite("tx-hh-ijccm-initial-2019", "Initial assessment; Airway")),
             ),
-            // 2 ------------------------------------------------------------------------------------
             Step(
                 title = "History and poison-centre advice",
                 points = listOf(
-                    "WHO (children): record the agent, amount and time of ingestion; ask to see the container; check whether other children were involved.",
-                    "WHO (children): suspect poisoning in any unexplained illness in a previously healthy child; traditional medicines can be a source.",
-                    "NICE NG225: after self-harm, establish the means used and, if still accessible, discuss removing it with the person.",
-                    "AIIMS National Poisons Information Centre, New Delhi: toll-free 1800 116 117, 24 hours a day, every day; landlines (011) 26589391 / 26593677.",
-                    "WHO (children): for specific poisons, consult local poisoning expertise such as a poison centre.",
+                    "Record agent, amount, and ingestion time; inspect containers, ask about traditional medicines, and check if other children were exposed.",
+                    "After self-harm, establish the means used and discuss removing any remaining accessible lethal means.",
+                    "Call AIIMS National Poisons Information Centre (24×7 toll-free 1800 116 117; landlines 011-26589391 / 26593677) for agent-specific guidance.",
                 ),
-                citations = listOf(
-                    cite(HH_WHO, "§1.6 Common poisoning — Diagnosis (p. 26)"),
-                    cite(HH_NICE, "Rec 1.7.1"),
-                    cite(HH_NPIC, "NPIC home page"),
-                ),
+                citations = listOf(cite("tx-hh-who-pocketbook-2013", "§1.6, p. 26"), cite("tx-hh-nice-ng225", "Rec 1.7.1"), cite("tx-hh-aiims-npic", "Home page")),
             ),
-            // 3 ------------------------------------------------------------------------------------
             Step(
                 title = "Recognise the toxidrome",
                 points = listOf(
-                    "NCDC 2025 module: key observations — vital signs, mental status, pupil size, mucous membranes, lung exam (wheeze, crackles) and skin (burns, moisture, colour).",
-                    "IJCCM review: a toxidrome-oriented examination suggests the class of toxin, but a patient may not show every feature.",
-                    "IJCCM review: history may be inaccurate — confirm with examination and tests.",
+                    "Assess vital signs, mental status, pupils, mucous membranes, lungs (wheeze/crackles), and skin (burns/moisture/colour).",
+                    "Confirm unreliable history with toxidrome examination and tests; patients may not show every classic feature.",
                 ),
-                checklistTitle = "Toxidromes (IJCCM review, Table 1)",
+                checklistTitle = "Toxidromes",
                 checklist = listOf(
-                    "Cholinergic — confusion or coma, miosis, salivation, lacrimation, sweating, vomiting, diarrhoea, incontinence, bronchoconstriction, fasciculations, weakness, seizures (organophosphates, carbamates)",
-                    "Anticholinergic — agitation, delirium, hallucinations, mydriasis, hyperthermia, tachycardia, dry flushed skin, dry mouth, reduced bowel sounds, urinary retention (antihistamines, TCA, atropine)",
-                    "Opioid — CNS depression or coma, miosis, slow breathing or apnoea, hyporeflexia, pulmonary oedema, needle marks (morphine, heroin, methadone)",
+                    "Cholinergic — confusion/coma, miosis, salivation, lacrimation, sweating, vomiting, diarrhoea, bronchoconstriction, fasciculations, weakness, seizures (OPs, carbamates)",
+                    "Anticholinergic — delirium, hallucinations, mydriasis, hyperthermia, tachycardia, dry flushed skin/mouth, ileus, urinary retention (antihistamines, TCA, atropine)",
+                    "Opioid — CNS depression/coma, miosis, slow breathing/apnoea, hyporeflexia, pulmonary oedema, needle marks (morphine, heroin, methadone)",
                     "Sympathomimetic — agitation, paranoia, hallucinations, mydriasis, hyperthermia, tachycardia, hypertension, sweating, tremor, hyperreflexia, seizures (cocaine, amphetamines)",
-                    "Sedative-hypnotic — confusion, stupor or coma, variable pupils; vitals often normal, or hypothermia, bradycardia, hypotension, slow breathing (benzodiazepines, barbiturates, alcohols)",
+                    "Sedative-hypnotic — confusion/stupor/coma, variable pupils, hypothermia, bradycardia, hypotension, slow breathing (benzodiazepines, barbiturates, alcohols)",
                     "Serotonin syndrome — agitation, mydriasis, hyperthermia, tachycardia, tremor, myoclonus, clonus, hyperreflexia, diarrhoea (SSRIs, MAOIs, TCA)",
                 ),
-                citations = listOf(
-                    cite(HH_IJCCM, "Risk assessment; Diagnostic testing; Table 1"),
-                    cite(HH_NCDC, "Toxidromes — key data points"),
-                ),
+                citations = listOf(cite("tx-hh-ncdc-chem-2025", "Toxidromes"), cite("tx-hh-ijccm-initial-2019", "Risk assessment; Table 1")),
             ),
-            // 4 ------------------------------------------------------------------------------------
             Step(
                 title = "Bedside and laboratory tests",
                 points = listOf(
-                    "WHO (children): check blood glucose. IJCCM review: CBC, electrolytes, urea, creatinine, liver tests, lactate and arterial blood gas.",
-                    "IJCCM review: ECG in every poisoned patient — tachy- or bradycardia with narrow or wide QRS points to drug groups and severity.",
-                    "IJCCM review: urine pregnancy test in all women of childbearing age.",
-                    "ANZ 2020: deliberate paracetamol self-poisoning — measure serum paracetamol regardless of stated dose; the nomogram applies only to acute immediate-release ingestion with known time.",
-                    "IJCCM review: drug levels guide care for a few agents, e.g. paracetamol, salicylate, iron, lithium, digoxin, toxic alcohols, carboxyhaemoglobin, methaemoglobin.",
-                    "IJCCM review: urine drug screens seldom change management; a negative screen does not exclude exposure.",
+                    "Check glucose, CBC, electrolytes, urea, creatinine, LFTs, lactate, ABG, 12-lead ECG (QRS/rate), and urine pregnancy test.",
+                    "Measure serum paracetamol in all deliberate self-poisonings regardless of stated dose (nomogram applies to acute immediate-release ingestion only).",
+                    "Order targeted levels where management changes (salicylate, iron, lithium, digoxin, toxic alcohols, COHb, methaemoglobin); avoid routine urine drug screens.",
                 ),
-                citations = listOf(
-                    cite(HH_WHO, "§1.6.1 (p. 27)"),
-                    cite(HH_IJCCM, "Diagnostic testing; Table 2; Circulation and hemodynamics (ECG, Table 3)"),
-                    cite(HH_ANZ, "Initial approach — risk assessment"),
-                ),
+                citations = listOf(cite("tx-hh-who-pocketbook-2013", "§1.6.1, p. 27"), cite("tx-hh-ijccm-initial-2019", "Diagnostic testing; Table 2–3"), cite("tx-hh-anz-paracetamol-2020", "Initial approach"), cite("tx-hh-ijccm-initial-2019", "Diagnostic testing")),
             ),
-            // 5 ------------------------------------------------------------------------------------
             Step(
                 title = "Activated charcoal",
-                timing = "Within 1 h (AACT/EAPCCT 2005); up to 6 h for many poisons (CTRC 2026)",
+                timing = "Within 1 h (AACT/EAPCCT); up to 6 h for many poisons (CTRC)",
                 points = listOf(
-                    "AACT/EAPCCT 2005: not routine. Consider if a potentially toxic amount of a charcoal-adsorbed poison was taken within 1 h; later benefit not excluded.",
-                    "AACT/EAPCCT 2005: no evidence that charcoal improves clinical outcome; contraindicated unless the airway is intact or protected.",
-                    "CTRC 2026: after individual risk assessment, charcoal is appropriate up to 6 h for many poisons; later if absorption continues (bezoar, modified-release).",
-                    "CTRC 2026: do not intubate solely to give charcoal unless significant toxicity is expected; no nasogastric tube without intubation solely for charcoal.",
-                    "WHO (children) single dose: ≤1 year 1 g/kg; 1–12 years 25–50 g; adolescents and adults 25–100 g; mix in 8–10 volumes of water.",
+                    "Not routine; consider after risk assessment for charcoal-adsorbed poisons (AACT: ≤1 h; CTRC: up to 6 h, later if modified-release/bezoar).",
+                    "Contraindicated without an intact or protected airway; do not intubate or insert an NG tube solely for charcoal.",
+                    "Single dose in 8–10 volumes water: ≤1 y 1 g/kg; 1–12 y 25–50 g; adolescents/adults 25–100 g.",
                 ),
                 checklistTitle = "Charcoal not indicated",
                 checklist = listOf(
-                    "Airway not intact or protected (AACT/EAPCCT 2005)",
-                    "Corrosives — acids, alkalis, bleach (WHO)",
-                    "Kerosene, petrol and other petroleum products (WHO)",
-                    "No role (CTRC 2026): iron, lithium, ethanol, methanol, ethylene glycol, arsenic, lead, copper, caesium, metformin",
-                    "Metals, corrosives and alcohols are poorly adsorbed (IJCCM review)",
+                    "Airway not intact or protected",
+                    "Corrosives (acids, alkalis, bleach)",
+                    "Kerosene, petrol, and other petroleum products",
+                    "Iron, lithium, ethanol, methanol, ethylene glycol, arsenic, lead, copper, caesium, metformin, metals",
                 ),
                 doses = listOf(
-                    StepDose(
-                        label = "Activated charcoal — child ≤1 year (WHO)",
-                        dose = WeightDose(minPerKg = 1.0, maxPerKg = 1.0, unit = "g", per = "single dose"),
-                        note = "WHO Table 5: by mouth or nasogastric tube (WHO: make sure the tube is in the stomach, not the airway or lungs), " +
-                            "mixed in 8–10 volumes of water (e.g. 5 g in 40 mL). CTRC 2026: no NG/OG tube without intubation solely to give charcoal. " +
-                            "1–12 years: 25–50 g; adolescents and adults: 25–100 g.",
-                    ),
+                    StepDose("Activated charcoal — child ≤1 year", WeightDose(1.0, 1.0, "g", "per single dose PO"), note = "Mix in 8–10 volumes water (e.g. 5 g in 40 mL); 1–12 y 25–50 g; ≥12 y 25–100 g"),
                 ),
-                citations = listOf(
-                    cite(HH_SDAC, "Abstract (summary statement)"),
-                    cite(HH_CTRC, "Abstract — Results and good practice statements"),
-                    cite(HH_WHO, "§1.6.1; Table 5 (pp. 27–28)"),
-                    cite(HH_IJCCM, "Decontamination — activated charcoal"),
-                ),
+                citations = listOf(cite("tx-hh-aact-sdac-2005", "Abstract"), cite("tx-hh-ctrc-charcoal-2026", "Abstract"), cite("tx-hh-who-pocketbook-2013", "Table 5, pp. 27–28"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, Table 5"), cite("tx-hh-ijccm-initial-2019", "Decontamination")),
             ),
-            // 6 ------------------------------------------------------------------------------------
             Step(
                 title = "Gastric lavage and induced vomiting",
                 points = listOf(
-                    "AACT/EAPCCT 2013: gastric lavage should not be performed routinely, if at all; when rarely indicated, only by trained, experienced staff.",
-                    "AACT/EAPCCT 2013: avoid routine ipecac at home or in the emergency department; it may delay or weaken charcoal, oral antidotes and bowel irrigation.",
-                    "IJCCM review: GI decontamination is no longer routine — consider only very early (<1 h) or for a very large, dangerous overdose without an antidote.",
-                    "WHO (children): lavage only if staff are experienced, ingestion was <1 h ago and life-threatening, and not corrosive or petroleum; protect the airway.",
-                    "WHO (children): never use salt as an emetic — it can be fatal.",
+                    "Do not perform routine gastric lavage or give ipecac; consider lavage only for life-threatening ingestions <1 h by experienced staff.",
+                    "Never use salt-water emetics — they can be fatal.",
                 ),
                 checklistTitle = "Do not",
                 checklist = listOf(
-                    "Salt-water emetic (WHO: can be fatal)",
-                    "Induce vomiting after corrosive or kerosene/petrol ingestion (WHO)",
-                    "Lavage after corrosives or petroleum products (WHO)",
-                    "Lavage or charcoal in an unconscious patient without a protected airway (WHO; AACT/EAPCCT)",
+                    "Salt-water emetic (can be fatal)",
+                    "Induce vomiting after corrosive or kerosene/petrol ingestion",
+                    "Gastric lavage after corrosives or petroleum products",
+                    "Lavage or charcoal in an unconscious patient without a protected airway",
                 ),
-                citations = listOf(
-                    cite(HH_LAVAGE, "Abstract (conclusions)"),
-                    cite(HH_IPECAC, "Abstract (conclusions)"),
-                    cite(HH_IJCCM, "Decontamination — gastrointestinal decontamination"),
-                    cite(HH_WHO, "§1.6.1 Principles for ingested poisons; Gastric lavage (pp. 27–28)"),
-                ),
+                citations = listOf(cite("tx-hh-aact-lavage-2013", "Abstract"), cite("tx-hh-aact-ipecac-2013", "Abstract"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, pp. 27–28"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, p. 27"), cite("tx-hh-ijccm-initial-2019", "Decontamination")),
             ),
-            // 7 ------------------------------------------------------------------------------------
             Step(
                 title = "Enhanced elimination",
                 points = listOf(
-                    "AACT/EAPCCT 1999: multiple-dose charcoal only for life-threatening carbamazepine, dapsone, phenobarbital, quinine or theophylline; no cathartics, especially in young children.",
-                    "CTRC 2026: multiple-dose charcoal appropriate for carbamazepine, cardiac glycosides, colchicine, dapsone, phenobarbital, phenytoin, thallium and theophylline.",
-                    "AACT/EAPCCT 2015: whole bowel irrigation can be considered for sustained-release or enteric-coated drugs, iron, lithium, potassium, or drug packets.",
-                    "AACT/EAPCCT 2015: no bowel irrigation with obstruction, perforation, ileus, haemodynamic instability or a compromised unprotected airway.",
-                    "IJCCM review: urine alkalinisation for weak acids such as salicylate and phenobarbital — target urine pH 7.5–8.5; " +
-                        "contraindicated with pre-existing fluid overload, renal impairment or hypokalaemia (correct hypokalaemia first).",
-                    "IJCCM review: extracorporeal removal suits toxins with low volume of distribution (<1 L/kg), low molecular weight and low protein binding.",
+                    "Multi-dose charcoal (no cathartics): carbamazepine, dapsone, phenobarbital, theophylline (AACT adds quinine; CTRC adds cardiac glycosides, colchicine, phenytoin, thallium).",
+                    "Consider whole-bowel irrigation for sustained-release/enteric-coated drugs, iron, lithium, potassium, or drug packets; avoid in obstruction, ileus, perforation, shock, unprotected airway.",
+                    "Urine alkalinisation (salicylate, phenobarbital): NaHCO3 1–2 mEq/kg IV bolus, then 100 mEq/L D5W at 250 mL/h (urine pH 7.5–8.5).",
+                    "Correct hypokalaemia before alkalinisation; contraindicated in fluid overload or renal impairment; dialyse toxins with Vd <1 L/kg.",
                 ),
                 doses = listOf(
-                    StepDose(
-                        label = "Multiple-dose activated charcoal — each repeat dose (IJCCM review)",
-                        dose = WeightDose(minPerKg = 0.5, maxPerKg = 0.5, unit = "g", per = "per repeat dose, after the initial standard dose"),
-                        note = "Repeat interval not stated in the source. Only for the agents listed in this step. " +
-                            "Contraindicated unless the airway is intact or protected, and with intestinal obstruction; no cathartics (AACT/EAPCCT 1999).",
-                    ),
-                    StepDose(
-                        label = "Sodium bicarbonate — urine alkalinisation bolus (IJCCM review)",
-                        dose = WeightDose(minPerKg = 1.0, maxPerKg = 2.0, unit = "mEq", per = "IV bolus"),
-                        note = "Contraindicated with pre-existing fluid overload or renal impairment; correct hypokalaemia first. " +
-                            "Then 100 mEq in 1 L 5% dextrose at 250 mL/h (20 mEq KCl may be added); " +
-                            "check urine pH every 15–30 min, target 7.5–8.5.",
-                    ),
+                    StepDose("Multiple-dose activated charcoal — repeat dose", WeightDose(0.5, 0.5, "g", "per repeat dose PO"), note = "After initial standard dose; intact/protected airway only; no cathartics"),
+                    StepDose("Sodium bicarbonate — urine alkalinisation bolus", WeightDose(1.0, 2.0, "mEq", "per IV bolus"), note = "Then 100 mEq in 1 L D5W at 250 mL/h (±20 mEq KCl); check urine pH q15–30 min (target 7.5–8.5)"),
                 ),
-                citations = listOf(
-                    cite(HH_MDAC, "Abstract (summary statement)"),
-                    cite(HH_CTRC, "Abstract — Results"),
-                    cite(HH_WBI, "Abstract (results)"),
-                    cite(HH_IJCCM, "Elimination — MDAC, urine alkalinization, extracorporeal removal"),
-                ),
+                citations = listOf(cite("tx-hh-aact-mdac-1999", "Abstract"), cite("tx-hh-ctrc-charcoal-2026", "Abstract"), cite("tx-hh-aact-wbi-2015", "Abstract"), cite("tx-hh-ijccm-initial-2019", "Elimination")),
             ),
-            // 8 ------------------------------------------------------------------------------------
             Step(
                 title = "Self-poisoning: psychosocial assessment and disposition",
-                timing = "Alongside medical treatment, not after it (NICE NG225)",
+                timing = "Alongside medical treatment, not after it",
                 points = listOf(
-                    "NICE NG225: refer to liaison psychiatry (crisis service for children) soon after arrival; assess alongside physical care, not after it or awaiting alcohol levels.",
-                    "NICE NG225: do not use risk tools, scales or low/medium/high stratification to predict suicide or to decide treatment or discharge.",
-                    "NICE NG225: if the person wants to leave before full assessment, assess safety and mental health first; consider admission if too distressed or intoxicated to engage.",
-                    "WHO (children): admit deliberate iron, pesticide, paracetamol, aspirin, narcotic or antidepressant ingestions and suspected poisoning by others; observe 4–24 h by poison.",
-                    "MHCA 2017 s.115: a suicide attempt is presumed due to severe stress and is not to be tried or punished; government must provide care and rehabilitation.",
-                    "Tele-MANAS (MoHFW): national 24×7 toll-free tele-mental health helpline 14416.",
+                    "Refer to liaison psychiatry (crisis team for children) on arrival; assess alongside medical care without using suicide risk-prediction scales.",
+                    "Admit deliberate paediatric iron, pesticide, paracetamol, aspirin, narcotic, or antidepressant ingestions; observe 4–24 h depending on poison.",
+                    "Under MHCA 2017 s.115, suicide attempt is not punishable; provide care and share Tele-MANAS 24×7 toll-free helpline 14416.",
                 ),
-                citations = listOf(
-                    cite(HH_NICE, "Rec 1.5.2, 1.5.4, 1.5.14, 1.6.1–1.6.4, 1.7.3, 1.7.13, 1.9.1"),
-                    cite(HH_WHO, "§1.6 Diagnosis (p. 26); §1.6.1 (p. 28)"),
-                    cite(HH_MHCA, "Section 115"),
-                    cite(HH_TELEMANAS, "Press release, October 2022"),
-                ),
+                citations = listOf(cite("tx-hh-nice-ng225", "Rec 1.5.2, 1.6.1–1.6.4, 1.7.3"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, p. 28"), cite("tx-hh-mhca-2017", "§115"), cite("tx-hh-telemanas-2022", "Press release"), cite("tx-hh-nice-ng225", "Rec 1.5.2, 1.6.1–1.6.4, 1.7.3, 1.9.1"), cite("tx-hh-who-pocketbook-2013", "§1.6, §1.6.1")),
             ),
         ),
         notes = listOf(
-            ProtocolNote(
-                "Charcoal timing differs: AACT/EAPCCT 2005 — consider within 1 h of ingestion; CTRC 2026 — up to 6 h for many poisons after individual risk assessment. " +
-                    "CTRC 2026 was reviewed from its abstract; agent-specific time limits are in the full text.",
-                listOf(cite(HH_SDAC, "Abstract"), cite(HH_CTRC, "Abstract — Results")),
-            ),
-            ProtocolNote(
-                "Charcoal route differs: the WHO pocket book allows a nasogastric tube, taking care that it is in the stomach and not the airway or lungs; " +
-                    "CTRC 2026 advises against nasogastric or orogastric tube insertion without endotracheal intubation solely to give charcoal.",
-                listOf(cite(HH_WHO, "§1.6.1 (p. 27)"), cite(HH_CTRC, "Abstract — good practice statements")),
-            ),
-            ProtocolNote(
-                "Emesis and lavage: AACT/EAPCCT 2013 and the IJCCM review advise against routine use; the WHO pocket book (2013) still allows paediatric ipecac " +
-                    "in a conscious child when charcoal is unavailable, and lavage in selected life-threatening ingestions.",
-                listOf(cite(HH_LAVAGE, "Abstract"), cite(HH_IPECAC, "Abstract"), cite(HH_IJCCM, "Decontamination"), cite(HH_WHO, "§1.6.1 (p. 28)")),
-            ),
-            ProtocolNote(
-                "India: the NCDC/MoHFW 2025 chemical-emergency training module lists gastric lavage as useful within 1–4 h, emetics including salt water, and charcoal as " +
-                    "most effective for alcohol. WHO warns that salt emetics can be fatal; CTRC 2026 finds no role for charcoal in ethanol poisoning.",
-                listOf(
-                    cite(HH_NCDC, "Fig. 16 Specific decontamination process"),
-                    cite(HH_WHO, "§1.6.1 (p. 27)"),
-                    cite(HH_CTRC, "Abstract — Results"),
-                ),
-            ),
-            ProtocolNote(
-                "Multiple-dose charcoal lists differ: AACT/EAPCCT 1999 — carbamazepine, dapsone, phenobarbital, quinine, theophylline; CTRC 2026 adds cardiac glycosides, " +
-                    "colchicine, phenytoin and thallium and does not list quinine for multiple dosing.",
-                listOf(cite(HH_MDAC, "Abstract"), cite(HH_CTRC, "Abstract — Results")),
-            ),
-            ProtocolNote(
-                "NICE NG225 is UK guidance and points clinicians to UK poison services (TOXBASE, NPIS); in India, poison information is available from the AIIMS NPIC.",
-                listOf(cite(HH_NICE, "Rec 1.7.4"), cite(HH_NPIC, "NPIC home page")),
-            ),
+            ProtocolNote("Charcoal window and route differ: AACT limits to ≤1 h; CTRC allows up to 6 h and advises against unintubated NG placement (WHO allows NG with verified placement).", listOf(cite("tx-hh-aact-sdac-2005", "Abstract"), cite("tx-hh-ctrc-charcoal-2026", "Abstract"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, p. 27"))),
+            ProtocolNote("NCDC 2025 module mentions 1–4 h lavage, salt emetics, and charcoal for alcohol, contradicting WHO (salt emetic fatal) and CTRC (no charcoal for ethanol).", listOf(cite("tx-hh-ncdc-chem-2025", "Fig. 16"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, p. 27"), cite("tx-hh-ctrc-charcoal-2026", "Abstract"))),
         ),
-        citations = listOf(
-            cite(HH_WHO), cite(HH_SDAC), cite(HH_LAVAGE), cite(HH_IPECAC), cite(HH_MDAC), cite(HH_WBI), cite(HH_CTRC),
-            cite(HH_IJCCM), cite(HH_ANZ), cite(HH_NCDC), cite(HH_NPIC), cite(HH_NICE), cite(HH_MHCA), cite(HH_TELEMANAS),
-        ),
+        citations = listOf(cite("tx-hh-ijccm-initial-2019"), cite("tx-hh-who-pocketbook-2013"), cite("tx-hh-nice-ng225"), cite("tx-hh-aiims-npic"), cite("tx-hh-ncdc-chem-2025"), cite("tx-hh-anz-paracetamol-2020"), cite("tx-hh-aact-sdac-2005"), cite("tx-hh-ctrc-charcoal-2026"), cite("tx-hh-aact-lavage-2013"), cite("tx-hh-aact-ipecac-2013"), cite("tx-hh-aact-mdac-1999"), cite("tx-hh-aact-wbi-2015"), cite("tx-hh-mhca-2017"), cite("tx-hh-telemanas-2022")),
     ),
-
-    // =============================================================================================
-    // 2. Corrosive ingestion
-    // =============================================================================================
     Protocol(
         id = "corrosives",
         title = "Corrosive ingestion (acids, alkalis, toilet cleaners)",
-        summary = "First-contact don'ts, airway, laboratory red flags, CT and endoscopy with Zargar grading, steroid and antibiotic positions, " +
-            "perforation signs and late strictures — attributed to WSES, ISG, WHO and Indian reviews.",
-        keywords = listOf(
-            "corrosive", "caustic", "acid", "alkali", "Harpic", "toilet cleaner", "bathroom cleaner", "phenyl", "lye",
-            "tezab", "tezaab", "caustic soda", "sodium hydroxide", "hydrochloric acid", "sulphuric acid", "sulfuric acid",
-            "battery acid", "drain cleaner", "bleach", "oesophageal burn", "esophageal burn", "oesophageal stricture",
-            "esophageal stricture", "Zargar",
-        ),
+        summary = "Airway protection, decontamination don'ts, perforation red flags, CT vs endoscopy grading, supportive care, and stricture follow-up.",
+        keywords = listOf("corrosive", "caustic", "acid", "alkali", "Harpic", "toilet cleaner", "bathroom cleaner", "phenyl", "lye", "tezab", "tezaab", "caustic soda", "sodium hydroxide", "hydrochloric acid", "sulphuric acid", "battery acid", "drain cleaner", "bleach", "oesophageal burn", "oesophageal stricture", "Zargar"),
         category = ProtocolCategory.Poisoning,
         steps = listOf(
-            // 1 ------------------------------------------------------------------------------------
             Step(
                 title = "First contact: what not to do",
                 timing = "Pre-hospital and on arrival",
                 points = listOf(
-                    "WSES 2015: identify the agent and bring the container; if unclear, check pH (<2 or >10), though some agents injure independent of pH.",
-                    "WSES 2015: establish intent, alcohol or drug co-ingestion, quantity (adult sip 30–50 mL vs gulp 60–90 mL) and time since ingestion.",
-                    "WSES 2015: prevent vomiting and aspiration — antiemetics (metoclopramide) and a seated 45° position during transport.",
-                    "WSES 2015: supportive care, not antidotes, is the mainstay of treatment.",
+                    "Identify agent/container (pH <2 or >10 high risk), intent, co-ingestions, time, volume (sip 30–50 mL; gulp 60–90 mL).",
+                    "Prevent vomiting and aspiration using antiemetics (metoclopramide) and 45° seated transport; supportive care is mainstay.",
                 ),
-                checklistTitle = "Do not (as sources state)",
+                checklistTitle = "Do not",
                 checklist = listOf(
-                    "Induce vomiting (WHO; WSES 2015)",
-                    "Gastric lavage (WSES 2015)",
-                    "Neutralise with a weak acid or alkali — exothermic reaction (WSES 2015)",
-                    "Activated charcoal (WHO)",
-                    "Nasogastric tube to prevent vomiting or stricture (WSES 2015: no proven benefit; reported to increase perforation, reflux and pneumonia)",
-                    "Diluents such as milk or water (WSES 2015 — WHO advises the opposite; see notes)",
+                    "Induce vomiting or perform gastric lavage",
+                    "Neutralise with weak acid or alkali (exothermic reaction)",
+                    "Give activated charcoal",
+                    "Insert blind NG tube to prevent vomiting or stricture (perforation risk)",
+                    "Give diluents (milk/water) — WSES advises against; WHO advises giving (see Note)",
                 ),
-                citations = listOf(
-                    cite(HH_WSES15, "Pre-hospital management (Level 4–5); Emergency department management (Level 5)"),
-                    cite(HH_WHO, "§1.6.4 Corrosive compounds (p. 29)"),
-                ),
+                citations = listOf(cite("tx-hh-wses-caustic-2015", "Pre-hospital"), cite("tx-hh-wses-caustic-2015", "Pre-hospital; ED"), cite("tx-hh-who-pocketbook-2013", "§1.6.4, p. 29")),
             ),
-            // 2 ------------------------------------------------------------------------------------
             Step(
                 title = "Airway and resuscitation",
                 timing = "Immediate",
                 points = listOf(
-                    "WSES 2015: secure airway and haemodynamics; if airway support is needed, prefer fibreoptic laryngoscopy over blind intubation; tracheotomy if necessary.",
-                    "WHO (children): burns in or around the mouth or stridor suggest corrosive ingestion; call an anaesthetist to assess the airway.",
-                    "WSES 2019: vapour aspiration (ammonia, formaldehyde) may cause airway burns; solids mainly injure the mouth and pharynx.",
-                    "WSES 2015: give adequate pain relief while injury severity is evaluated.",
+                    "Secure airway and haemodynamics; prefer fibreoptic laryngoscopy over blind intubation, or perform tracheotomy if necessary.",
+                    "Call an anaesthetist urgently for oral burns, stridor, or vapour aspiration (ammonia, formaldehyde); give adequate analgesia.",
                 ),
-                citations = listOf(
-                    cite(HH_WSES15, "Emergency department management (Level 5)"),
-                    cite(HH_WHO, "§1.6 Diagnosis (p. 26); §1.6.1 (p. 27)"),
-                    cite(HH_WSES19, "Corrosive ingestion — etiologies"),
-                ),
+                citations = listOf(cite("tx-hh-wses-caustic-2015", "ED management"), cite("tx-hh-who-pocketbook-2013", "§1.6, p. 26"), cite("tx-hh-wses-esophageal-2019", "Etiologies"), cite("tx-hh-who-pocketbook-2013", "§1.6, §1.6.1")),
             ),
-            // 3 ------------------------------------------------------------------------------------
             Step(
-                title = "Laboratory assessment and expert advice",
+                title = "Laboratory assessment and perforation red flags",
+                timing = "Immediate surgical review if red flags present",
                 points = listOf(
-                    "WSES 2019: CBC, sodium, potassium, chloride, magnesium, calcium, urea, creatinine, liver tests, pH, lactate, blood alcohol; β-hCG in young women.",
-                    "WSES 2019: acidosis, high lactate, deranged liver tests, leukocytosis, high CRP, renal failure or thrombocytopenia predict transmural necrosis; normal initial values do not exclude it.",
-                    "WSES 2019: watch for hypocalcaemia (phosphoric, hydrofluoric acids), hyponatraemia, hypokalaemia and acidosis.",
-                    "WSES 2019: strong acids and alkalis cause most severe injuries; bleach usually causes mild injury, though severe damage has been reported.",
-                    "WSES 2019: contact a poison control centre about systemic toxicity. AIIMS NPIC: 1800 116 117 (24 h).",
+                    "Send CBC, Na+/K+/Cl-/Mg2+/Ca2+, urea, creatinine, LFTs, pH, lactate, alcohol, β-hCG; call AIIMS NPIC 1800 116 117.",
+                    "Acidosis, high lactate, deranged LFTs, leukocytosis, high CRP, AKI, or thrombocytopenia predict necrosis; watch hypocalcaemia (phosphoric/hydrofluoric acid).",
+                    "Absence of pain or oral burns does NOT exclude severe injury; operate immediately for peritonitis with shock or transmural necrosis.",
+                    "Perforation can occur anytime in the first 2 weeks (peak days 3–12); repeat CT immediately if pain worsens.",
                 ),
-                citations = listOf(
-                    cite(HH_WSES19, "Corrosive ingestion — etiologies (Grade 2A, 2B); investigations (Grade 2A)"),
-                    cite(HH_NPIC, "NPIC home page"),
-                ),
-            ),
-            // 4 ------------------------------------------------------------------------------------
-            Step(
-                title = "Red flags: perforation and necrosis",
-                timing = "Immediate surgical review if present",
-                points = listOf(
-                    "WSES 2015: peritonitis with haemodynamic instability requires immediate surgical exploration.",
-                    "WSES 2019: transmural necrosis — operate as soon as possible (Grade 1C) and resect all obvious necrosis at the first operation (Grade 2A).",
-                    "WSES 2019: absence of pain or oral lesions does not rule out life-threatening injury; neck, chest and abdominal X-rays may show free air.",
-                    "WSES 2019: deterioration during non-operative care — repeat CT and consider surgery (Grade 2A).",
-                    "IJCCM review: gastric or oesophageal perforation can occur any time in the first 2 weeks (most often days 3–12); " +
-                        "worsening abdominal pain or new chest pain needs immediate radiological evaluation.",
-                ),
-                checklistTitle = "Red flags (WSES)",
+                checklistTitle = "Perforation & Necrosis Red Flags",
                 checklist = listOf(
-                    "Peritonitis or rebound tenderness",
-                    "Shock or haemodynamic instability",
-                    "Increasing abdominal pain",
-                    "Free air on neck, chest or abdominal X-ray",
+                    "Peritonitis, rebound tenderness, or shock/haemodynamic instability",
+                    "Increasing abdominal pain or new chest pain",
+                    "Free air on neck, chest, or abdominal X-ray",
                     "Need for ventilatory support",
-                    "Rising acidosis, renal failure or leukocytosis",
-                    "Chest pain, dysphagia, odynophagia, drooling or haemorrhage after deliberate ingestion (linked to severe injury)",
+                    "Rising acidosis, renal failure, or leukocytosis",
+                    "Dysphagia, odynophagia, drooling, or haemorrhage after deliberate ingestion",
                 ),
-                citations = listOf(
-                    cite(HH_WSES15, "Management algorithm (Level 4)"),
-                    cite(HH_WSES19, "Investigations (Grade 3A); non-operative management (Grade 2A); surgical treatment (Grade 1C, 2A)"),
-                    cite(HH_CORR, "Clinical features"),
-                ),
+                citations = listOf(cite("tx-hh-wses-esophageal-2019", "Investigations"), cite("tx-hh-aiims-npic", "Home page"), cite("tx-hh-wses-caustic-2015", "Algorithm"), cite("tx-hh-wses-esophageal-2019", "Surgical treatment"), cite("tx-hh-ijccm-corrosive-2019", "Clinical features"), cite("tx-hh-wses-esophageal-2019", "Non-operative"), cite("tx-hh-wses-esophageal-2019", "Investigations; Surgical treatment")),
             ),
-            // 5 ------------------------------------------------------------------------------------
             Step(
-                title = "Imaging: contrast CT",
-                timing = "CT 3–6 h after ingestion (WSES 2019)",
+                title = "Contrast CT and endoscopy (Zargar grading)",
+                timing = "CT 3–6 h; endoscopy 3–6 h (or ≤48 h; avoid days 5–15)",
                 points = listOf(
-                    "WSES 2019: emergency management can rely on contrast CT of neck, thorax and abdomen 3–6 h after ingestion (Grade 2A).",
-                    "WSES 2019: absent post-contrast wall enhancement indicates transmural necrosis and is an indication for emergency surgery.",
-                    "WSES 2019 CT grades: I normal enhancement; IIa enhancing mucosa with thick hypodense wall ('target'); IIb only a thin outer rim enhances; III no enhancement.",
-                    "WSES 2019: CT grade I — feed immediately, discharge in 24–48 h; IIa stricture risk <20%; IIb >80%.",
-                    "ISG 2025: endoscopy is the preferred initial evaluation; contrast CT is reserved for specific situations.",
+                    "WSES: contrast CT neck/chest/abdomen at 3–6 h (no wall enhancement = grade III necrosis → surgery); ISG: endoscopy first.",
+                    "CT grade I: feed immediately, discharge 24–48 h; IIa stricture risk <20%; IIb >80%; III surgery.",
+                    "Perform endoscopy if CT unavailable/uncertain or in children; do within 48 h and avoid days 5–15 (perforation risk).",
+                    "Zargar ≤2a: early oral feeding and discharge; ≥2b: admit (71.4% of 2b and all grade 3 scar); 3b consider surgery.",
                 ),
-                citations = listOf(
-                    cite(HH_WSES19, "Investigations (Grade 2A); Fig. 2; non-operative management"),
-                    cite(HH_WSES15, "Management algorithm (Level 3)"),
-                    cite(HH_ISG, "Abstract"),
-                ),
-            ),
-            // 6 ------------------------------------------------------------------------------------
-            Step(
-                title = "Endoscopy and Zargar grading",
-                timing = "WSES 2015: usually 3–6 h; IJCCM review: within 48 h, avoid days 5–15",
-                points = listOf(
-                    "WSES 2019: endoscopy if CT is unavailable or contraindicated, CT findings are uncertain, or in children (Grade 2A).",
-                    "WSES 2015: endoscopy usually 3–6 h after ingestion; Zargar ≤3a managed non-operatively, 3b considered for surgery.",
-                    "IJCCM review (JIPMER): early endoscopy within 48 h; avoid days 5–15 because of perforation risk.",
-                    "ISG 2025: Zargar ≤2a — early oral feeding and discharge; ≥2b — admit, as risk of short- and long-term complications is higher.",
-                    "Zargar 1991 (PGIMER): grades 0, 1 and 2a recovered without sequelae; 71.4% of 2b and all grade 3 survivors developed scarring.",
-                    "WSES 2019: endoscopy cannot reliably predict transmural necrosis; CT outperforms Zargar grading for stricture prediction.",
-                ),
-                checklistTitle = "Zargar grades (as summarised in the IJCCM review)",
+                checklistTitle = "Zargar Endoscopic Grades",
                 checklist = listOf(
                     "I — erythema and oedema only",
                     "IIa — haemorrhage, erosions, blisters, ulcers with exudate",
                     "IIb — circumferential oesophageal ulceration",
-                    "IIIa — scattered deep ulcers with brown, black or grey discolouration",
-                    "IIIb — extensive deep ulcers with brown, black or grey discolouration",
+                    "IIIa — scattered deep ulcers with brown, black, or grey discolouration",
+                    "IIIb — extensive deep ulcers with brown, black, or grey discolouration",
                     "IV — perforation",
                 ),
-                citations = listOf(
-                    cite(HH_WSES19, "Role of endoscopy (Grade 2A)"),
-                    cite(HH_WSES15, "Management algorithm (Level 4)"),
-                    cite(HH_CORR, "Evaluation of the grade of injury"),
-                    cite(HH_ISG, "Abstract"),
-                    cite(HH_ZARGAR, "Abstract"),
-                ),
+                citations = listOf(cite("tx-hh-wses-esophageal-2019", "Investigations; Fig. 2"), cite("tx-hh-isg-caustic-2025", "Abstract"), cite("tx-hh-wses-esophageal-2019", "Fig. 2; Non-operative"), cite("tx-hh-wses-esophageal-2019", "Endoscopy"), cite("tx-hh-ijccm-corrosive-2019", "Evaluation"), cite("tx-hh-zargar-1991", "Abstract"), cite("tx-hh-wses-caustic-2015", "Algorithm"), cite("tx-hh-wses-esophageal-2019", "Investigations; Endoscopy; Fig. 2")),
             ),
-            // 7 ------------------------------------------------------------------------------------
             Step(
-                title = "Steroids, antibiotics, acid suppression and feeding",
+                title = "Supportive care, strictures and psychiatric review",
+                timing = "Dilation 3–6 weeks after ingestion",
                 points = listOf(
-                    "WSES 2015: systemic steroids not recommended to prevent strictures; reserve for airway symptoms (Level 3). IJCCM review: steroids do not prevent strictures.",
-                    "WSES 2015: no systematic broad-spectrum antibiotics; advised in grade 3 injury if steroids are started or the lungs are involved.",
-                    "WSES 2015: benefit of PPIs and H2 blockers unproven. IJCCM review: IV PPIs are usually given in higher-grade injury despite unproven efficacy.",
-                    "WSES 2015: use the gut early — low-grade injury resumes oral intake as soon as the patient can swallow.",
-                    "WSES 2015: severe burns — jejunostomy or nasojejunal feeding rather than gastrostomy (possible hidden gastric outlet obstruction). ISG 2025: nutritional support throughout.",
-                    "WSES 2019: oral feeding as soon as patients swallow normally; enteral feeding by nasogastric tube or jejunostomy if unable to eat.",
+                    "Do not give routine steroids to prevent strictures (airway symptoms only) or routine antibiotics (only grade 3 with steroids/lung involvement).",
+                    "PPI benefit is unproven though often given in higher grades; resume oral intake early in low-grade injury.",
+                    "For severe burns unable to eat, use jejunostomy or nasojejunal feeding (avoid gastrostomy due to gastric outlet obstruction).",
+                    "Strictures (≤4 mo): dilate <3 short (<5 cm) at 3–6 weeks; bypass ≥6 months; review grade II at 4–6 months.",
+                    "Mandatory psychiatric review before discharge after self-harm (gastric outlet obstruction can appear days to 6 years later).",
                 ),
-                citations = listOf(
-                    cite(HH_WSES15, "Emergency department management (Level 3, 5); Nutritional approach (Level 5)"),
-                    cite(HH_WSES19, "Non-operative management"),
-                    cite(HH_CORR, "Initial resuscitation"),
-                    cite(HH_ISG, "Abstract"),
-                ),
-            ),
-            // 8 ------------------------------------------------------------------------------------
-            Step(
-                title = "Strictures, follow-up and psychiatric review",
-                timing = "Dilation 3–6 weeks after ingestion (WSES 2019)",
-                points = listOf(
-                    "WSES 2019: strictures usually form within 4 months; dysphagia or regurgitation needs immediate upper-GI evaluation.",
-                    "WSES 2019: endoscopic dilation 3–6 weeks after ingestion for few (<3), short (<5 cm) strictures; reconstructive surgery after repeated failure (Grade 2A).",
-                    "WSES 2019: review CT grade II injuries at 4–6 months. WSES 2015: gastric outlet obstruction can appear from days up to 6 years later.",
-                    "WSES 2015: oesophageal bypass at least 6 months after ingestion or emergency surgery.",
-                    "WSES 2019: psychiatric evaluation is mandatory for all patients before discharge (Grade 2C). NICE NG225: refer to liaison psychiatry after self-harm.",
-                ),
-                citations = listOf(
-                    cite(HH_WSES19, "Role of endoscopy (Grade 2A); non-operative management (Grade 2C)"),
-                    cite(HH_WSES15, "Endoscopic treatment of esophageal stricture; Gastric outlet obstruction; Esophageal reconstruction"),
-                    cite(HH_NICE, "Rec 1.7.13"),
-                ),
+                citations = listOf(cite("tx-hh-wses-caustic-2015", "ED management"), cite("tx-hh-wses-caustic-2015", "ED; Nutrition"), cite("tx-hh-ijccm-corrosive-2019", "Resuscitation"), cite("tx-hh-wses-caustic-2015", "Nutrition"), cite("tx-hh-wses-esophageal-2019", "Endoscopy"), cite("tx-hh-wses-caustic-2015", "Stricture; Reconstruction"), cite("tx-hh-wses-esophageal-2019", "Non-operative"), cite("tx-hh-nice-ng225", "Rec 1.7.13"), cite("tx-hh-wses-caustic-2015", "GOO"), cite("tx-hh-wses-caustic-2015", "ED; Nutrition; Stricture; GOO; Reconstruction"), cite("tx-hh-wses-esophageal-2019", "Non-operative; Endoscopy")),
             ),
         ),
         notes = listOf(
-            ProtocolNote(
-                "Dilution differs: the WHO pocket book advises giving milk or water as soon as possible; WSES 2015 advises avoiding diluents; " +
-                    "the IJCCM review says dilution has little role because injury occurs within minutes.",
-                listOf(
-                    cite(HH_WHO, "§1.6.4 Corrosive compounds (p. 29)"),
-                    cite(HH_WSES15, "Pre-hospital management (Level 5)"),
-                    cite(HH_CORR, "Initial resuscitation"),
-                ),
-            ),
-            ProtocolNote(
-                "CT versus endoscopy: WSES 2019 relies on contrast CT 3–6 h after ingestion, with endoscopy as back-up and first-line in children; " +
-                    "ISG 2025 prefers endoscopy first and reserves CT for specific situations.",
-                listOf(cite(HH_WSES19, "Investigations; role of endoscopy (Grade 2A)"), cite(HH_ISG, "Abstract")),
-            ),
-            ProtocolNote(
-                "Endoscopy timing differs: WSES 2015 — usually 3–6 h after ingestion; IJCCM review — within 48 h, avoiding days 5–15.",
-                listOf(cite(HH_WSES15, "Management algorithm"), cite(HH_CORR, "Evaluation of the grade of injury")),
-            ),
-            ProtocolNote(
-                "Nasogastric tubes differ: WSES 2015 advises avoiding them, as their value in preventing vomiting or stricture is unproven; " +
-                    "WSES 2019 recommends enteral feeding by nasogastric tube or jejunostomy in patients unable to eat; " +
-                    "the IJCCM review calls early placement an option, decided case by case.",
-                listOf(
-                    cite(HH_WSES15, "Emergency department management (Level 5)"),
-                    cite(HH_WSES19, "Non-operative management"),
-                    cite(HH_CORR, "Prevention of stricture formation"),
-                ),
-            ),
-            ProtocolNote(
-                "ISG 2025 (41 modified-Delphi statements, Indian Society of Gastroenterology) was reviewed from its abstract only; consult the full guideline for statement-level detail.",
-                listOf(cite(HH_ISG, "Abstract")),
-            ),
+            ProtocolNote("Dilution differs: WHO advises milk or water promptly; WSES advises against diluents; IJCCM notes injury occurs within minutes.", listOf(cite("tx-hh-who-pocketbook-2013", "§1.6.4, p. 29"), cite("tx-hh-wses-caustic-2015", "Pre-hospital"), cite("tx-hh-ijccm-corrosive-2019", "Resuscitation"))),
+            ProtocolNote("Initial imaging differs: WSES relies on contrast CT at 3–6 h first (endoscopy in children); ISG prefers endoscopy first.", listOf(cite("tx-hh-wses-esophageal-2019", "Investigations"), cite("tx-hh-isg-caustic-2025", "Abstract"))),
+            ProtocolNote("NG tubes: WSES 2015 advises against prophylactic NG placement; WSES 2019 allows NG or jejunostomy for enteral feeding when unable to eat.", listOf(cite("tx-hh-wses-caustic-2015", "ED management"), cite("tx-hh-wses-esophageal-2019", "Non-operative"))),
         ),
-        citations = listOf(
-            cite(HH_WSES15), cite(HH_WSES19), cite(HH_ISG), cite(HH_ZARGAR), cite(HH_CORR), cite(HH_WHO), cite(HH_NPIC), cite(HH_NICE),
-        ),
+        citations = listOf(cite("tx-hh-wses-caustic-2015"), cite("tx-hh-who-pocketbook-2013"), cite("tx-hh-wses-esophageal-2019"), cite("tx-hh-aiims-npic"), cite("tx-hh-ijccm-corrosive-2019"), cite("tx-hh-isg-caustic-2025"), cite("tx-hh-zargar-1991"), cite("tx-hh-nice-ng225")),
     ),
-
-    // =============================================================================================
-    // 3. Carbon monoxide
-    // =============================================================================================
     Protocol(
         id = "carbon-monoxide",
         title = "Carbon monoxide poisoning",
-        summary = "Recognition, 100% oxygen, COHb and pulse-oximetry pitfalls, cardiac testing, hyperbaric oxygen, pregnancy, " +
-            "cyanide in fire smoke and delayed neurological sequelae — attributed to ACEP, ECHM, CDC, WHO and FDA labels.",
-        keywords = listOf(
-            "carbon monoxide", "CO", "CO poisoning", "angithi", "sigri", "coal stove", "heater", "room heater", "smoke",
-            "smoke inhalation", "fire", "generator", "gas geyser", "charcoal burning", "carboxyhaemoglobin",
-            "carboxyhemoglobin", "COHb", "hyperbaric oxygen", "HBO", "HBOT", "cyanide", "hydroxocobalamin", "Cyanokit",
-        ),
+        summary = "Immediate 100% oxygen, blood COHb confirmation, cardiac workup, hyperbaric oxygen criteria, pregnancy, fire-smoke cyanide, and delayed sequelae.",
+        keywords = listOf("carbon monoxide", "CO", "CO poisoning", "angithi", "sigri", "coal stove", "room heater", "smoke inhalation", "fire", "generator", "gas geyser", "COHb", "hyperbaric oxygen", "HBO", "HBOT", "cyanide", "hydroxocobalamin", "Cyanokit"),
         category = ProtocolCategory.Poisoning,
         steps = listOf(
-            // 1 ------------------------------------------------------------------------------------
             Step(
-                title = "Suspect CO",
-                timing = "At triage",
+                title = "Suspect CO and give 100% oxygen immediately",
+                timing = "Immediately, before lab confirmation",
                 points = listOf(
-                    "CDC: commonest symptoms — headache, dizziness, weakness, nausea, vomiting, chest pain and altered mental status.",
-                    "ACEP 2025: ranges from flu-like illness to chest pain, dyspnoea, myocardial infarction, dysrhythmia, confusion and coma; flu-like cases in cold weather confound diagnosis.",
-                    "CDC: also look for smoke inhalation, trauma, medical illness or intoxication.",
-                    "CDC: others in the same environment may still be exposed — evaluate and test them.",
+                    "Suspect CO with headache, dizziness, nausea, chest pain, or altered mentation without fever; test others exposed in same household.",
+                    "Give 100% high-flow oxygen immediately until symptom-free (usually 4–5 h; minor cases up to 12 h) or CO ruled out.",
+                    "COHb half-life drops from ~5 h on air to 85 min on high-flow non-rebreather and 20 min with hyperbaric oxygen.",
                 ),
-                checklistTitle = "Clues (CDC)",
+                checklistTitle = "Clues to CO Poisoning",
                 checklist = listOf(
-                    "No fever with the symptoms",
-                    "History of exposure — generator, stove, or other fuel- or charcoal-burning device",
-                    "Several patients (e.g. one household) with similar complaints",
+                    "No fever with flu-like or neurological symptoms",
+                    "Exposure to generator, angithi, coal stove, gas geyser, or room heater",
+                    "Multiple household members with similar complaints",
                 ),
-                citations = listOf(
-                    cite(HH_CDC, "How to Recognize CO Poisoning"),
-                    cite(HH_ACEP25, "Introduction"),
-                    cite(HH_HAN, "Recommendations for clinicians"),
-                ),
+                citations = listOf(cite("tx-hh-cdc-co-guidance", "Recognition"), cite("tx-hh-cdc-han-00476", "Recommendations"), cite("tx-hh-echm-2016", "Table 2"), cite("tx-hh-cdc-co-guidance", "Management"), cite("tx-hh-who-pocketbook-2013", "§1.6.4, p. 33"), cite("tx-hh-acep-co-2025", "Introduction"), cite("tx-hh-cdc-co-guidance", "Recognition; Management")),
             ),
-            // 2 ------------------------------------------------------------------------------------
             Step(
-                title = "100% oxygen immediately",
-                timing = "Immediately, before confirmation",
+                title = "Confirm COHb and screen heart, brain, pregnancy",
                 points = listOf(
-                    "ECHM 2016: give 100% oxygen immediately to anyone with CO poisoning as first aid (Type 1, Level C).",
-                    "CDC: 100% oxygen until symptom-free (usually about 4–5 h) or until CO poisoning is ruled out.",
-                    "ACEP 2025: COHb elimination half-life about 5 h on air, 85 min with a high-flow non-rebreather mask, 20 min with hyperbaric oxygen.",
-                    "ECHM 2016: minor CO poisoning — 12 h of normobaric oxygen or HBOT is reasonable (Type 3, Level B).",
-                    "WHO (children): give 100% oxygen until signs of hypoxia disappear.",
+                    "Measure blood COHb by venous or arterial CO-oximetry; never rely on conventional pulse oximetry or noninvasive pulse CO-oximetry.",
+                    "COHb >2% (non-smokers) or >9% (smokers) supports diagnosis, though levels fall over time and correlate poorly with clinical severity.",
+                    "Obtain ECG and cardiac biomarkers in moderate–severe poisoning (myocardial injury increases 10-year mortality) and pregnancy test in childbearing women.",
+                    "Perform serial neurological exams; obtain CXR and head CT/MRI in loss of consciousness or cardiopulmonary signs.",
                 ),
-                citations = listOf(
-                    cite(HH_ECHM, "Accepted indications — CO poisoning (Table 2)"),
-                    cite(HH_CDC, "Management"),
-                    cite(HH_HAN, "Recommendations for clinicians"),
-                    cite(HH_ACEP25, "Introduction"),
-                    cite(HH_WHO, "§1.6.4 Carbon monoxide (p. 33)"),
-                ),
+                citations = listOf(cite("tx-hh-cdc-co-guidance", "Diagnosis"), cite("tx-hh-acep-co-2017", "Critical Q1"), cite("tx-hh-who-pocketbook-2013", "§1.6.4, p. 33"), cite("tx-hh-cdc-co-guidance", "Confirmation"), cite("tx-hh-acep-co-2017", "Critical Q3"), cite("tx-hh-cdc-co-guidance", "Diagnosis; Management"), cite("tx-hh-cdc-co-guidance", "Diagnosis; Confirmation; Management"), cite("tx-hh-acep-co-2017", "Critical Q1, Q3")),
             ),
-            // 3 ------------------------------------------------------------------------------------
             Step(
-                title = "Confirm with COHb, not the pulse oximeter",
+                title = "Hyperbaric oxygen (HBOT) and pregnancy",
+                timing = "Weigh severity against transfer distance and time",
                 points = listOf(
-                    "CDC: measure COHb on venous or arterial blood by CO-oximetry whenever CO poisoning is suspected.",
-                    "CDC: a conventional two-wavelength pulse oximeter is inaccurate when COHb is present. WHO: readings may be falsely high; the patient can look pink yet be hypoxaemic.",
-                    "ACEP 2017 (Level B): do not use noninvasive pulse CO-oximetry to diagnose CO toxicity in suspected acute poisoning.",
-                    "CDC: an elevated COHb of 2% in non-smokers or >9% in smokers strongly supports CO poisoning; interpret with time since exposure, as levels fall.",
-                    "CDC: COHb correlates poorly with severity, outcome or response to treatment; sickle cell disease can raise COHb.",
+                    "Consider HBOT with a toxicologist/hyperbaric centre for severe symptoms, weighing transport risks, barotrauma, and oxygen-toxicity seizures.",
+                    "In pregnancy, HBOT is recommended regardless of COHb or milder symptoms.",
+                    "Do not give HBOT to asymptomatic patients presenting >24 hours after exposure ended.",
                 ),
-                citations = listOf(
-                    cite(HH_HAN, "Recommendations for clinicians"),
-                    cite(HH_CDC, "Diagnosis; Confirmation of Diagnosis"),
-                    cite(HH_ACEP17, "Critical question 1 (Level B)"),
-                    cite(HH_WHO, "§1.6.4 Carbon monoxide (p. 33)"),
-                ),
-            ),
-            // 4 ------------------------------------------------------------------------------------
-            Step(
-                title = "Heart, brain and pregnancy test",
-                points = listOf(
-                    "ACEP 2017 (Level B): moderate–severe CO poisoning — ECG and cardiac biomarkers to identify myocardial injury, which predicts poor outcome.",
-                    "CDC: cardiac injury during poisoning increases the risk of death within 10 years.",
-                    "CDC: serial neurological examinations to assess progress and detect developing cerebral oedema.",
-                    "CDC: pregnancy test in all women of childbearing age with suspected CO poisoning.",
-                    "CDC: seriously poisoned patients, especially with loss of consciousness or cardiopulmonary signs — chest X-ray; head CT or brain MRI.",
-                ),
-                citations = listOf(
-                    cite(HH_ACEP17, "Critical question 3 (Level B)"),
-                    cite(HH_CDC, "Diagnosis; Management; Common questions"),
-                ),
-            ),
-            // 5 ------------------------------------------------------------------------------------
-            Step(
-                title = "Hyperbaric oxygen: who",
-                timing = "Weigh severity and availability — distance and time (ACEP 2025)",
-                points = listOf(
-                    "ACEP 2025 (Level C only): in symptomatic CO poisoning, selected patients may benefit from HBO2, depending on severity and availability (distance, time).",
-                    "ACEP 2025 harms: middle-ear barotrauma, oxygen-toxicity seizures, claustrophobia, deterioration during transport and long transfers.",
-                    "ECHM 2016 (Type 1, Level B): HBOT for altered consciousness or any neurological, cardiac, respiratory or psychological signs, whatever the COHb.",
-                    "CDC: consider HBO for COHb >25–30%, cardiac involvement, severe acidosis, any unconsciousness, neurological impairment or abnormal neuropsychiatric testing.",
-                    "ECHM 2016: no HBOT for asymptomatic patients seen more than 24 h after exposure ended (Type 1, Level C).",
-                    "CDC: decide on HBO with a toxicologist, hyperbaric facility or poison centre.",
-                ),
-                checklistTitle = "HBO criteria cited (ECHM, CDC)",
+                checklistTitle = "HBOT Indications",
                 checklist = listOf(
-                    "Altered or lost consciousness, transient or prolonged",
-                    "Neurological signs or impairment; abnormal neuropsychiatric testing",
-                    "Cardiac involvement",
-                    "Respiratory or psychological signs (ECHM)",
-                    "Severe acidosis (CDC)",
-                    "COHb >25–30% (CDC)",
-                    "Pregnancy (ECHM, CDC)",
+                    "Altered or lost consciousness (transient or prolonged)",
+                    "Neurological, respiratory, or psychological signs; abnormal neuropsychiatric testing",
+                    "Cardiac involvement or severe acidosis",
+                    "COHb >25–30%",
+                    "Pregnancy (regardless of presentation or COHb)",
                 ),
-                citations = listOf(
-                    cite(HH_ACEP25, "Critical question 1 — Level C; potential harms"),
-                    cite(HH_ECHM, "Accepted indications — CO poisoning (Table 2)"),
-                    cite(HH_CDC, "Management"),
-                    cite(HH_HAN, "Recommendations for clinicians"),
-                ),
+                citations = listOf(cite("tx-hh-acep-co-2025", "Critical Q1"), cite("tx-hh-cdc-co-guidance", "Management"), cite("tx-hh-echm-2016", "Table 2")),
             ),
-            // 6 ------------------------------------------------------------------------------------
-            Step(
-                title = "Pregnancy",
-                points = listOf(
-                    "ECHM 2016 (Type 1, Level B): HBOT for CO-poisoned pregnant women whatever the clinical presentation or COHb.",
-                    "CDC: hyperbaric oxygen is the treatment of choice in pregnancy, even if less severely poisoned.",
-                    "ACEP 2025: pregnant patients and fetal exposures are outside the policy's scope.",
-                ),
-                citations = listOf(
-                    cite(HH_ECHM, "Accepted indications — CO poisoning (Table 2)"),
-                    cite(HH_CDC, "Management"),
-                    cite(HH_ACEP25, "Scope — exclusion criteria"),
-                ),
-            ),
-            // 7 ------------------------------------------------------------------------------------
             Step(
                 title = "Fire smoke: think cyanide",
-                timing = "Do not delay the antidote to obtain lactate (FDA label)",
+                timing = "Do not delay antidote awaiting lactate",
                 points = listOf(
-                    "FDA Cyanokit label: in smoke inhalation, assess for an enclosed-space fire, soot around mouth, nose or oropharynx, and altered mental status.",
-                    "FDA Cyanokit label: lactate ≥10 mmol/L suggests cyanide in smoke inhalation; hypotension is suggestive but uncommon.",
-                    "FDA Cyanokit label: adults 5 g IV over 15 min via a separate line; may repeat 5 g (total 10 g) over 15 min–2 h by severity.",
-                    "FDA Cyanokit label: paediatric safety not established (70 mg/kg used outside the US); monitor blood pressure during treatment and renal function for 7 days.",
-                    "FDA Cyanokit label: its deep red colour interferes with colorimetric lab tests and may shut down haemodialysis machines (false 'blood leak' alarm).",
-                    "FDA Nithiodote label (boxed warning): sodium nitrite can cause life-threatening hypotension and methaemoglobin formation; consider alternative therapy in smoke-inhalation victims.",
-                    "FDA Nithiodote label §5.4: use with caution in smoke inhalation or CO poisoning — methaemoglobin may worsen hypoxia.",
+                    "Suspect cyanide in enclosed-space fire with soot around mouth/nose/oropharynx and altered mentation; lactate ≥10 mmol/L strongly supports cyanide.",
+                    "Hydroxocobalamin 5 g IV/15 min (separate line); repeat 5 g over 15 min–2 h (max 10 g; child 70 mg/kg).",
+                    "Monitor BP during infusion and renal function for 7 days; red colour interferes with colorimetric labs and dialysis alarms.",
+                    "Avoid sodium nitrite in smoke inhalation/CO poisoning — causes hypotension and methaemoglobinaemia, worsening hypoxia.",
                 ),
-                citations = listOf(
-                    cite(HH_CYANOKIT, "§2.1 Identifying patients (smoke inhalation); §2.2; §2.4; §5.3–5.5; §8.4"),
-                    cite(HH_NITHIODOTE, "Boxed warning; §5.4 Smoke inhalation injury"),
-                ),
+                citations = listOf(cite("tx-hh-fda-cyanokit", "§2.1"), cite("tx-hh-fda-cyanokit", "§2.2, §8.4"), cite("tx-hh-fda-cyanokit", "§5.3–5.5"), cite("tx-hh-fda-nithiodote", "Boxed warning; §5.4"), cite("tx-hh-fda-cyanokit", "§2.1–2.2, §5.3–5.5, §8.4")),
             ),
-            // 8 ------------------------------------------------------------------------------------
             Step(
                 title = "Disposition and delayed neurological sequelae",
                 points = listOf(
-                    "ACEP 2025: new neurological or psychiatric findings can appear 2–40 days after exposure (delayed neurological sequelae).",
-                    "ACEP 2025: risk factors — age ≥36 years, COHb ≥25%, exposure ≥24 h, loss of consciousness, low GCS or MMSE, abnormal brain CT.",
-                    "CDC: warn every discharged patient about delayed neurological complications; repeat medical and neurological examination at 2 weeks.",
-                    "CDC: notify emergency services, fire department or police to investigate the source and advise when it is safe to return.",
-                    "CDC: never use generators, stoves or charcoal-burning devices inside an enclosed space, or outside near an open window.",
+                    "Delayed neuropsychiatric sequelae can emerge 2–40 days post-exposure (risks: age ≥36 y, COHb ≥25%, exposure ≥24 h, LOC, abnormal CT).",
+                    "Warn every discharged patient and arrange repeat medical and neurological examination at 2 weeks.",
+                    "Notify fire/emergency services to inspect the source before return; forbid indoor generators, stoves, or charcoal heaters.",
                 ),
-                citations = listOf(
-                    cite(HH_ACEP25, "Introduction"),
-                    cite(HH_CDC, "Common questions"),
-                    cite(HH_HAN, "Recommendations for clinicians"),
-                ),
+                citations = listOf(cite("tx-hh-acep-co-2025", "Introduction"), cite("tx-hh-cdc-co-guidance", "Common questions")),
             ),
         ),
         notes = listOf(
-            ProtocolNote(
-                "Strength of HBO recommendations differs: ACEP 2025 makes only a Level C recommendation (no Level A or B); ECHM 2016 gives Type 1, Level B recommendations " +
-                    "for HBOT in CO poisoning with altered consciousness or other clinical signs.",
-                listOf(cite(HH_ACEP25, "Critical question 1"), cite(HH_ECHM, "Accepted indications — CO poisoning")),
-            ),
-            ProtocolNote(
-                "CDC uses a COHb level (>25–30%) among its HBO considerations; ECHM recommends HBOT on clinical signs whatever the COHb, and CDC notes COHb correlates poorly with severity.",
-                listOf(cite(HH_CDC, "Management; Diagnosis"), cite(HH_ECHM, "Accepted indications — CO poisoning")),
-            ),
-            ProtocolNote(
-                "ACEP 2025 revisited only the hyperbaric question; its 2017 recommendations on pulse CO-oximetry and cardiac testing were to be reaffirmed in separate documents, not reviewed here.",
-                listOf(cite(HH_ACEP25, "Introduction"), cite(HH_ACEP17, "Critical questions 1 and 3")),
-            ),
+            ProtocolNote("HBOT strength differs: ACEP 2025 gives only a conditional option weighing transfer harms, whereas ECHM strongly recommends HBOT for neurological/cardiac signs or pregnancy.", listOf(cite("tx-hh-acep-co-2025", "Critical Q1"), cite("tx-hh-echm-2016", "Table 2"))),
+            ProtocolNote("CDC lists COHb >25–30% as an HBOT consideration, while ECHM bases HBOT on clinical signs regardless of COHb.", listOf(cite("tx-hh-cdc-co-guidance", "Management"), cite("tx-hh-echm-2016", "Table 2"))),
         ),
-        citations = listOf(
-            cite(HH_ACEP25), cite(HH_ACEP17), cite(HH_ECHM), cite(HH_CDC), cite(HH_HAN), cite(HH_WHO), cite(HH_CYANOKIT), cite(HH_NITHIODOTE),
-        ),
+        citations = listOf(cite("tx-hh-cdc-co-guidance"), cite("tx-hh-cdc-han-00476"), cite("tx-hh-echm-2016"), cite("tx-hh-who-pocketbook-2013"), cite("tx-hh-acep-co-2025"), cite("tx-hh-acep-co-2017"), cite("tx-hh-fda-cyanokit"), cite("tx-hh-fda-nithiodote")),
     ),
-
-    // =============================================================================================
-    // 4. Hydrocarbons
-    // =============================================================================================
     Protocol(
         id = "hydrocarbons",
         title = "Hydrocarbon ingestion (kerosene, petrol)",
-        summary = "Aspiration risk, no emesis, lavage or charcoal, oxygen, chest X-ray timing, at least 6 h observation, " +
-            "and no routine steroids or antibiotics — attributed to WHO and Indian (PGIMER) sources.",
-        keywords = listOf(
-            "kerosene", "mitti ka tel", "mitti da tel", "petrol", "diesel", "gasoline", "turpentine", "thinner",
-            "paraffin oil", "lamp oil", "hydrocarbon", "petroleum", "fuel siphoning", "aspiration pneumonitis",
-            "chemical pneumonitis",
-        ),
+        summary = "Aspiration pneumonitis recognition, decontamination don'ts, respiratory support, chest X-ray timing, 6-hour observation, and avoiding routine steroids/antibiotics.",
+        keywords = listOf("kerosene", "mitti ka tel", "mitti da tel", "petrol", "diesel", "gasoline", "turpentine", "thinner", "paraffin oil", "lamp oil", "hydrocarbon", "petroleum", "aspiration pneumonitis", "chemical pneumonitis"),
         category = ProtocolCategory.Poisoning,
         steps = listOf(
-            // 1 ------------------------------------------------------------------------------------
             Step(
-                title = "Recognise aspiration risk",
+                title = "Recognise aspiration risk and decontamination don'ts",
                 timing = "At presentation",
                 points = listOf(
-                    "IJCCM review (PGIMER): aspiration pneumonitis is the main toxicity — low viscosity, high volatility, low surface tension; even <1 mL aspirated can be serious.",
-                    "IJCCM review: aspiration occurs with coughing or gagging at ingestion, or with vomiting; ingestion without aspiration does not cause chemical pneumonitis.",
-                    "WHO (children): aspirated petroleum products can cause pulmonary oedema that takes hours to develop; ingestion can cause encephalopathy.",
-                    "WHO (children): most pesticides are in petrol-based solvents — do not induce vomiting after pesticide ingestion either.",
+                    "Aspiration of even <1 mL causes severe chemical pneumonitis and delayed pulmonary oedema; ingestion can also cause encephalopathy.",
+                    "Remove soiled clothing and wash contaminated skin or eyes with soap and water.",
+                    "Do NOT induce vomiting, lavage, or give charcoal (aspiration risk exceeds systemic absorption; same for petrol-solvent pesticides).",
                 ),
-                checklistTitle = "Signs of aspiration or toxicity (IJCCM review)",
+                checklistTitle = "Signs of Aspiration & Strict Don'ts",
                 checklist = listOf(
-                    "Coughing, choking or gagging at ingestion",
-                    "Vomiting",
-                    "Fast breathing, retractions, grunting",
-                    "Wheeze or bronchospasm",
-                    "Cyanosis or low SpO₂",
-                    "Drowsiness, ataxia, convulsions or coma",
+                    "Signs: coughing/choking/gagging, vomiting, tachypnoea, retractions, grunting, wheeze, cyanosis, low SpO2, drowsiness/seizures",
+                    "Do NOT induce vomiting or use salt-water emetic",
+                    "Do NOT perform gastric lavage",
+                    "Do NOT give activated charcoal",
                 ),
-                citations = listOf(
-                    cite(HH_KERO, "Kerosene — pathophysiology; clinical manifestations"),
-                    cite(HH_WHO, "§1.6 (pp. 26–27); §1.6.1 (p. 27); §1.6.4 Petroleum compounds; Organophosphorus and carbamate compounds (p. 30)"),
-                ),
+                citations = listOf(cite("tx-hh-ijccm-kerosene-2019", "Pathophysiology"), cite("tx-hh-who-pocketbook-2013", "§1.6.4, p. 30"), cite("tx-hh-ijccm-kerosene-2019", "Treatment"), cite("tx-hh-who-pocketbook-2013", "§1.6.2, p. 29"), cite("tx-hh-who-pocketbook-2013", "§1.6.1, §1.6.4"), cite("tx-hh-ijccm-kerosene-2019", "Pathophysiology; Treatment"), cite("tx-hh-who-pocketbook-2013", "§1.6.1–1.6.2, §1.6.4")),
             ),
-            // 2 ------------------------------------------------------------------------------------
             Step(
-                title = "Decontamination: what not to do",
-                timing = "First aid",
+                title = "Oxygen, respiratory support and chest X-ray",
+                timing = "CXR changes usually appear within 6 h (range 20 min–24 h)",
                 points = listOf(
-                    "IJCCM review: remove soiled clothing; wash contaminated skin or eyes. WHO (children): use soap and water for oily substances.",
-                    "WHO (children): after kerosene or petrol ingestion, do not induce vomiting; give water or, if available, milk orally; call an anaesthetist for the airway.",
-                    "IJCCM review: emesis and lavage are contraindicated — aspiration risk exceeds systemic absorption; charcoal does not bind kerosene and may induce vomiting.",
-                    "WHO (children): petroleum ingestion is a contraindication to gastric decontamination; do not give charcoal.",
+                    "Give humidified oxygen for respiratory distress/cyanosis, nebulised β2-agonists for bronchospasm, and restrict fluids to maintenance.",
+                    "Intubate early with a cuffed tube for refractory hypoxaemia or severe CNS depression; ventilate lung-protectively (6 mL/kg, plateau <30).",
+                    "Obtain chest X-ray for all symptomatic cases (bibasal/perihilar infiltrates usually appear within 6 h; pneumatoceles at 2–3 weeks).",
                 ),
-                checklistTitle = "Do not",
-                checklist = listOf(
-                    "Induce vomiting (WHO; IJCCM review)",
-                    "Gastric lavage (WHO; IJCCM review)",
-                    "Activated charcoal (WHO; IJCCM review)",
-                    "Salt-water emetic (WHO: can be fatal)",
-                ),
-                citations = listOf(
-                    cite(HH_KERO, "Treatment"),
-                    cite(HH_WHO, "§1.6.1 (pp. 27–28); §1.6.2 Skin contamination (p. 29); §1.6.4 Petroleum compounds (p. 30)"),
-                ),
+                citations = listOf(cite("tx-hh-who-pocketbook-2013", "§1.6.4, p. 30"), cite("tx-hh-ijccm-kerosene-2019", "Treatment"), cite("tx-hh-ijccm-kerosene-2019", "Investigations"), cite("tx-hh-ijccm-kerosene-2019", "Treatment; Investigations")),
             ),
-            // 3 ------------------------------------------------------------------------------------
-            Step(
-                title = "Oxygen and respiratory support",
-                timing = "Immediately if symptomatic",
-                points = listOf(
-                    "WHO (children): oxygen therapy if there is respiratory distress.",
-                    "IJCCM review: humidified oxygen and blood gas for grunting, tachypnoea or cyanosis; children with early respiratory compromise can deteriorate rapidly.",
-                    "IJCCM review: nebulised β2-agonists for bronchospasm; restrict fluids to maintenance to limit pulmonary oedema.",
-                    "IJCCM review: intubate early for hypoxaemia unresponsive to oxygen or severe CNS involvement; cuffed tube; lung-protective ventilation (6 mL/kg, plateau <30).",
-                ),
-                citations = listOf(
-                    cite(HH_WHO, "§1.6.4 Petroleum compounds (p. 30)"),
-                    cite(HH_KERO, "Treatment"),
-                ),
-            ),
-            // 4 ------------------------------------------------------------------------------------
-            Step(
-                title = "Chest X-ray",
-                timing = "Changes usually within 6 h in symptomatic cases (IJCCM review)",
-                points = listOf(
-                    "IJCCM review: chest X-ray for every child with kerosene ingestion and respiratory symptoms.",
-                    "IJCCM review: films may be normal at first; most symptomatic cases show changes within 6 h (range 20 min to 24 h).",
-                    "IJCCM review: typical findings — increased bronchovascular markings, bibasal and perihilar infiltrates; pneumatoceles may appear at 2–3 weeks.",
-                    "Anas 1981 (950 children): 800 who stayed asymptomatic through 6–8 h observation all had normal chest films and were treated as outpatients.",
-                ),
-                citations = listOf(
-                    cite(HH_KERO, "Laboratory investigations"),
-                    cite(HH_ANAS, "Abstract"),
-                ),
-            ),
-            // 5 ------------------------------------------------------------------------------------
             Step(
                 title = "Observe at least 6 hours",
-                timing = "Minimum 6 h observation (WHO; IJCCM review)",
+                timing = "Minimum 6 h observation before discharge",
                 points = listOf(
-                    "WHO (children): children who ingested petroleum products should not be sent home without at least 6 h observation.",
-                    "IJCCM review: respiratory symptoms usually start within 1 h and almost always within 6 h; may worsen until 24–48 h, then improve.",
-                    "IJCCM review: small ingestion with no aspiration symptoms (choking, coughing, vomiting, respiratory distress), normal saturation and no other features — " +
-                        "discharge after 6 h observation with advice to return if symptoms develop.",
-                    "IJCCM review: admit if symptomatic at presentation or within 6 h; intensive care for respiratory compromise or hypoxaemia.",
-                    "Anas 1981: only children symptomatic at presentation or during 6–8 h observation needed hospital admission.",
+                    "Observe every child for at least 6 hours; symptoms almost always start within 6 h and peak at 24–48 h.",
+                    "Discharge after 6–8 hours only if completely asymptomatic with normal saturation and return precautions; admit if any symptoms develop.",
                 ),
-                citations = listOf(
-                    cite(HH_WHO, "§1.6 Diagnosis (pp. 26–27)"),
-                    cite(HH_KERO, "Clinical manifestations; Disposition"),
-                    cite(HH_ANAS, "Abstract"),
-                ),
+                citations = listOf(cite("tx-hh-who-pocketbook-2013", "§1.6, pp. 26–27"), cite("tx-hh-ijccm-kerosene-2019", "Disposition"), cite("tx-hh-anas-1981", "Abstract")),
             ),
-            // 6 ------------------------------------------------------------------------------------
             Step(
-                title = "No routine steroids or antibiotics",
+                title = "No routine steroids or antibiotics; prevention",
                 points = listOf(
-                    "IJCCM review: no clear role for corticosteroids or prophylactic antibiotics.",
-                    "IJCCM review: antibiotics only with definite evidence of infection.",
-                    "IJCCM review: fever occurs in up to 30% and settles within 24 h in three-quarters; fever beyond 48–72 h suggests bacterial infection.",
+                    "Do not give routine corticosteroids or prophylactic antibiotics; early fever (≤30%) usually settles within 24 h.",
+                    "Suspect bacterial superinfection and start antibiotics only if fever persists beyond 48–72 h or definite infection signs appear.",
+                    "Counsel against storing kerosene in beverage bottles; arrange psychosocial assessment for deliberate ingestions.",
                 ),
-                citations = listOf(
-                    cite(HH_KERO, "Clinical manifestations; Treatment"),
-                ),
-            ),
-            // 7 ------------------------------------------------------------------------------------
-            Step(
-                title = "Prevention and deliberate ingestion",
-                points = listOf(
-                    "IJCCM review: store kerosene out of children's reach, never in soft-drink or beverage bottles; label containers 'poison'.",
-                    "WHO (children): teach parents to keep poisons in proper containers out of reach, and not to induce vomiting after kerosene or petrol.",
-                    "NICE NG225: after deliberate ingestion, offer psychosocial assessment alongside physical care.",
-                ),
-                citations = listOf(
-                    cite(HH_KERO, "Prevention"),
-                    cite(HH_WHO, "§1.6.5 Prevention of poisoning (p. 33)"),
-                    cite(HH_NICE, "Rec 1.7.3, 1.7.13"),
-                ),
+                citations = listOf(cite("tx-hh-ijccm-kerosene-2019", "Treatment"), cite("tx-hh-ijccm-kerosene-2019", "Clinical manifestations; Treatment"), cite("tx-hh-ijccm-kerosene-2019", "Prevention"), cite("tx-hh-who-pocketbook-2013", "§1.6.5, p. 33"), cite("tx-hh-nice-ng225", "Rec 1.7.3"), cite("tx-hh-ijccm-kerosene-2019", "Clinical manifestations; Treatment; Prevention")),
             ),
         ),
         notes = listOf(
-            ProtocolNote(
-                "The sources here address children (WHO pocket book, IJCCM review from PGIMER Chandigarh, Anas 1981); no adult-specific guidance was identified.",
-                listOf(cite(HH_WHO, "§1.6"), cite(HH_KERO, "Kerosene poisoning"), cite(HH_ANAS, "Abstract")),
-            ),
-            ProtocolNote(
-                "The WHO pocket book suggests water or milk by mouth after kerosene or petrol ingestion; the IJCCM review does not mention oral dilution and notes that vomiting increases aspiration risk.",
-                listOf(cite(HH_WHO, "§1.6.1 (p. 27)"), cite(HH_KERO, "Clinical manifestations; Treatment")),
-            ),
+            ProtocolNote("WHO suggests giving water or milk orally after petroleum ingestion, whereas IJCCM omits oral dilution because vomiting increases aspiration risk.", listOf(cite("tx-hh-who-pocketbook-2013", "§1.6.1, p. 27"), cite("tx-hh-ijccm-kerosene-2019", "Treatment"))),
         ),
-        citations = listOf(cite(HH_WHO), cite(HH_KERO), cite(HH_ANAS), cite(HH_NICE)),
+        citations = listOf(cite("tx-hh-ijccm-kerosene-2019"), cite("tx-hh-who-pocketbook-2013"), cite("tx-hh-anas-1981"), cite("tx-hh-nice-ng225")),
     ),
 )

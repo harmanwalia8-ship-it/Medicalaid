@@ -1,0 +1,61 @@
+{
+ "snakebite": {
+  "0.1": "once SC (0.1% solution) just before ASV",
+  "6.7": "ASV indications (WHO 2016 §6.7.2; NAPSE 2024)",
+  "22.75": "High risk (past reaction to or exposure to equine ASV, anti-tetanus or anti-rabies serum; severe atopy or asthma): MoHFW STG 2017 and WHO 2016 — ASV only for sy",
+  "25": "WHO 2016: biochemistry alone is not enough to start dialysis. AKI may need dialysis for up to 3 weeks, then kidney biopsy; in India 20–25% of Russell's viper AK",
+  "120": "MoHFW STG 2017 and WHO 2016: antihistamines, corticosteroids and infusion rate (10–120 min) do not change early reaction rates."
+ },
+ "scorpion-sting": {
+  "9": "Bawaskar 2011: all 9 patients who worsened had vomited their first oral dose, delaying it by 60 min; injectable prazosin is not available in India.",
+  "13": "JIPMER 2015 and 2018 (children ≤12–13 years): oral prazosin 30 µg/kg per dose every 3 h until the extremities are warm.",
+  "23": "Bawaskar 2011 RCT (grade 2, within 6 h): SAV plus prazosin resolved 91% within 10 h vs 23% on prazosin alone; mean recovery 8 vs 17.7 h.",
+  "91": "Bawaskar 2011 RCT (grade 2, within 6 h): SAV plus prazosin resolved 91% within 10 h vs 23% on prazosin alone; mean recovery 8 vs 17.7 h.",
+  "173": "Systematic review 2017: SAV plus prazosin gives faster resolution than prazosin alone (3 Indian trials, 173 patients) in adults and children over 6 months.",
+  "600": "Systematic review 2017 (Tunisian RCT, 600 patients): steroids gave no benefit. Kumar 2022: higher mortality seen in children given steroids and antihistamines."
+ },
+ "poisoning-general": {
+  "15": "check urine pH every 15–30 min, target 7.5–8.5."
+ },
+ "corrosives": {
+  "0": "Zargar 1991 (PGIMER): grades 0, 1 and 2a recovered without sequelae; 71.4% of 2b and all grade 3 survivors developed scarring.",
+  "1": "WSES 2019: transmural necrosis — operate as soon as possible (Grade 1C) and resect all obvious necrosis at the first operation (Grade 2A).",
+  "41": "ISG 2025 (41 modified-Delphi statements, Indian Society of Gastroenterology) was reviewed from its abstract only; consult the full guideline for statement-level"
+ },
+ "carbon-monoxide": {
+  "1": "ECHM 2016: give 100% oxygen immediately to anyone with CO poisoning as first aid (Type 1, Level C).",
+  "3": "ECHM 2016: minor CO poisoning — 12 h of normobaric oxygen or HBOT is reasonable (Type 3, Level B).",
+  "5.4": "FDA Nithiodote label §5.4: use with caution in smoke inhalation or CO poisoning — methaemoglobin may worsen hypoxia."
+ },
+ "hydrocarbons": {
+  "800": "Anas 1981 (950 children): 800 who stayed asymptomatic through 6–8 h observation all had normal chest films and were treated as outpatients.",
+  "950": "Anas 1981 (950 children): 800 who stayed asymptomatic through 6–8 h observation all had normal chest films and were treated as outpatients."
+ },
+ "organophosphate": {
+  "0.5": "Eddleston et al. 2009 RCT (2 g then 0.5 g/h, placebo-controlled, ): mortality , not significant; no benefit on intubation.",
+  "1.63": "Kharel et al. 2020 meta-analysis : no significant effect on mortality or ventilation; intermediate syndrome more frequent with pralidoxime (RR 1.63)."
+ },
+ "aluminium-phosphide": {
+  "9": "Gurjar et al. 2011: mortality 30–100%; survival unlikely if more than 1.5 g ingested, though survival after 9 g or more is reported.",
+  "50": "Gurjar et al. 2011: magnesium sulphate studies reported up to 50% lower mortality; regimens varied (e.g. 3 g over 3 h then 6 g/24 h for 3–5 days); routine use c",
+  "55": "Farahani et al. 2016: the same protocol is described as 55% survival, with no pH or base-excess difference between survivors and non-survivors and an overall ve",
+  "471": "Gurjar et al. 2011: in 471 patients, arterial pH, serum bicarbonate and ECG abnormalities were poor prognostic factors."
+ },
+ "zinc-phosphide": {
+  "19": "Faress et al. 2025: no clinical outcome studies of whole-bowel irrigation; a cardiac arrest at 19 h after PEG-ELS is reported; castor oil cathartic suggested by",
+  "90": "Faress et al. 2025: radiopaque material on abdominal X-ray is most useful; a negative film does not exclude toxicity, though 90% of patients with a negative fil"
+ },
+ "yellow-phosphorus": {
+  "6": "Mohanka et al. 2020: centre protocol gives NAC 100 mg/kg IV over 24 h for 5 days. Jubin et al. 2024: 19-patient series, extended NAC in 3 of 6 yellow phosphorus",
+  "7": "Mohanka et al. 2020: overall mortality 36.8% (7 of 19); 5 transplanted; 15 of 19 met King's College criteria.",
+  "15": "Mohanka et al. 2020: overall mortality 36.8% (7 of 19); 5 transplanted; 15 of 19 met King's College criteria.",
+  "19": "Mohanka et al. 2020: centre protocol uses gastric lavage without additives for patients presenting within 24 h (only 1 of 19 patients presented within 24 h).",
+  "36.8": "Mohanka et al. 2020: overall mortality 36.8% (7 of 19); 5 transplanted; 15 of 19 met King's College criteria."
+ },
+ "superwarfarin": {
+  "6.2": "D'Silva and Krishna 2019: factor half-lives — VII 6.2 h, IX 13.9 h, X 16.5 h, II 41 h; brodifacoum half-life 16–34 days.",
+  "13.9": "D'Silva and Krishna 2019: factor half-lives — VII 6.2 h, IX 13.9 h, X 16.5 h, II 41 h; brodifacoum half-life 16–34 days.",
+  "16.5": "D'Silva and Krishna 2019: factor half-lives — VII 6.2 h, IX 13.9 h, X 16.5 h, II 41 h; brodifacoum half-life 16–34 days.",
+  "41": "D'Silva and Krishna 2019: factor half-lives — VII 6.2 h, IX 13.9 h, X 16.5 h, II 41 h; brodifacoum half-life 16–34 days."
+ }
+}
