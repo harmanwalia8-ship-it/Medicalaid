@@ -1,7 +1,7 @@
 # Handoff — where the work stands (23 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.6.0** (versionCode 8), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.6.1** (versionCode 9), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
 scheduled task is disabled. Do not restart protocol writing without the user's go-ahead.
 
 ## Build and check
@@ -62,7 +62,12 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 ## Next steps, in order
 1–3. Done: head/spine and wounds/bites reviewed and fixed; 0.5.1 released and sent (23 Nov 2026).
 4. Done: limb/abdomen reviewed and fixed; 0.5.2 released and sent (23 Nov 2026). Trauma section complete.
-5. Obstetric batch 2: `earlypreg` done and released in 0.6.0. **Remaining protocols are now written by Gemini**
+5. Obstetric batch 2: `earlypreg` done and released in 0.6.0; **OB-A (APH, preterm labour) converted and released in
+   0.6.1** (`.claude-work/gemini-protocols/ob-a.md` → AntepartumHaemorrhage.kt via `convert_protocols.py`; usage:
+   `python3 -I convert_protocols.py <repo> <batch.md> <File.kt> <sourcesVal> <protocolsVal>`). OB-B → LabourEmergencies.kt
+   (labourEmergencySources/labourEmergencyProtocols); OB-C → MaternalMedical.kt (maternalMedicalSources/
+   maternalMedicalProtocols). Its `--rewrite` mode is NOT implemented yet (needed for R1–R8). **Remaining protocols are
+   written by Gemini**
    (user decision 23 Nov 2026: "let Gemini handle it"), compiled as written like the infections. The prompt is
    `.claude-work/gemini-prompts/protocols-obstetric-and-child.md` (batches OB-A aph, OB-B labour, OB-C maternalmed,
    then CH-A/CH-B child emergencies). When a batch arrives: save it under `.claude-work/gemini-protocols/`, write

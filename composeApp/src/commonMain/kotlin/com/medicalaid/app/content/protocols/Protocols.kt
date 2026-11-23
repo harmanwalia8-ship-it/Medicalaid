@@ -45,6 +45,8 @@ object Protocols {
         Group(limbAbdomenProtocols, limbAbdomenSources),
         // Obstetric emergencies batch 2 — early pregnancy reviewed for 0.6.0
         Group(earlyPregnancyProtocols, earlyPregnancySources),
+        // Gemini-written, compiled as written (not independently reviewed) — 0.6.1
+        Group(antepartumProtocols, antepartumSources),
     )
 
     /**
@@ -54,7 +56,6 @@ object Protocols {
     private val inReview = listOf(
         // Medical emergencies
         // Obstetric emergencies and trauma
-        Group(antepartumProtocols, antepartumSources),
         Group(labourEmergencyProtocols, labourEmergencySources),
         Group(maternalMedicalProtocols, maternalMedicalSources),
     )
