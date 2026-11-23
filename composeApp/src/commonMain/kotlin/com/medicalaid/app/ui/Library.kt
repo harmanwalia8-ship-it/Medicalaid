@@ -133,6 +133,16 @@ object Related {
         p("cardiac-arrest", "traumatic-cardiac-arrest", "maternal-collapse"),
         p("burns", "electrical-injury"),
         p("snakebite", "scorpion-sting"),
+        // Pregnancy and children ↔ adult protocols
+        p("maternal-sepsis", "sepsis", "miscarriage-septic-abortion"),
+        p("vte-in-pregnancy", "pulmonary-embolism"),
+        c("diabetes-pregnancy") + p("dka-in-pregnancy", "dka", "paediatric-dka"),
+        p("paediatric-arrest-seriously-ill-child", "neonatal-resuscitation", "cardiac-arrest"),
+        p("paediatric-sepsis", "sepsis"),
+        p("paediatric-status-epilepticus-febrile-seizures", "status-epilepticus"),
+        p("acute-asthma-child", "bronchiolitis", "croup", "acute-severe-asthma"),
+        c("inf-acute-diarrhoea") + p("dehydration-diarrhoea-child", "sam-with-complications"),
+        c("inf-dengue", "inf-malaria") + p("anaphylaxis-dengue-malaria-child", "anaphylaxis", "dengue-severe", "severe-malaria"),
     ) + Protocols.all.filter { it.category == ProtocolCategory.Poisoning && it.id != "poisoning-general" }
         .map { p(it.id, "poisoning-general") }
 

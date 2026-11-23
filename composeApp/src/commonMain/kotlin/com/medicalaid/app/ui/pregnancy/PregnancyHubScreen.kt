@@ -24,7 +24,8 @@ import com.medicalaid.app.ui.theme.Theme
 /** Most-needed first; anything not listed follows alphabetically. */
 private val EMERGENCY_ORDER = listOf(
     "pph", "eclampsia", "severe-pre-eclampsia", "antepartum-haemorrhage", "maternal-collapse", "preterm-labour",
-    "ectopic-pregnancy", "miscarriage-septic-abortion", "trauma-in-pregnancy", "hyperemesis-gravidarum",
+    "maternal-sepsis", "ectopic-pregnancy", "miscarriage-septic-abortion", "vte-in-pregnancy", "dka-in-pregnancy",
+    "trauma-in-pregnancy", "hyperemesis-gravidarum",
 )
 
 /** Pregnancy & labour hub: dating and antenatal schedule, obstetric emergencies, treatment in pregnancy. */

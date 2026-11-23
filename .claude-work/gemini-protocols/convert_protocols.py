@@ -19,7 +19,9 @@ CONTENT = ROOT / "composeApp/src/commonMain/kotlin/com/medicalaid/app/content"
 DATA = CONTENT / "protocols/data"
 URL = r"https?://(?:[^()\s]|\([^()\s]*\))+"
 LINK = re.compile(r"\[([^\]]*)\]\((" + URL + r")\)")
-CATEGORIES = {"Cardiac", "Respiratory", "Neuro", "Metabolic", "Infection", "Obstetric", "Trauma", "Environmental", "Poisoning"}
+CATEGORIES = {"Cardiac", "Respiratory", "Neuro", "Metabolic", "Infection", "Obstetric", "Paediatric", "Trauma", "Environmental", "Poisoning"}
+# Optional 6th argument forces one category for the whole batch (e.g. Paediatric for the child emergency batches).
+FORCE_CATEGORY = sys.argv[6] if len(sys.argv) > 6 else None
 TOOLS = {"OnsetClock", "ThrombolysisDose", "BurnsChart", "AcidBase"}
 AUTH = set(re.findall(r"^\s{4}(\w+)\(", (CONTENT / "Model.kt").read_text().split("enum class Authority")[1].split("}")[0], re.M))
 SCORES = set(re.findall(r'^\s*id = "([a-z0-9-]+)"', "\n".join(p.read_text() for p in (CONTENT / "scores/data").glob("*.kt")), re.M))
@@ -53,7 +55,10 @@ def kt(s):
 
 # Existing app sources: id and URL from every Source(...) declaration under content/.
 existing_by_url, existing_ids = {}, set()
+SELF = (DATA / sys.argv[3]).resolve() if sys.argv[3] != "--rewrite" else None
 for f in CONTENT.rglob("*.kt"):
+    if SELF is not None and f.resolve() == SELF:
+        continue  # the file being regenerated must keep its own sources
     txt = f.read_text()
     for m in re.finditer(r"Source\(\s*\"([a-z0-9-]+)\",\s*Authority\.\w+(.*?)\"(https://[^\"]+)\"", txt, re.S):
         sid, url = m.group(1), m.group(3)
@@ -112,10 +117,15 @@ def parse_dose(line, where):
     cap = None
     mm = re.match(r"^max\s+([\d,.]+)\s*(\S+)", plain(mx))
     if mm:
-        if mm.group(2) == unit:
-            cap = float(mm.group(1).replace(",", ""))
+        val, munit = float(mm.group(1).replace(",", "")), mm.group(2).rstrip(".,;")
+        mass = {"mcg": 0.001, "µg": 0.001, "mg": 1.0, "g": 1000.0}
+        if munit == unit:
+            cap = val
+        elif munit in mass and unit in mass:
+            cap = round(val * mass[munit] / mass[unit], 6)  # e.g. max 1 mg for a mcg/kg dose -> 1000 mcg
         else:
             note = (note + f"; max {mm.group(1)} {mm.group(2)}").strip("; ")
+            warn(f"{where}: max in {munit} cannot cap a {unit}/kg dose; kept as text")
     return (plain(label), lo, hi, unit, per, strip_links(note) or None, cap)
 
 
@@ -124,7 +134,7 @@ for block in re.split(r"^(?=## Protocol: )", md, flags=re.M)[1:]:
     block = block.split("\n## Sources")[0].split("\n## Possible issues")[0]
     pid = block.split("\n", 1)[0].replace("## Protocol:", "").strip()
     fld = lambda n: plain((re.search(rf"^- \*\*{n}:\*\* (.*)$", block, re.M) or [None, ""])[1])
-    cat = fld("Category")
+    cat = FORCE_CATEGORY or fld("Category")
     if cat not in CATEGORIES:
         warn(f"{pid}: category {cat} unknown; using Obstetric")
         cat = "Obstetric"

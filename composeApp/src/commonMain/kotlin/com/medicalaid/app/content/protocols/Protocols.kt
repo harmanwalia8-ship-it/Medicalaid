@@ -47,6 +47,10 @@ object Protocols {
         Group(earlyPregnancyProtocols, earlyPregnancySources),
         // Gemini-written, compiled as written (not independently reviewed) — 0.6.1
         Group(antepartumProtocols, antepartumSources),
+        Group(maternalMedicalProtocols, maternalMedicalSources),
+        // Child emergencies — Gemini-written, compiled as written (0.8.0)
+        Group(paediatricAProtocols, paediatricASources),
+        Group(paediatricBProtocols, paediatricBSources),
     )
 
     /**
@@ -57,7 +61,6 @@ object Protocols {
         // Medical emergencies
         // Obstetric emergencies and trauma
         Group(labourEmergencyProtocols, labourEmergencySources),
-        Group(maternalMedicalProtocols, maternalMedicalSources),
     )
 
     val all: List<Protocol> = released.flatMap { it.protocols }
