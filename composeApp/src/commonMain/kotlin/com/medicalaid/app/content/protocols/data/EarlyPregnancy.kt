@@ -589,16 +589,18 @@ internal val earlyPregnancyProtocols = listOf(
                 listOf(cite(NG126, "Rec 1.9.2"), cite(WHO_MCPC, "p. S-11"), cite(MOH09, "p. 98")),
             ),
             ProtocolNote(
-                "WHO MCPC 2017 (incomplete abortion >12–14 weeks: misoprostol 200 µg vaginally 4-hourly, maximum 800 µg, or oxytocin 40 units in 1 L) differs from the later WHO 2024 Recommendation 36b (400 µg every 3 h).",
-                listOf(cite(WHO_MCPC, "Table S-4 (p. S-13)"), cite(WHO_AC, "Rec 36b")),
+                "WHO MCPC 2017 (incomplete abortion >12–14 weeks: misoprostol 200 µg vaginally 4-hourly until expulsion, maximum 800 µg, or oxytocin 40 units in 1 L IV fluids at 40 drops/min — oxytocin only after 16 weeks, when misoprostol is not available) differs from the later WHO 2024 Recommendation 36b (400 µg every 3 h).",
+                listOf(cite(WHO_MCPC, "Box S-2 (p. S-12); Table S-4 (p. S-13)"), cite(WHO_AC, "Rec 36b")),
             ),
             ProtocolNote(
                 "Antibiotics for septic abortion differ by source: WHO MCPC 2017 — clindamycin or ampicillin with gentamicin; MoHFW 2009 — ampicillin, gentamicin and metronidazole; MoHFW CAC 2023 — ampicillin or azithromycin with metronidazole.",
                 listOf(cite(WHO_MCPC, "Table S-2 footnote"), cite(MOH09, "p. 147"), cite(CAC23, "p. 51")),
             ),
             ProtocolNote(
-                "India — MoHFW CAC 2023: the MTP (Amendment) Act 2021 and Rules 2021 allow termination up to 20 weeks on extended indications for any woman, up to 24 weeks for special categories, and at any gestation for substantial fetal abnormality approved by a Medical Board.",
-                listOf(cite(CAC23, "Ch. 2 (p. 5)")),
+                "India — MoHFW CAC 2023: the MTP (Amendment) Act 2021 and Rules 2021 allow termination up to 20 weeks on extended indications for any woman, up to 24 weeks for special categories, and at any gestation for substantial fetal abnormality approved by a Medical Board. " +
+                    "It is legal only if done by a registered medical practitioner with the training the MTP Rules prescribe, at a government hospital or approved place (MMA up to 9 weeks may be prescribed in a clinic with referral access to an approved site); " +
+                    "opinion of one RMP up to 20 weeks, two RMPs for 20–24 weeks, the Medical Board beyond 24 weeks; consent in Form C.",
+                listOf(cite(CAC23, "Ch. 2 (pp. 5–9)")),
             ),
             ProtocolNote(
                 "India — MoHFW CAC 2023: for a minor, POCSO Act section 19(1) requires reporting to the local or Special Juvenile Police (or the hospital medico-legal authority); providers need not file an FIR, and care must not be held up.",
@@ -606,7 +608,7 @@ internal val earlyPregnancyProtocols = listOf(
             ),
         ),
         citations = listOf(
-            cite(CAC23), cite(WHO_AC), cite(NG126), cite(WHO_MCPC), cite(MOH09), cite(PB200), cite(SSC26),
+            cite(CAC23), cite(WHO_AC), cite(NG126), cite(WHO_MCPC), cite(MOH09), cite(PB200), cite(SSC26), cite(WHO_TT),
         ),
     ),
     // =========================================================================================================
@@ -697,6 +699,7 @@ internal val earlyPregnancyProtocols = listOf(
                     "RCOG GTG 69: dextrose-containing fluids are appropriate for nausea and vomiting in the third trimester (starvation ketosis).",
                     "RCOG GTG 69: monitor fluids and electrolytes daily to detect and treat hyponatraemia and hypokalaemia — see the Hyponatraemia and Hypokalaemia protocols.",
                     "MoHFW 2009: admit, IV Ringer lactate or DNS, urine ketones 4-hourly until negative, antiemetics and multivitamins; discharge 24 h after vomiting stops and dehydration is corrected.",
+                    "RCOG GTG 69 differs: avoid dextrose-containing fluids such as DNS until parenteral thiamine has been given, and do not use ketones to guide treatment or hydration.",
                 ),
                 citations = listOf(
                     cite(GTG69, "§5.2.3; §6.1"),
