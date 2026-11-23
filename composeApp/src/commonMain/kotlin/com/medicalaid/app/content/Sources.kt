@@ -242,6 +242,12 @@ object Sources {
             "https://www.fda.gov/media/188843/download",
         ),
         Source(
+            "fda-label-ondansetron-injection", Authority.FDA, "Drug label (DailyMed)",
+            "Ondansetron injection — Apotex", "2026",
+            "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=60d09eb8-40e8-48f8-bbbf-70ba701754e2",
+            status = "Label version effective March 2026",
+        ),
+        Source(
             "cdc-sti-vvc", Authority.CDC, "STI Treatment Guidelines",
             "Vulvovaginal Candidiasis", "2021",
             "https://www.cdc.gov/std/treatment-guidelines/candidiasis.htm",
@@ -280,6 +286,12 @@ object Sources {
             "rcog-gtg43", Authority.RCOG, "Green-top Guideline No. 43",
             "Intrahepatic Cholestasis of Pregnancy", "2022",
             "https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/intrahepatic-cholestasis-of-pregnancy-green-top-guideline-no-43/",
+        ),
+        Source(
+            "rcog-gtg69", Authority.RCOG, "Green-top Guideline No. 69 (BJOG 2024;131(7):e1–e30)",
+            "The Management of Nausea and Vomiting in Pregnancy and Hyperemesis Gravidarum", "2024",
+            "https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/the-management-of-nausea-and-vomiting-of-pregnancy-and-hyperemesis-gravidarum-green-top-guideline-no-69/",
+            status = "Second edition, replaces the 2016 guideline; review due to start 2027",
         ),
         Source(
             "ada-s2", Authority.ADA, "Standards of Care 2026 · Section 2",

@@ -17,7 +17,15 @@ internal object PregnancyConditions {
         tiers = listOf(
             Tier(
                 "Step 1 · Start here", null,
-                listOf(Drug("Ginger", "250 mg capsules orally four times daily.", citations = pb189)),
+                listOf(
+                    Drug(
+                        "Ginger", "250 mg capsules orally four times daily.",
+                        cautions = listOf(
+                            "RCOG GTG 69 (2024): do not suggest ginger for severe NVP or hyperemesis gravidarum — little or no benefit and worse symptoms in over half of women with HG; it may delay effective treatment.",
+                        ),
+                        citations = pb189 + cite("rcog-gtg69", "§5.2.1"),
+                    ),
+                ),
             ),
             Tier(
                 "Step 2 · First-line drug therapy", "Choose one.",
@@ -59,8 +67,11 @@ internal object PregnancyConditions {
                 listOf(
                     Drug(
                         "Metoclopramide", "5–10 mg every 6–8 hours, orally or intramuscularly.",
-                        cautions = listOf("Risk of tardive dyskinesia; rarely neuroleptic malignant syndrome."),
-                        citations = pb189,
+                        cautions = listOf(
+                            "Risk of tardive dyskinesia; rarely neuroleptic malignant syndrome.",
+                            "EMA (quoted by RCOG GTG 69): maximum 30 mg or 0.5 mg/kg in 24 hours, whichever is lower; RCOG GTG 69 gives 5–10 mg every 8 hours.",
+                        ),
+                        citations = pb189 + cite("rcog-gtg69", "§5.2.2; Appendix III"),
                     ),
                     Drug(
                         "Ondansetron", "4 mg orally every 8 hours.",
@@ -80,17 +91,24 @@ internal object PregnancyConditions {
                     Drug(
                         "Thiamine", "100 mg IV with the initial rehydration fluid, then 100 mg daily for the next 2–3 days (followed by IV multivitamins).",
                         cautions = listOf(
-                            "For women needing IV hydration who have vomited for more than 3 weeks.",
+                            "RCOG GTG 69 (2024): give thiamine to all women admitted with vomiting or severely reduced intake — oral 100 mg three times daily or IV as vitamin B complex; stores can run out within 1 week.",
+                            "ACOG PB 189: for women needing IV hydration who have vomited for more than 3 weeks.",
                             "Give before dextrose to prevent Wernicke encephalopathy.",
                         ),
-                        citations = pb189,
+                        citations = pb189 + cite("rcog-gtg69", "Key recommendations; §5.1; §5.2.3"),
                     ),
                     Drug("Dimenhydrinate", "50 mg IV (in 50 mL saline over 20 minutes) every 4–6 hours.", citations = pb189),
-                    Drug("Metoclopramide", "5–10 mg IV every 8 hours.", citations = pb189),
+                    Drug(
+                        "Metoclopramide", "5–10 mg IV every 8 hours.",
+                        cautions = listOf(
+                            "RCOG GTG 69: give IV doses by slow bolus over at least 3 minutes to reduce extrapyramidal effects.",
+                        ),
+                        citations = pb189 + cite("rcog-gtg69", "Key recommendations; §5.2.2"),
+                    ),
                     Drug(
                         "Ondansetron", "8 mg IV over 15 minutes every 12 hours.",
-                        cautions = listOf("FDA: do not give more than 16 mg IV in a single dose."),
-                        citations = pb189,
+                        cautions = listOf("FDA injection label: maximum 16 mg per IV dose; ondansetron prolongs the QT interval in a dose-dependent manner."),
+                        citations = pb189 + cite("fda-label-ondansetron-injection", "§2.1; §5.2"),
                     ),
                     Drug("Promethazine", "12.5–25 mg IV every 4–6 hours.", citations = pb189),
                 ),
@@ -104,10 +122,11 @@ internal object PregnancyConditions {
                         "16 mg every 8 hours, orally or IV, for 3 days. Taper over 2 weeks to the lowest effective dose.",
                         maxDose = "Limit total duration to 6 weeks",
                         cautions = listOf(
-                            "Last-resort treatment. Avoid as a first-line agent before 10 weeks (oral clefts).",
+                            "ACOG PB 189: last-resort treatment; avoid as a first-line agent before 10 weeks (oral clefts).",
+                            "RCOG GTG 69 (2024): only after IV fluids and regular antiemetics have failed; no increase in orofacial clefts, cardiac defects or hypospadias after first-trimester corticosteroids (data limited to about 3500 exposures).",
                             "If no response within 3 days, stop.",
                         ),
-                        citations = pb189,
+                        citations = pb189 + cite("rcog-gtg69", "§5.2.1; §5.2.2"),
                     ),
                 ),
             ),
@@ -115,9 +134,10 @@ internal object PregnancyConditions {
         escalate = listOf(
             "Admit if she cannot tolerate liquids without vomiting and has not responded to outpatient management.",
             "Admit for change in vital signs or mental status, continued weight loss, or refractory symptoms.",
+            "RCOG GTG 69 (2024): offer LMWH thromboprophylaxis to women admitted with HG; graduated compression stockings if LMWH is contraindicated.",
             "If nutritional support is needed, enteral tube feeding is first line.",
         ),
-        citations = listOf(cite("acog-pb189")),
+        citations = listOf(cite("acog-pb189"), cite("rcog-gtg69", "§5.2.3")),
     )
 
     val feverPain = Condition(

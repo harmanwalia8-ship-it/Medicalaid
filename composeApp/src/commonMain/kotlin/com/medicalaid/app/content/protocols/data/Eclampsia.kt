@@ -30,7 +30,7 @@ internal val eclampsiaSources = listOf(
     ),
     Source(
         "ob-ecl-mohfw-stg-obg", Authority.MoHFW, "Standard Treatment Guidelines (Clinical Establishments Act series)",
-        "Standard Treatment Guidelines: Obstetrics & Gynaecology — Hypertension in pregnancy/Preeclampsia; Eclampsia", "2017",
+        "Standard Treatment Guidelines: Obstetrics & Gynaecology", "2017",
         "https://clinicalestablishments.mohfw.gov.in/sites/default/files/standard-treatment-guidelines/4571.pdf",
         status = "Undated document; year taken from the PDF (created October 2017)",
     ),
