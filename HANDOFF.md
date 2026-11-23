@@ -64,8 +64,13 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    release 0.5.4. Each: write → numbers review → safety review → fixer.
 5b. **Infections A–Z next, before child emergencies** (user decision 23 Nov 2026). The user is having Gemini draft
    infection pages from a 0.5.1 repo zip: Batch 2 (D–H: dengue, diphtheria, enteric fever, filariasis, giardiasis,
-   gonorrhoea, hepatitis A/E, hepatitis B) is saved at `.claude-work/infections/gemini-batch2-D-H.md`; the user
-   will upload Batch 1 (A–C) — save it beside it. User decisions:
+   gonorrhoea, hepatitis A/E, hepatitis B) is saved at `.claude-work/infections/gemini-batch2-D-H.md`; Batch 1 (A–C:
+   acute diarrhoea/cholera, amoebiasis, ascariasis/STH, bacterial meningitis, brucellosis, chickenpox, chikungunya,
+   CAP; 21 sources, 7 photos) at `.claude-work/infections/gemini-batch1-A-C.md` — its "Integration Spec" section
+   describes the intended model (Population.Infections, ConditionImage, Conditions released/inReview infections,
+   Sources registration, ContentIntegrityTest checks, collapsible photo card in ConditionScreen). Overlaps with
+   released protocols — bacterial meningitis (NeuroEmergencies) and severe dengue (InfectionEmergencies) — must be
+   consistent and cross-linked; reviewers should compare them. User decisions:
    - Treat Gemini's documents as **writer drafts**: convert to app pages, then numbers review → safety review →
      fixer against the primary sources, exactly like protocols. Gemini's "verified" claims are not trusted.
    - **Include the open-licence photos**: verify each Wikimedia licence and author on the file page, show the
