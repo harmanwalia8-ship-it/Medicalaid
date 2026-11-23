@@ -72,10 +72,14 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    Sources registration, ContentIntegrityTest checks, collapsible photo card in ConditionScreen). Overlaps with
    released protocols — bacterial meningitis (NeuroEmergencies) and severe dengue (InfectionEmergencies) — must be
    consistent and cross-linked; reviewers should compare them. User decisions:
-   - Treat Gemini's documents as **writer drafts**: convert to app pages, then numbers review → safety review →
-     fixer against the primary sources, exactly like protocols. Gemini's "verified" claims are not trusted.
-   - **Include the open-licence photos**: verify each Wikimedia licence and author on the file page, show the
-     credit and licence under the photo, bundle images offline. Drop any photo whose licence cannot be confirmed.
+   - **No review cycle for the Gemini infection batches** (user decision 23 Nov 2026, superseding the earlier
+     "treat as drafts" answer, to save tokens: "just compile whatever Gemini has done"). Convert the content as
+     written; only compile + ContentIntegrityTest (citations resolve, no unused sources, https URLs). Do not run
+     numbers/safety reviewers or a fixer on them. Add a README "Known gaps" line: infection pages drafted by Gemini,
+     not independently reviewed. This applies only to the Gemini infection batches; protocols keep the full cycle.
+   - **Include the open-licence photos**: check each licence/author with one Wikimedia API lookup per file (a
+     copyright check, not a clinical one), show credit and licence under the photo, bundle images offline. Drop any
+     photo whose licence does not match.
    - The drafts assume a content model that does not exist yet (`Population.Infections`, `ConditionImage` +
      `Condition.image`, grouped released/in-review infection conditions, an image fetch script). Build it to fit the
      existing Condition model and the app's UI rules, with in-review gating like `Protocols.inReview`.
@@ -91,7 +95,7 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 | 0.5.2 (7) | limb/abdomen trauma | trauma complete |
 | 0.5.3 (8) | early pregnancy + APH/preterm labour | |
 | 0.5.4 (9) | labour-room emergencies + maternal medical (sepsis, VTE, DKA in pregnancy) | obstetric complete |
-| 0.6.0 (10) | Infections A–Z from Gemini drafts, reviewed: Batch 1 A–C (when uploaded) + Batch 2 D–H, with photos | user moved ahead of ROADMAP 1 |
+| 0.6.0 (10) | Infections A–Z from Gemini (compiled as written, not reviewed): Batch 1 A–C + Batch 2 D–H, with photos | user moved ahead of ROADMAP 1 |
 | 0.6.1 (11) | child emergencies part 1: arrest/seriously ill child, neonatal resuscitation, sepsis, seizures, DKA | ROADMAP 1 |
 | 0.6.2 (12) | child emergencies part 2: asthma/bronchiolitis/croup, diarrhoea, SAM, anaphylaxis/dengue/malaria | ROADMAP 1 |
 | 0.7.0 (13) | antibiotics in Drugs + remaining Infections A–Z | ROADMAP 2; split into two APKs if large |
