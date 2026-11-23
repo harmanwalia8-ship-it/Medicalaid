@@ -405,6 +405,7 @@ object Sources {
 
     /** Guideline documents plus the drug labels cited by the drug database. */
     val all: List<Source> = guidelines + cardioRenalConditionSources + heartConditionSources + substanceConditionSources +
+        Conditions.infectionSources +
         com.medicalaid.app.content.drugs.Drugs.sources +
         com.medicalaid.app.content.scores.Scores.sources + com.medicalaid.app.content.protocols.Protocols.sources
 

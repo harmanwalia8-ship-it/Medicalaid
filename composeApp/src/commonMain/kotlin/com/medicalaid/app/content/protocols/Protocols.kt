@@ -43,6 +43,8 @@ object Protocols {
         Group(woundsBitesProtocols, woundsBitesSources),
         // Trauma — reviewed for 0.5.2 (completes the trauma section)
         Group(limbAbdomenProtocols, limbAbdomenSources),
+        // Obstetric emergencies batch 2 — early pregnancy reviewed for 0.6.0
+        Group(earlyPregnancyProtocols, earlyPregnancySources),
     )
 
     /**
@@ -52,7 +54,6 @@ object Protocols {
     private val inReview = listOf(
         // Medical emergencies
         // Obstetric emergencies and trauma
-        Group(earlyPregnancyProtocols, earlyPregnancySources),
         Group(antepartumProtocols, antepartumSources),
         Group(labourEmergencyProtocols, labourEmergencySources),
         Group(maternalMedicalProtocols, maternalMedicalSources),

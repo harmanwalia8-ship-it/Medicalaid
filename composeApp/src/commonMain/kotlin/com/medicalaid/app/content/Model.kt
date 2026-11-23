@@ -58,12 +58,17 @@ enum class Authority(val short: String, val india: Boolean = false) {
     WSES("WSES"),
     EAST("EAST"),
     JTS("Joint Trauma System"),
+    NCDC("NCDC India", india = true),
+    NCVBDC("NCVBDC India", india = true),
+    NTEP("NTEP India", india = true),
+    IAP("IAP India", india = true),
 }
 
 /** Which patients a page is written for. */
 enum class Population(val label: String) {
     Pregnancy("In pregnancy"),
     General("General adult"),
+    Infections("Infections"),
 }
 
 /** Interactive calculators that can be attached to a condition page. */
@@ -115,6 +120,8 @@ data class Condition(
     val keywords: List<String>,
     val population: Population = Population.Pregnancy,
     val tool: ToolKind? = null,
+    /** Optional reference photo (bundled offline), shown with its credit and licence. */
+    val image: ConditionImage? = null,
     /** Non-drug first steps. */
     val firstSteps: List<String> = emptyList(),
     /** Criteria, targets and thresholds shown before the treatment steps. */
@@ -124,6 +131,18 @@ data class Condition(
     /** Red flags / when to escalate or refer. */
     val escalate: List<String> = emptyList(),
     val citations: List<Citation>,
+)
+
+/**
+ * An openly licensed reference photo bundled with the app (composeResources/drawable/[resName].jpg).
+ * [credit] and [licence] are as listed on the Wikimedia Commons file page [sourceUrl].
+ */
+data class ConditionImage(
+    val resName: String,
+    val caption: String,
+    val credit: String,
+    val licence: String,
+    val sourceUrl: String,
 )
 
 /** A step of treatment, e.g. "First line" or "If dehydrated". */

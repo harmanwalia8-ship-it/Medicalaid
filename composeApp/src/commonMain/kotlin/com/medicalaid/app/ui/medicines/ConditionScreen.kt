@@ -33,7 +33,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.Image
+import com.medicalaid.app.content.ConditionImage
+import com.medicalaid.app.resources.Res
+import com.medicalaid.app.resources.allDrawableResources
+import org.jetbrains.compose.resources.painterResource
 import com.medicalaid.app.content.Caution
 import com.medicalaid.app.content.Condition
 import com.medicalaid.app.content.Drug
@@ -83,6 +90,7 @@ fun ConditionScreen(
     val targetIndex = remember(condition.id, highlightDrug) {
         if (highlightDrug == null) return@remember -1
         var i = 1 // title
+        if (condition.image != null) i++
         if (condition.tool != null) i++
         if (hasWeightDosing) i++
         if (condition.firstSteps.isNotEmpty()) i += 2
@@ -122,6 +130,8 @@ fun ConditionScreen(
                 }
             }
         }
+
+        condition.image?.let { img -> item { ConditionPhoto(img) } }
 
         condition.tool?.let { tool ->
             item {
@@ -326,5 +336,27 @@ private fun AvoidCard(caution: Caution, modifier: Modifier = Modifier) {
         Text(caution.reason, style = Theme.type.body, color = c.textSecondary)
         Spacer(Modifier.height(14.dp))
         GuidelineBasis(caution.citations, compact = true)
+    }
+}
+
+/** Reference photo with its caption, credit and licence; the credit line opens the Commons file page. */
+@Composable
+private fun ConditionPhoto(image: ConditionImage) {
+    val res = Res.allDrawableResources[image.resName] ?: return
+    val c = Theme.colors
+    val uri = LocalUriHandler.current
+    Column(Modifier.padding(horizontal = Gutter).padding(top = 16.dp)) {
+        Image(
+            painterResource(res), contentDescription = image.caption,
+            modifier = Modifier.fillMaxWidth().height(200.dp).clip(Radius.card).background(c.surfaceMuted),
+            contentScale = ContentScale.Fit,
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(image.caption, style = Theme.type.caption, color = c.textSecondary)
+        Text(
+            "Photo: ${image.credit} · ${image.licence} · Wikimedia Commons",
+            style = Theme.type.caption, color = c.textTertiary,
+            modifier = Modifier.padding(top = 2.dp).clickable { runCatching { uri.openUri(image.sourceUrl) } },
+        )
     }
 }

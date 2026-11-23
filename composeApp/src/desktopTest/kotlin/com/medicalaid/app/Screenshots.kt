@@ -123,6 +123,8 @@ class Screenshots {
         shot("35-scores-list", heightDp = 1500) { com.medicalaid.app.ui.scores.ScoresScreen("", {}, {}, {}, pad) }
         shot("36-home-v3") { HomeScreen("", {}, {}, {}, {}, {}, pad) }
         shot("37-treatment-general", heightDp = 1300) { MedicinesScreen("", {}, Population.General, {}, { _, _ -> }, pad) }
+        shot("37b-treatment-infections", heightDp = 1300) { MedicinesScreen("", {}, Population.Infections, {}, { _, _ -> }, pad) }
+        shot("37c-infection-dengue", heightDp = 3200) { ConditionScreen(Conditions.byId("inf-dengue")!!, null, null, {}, pad) }
         shot("38-hypertension", heightDp = 4200) { ConditionScreen(Conditions.byId("hypertension-general")!!, null, null, {}, pad) }
         shot("40-hypertension-india", heightDp = 2600) {
             ConditionScreen(Conditions.byId("hypertension-general")!!, null, null, {}, pad, initialGuideline = com.medicalaid.app.ui.medicines.GuidelineGroup.India)

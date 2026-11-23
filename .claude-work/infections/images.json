@@ -1,0 +1,228 @@
+{
+ "inf_vibrio_cholerae": {
+  "ok": true,
+  "credit": "CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Vibrio_cholerae_gram_stain_CDC.jpg"
+ },
+ "inf_entamoeba_histolytica": {
+  "ok": true,
+  "credit": "CDC/ Dr. George Healy",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Entamoeba_histolytica_01.jpg"
+ },
+ "inf_ascaris_egg": {
+  "ok": true,
+  "credit": "CDC/ Dr. Mae Melvin",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Fertilized_egg_of_Ascaris_lumbricoides_PHIL_410_lores.jpg"
+ },
+ "inf_brucella_spp": {
+  "ok": true,
+  "credit": "CDC/Courtesy of Larry Stauffer, Oregon State Public Health Laboratory",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Brucella_spp.JPG"
+ },
+ "inf_chickenpox_rash": {
+  "ok": true,
+  "credit": "CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Chickenpox.jpg"
+ },
+ "inf_chikungunya_rash": {
+  "ok": true,
+  "credit": "EEIM",
+  "licence": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Chikungu%C3%B1a_2_en_Col.jpg"
+ },
+ "inf_lobar_pneumonia_cxr": {
+  "ok": true,
+  "credit": "Mikael Häggström, M.D.",
+  "licence": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File:X-ray_of_lobar_pneumonia.jpg"
+ },
+ "inf_dengue_rash": {
+  "ok": true,
+  "credit": "Ranjan Premaratna. Professor in medicine. Department of medicine. University of kelaniya. Sri Lanka.",
+  "licence": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Dengue_recovery_rash_(White_islands_in_red_sea).jpg"
+ },
+ "inf_diphtheria_bull_neck": {
+  "ok": true,
+  "credit": "CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Diphtheria_bull_neck.5325_lores.jpg"
+ },
+ "inf_typhoid_rose_spots": {
+  "ok": true,
+  "credit": "CDC/Armed Forces Institute of Pathology, Charles N. Farmer",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Salmonella_typhi_typhoid_fever_PHIL_2215_lores.jpg"
+ },
+ "inf_wuchereria_bancrofti": {
+  "ok": true,
+  "credit": "CDC DPDx",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Wuchereria_bancrofti_1_DPDX.JPG"
+ },
+ "inf_giardia_lamblia": {
+  "ok": true,
+  "credit": "CDC / Mahmud Tari",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Giardia_lamblia_SEM_8698_lores.jpg"
+ },
+ "inf_neisseria_gonorrhoeae": {
+  "ok": true,
+  "credit": "CDC/ Dr. Norman Jacobs",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Neisseria_gonorrhoeae_PHIL_3693_lores.jpg"
+ },
+ "inf_scleral_icterus": {
+  "ok": true,
+  "credit": "Sheila J. Toro",
+  "licence": "CC BY 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Scleral_Icterus.jpg"
+ },
+ "inf_hepatitis_b_virions": {
+  "ok": true,
+  "credit": "This media comes from the Centers for Disease Control and Prevention's Public Health Image Library (PHIL), with identification number #270. Note: Not all PHIL i",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Hepatitis_B_virus_01.jpg"
+ },
+ "inf_hcv_em": {
+  "ok": false,
+  "why": "lookup failed: HTTP Error 429: Too Many Requests"
+ },
+ "inf_herpes_zoster": {
+  "ok": true,
+  "credit": "Apple2000",
+  "licence": "CC BY-SA 3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Herpes_zoster_back.jpg"
+ },
+ "inf_hiv_budding": {
+  "ok": true,
+  "credit": "C. Goldsmith CDC/ C. Goldsmith, P. Feorino, E. L. Palmer, W. R. McManus",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:HIV-budding-Color.jpg"
+ },
+ "inf_hookworm_egg": {
+  "ok": true,
+  "credit": "CDC, Courtesy: Public Health Image Library",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Necator_americanus,_Ancylostoma_duodenale_egg.jpg"
+ },
+ "inf_influenza_h1n1": {
+  "ok": true,
+  "credit": "C. S. Goldsmith and A. Balish, CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:CDC-11215-swine-flu.jpg"
+ },
+ "inf_japanese_encephalitis": {
+  "ok": true,
+  "credit": "CDC Global",
+  "licence": "CC BY 2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Examination_of_Encephalitis_Patient_-_Bangladesh_(17057553625).jpg"
+ },
+ "inf_kala_azar_ld_bodies": {
+  "ok": true,
+  "credit": "Ajay Kumar Chaurasiya",
+  "licence": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Leishmania_donovani_amastigotes_in_Giemsa_stained_smear_of_FNAC.jpg"
+ },
+ "inf_leprosy_mb": {
+  "ok": true,
+  "credit": "Centers for Disease Control (USA)",
+  "licence": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File:Multibacillary_leprosy_lesion.jpg"
+ },
+ "inf_leptospira_sem": {
+  "ok": true,
+  "credit": "CDC/ Rob Weyant",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Leptospira_scanning_micrograph.jpg"
+ },
+ "inf_malaria_pf_rings": {
+  "ok": false,
+  "why": "download failed: HTTP Error 429: Too many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)"
+ },
+ "inf_measles_koplik": {
+  "ok": true,
+  "credit": "CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Koplik_spots,_measles_6111_lores.jpg"
+ },
+ "inf_mumps_parotitis": {
+  "ok": true,
+  "credit": "CDC/NIP/Barbara Rice",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Mumps_PHIL_130_lores.jpg"
+ },
+ "inf_pertussis_gram": {
+  "ok": true,
+  "credit": "CDC Public Health Image Library",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Bordetella_pertussis.jpg"
+ },
+ "inf_plague_wayson": {
+  "ok": true,
+  "credit": "U.S. Center for Disease Control",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Yersinia_pestis_wayson.jpg"
+ },
+ "inf_rabies_negri": {
+  "ok": true,
+  "credit": "CDC/Dr. Daniel P. Perl",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Rabies_encephalitis_Negri_bodies_PHIL_3377_lores.jpg"
+ },
+ "inf_rubella_rash": {
+  "ok": true,
+  "credit": "CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Rubella.jpg"
+ },
+ "inf_scabies_burrow": {
+  "ok": true,
+  "credit": "Michael Geary",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Scabies-burrow.jpg"
+ },
+ "inf_scrub_typhus_eschar": {
+  "ok": false,
+  "why": "lookup failed: HTTP Error 429: Too Many Requests"
+ },
+ "inf_syphilis_palms": {
+  "ok": true,
+  "credit": "CDC/ Robert Sumpter",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Secondary_Syphilis_on_palms_CDC_6809_lores.rsh.jpg"
+ },
+ "inf_tetanus_opisthotonos": {
+  "ok": true,
+  "credit": "CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:PHIL_tetanus.jpg"
+ },
+ "inf_tb_cxr": {
+  "ok": true,
+  "credit": "CDC",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Tuberculosis-x-ray.jpg"
+ },
+ "inf_uti_ecoli_sem": {
+  "ok": false,
+  "why": "lookup failed: HTTP Error 429: Too Many Requests"
+ },
+ "inf_ebola_virion": {
+  "ok": true,
+  "credit": "CDC/Cynthia Goldsmith",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Ebola_virus_virion.jpg"
+ },
+ "inf_zika_em": {
+  "ok": true,
+  "credit": "CDC/ Cynthia Goldsmith",
+  "licence": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File:Zika_EM_CDC_20538.png"
+ }
+}
