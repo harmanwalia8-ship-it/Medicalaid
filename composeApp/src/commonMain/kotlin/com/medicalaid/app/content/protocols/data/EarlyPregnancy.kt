@@ -128,7 +128,8 @@ internal val earlyPregnancyProtocols = listOf(
         keywords = listOf(
             "ectopic", "ectopic pregnancy", "tubal pregnancy", "ruptured ectopic", "PUL", "pregnancy of unknown location",
             "methotrexate", "MTX", "beta hCG", "β-hCG", "hCG", "salpingectomy", "salpingotomy", "salpingostomy",
-            "haemoperitoneum", "hemoperitoneum", "culdocentesis", "heterotopic", "adnexal mass", "garbhashay ke bahar garbh", "nali mein garbh", "Biotrexate", "Imutrex", "Folitrax",
+            "haemoperitoneum", "hemoperitoneum", "culdocentesis", "heterotopic", "adnexal mass",
+            "garbhashay ke bahar garbh", "nali mein garbh", "Biotrexate", "Imutrex", "Folitrax",
         ),
         steps = listOf(
             // 1 ------------------------------------------------------------------------------------
@@ -538,7 +539,7 @@ internal val earlyPregnancyProtocols = listOf(
                     "WHO MCPC 2017: uterine, vaginal or bowel injury — laparotomy to repair it, with manual vacuum aspiration at the same time; seek further help as needed.",
                     "MoHFW CAC 2023: suspected perforation — stop, remove instruments, IV fluids; refer up if unstable, still bleeding or cannula ≥8 mm; bowel or omentum seen — IV antibiotics too.",
                     "WHO MCPC 2017 (unsafe abortion): immunised — tetanus toxoid booster 0.5 mL IM; not immunised — antitetanus serum 1500 units IM and toxoid 0.5 mL IM after 4 weeks.",
-                    "WHO 2017 tetanus position paper (later): after an injury, a vaccine dose, preferably Td; dirty wounds in incompletely immunised women — TIG, preferably of human origin. See the Tetanus prophylaxis protocol.",
+                    "WHO 2017 tetanus position paper: after an injury, a vaccine dose, preferably Td; dirty wounds in incompletely immunised women — TIG, preferably of human origin. See the Tetanus prophylaxis protocol.",
                 ),
                 checklistTitle = "Injury (WHO MCPC 2017 Table S-2)",
                 checklist = listOf(
@@ -702,7 +703,7 @@ internal val earlyPregnancyProtocols = listOf(
                     "RCOG GTG 69 differs: avoid dextrose-containing fluids such as DNS until parenteral thiamine has been given, and do not use ketones to guide treatment or hydration.",
                 ),
                 citations = listOf(
-                    cite(GTG69, "§5.2.3; §6.1"),
+                    cite(GTG69, "§5.2.3; §6; §6.1"),
                     cite(MOH09, "Case study 25 (p. 143)"),
                 ),
             ),
@@ -739,7 +740,9 @@ internal val earlyPregnancyProtocols = listOf(
                     "RCOG GTG 69 first line: prochlorperazine 5–10 mg 6–8-hourly PO, 12.5 mg 8-hourly IM/IV or 25 mg PR daily; chlorpromazine 10–25 mg 4–6-hourly PO/IM/IV.",
                     "RCOG GTG 69 second line: metoclopramide 5–10 mg 8-hourly PO/IV/IM/SC, IV by slow bolus over ≥3 min; domperidone 10 mg 8-hourly PO or 30 mg 12-hourly PR.",
                     "RCOG GTG 69 second line: ondansetron 4 mg 8-hourly or 8 mg 12-hourly PO, 8 mg IV over 15 min 12-hourly, or 16 mg PR daily; may need laxatives.",
-                    "FDA labels: ondansetron — ECG monitoring if hypokalaemia or hypomagnesaemia, avoid in congenital long QT; metoclopramide — boxed warning for tardive dyskinesia, shortest duration.",
+                    "RCOG GTG 69: phenothiazines and metoclopramide can cause extrapyramidal symptoms and oculogyric crises — ask about previous reactions and stop the drug promptly if one occurs.",
+                    "FDA labels: ondansetron — avoid in congenital long QT; ECG monitoring with hypokalaemia or hypomagnesaemia, heart failure, bradyarrhythmia or other QT-prolonging drugs; serotonin syndrome reported, mostly with serotonergic drugs.",
+                    "FDA label: metoclopramide — boxed warning for tardive dyskinesia, shortest duration.",
                 ),
                 doses = listOf(
                     StepDose(
@@ -750,8 +753,8 @@ internal val earlyPregnancyProtocols = listOf(
                     ),
                 ),
                 citations = listOf(
-                    cite(GTG69, "§5.2.1; §5.2.2; Appendix III"),
-                    cite(OND_LABEL, "§5.2"),
+                    cite(GTG69, "Key recommendations; §5.2.1; §5.2.2; Appendix III"),
+                    cite(OND_LABEL, "§5.2; §5.3"),
                     cite(MCP_LABEL, "Boxed warning"),
                 ),
             ),
