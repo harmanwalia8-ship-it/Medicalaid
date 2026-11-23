@@ -48,8 +48,14 @@ CDC/ACIP tetanus table; MoHFW STG 2025 Ch. 13 trauma-in-pregnancy statements not
 PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
 
 **In review (hidden):**
-- Obstetric batch 2 — placeholders `EarlyPregnancy.kt`, `AntepartumHaemorrhage.kt`, `LabourEmergencies.kt`,
-  `MaternalMedical.kt` (briefs in the GROUPS array: earlypreg, aph, labour, maternalmed).
+- `EarlyPregnancy.kt` (ectopic-pregnancy, miscarriage-septic-abortion, hyperemesis-gravidarum) — **written** 23 Nov
+  2026, tests pass; numbers review → safety review → fixer still to run (findings → `.claude-work/reviews/earlypreg-*.json`).
+  The writer flagged the released "nvp" pregnancy page (PregnancyConditions.kt) against RCOG GTG 69 (2024): ginger
+  first-line, thiamine only after 3 weeks of vomiting, no VTE prophylaxis, methylprednisolone cleft caution, an "FDA
+  16 mg ondansetron" line cited to ACOG PB 189; and `ob-ecl-mohfw-stg-obg` (Eclampsia.kt) is titled for two chapters
+  but is the whole MoHFW STG 2017 O&G document. Let the earlypreg fixer verify and correct these.
+- Obstetric batch 2, remaining placeholders: `AntepartumHaemorrhage.kt`, `LabourEmergencies.kt`, `MaternalMedical.kt`
+  (briefs in the GROUPS array: aph, labour, maternalmed).
 
 ## Next steps, in order
 1–3. Done: head/spine and wounds/bites reviewed and fixed; 0.5.1 released and sent (23 Nov 2026).
