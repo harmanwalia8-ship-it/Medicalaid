@@ -71,6 +71,12 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    Step/Note must end up cited), strip links out of the point text (as convert.py does) so text stays clean and links become the step's citations;
    generate into the placeholder data files, add to `released`, compile + tests, note
    "not independently reviewed" in README, build the APK.
+5c. **Rewrite all 73 released protocols in the lean style** (user approved 23 Nov 2026), also by Gemini:
+   prompt `.claude-work/gemini-prompts/rewrite-existing-protocols.md` (batches R1–R8 by file), Gemini given a zip of
+   the current protocol files. On each returned batch: convert with the same protocol converter (Source ids/URLs are
+   the existing ones), run a **number-preservation check** (every number/unit in each old protocol must appear in the
+   new one; list any that vanish for the user), keep ids/titles/tools/StepDoses, compile + tests, replace the data
+   file, then build. Read Gemini's "Possible issues" list and pass it to the user.
 5b-done. Infections A–Z (all 40, batches 1–5) compiled as written and released in 0.6.0.
 5b. **Infections A–Z next, before child emergencies** (user decision 23 Nov 2026). The user is having Gemini draft
    infection pages from a 0.5.1 repo zip: Batch 2 (D–H: dengue, diphtheria, enteric fever, filariasis, giardiasis,
@@ -129,7 +135,8 @@ disables itself and sends the user a summary of what still needs them.
 ## User preferences
 - Clinician decision support for doctors in India (Punjab); sources India first, every statement cited.
 - Uncluttered, premium UI; no purple, no pill shapes; side menu, search everywhere.
-- Content style (23 Nov 2026): short direct quick-reference lines like the Infections A–Z pages; sources as tappable
+- Content style (23 Nov 2026): "a reference app, not a research app". Short direct quick-reference lines like the
+  Infections A–Z pages; sources as tappable
   lists, not named in the sentence unless guidelines disagree. The older protocols are wordier.
 - Keep ESC content for now (permission needed before public release). Before sharing widely: colleague review,
   signing key, CDSCO check (README checklist).
