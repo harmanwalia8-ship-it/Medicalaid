@@ -87,6 +87,12 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    the existing ones), run a **number-preservation check** (every number/unit in each old protocol must appear in the
    new one; list any that vanish for the user), keep ids/titles/tools/StepDoses, compile + tests, replace the data
    file, then build. Read Gemini's "Possible issues" list and pass it to the user.
+5d. **Medicines by Gemini** (user decision 24 Nov 2026): prompt `.claude-work/gemini-prompts/medicines.md` —
+   D1–D5 new drug profiles (Format A), P1–P3 children's doses for existing drugs (Format B), T1–T4 Treatment pages
+   (Format C = the Infections A–Z format). Converters still to write when batches arrive: a drug-profile converter
+   (DrugMonograph; needs new fields `children: Facts?` + `childDoses: List<StepDose>`), and convert.py generalised
+   for Population.General/Pregnancy and more authorities. Same rules: compile as written, number check not needed
+   (new content), README "not independently reviewed".
 5b-done. Infections A–Z (all 40, batches 1–5) compiled as written and released in 0.6.0.
 5b. **Infections A–Z next, before child emergencies** (user decision 23 Nov 2026). The user is having Gemini draft
    infection pages from a 0.5.1 repo zip: Batch 2 (D–H: dengue, diphtheria, enteric fever, filariasis, giardiasis,
