@@ -17,17 +17,27 @@ import com.medicalaid.app.content.drugs.data.symptomaticDrugs
 import com.medicalaid.app.content.drugs.data.symptomaticSources
 import com.medicalaid.app.content.drugs.data.tbMalariaDrugs
 import com.medicalaid.app.content.drugs.data.tbMalariaSources
+import com.medicalaid.app.content.drugs.data.drugsD1
+import com.medicalaid.app.content.drugs.data.drugsD2
+import com.medicalaid.app.content.drugs.data.drugsD3
+import com.medicalaid.app.content.drugs.data.drugsD4
+import com.medicalaid.app.content.drugs.data.drugsD1Sources
+import com.medicalaid.app.content.drugs.data.drugsD2Sources
+import com.medicalaid.app.content.drugs.data.drugsD3Sources
+import com.medicalaid.app.content.drugs.data.drugsD4Sources
 
 /** The drug database: monographs plus the label sources they cite. */
 object Drugs {
     val all: List<DrugMonograph> = (
         metabolicDrugs + symptomaticDrugs + antihypertensiveDrugs + cardiovascularDrugs +
-            anticoagEndoDrugs + antibioticDrugs + tbMalariaDrugs + respiratoryGiDrugs
+            anticoagEndoDrugs + antibioticDrugs + tbMalariaDrugs + respiratoryGiDrugs +
+            drugsD1 + drugsD2 + drugsD3 + drugsD4
         ).sortedBy { it.name.lowercase() }
 
     val sources: List<Source> =
         metabolicSources + symptomaticSources + antihypertensiveSources + cardiovascularSources +
-            anticoagEndoSources + antibioticSources + tbMalariaSources + respiratoryGiSources
+            anticoagEndoSources + antibioticSources + tbMalariaSources + respiratoryGiSources +
+            drugsD1Sources + drugsD2Sources + drugsD3Sources + drugsD4Sources
 
     private val index = all.associateBy { it.id }
 

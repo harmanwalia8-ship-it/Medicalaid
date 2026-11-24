@@ -44,6 +44,10 @@ data class DrugMonograph(
     val boxedWarning: Facts? = null,
     /** Usual adult dosing in brief. */
     val dose: Facts? = null,
+    /** Children's dosing: age bands, mg/kg, maxima. */
+    val children: Facts? = null,
+    /** Weight-based children's doses shown with a calculator. */
+    val childDoses: List<com.medicalaid.app.content.protocols.StepDose> = emptyList(),
     /** Tests or checks the source says to do before starting. */
     val beforeStarting: Facts? = null,
     val monitoring: Facts? = null,
@@ -60,7 +64,7 @@ data class DrugMonograph(
     val hasHepaticCaution: Boolean get() = hepatic != null
 
     fun allCitations(): List<Citation> = listOfNotNull(
-        boxedWarning, dose, beforeStarting, monitoring, renal, hepatic, commonEffects, seriousEffects,
+        boxedWarning, dose, children, beforeStarting, monitoring, renal, hepatic, commonEffects, seriousEffects,
         interactions, pregnancy, lactation,
     ).flatMap { it.citations } + pk.citations
 }

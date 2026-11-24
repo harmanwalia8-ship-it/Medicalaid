@@ -123,6 +123,16 @@ class Screenshots {
         shot("35-scores-list", heightDp = 1500) { com.medicalaid.app.ui.scores.ScoresScreen("", {}, {}, {}, pad) }
         shot("36-home-v3") { HomeScreen("", {}, {}, {}, {}, {}, pad) }
         shot("60-home-situations", heightDp = 1300) { HomeScreen("", {}, {}, {}, {}, {}, pad) }
+        shot("70-app-home", heightDp = 900) {
+            Box(Modifier.fillMaxSize()) {
+                HomeScreen("", {}, {}, {}, {}, {}, PaddingValues(top = 16.dp, bottom = 96.dp))
+                BottomTabs(Destination.Home, {}, {}, Modifier.align(androidx.compose.ui.Alignment.BottomCenter))
+            }
+        }
+        shot("71-protocol-child-se", heightDp = 2600) {
+            com.medicalaid.app.ui.protocols.ProtocolScreen(com.medicalaid.app.content.protocols.Protocols.byId("paediatric-status-epilepticus-febrile-seizures")!!, {}, {}, pad)
+        }
+        shot("72-drug-cefixime", heightDp = 2800) { DrugScreen(Drugs.byId("cefixime")!!, {}, pad) }
         shot("61-emergency", heightDp = 1500) {
             com.medicalaid.app.ui.scores.ProtocolsScreen({}, {}, pad, tools = listOf("GCS" to {}, "qSOFA" to {}, "CT head rule" to {}, "C-spine rule" to {}, "Burns chart" to {}, "ABG" to {}))
         }

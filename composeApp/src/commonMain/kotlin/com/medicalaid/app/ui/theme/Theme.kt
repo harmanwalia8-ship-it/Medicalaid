@@ -44,6 +44,11 @@ data class AppColors(
     val cautionSoft: Color,
     val danger: Color,
     val dangerSoft: Color,
+    /** Section colours: Pregnancy & labour (rose) and Adult medicine (blue); Emergency uses danger, Infections positive. */
+    val rose: Color,
+    val roseSoft: Color,
+    val blue: Color,
+    val blueSoft: Color,
     val isDark: Boolean,
 )
 
@@ -64,6 +69,10 @@ private val Light = AppColors(
     cautionSoft = Color(0xFFFFF3DD),
     danger = Color(0xFFB4322B),
     dangerSoft = Color(0xFFFCEBE9),
+    rose = Color(0xFFA3376B),
+    roseSoft = Color(0xFFFBEAF1),
+    blue = Color(0xFF2F5FA8),
+    blueSoft = Color(0xFFE8EFF9),
     isDark = false,
 )
 
@@ -84,6 +93,10 @@ private val Dark = AppColors(
     cautionSoft = Color(0xFF33271A),
     danger = Color(0xFFF08A82),
     dangerSoft = Color(0xFF3A1F1E),
+    rose = Color(0xFFE58BB5),
+    roseSoft = Color(0xFF38202C),
+    blue = Color(0xFF8AB4F0),
+    blueSoft = Color(0xFF18263A),
     isDark = true,
 )
 

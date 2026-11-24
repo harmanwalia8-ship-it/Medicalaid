@@ -80,12 +80,13 @@ fun ProtocolScreen(
             .mapNotNull { GuidelineGroup.of(it) }.distinct().sortedBy { it.ordinal }
     }
     val listState = rememberLazyListState()
+    var expanded by remember(protocol.id) { mutableStateOf(setOf(0)) }
     val scope = rememberCoroutineScope()
     // Items above the first step, so the outline chips can jump to a step.
     val firstStepIndex = 1 + (if (groupsOnPage.size >= 2) 1 else 0) + (if (hasDoses) 1 else 0) +
         (if (protocol.notes.isNotEmpty()) 1 else 0) + (if (protocol.steps.size >= 3) 1 else 0) + 1
     LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = contentPadding) {
-        item { ScreenTitle(protocol.title, protocol.summary, onBack = onBack) }
+        item { ScreenTitle(protocol.title, protocol.summary, onBack = onBack, label = protocol.category.label, accent = com.medicalaid.app.ui.components.categoryAccent(protocol.category)) }
         if (groupsOnPage.size >= 2) {
             item {
                 com.medicalaid.app.ui.components.FilterTabs(
@@ -96,15 +97,7 @@ fun ProtocolScreen(
         }
         if (hasDoses) {
             item {
-                SurfaceCard(Modifier.padding(horizontal = Gutter).padding(top = 12.dp), padding = PaddingValues(horizontal = 18.dp, vertical = 12.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Column(Modifier.weight(1f)) {
-                            Text("Patient weight", style = Theme.type.bodyStrong, color = c.text)
-                            Text("Calculates the weight-based doses below", style = Theme.type.caption, color = c.textSecondary)
-                        }
-                        NumberField(weightText, { weightText = it }, placeholder = "kg", suffix = "kg", modifier = Modifier.width(110.dp))
-                    }
-                }
+                com.medicalaid.app.ui.components.WeightPanel(weightText, { weightText = it }, Modifier.padding(horizontal = Gutter).padding(top = 12.dp))
             }
         }
         if (protocol.notes.isNotEmpty()) {
@@ -121,16 +114,27 @@ fun ProtocolScreen(
                         Text(
                             "${i + 1}  ${s.title}", style = Theme.type.label, color = c.textSecondary, maxLines = 1,
                             modifier = Modifier.clip(Radius.chip).background(c.surfaceMuted)
-                                .clickable { scope.launch { listState.animateScrollToItem(firstStepIndex + i) } }
+                                .clickable { expanded = expanded + i; scope.launch { listState.animateScrollToItem(firstStepIndex + i) } }
                                 .padding(horizontal = 12.dp, vertical = 8.dp),
                         )
                     }
                 }
             }
         }
-        item { Spacer(Modifier.height(16.dp)) }
+        item {
+            val all = expanded.size == protocol.steps.size
+            Row(Modifier.padding(horizontal = Gutter).padding(top = 18.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("STEPS · ${protocol.steps.size}", style = Theme.type.overline, color = c.textTertiary, modifier = Modifier.weight(1f))
+                Text(
+                    if (all) "Collapse all" else "Expand all", style = Theme.type.label, color = c.accent,
+                    modifier = Modifier.clip(Radius.chip).clickable { expanded = if (all) emptySet() else protocol.steps.indices.toSet() }
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                )
+            }
+        }
         itemsIndexed(protocol.steps, key = { i, s -> "$i-${s.title}" }) { index, step ->
-            StepRow(index + 1, step, isLast = index == protocol.steps.lastIndex, onOpenScore = onOpenScore, weightKg = weightKg, filter = filter)
+            StepRow(index + 1, step, isLast = index == protocol.steps.lastIndex, onOpenScore = onOpenScore, weightKg = weightKg, filter = filter,
+                expanded = index in expanded, onToggle = { expanded = if (index in expanded) expanded - index else expanded + index })
         }
         item { com.medicalaid.app.ui.RelatedLinks(com.medicalaid.app.ui.PageKey.protocol(protocol.id)) }
         item {
@@ -180,7 +184,7 @@ private fun NotesCard(protocol: Protocol) {
 }
 
 @Composable
-private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (String) -> Unit, weightKg: Double?, filter: GuidelineGroup?) {
+private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (String) -> Unit, weightKg: Double?, filter: GuidelineGroup?, expanded: Boolean = true, onToggle: () -> Unit = {}) {
     val c = Theme.colors
     Row(Modifier.padding(horizontal = Gutter).height(IntrinsicSize.Min)) {
         // Timeline rail
@@ -194,18 +198,30 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
         Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f).padding(bottom = 14.dp)) {
             SurfaceCard {
-                Text(step.title, style = Theme.type.headline, color = c.text)
+                Row(Modifier.fillMaxWidth().clip(Radius.inner).clickable(onClick = onToggle), verticalAlignment = Alignment.CenterVertically) {
+                    Text(step.title, style = Theme.type.headline, color = c.text, modifier = Modifier.weight(1f))
+                    Icon(
+                        Icons.Outlined.ExpandMore, if (expanded) "Collapse step" else "Expand step", tint = c.textTertiary,
+                        modifier = Modifier.size(22.dp).rotate(if (expanded) 180f else 0f),
+                    )
+                }
                 if (step.timing != null) {
                     Spacer(Modifier.height(6.dp))
                     Row(
-                        Modifier.clip(Radius.chip).background(c.accentSoft).padding(horizontal = 10.dp, vertical = 4.dp),
+                        Modifier.clip(Radius.chip).background(c.cautionSoft).padding(horizontal = 10.dp, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Icon(Icons.Outlined.AccessTime, null, tint = c.accent, modifier = Modifier.size(14.dp))
+                        Icon(Icons.Outlined.AccessTime, null, tint = c.caution, modifier = Modifier.size(14.dp))
                         Spacer(Modifier.width(6.dp))
-                        Text(step.timing, style = Theme.type.label, color = c.accent)
+                        Text(step.timing, style = Theme.type.label, color = c.caution)
                     }
                 }
+                if (!expanded) {
+                    step.points.firstOrNull()?.let {
+                        Spacer(Modifier.height(4.dp))
+                        Text(it, style = Theme.type.caption, color = c.textSecondary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                    }
+                } else {
                 if (step.points.isNotEmpty()) {
                     Spacer(Modifier.height(10.dp))
                     FilteredPoints(step, filter)
@@ -217,7 +233,7 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
                 if (step.doses.isNotEmpty()) {
                     Spacer(Modifier.height(12.dp))
                     step.doses.forEach { d ->
-                        StepDoseLine(d, weightKg)
+                        com.medicalaid.app.ui.components.StepDoseCard(d, weightKg)
                         Spacer(Modifier.height(6.dp))
                     }
                 }
@@ -245,6 +261,7 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
                 Spacer(Modifier.height(12.dp))
                 val selectedHere = filter != null && step.points.any { GuidelineGroup.of(it) == filter }
                 GuidelineBasis(if (selectedHere) GuidelineGroup.filterCitations(step.citations, filter) else step.citations, compact = true)
+                }
             }
         }
     }
@@ -259,19 +276,19 @@ private fun StepRow(number: Int, step: Step, isLast: Boolean, onOpenScore: (Stri
 private fun FilteredPoints(step: Step, filter: GuidelineGroup?) {
     val c = Theme.colors
     if (filter == null) {
-        Bullets(step.points)
+        PointsWithCallouts(step.points)
         return
     }
     val mine = step.points.filter { GuidelineGroup.of(it) == filter }
     if (mine.isEmpty()) {
         Text("No ${filter.label} statement for this step — other guidelines shown.", style = Theme.type.caption, color = c.textTertiary)
         Spacer(Modifier.height(6.dp))
-        Bullets(step.points)
+        PointsWithCallouts(step.points)
         return
     }
     val shown = step.points.filter { GuidelineGroup.of(it) == filter || !GuidelineGroup.attributed(it) }
     val others = step.points - shown.toSet()
-    Bullets(shown)
+    PointsWithCallouts(shown)
     if (others.isNotEmpty()) {
         var open by remember(step.title, filter) { mutableStateOf(false) }
         val names = others.mapNotNull { GuidelineGroup.of(it)?.label ?: it.substringBefore(':').take(24) }.distinct()
@@ -297,13 +314,28 @@ private fun FilteredPoints(step: Step, filter: GuidelineGroup?) {
     }
 }
 
+/** Points, with "Do not / Never / Avoid" lines lifted out as red callouts. */
+@Composable
+private fun PointsWithCallouts(points: List<String>) {
+    val (donts, rest) = points.partition { com.medicalaid.app.ui.components.isDont(it) }
+    if (rest.isNotEmpty()) Bullets(rest)
+    donts.forEachIndexed { i, t ->
+        if (rest.isNotEmpty() || i > 0) Spacer(Modifier.height(8.dp))
+        com.medicalaid.app.ui.components.Callout(t)
+    }
+}
+
 @Composable
 private fun Checklist(title: String, items: List<String>) {
     val c = Theme.colors
     var checked by remember(items) { mutableStateOf(setOf<Int>()) }
-    Column(Modifier.fillMaxWidth().clip(Radius.inner).background(c.surfaceMuted).padding(vertical = 6.dp)) {
+    val danger = Regex("don['’]?t|do not|never|avoid|contraindicat|not to do|stop", RegexOption.IGNORE_CASE).containsMatchIn(title)
+    val caution = !danger && Regex("red flag|warning|danger|escalat", RegexOption.IGNORE_CASE).containsMatchIn(title)
+    val bg = when { danger -> c.dangerSoft; caution -> c.cautionSoft; else -> c.surfaceMuted }
+    val fg = when { danger -> c.danger; caution -> c.caution; else -> c.textTertiary }
+    Column(Modifier.fillMaxWidth().clip(Radius.inner).background(bg).padding(vertical = 6.dp)) {
         Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(title.uppercase(), style = Theme.type.overline, color = c.textTertiary, modifier = Modifier.weight(1f))
+            Text(title.uppercase(), style = Theme.type.overline, color = fg, modifier = Modifier.weight(1f))
             if (checked.isNotEmpty()) Text("${checked.size} ticked", style = Theme.type.caption, color = c.danger)
         }
         items.forEachIndexed { i, text ->

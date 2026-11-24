@@ -82,7 +82,7 @@ fun ConditionScreen(
             condition.tiers.flatMap { t -> t.drugs.flatMap { it.cautions } } + condition.escalate)
             .mapNotNull { GuidelineGroup.of(it) }.distinct().sortedBy { it.ordinal }
     }
-    val weightKg = weightText.replace(',', '.').toDoubleOrNull()?.takeIf { it in 20.0..250.0 }
+    val weightKg = weightText.replace(',', '.').toDoubleOrNull()?.takeIf { it in 2.0..250.0 }
     val hasWeightDosing = condition.tiers.any { t -> t.drugs.any { it.weightDose != null } }
     val listState = rememberLazyListState()
 
@@ -91,6 +91,7 @@ fun ConditionScreen(
         if (highlightDrug == null) return@remember -1
         var i = 1 // title
         if (condition.image != null) i++
+        if (condition.population == Population.Infections) i++
         if (condition.tool != null) i++
         if (hasWeightDosing) i++
         if (condition.firstSteps.isNotEmpty()) i += 2
@@ -109,14 +110,11 @@ fun ConditionScreen(
     LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = contentPadding) {
         item {
             Column {
-                ScreenTitle(condition.title, condition.summary, onBack = onBack)
-                Row(Modifier.padding(horizontal = Gutter).padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Tag(
-                        condition.population.label,
-                        fg = if (condition.population == Population.Pregnancy) Theme.colors.accent else Theme.colors.positive,
-                        bg = if (condition.population == Population.Pregnancy) Theme.colors.accentSoft else Theme.colors.positiveSoft,
-                    )
-                    Spacer(Modifier.width(10.dp))
+                ScreenTitle(
+                    condition.title, condition.summary, onBack = onBack,
+                    label = condition.population.label, accent = com.medicalaid.app.ui.components.populationAccent(condition.population),
+                )
+                Row(Modifier.padding(horizontal = Gutter), verticalAlignment = Alignment.CenterVertically) {
                     val authorities = (condition.citations + condition.info.flatMap { it.citations } +
                         condition.tiers.flatMap { t -> t.drugs.flatMap { it.citations } })
                         .map { com.medicalaid.app.content.Sources.byId(it.sourceId).authority.short }.distinct()
@@ -132,6 +130,7 @@ fun ConditionScreen(
         }
 
         condition.image?.let { img -> item { ConditionPhoto(img) } }
+        if (condition.population == Population.Infections) item { AtAGlance(condition) }
 
         condition.tool?.let { tool ->
             item {
@@ -150,15 +149,7 @@ fun ConditionScreen(
 
         if (hasWeightDosing) {
             item {
-                SurfaceCard(Modifier.padding(horizontal = Gutter).padding(top = 16.dp), padding = PaddingValues(horizontal = 18.dp, vertical = 12.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Column(Modifier.weight(1f)) {
-                            Text("Patient weight", style = Theme.type.bodyStrong, color = Theme.colors.text)
-                            Text("For mg/kg doses on this page", style = Theme.type.caption, color = Theme.colors.textSecondary)
-                        }
-                        NumberField(weightText, { weightText = it }, placeholder = "kg", suffix = "kg", modifier = Modifier.width(110.dp))
-                    }
-                }
+                com.medicalaid.app.ui.components.WeightPanel(weightText, { weightText = it }, Modifier.padding(horizontal = Gutter).padding(top = 16.dp), hint = "For mg/kg doses on this page")
             }
         }
 
@@ -360,5 +351,41 @@ private fun ConditionPhoto(image: ConditionImage) {
             style = Theme.type.caption, color = c.textTertiary,
             modifier = Modifier.padding(top = 2.dp).clickable { runCatching { uri.openUri(image.sourceUrl) } },
         )
+    }
+}
+
+/** Infection pages: test of choice and drug of choice at a glance, then what to avoid. Taken from the page itself. */
+@Composable
+private fun AtAGlance(condition: Condition) {
+    val c = Theme.colors
+    val ioc = condition.info.firstOrNull { it.title.startsWith("Investigation of choice") }?.points?.firstOrNull()?.let { shortTest(it) }
+    val firstTier = condition.tiers.firstOrNull()
+    val drug = firstTier?.drugs?.firstOrNull()?.name?.substringBefore(" (")
+    val avoid = condition.avoid.take(3).map { it.name.substringBefore(" (") }
+    if (ioc == null && drug == null && avoid.isEmpty()) return
+    Column(Modifier.padding(horizontal = Gutter).padding(top = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (ioc != null) GlanceCard("Test of choice", ioc, null, Modifier.weight(1f))
+            if (drug != null) GlanceCard("Drug of choice", drug, firstTier.label, Modifier.weight(1f))
+        }
+        if (avoid.isNotEmpty()) com.medicalaid.app.ui.components.Callout("Avoid: " + avoid.joinToString("; "))
+    }
+}
+
+/** "Days 1–5 … — IOC: NS1 antigen by ELISA (or …)" → "NS1 antigen by ELISA". */
+private fun shortTest(point: String): String {
+    val afterIoc = point.substringAfter("IOC:", point).trim()
+    val cut = afterIoc.split(" (", "; ", " — ", ". ").first().trim().trimEnd('.', ',')
+    return if (cut.length > 70) cut.take(67).trimEnd() + "…" else cut
+}
+
+@Composable
+private fun GlanceCard(title: String, value: String, sub: String?, modifier: Modifier) {
+    val c = Theme.colors
+    Column(modifier.clip(Radius.card).background(c.surface).border(1.dp, c.hairline, Radius.card).padding(12.dp)) {
+        Text(title.uppercase(), style = Theme.type.overline, color = c.textSecondary)
+        Spacer(Modifier.height(6.dp))
+        Text(value, style = Theme.type.bodyStrong, color = c.text, maxLines = 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+        if (sub != null) Text(sub, style = Theme.type.caption, color = c.textSecondary, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
     }
 }

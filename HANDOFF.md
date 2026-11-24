@@ -1,7 +1,7 @@
 # Handoff — where the work stands (23 Nov 2026)
 
 Read this first in a new session, together with `README.md` (what the app is, content rules) and `ROADMAP.md`
-(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.8.2** (versionCode 13), sent 23 Nov 2026. Work is PAUSED by the user (usage); the 5-hourly
+(queued work). Branch: `claude/handoff-continuation-ok7mdf` (earlier work: `ccr-f183fc69-36wkic`). Last shipped APK: **0.9.0** (versionCode 14), sent 24 Nov 2026 — UI redesign + 49 drugs (D1–D4). Work is PAUSED by the user (usage); the 5-hourly
 scheduled task is disabled. Do not restart protocol writing without the user's go-ahead.
 
 ## Build and check
@@ -89,8 +89,9 @@ PaCO₂ 30, perimortem caesarean wording) and 15° vs 30° tilt.
    file, then build. Read Gemini's "Possible issues" list and pass it to the user.
 5d. **Medicines by Gemini** (user decision 24 Nov 2026): prompt `.claude-work/gemini-prompts/medicines.md` —
    D1–D5 new drug profiles (Format A), P1–P3 children's doses for existing drugs (Format B), T1–T4 Treatment pages
-   (Format C = the Infections A–Z format). Converters still to write when batches arrive: a drug-profile converter
-   (DrugMonograph; needs new fields `children: Facts?` + `childDoses: List<StepDose>`), and convert.py generalised
+   (Format C = the Infections A–Z format). **D1–D4 done (0.9.0)**: `.claude-work/gemini-drugs/convert_drugs.py <repo> <batch.md> GeminiDrugsDn.kt Dn`
+   (DrugMonograph now has `children` + `childDoses`; register new files in Drugs.kt). Still to write: a Format B
+   converter (P1–P3, add children's doses to existing drugs) and convert.py generalised
    for Population.General/Pregnancy and more authorities. Same rules: compile as written, number check not needed
    (new content), README "not independently reviewed".
 5b-done. Infections A–Z (all 40, batches 1–5) compiled as written and released in 0.6.0.

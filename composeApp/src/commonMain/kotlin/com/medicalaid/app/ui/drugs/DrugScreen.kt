@@ -28,6 +28,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,6 +66,7 @@ fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingV
 
     val sections = buildList {
         drug.dose?.let { add(Section("dose", "Dose") { FactsCard("Dose", it) }) }
+        if (drug.children != null || drug.childDoses.isNotEmpty()) add(Section("children", "Children") { ChildrenCard(drug) })
         if (drug.beforeStarting != null || drug.monitoring != null) {
             add(
                 Section("tests", "Tests") {
@@ -124,7 +129,7 @@ fun DrugScreen(drug: DrugMonograph, onBack: () -> Unit, contentPadding: PaddingV
     LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = contentPadding) {
         item {
             Column {
-                ScreenTitle(drug.name, drug.drugClass, onBack = onBack)
+                ScreenTitle(drug.name, drug.drugClass, onBack = onBack, label = "Drug")
                 Text(drug.uses, style = Theme.type.body, color = c.text, modifier = Modifier.padding(horizontal = Gutter).padding(top = 4.dp))
                 val labelForm = drug.allCitations().firstOrNull()?.let { com.medicalaid.app.content.Sources.byId(it.sourceId).title.substringBefore(" — ") }
                 if (labelForm != null) {
@@ -290,5 +295,23 @@ private fun ExternalRefsCard(drug: DrugMonograph) {
             }
         }
         Spacer(Modifier.height(6.dp))
+    }
+}
+
+/** Children's dosing: the age-band lines, then a weight panel driving the mg/kg calculators. */
+@Composable
+private fun ChildrenCard(drug: DrugMonograph) {
+    var weightText by remember(drug.id) { mutableStateOf("") }
+    val weightKg = weightText.replace(',', '.').toDoubleOrNull()?.takeIf { it in 2.0..250.0 }
+    SurfaceCard {
+        drug.children?.let { FactsBlock("Children", it) }
+        if (drug.childDoses.isNotEmpty()) {
+            Spacer(Modifier.height(12.dp))
+            com.medicalaid.app.ui.components.WeightPanel(weightText, { weightText = it }, hint = "Calculates the children's doses below")
+            drug.childDoses.forEach {
+                Spacer(Modifier.height(8.dp))
+                com.medicalaid.app.ui.components.StepDoseCard(it, weightKg)
+            }
+        }
     }
 }

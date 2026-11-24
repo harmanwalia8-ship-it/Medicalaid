@@ -8,7 +8,11 @@ Works fully offline and stores no patient data.
 
 ## What's in it
 
-Organised by clinical situation (0.7.0). Side menu: **Home** (search everything, Pinned, Recent), **Emergency**
+Redesigned in 0.9.0: bottom tab bar (Home · Emergency · Pregnancy · Infections · More), compact headers with a
+coloured section label (red Emergency, rose Pregnancy, green Infections, blue Adult medicine), a teal weight panel
+with −/+ buttons, dose cards with the calculated dose in large figures, red "Do not" callouts and red/amber
+checklists, collapsible protocol steps, and "at a glance" test/drug of choice on infection pages. Organised by
+clinical situation (0.7.0). Side menu (from More): **Home** (search everything, Pinned, Recent), **Emergency**
 (protocols by category with chips, bedside tools: GCS, qSOFA, CT-head and C-spine rules, burns chart, ABG, HEART),
 **Pregnancy & labour** (dating and antenatal schedule, obstetric emergencies, treatment in pregnancy), **Infections**
 (A–Z), **Adult medicine**, **Drugs**, then **Scores**, **Calculators**, **Sources**, **About**. Every topic page has a pin
@@ -33,7 +37,8 @@ open with a step outline to jump to any step. A one-time "for clinicians" notice
   written — see Known gaps.
 - Doses as written by the source; weight-based doses calculate from an entered weight.
 
-**Drugs** — searchable database summarising official US FDA labels (DailyMed): uses, dose, tests before
+**Drugs** — 124 drugs (49 anti-infectives added in 0.9.0 from Gemini batches D1–D4, compiled as written, with a
+Children section and weight-based child dose calculators). Searchable database summarising official US FDA labels (DailyMed): uses, dose, tests before
 starting, monitoring, kidney and liver dosing, common vs serious side effects, pharmacokinetics (absorption,
 distribution, metabolism, elimination, half-life), key interactions, pregnancy and breastfeeding. Every section
 cites the label section it came from. "Look up elsewhere" links open DailyMed, LiverTox, LactMed, BNF, Medscape,

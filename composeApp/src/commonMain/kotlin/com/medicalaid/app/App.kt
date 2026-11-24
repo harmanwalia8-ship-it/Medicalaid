@@ -31,6 +31,7 @@ import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Calculate
 import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.Coronavirus
+import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
@@ -78,6 +79,7 @@ import com.medicalaid.app.ui.LocalCurrentPage
 import com.medicalaid.app.ui.LocalOpenPage
 import com.medicalaid.app.ui.PageKey
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.zIndex
 import com.medicalaid.app.ui.pregnancy.PregnancyState
 import com.medicalaid.app.ui.sources.SourcesScreen
 import com.medicalaid.app.ui.theme.AppTheme
@@ -171,6 +173,8 @@ fun App() {
         val top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
         val bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
         val padding = PaddingValues(top = top + 8.dp, bottom = bottom + 32.dp)
+        // Main screens leave room for the bottom tab bar.
+        val rootPadding = PaddingValues(top = top + 8.dp, bottom = bottom + 32.dp + 64.dp)
         val trimester = (pregnancy.outcome(today) as? DatingOutcome.Ok)?.result?.trimester
 
         ModalNavigationDrawer(
@@ -179,6 +183,10 @@ fun App() {
         ) {
             CompositionLocalProvider(LocalOpenPage provides { key: PageKey -> key.toDetail()?.let { push(it) } }) {
             Box(Modifier.fillMaxSize().background(Theme.colors.background).imePadding()) {
+                if (stack.isEmpty()) {
+                    BottomTabs(root, onSelect = { navigate(it) }, onMore = openMenu,
+                        modifier = Modifier.align(Alignment.BottomCenter).zIndex(1f))
+                }
                 AnimatedContent(
                     targetState = root to stack,
                     transitionSpec = {
@@ -216,7 +224,7 @@ fun App() {
                         is Detail.ProtocolPage -> com.medicalaid.app.content.protocols.Protocols.byId(detail.id)?.let {
                             com.medicalaid.app.ui.protocols.ProtocolScreen(it, onBack = { pop() }, onOpenScore = { id -> push(Detail.ScorePage(id)) }, contentPadding = padding)
                         }
-                        null -> when (currentRoot) {
+                        null -> { val padding = rootPadding; when (currentRoot) {
                             Destination.Home -> HomeScreen(
                                 query = homeQuery,
                                 onQueryChange = { homeQuery = it },
@@ -278,6 +286,7 @@ fun App() {
                             Destination.Sources -> SourcesScreen(padding, onMenu = openMenu)
                             Destination.About -> AboutScreen(openMenu, padding)
                         }
+                        }
                     }
                     }
                 }
@@ -335,6 +344,38 @@ private fun Drawer(current: Destination, onSelect: (Destination) -> Unit) {
                 color = c.textTertiary,
                 modifier = Modifier.padding(start = 16.dp, bottom = 24.dp),
             )
+        }
+    }
+}
+
+private val TABS = listOf(Destination.Home, Destination.Emergency, Destination.Pregnancy, Destination.Infections)
+
+/** Bottom tab bar on the main screens; "More" opens the side menu with the remaining sections. */
+@Composable
+internal fun BottomTabs(current: Destination, onSelect: (Destination) -> Unit, onMore: () -> Unit, modifier: Modifier) {
+    val c = Theme.colors
+    Column(modifier.fillMaxWidth().background(c.surface)) {
+        Box(Modifier.fillMaxWidth().height(1.dp).background(c.hairline))
+        Row(Modifier.fillMaxWidth().then(Modifier.padding(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())).height(64.dp).padding(horizontal = 6.dp)) {
+            (TABS.map { it to it.label } + (null to "More")).forEach { (d, label) ->
+                val active = if (d == null) current !in TABS else current == d
+                val color = if (active) c.accent else c.textSecondary
+                Column(
+                    Modifier.weight(1f).fillMaxSize().clip(RoundedCornerShape(10.dp)).clickable { if (d == null) onMore() else onSelect(d) },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
+                ) {
+                    Icon(d?.icon ?: androidx.compose.material.icons.Icons.Outlined.MoreHoriz, null, tint = color, modifier = Modifier.size(23.dp))
+                    Spacer(Modifier.height(3.dp))
+                    Text(
+                        if (d == Destination.Pregnancy) "Pregnancy" else label, color = color, maxLines = 1,
+                        style = Theme.type.caption.copy(
+                            fontSize = androidx.compose.ui.unit.TextUnit(11f, androidx.compose.ui.unit.TextUnitType.Sp),
+                            fontWeight = if (active) androidx.compose.ui.text.font.FontWeight.SemiBold else androidx.compose.ui.text.font.FontWeight.Medium,
+                        ),
+                    )
+                }
+            }
         }
     }
 }

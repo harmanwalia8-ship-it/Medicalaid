@@ -25,6 +25,11 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.Block
+import androidx.compose.material.icons.outlined.WarningAmber
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material.icons.filled.PushPin
@@ -268,53 +273,168 @@ fun ScreenTitle(
     onBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     onMenu: (() -> Unit)? = null,
+    /** Small coloured category label above the title, e.g. "Obstetric emergency". */
+    label: String? = null,
+    accent: Accent? = null,
 ) {
-    Column(modifier.fillMaxWidth().padding(horizontal = Gutter).padding(top = 12.dp, bottom = 8.dp)) {
-        val action = onBack ?: onMenu
-        val page = if (onBack != null) LocalCurrentPage.current else null
-        if (action != null) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
-            Box(
-                Modifier
-                    .padding(bottom = 14.dp)
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(Theme.colors.surface)
-                    .border(1.dp, Theme.colors.hairline, CircleShape)
-                    .clickable(onClick = action),
-                contentAlignment = Alignment.Center,
-            ) {
-                if (onBack != null) {
-                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = Theme.colors.text, modifier = Modifier.size(20.dp))
-                } else {
-                    Icon(Icons.Outlined.Menu, "Menu", tint = Theme.colors.text, modifier = Modifier.size(20.dp))
-                }
-            }
-            if (page != null) {
-                val pinned = Library.isPinned(page)
-                Spacer(Modifier.weight(1f))
+    val c = Theme.colors
+    val page = if (onBack != null) LocalCurrentPage.current else null
+    Column(modifier.fillMaxWidth()) {
+        if (onBack != null) {
+            // Compact app bar: back arrow and (on topic pages) the pin, no circles.
+            Row(Modifier.fillMaxWidth().padding(horizontal = 6.dp).height(52.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(
-                    Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(if (pinned) Theme.colors.accentSoft else Theme.colors.surface)
-                        .border(1.dp, Theme.colors.hairline, CircleShape)
-                        .clickable { Library.togglePin(page) },
+                    Modifier.size(44.dp).clip(RoundedCornerShape(10.dp)).clickable(onClick = onBack),
                     contentAlignment = Alignment.Center,
-                ) {
-                    Icon(
-                        if (pinned) Icons.Filled.PushPin else Icons.Outlined.PushPin,
-                        if (pinned) "Unpin" else "Pin to Home",
-                        tint = if (pinned) Theme.colors.accent else Theme.colors.textSecondary,
-                        modifier = Modifier.size(19.dp),
-                    )
+                ) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back", tint = c.text, modifier = Modifier.size(22.dp)) }
+                Spacer(Modifier.weight(1f))
+                if (page != null) {
+                    val pinned = Library.isPinned(page)
+                    Box(
+                        Modifier.size(44.dp).clip(RoundedCornerShape(10.dp)).clickable { Library.togglePin(page) },
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            if (pinned) Icons.Filled.PushPin else Icons.Outlined.PushPin,
+                            if (pinned) "Unpin" else "Pin to Home",
+                            tint = if (pinned) c.accent else c.textSecondary, modifier = Modifier.size(20.dp),
+                        )
+                    }
                 }
             }
         }
-        Text(title, style = Theme.type.title, color = Theme.colors.text)
-        if (subtitle != null) {
-            Spacer(Modifier.height(4.dp))
-            Text(subtitle, style = Theme.type.body, color = Theme.colors.textSecondary, maxLines = 3, overflow = TextOverflow.Ellipsis)
+        Column(Modifier.padding(horizontal = Gutter).padding(top = if (onBack != null) 0.dp else 18.dp, bottom = 8.dp)) {
+            if (label != null) {
+                val a = accent ?: Accent(c.accent, c.accentSoft)
+                Text(
+                    label.uppercase(), style = Theme.type.overline, color = a.fg, maxLines = 1,
+                    modifier = Modifier.padding(bottom = 8.dp).clip(RoundedCornerShape(5.dp)).background(a.bg)
+                        .padding(horizontal = 6.dp, vertical = 3.dp),
+                )
+            }
+            Text(
+                title,
+                style = if (onBack != null) Theme.type.title.copy(fontSize = 26.sp, lineHeight = 31.sp) else Theme.type.title,
+                color = c.text,
+            )
+            if (subtitle != null) {
+                Spacer(Modifier.height(4.dp))
+                Text(subtitle, style = Theme.type.body, color = c.textSecondary, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            }
         }
+    }
+}
+
+/** A section colour pair: foreground (text, icons) and soft background. */
+data class Accent(val fg: Color, val bg: Color)
+
+@Composable
+fun categoryAccent(category: com.medicalaid.app.content.protocols.ProtocolCategory): Accent = when (category) {
+    com.medicalaid.app.content.protocols.ProtocolCategory.Obstetric -> Accent(Theme.colors.rose, Theme.colors.roseSoft)
+    else -> Accent(Theme.colors.danger, Theme.colors.dangerSoft)
+}
+
+@Composable
+fun populationAccent(population: com.medicalaid.app.content.Population): Accent = when (population) {
+    com.medicalaid.app.content.Population.Pregnancy -> Accent(Theme.colors.rose, Theme.colors.roseSoft)
+    com.medicalaid.app.content.Population.Infections -> Accent(Theme.colors.positive, Theme.colors.positiveSoft)
+    com.medicalaid.app.content.Population.General -> Accent(Theme.colors.blue, Theme.colors.blueSoft)
+}
+
+/** Lines that tell the clinician what NOT to do; shown as red callouts. */
+fun isDont(text: String): Boolean =
+    Regex("^(do not|don['’]t|never|avoid|contraindicated|stop all)\\b", RegexOption.IGNORE_CASE).containsMatchIn(text.trim())
+
+/** Red "Do not" or amber caution callout. */
+@Composable
+fun Callout(text: String, danger: Boolean = true, modifier: Modifier = Modifier) {
+    val c = Theme.colors
+    Row(
+        modifier.fillMaxWidth().clip(Radius.inner).background(if (danger) c.dangerSoft else c.cautionSoft)
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Icon(
+            if (danger) Icons.Outlined.Block else Icons.Outlined.WarningAmber, null,
+            tint = if (danger) c.danger else c.caution, modifier = Modifier.padding(top = 1.dp).size(17.dp),
+        )
+        Spacer(Modifier.width(10.dp))
+        Text(text, style = Theme.type.body.copy(fontSize = 14.sp, lineHeight = 19.sp), color = c.text)
+    }
+}
+
+/**
+ * Teal weight panel: large value, editable, with −/+ buttons. Drives every weight-based calculator below it.
+ * Accepts [min]..[max] kg; the value is kept as text so the clinician can type freely.
+ */
+@Composable
+fun WeightPanel(weightText: String, onChange: (String) -> Unit, modifier: Modifier = Modifier, hint: String = "Doses below are calculated for this weight") {
+    val c = Theme.colors
+    val onPanel = if (c.isDark) c.background else Color.White
+    fun step(by: Int) {
+        val now = weightText.replace(',', '.').toDoubleOrNull() ?: 0.0
+        val next = (now + by).coerceIn(0.0, 250.0)
+        onChange(if (next == next.toLong().toDouble()) next.toLong().toString() else next.toString())
+    }
+    Row(
+        modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(c.accent).padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text("Weight", style = Theme.type.label, color = onPanel.copy(alpha = 0.85f))
+            Row(verticalAlignment = Alignment.Bottom) {
+                androidx.compose.foundation.text.BasicTextField(
+                    weightText, { v -> onChange(v.filter { it.isDigit() || it == '.' || it == ',' }.take(5)) },
+                    singleLine = true,
+                    textStyle = Theme.type.title.copy(color = onPanel, fontSize = 32.sp, lineHeight = 38.sp),
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Decimal),
+                    cursorBrush = androidx.compose.ui.graphics.SolidColor(onPanel),
+                    modifier = Modifier.width((if (weightText.isEmpty()) 30 else 20 + 19 * weightText.length).dp),
+                    decorationBox = { inner ->
+                        Box { if (weightText.isEmpty()) Text("—", style = Theme.type.title.copy(fontSize = 32.sp), color = onPanel.copy(alpha = 0.6f)); inner() }
+                    },
+                )
+                Text("kg", style = Theme.type.headline, color = onPanel, modifier = Modifier.padding(bottom = 6.dp))
+            }
+            Text(hint, style = Theme.type.caption, color = onPanel.copy(alpha = 0.8f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+        }
+        listOf(-1 to "Decrease weight", 1 to "Increase weight").forEach { (by, desc) ->
+            Spacer(Modifier.width(8.dp))
+            Box(
+                Modifier.size(44.dp).clip(RoundedCornerShape(12.dp)).background(onPanel.copy(alpha = 0.14f)).clickable { step(by) },
+                contentAlignment = Alignment.Center,
+            ) { Text(if (by < 0) "−" else "+", style = Theme.type.headline.copy(fontSize = 22.sp), color = onPanel, modifier = Modifier.semantics { contentDescription = desc }) }
+        }
+    }
+}
+
+/** A weight-based dose as a card: label, then the calculated dose in large figures, then the rule and any cap. */
+@Composable
+fun StepDoseCard(d: com.medicalaid.app.content.protocols.StepDose, weightKg: Double?) {
+    val c = Theme.colors
+    val w = d.dose
+    val perKg = if (w.minPerKg == w.maxPerKg) "${com.medicalaid.app.ui.formatNumber(w.minPerKg)} ${w.unit}/kg"
+    else "${com.medicalaid.app.ui.formatNumber(w.minPerKg)}–${com.medicalaid.app.ui.formatNumber(w.maxPerKg)} ${w.unit}/kg"
+    Column(Modifier.fillMaxWidth().clip(Radius.inner).background(c.accentSoft.copy(alpha = if (c.isDark) 1f else 0.6f)).padding(horizontal = 12.dp, vertical = 10.dp)) {
+        Text(d.label, style = Theme.type.caption, color = c.textSecondary)
+        if (weightKg == null) {
+            Text("$perKg ${w.per}", style = Theme.type.bodyStrong, color = c.text)
+            Text("Enter weight to calculate" + (d.maxTotal?.let { " · max ${com.medicalaid.app.ui.formatNumber(it)} ${w.unit}" } ?: ""), style = Theme.type.caption, color = c.textTertiary)
+        } else {
+            val cap = d.cap(weightKg)
+            val (lo, hi) = d.range(weightKg)
+            val value = if (lo == hi) com.medicalaid.app.ui.formatNumber(lo) else "${com.medicalaid.app.ui.formatNumber(lo)}–${com.medicalaid.app.ui.formatNumber(hi)}"
+            Text(
+                "$value ${w.unit}", color = c.text,
+                style = Theme.type.title.copy(fontSize = 21.sp, lineHeight = 27.sp, fontFeatureSettings = "tnum"),
+            )
+            Text(w.per, style = Theme.type.caption, color = c.text)
+            Text(
+                "$perKg × ${com.medicalaid.app.ui.formatNumber(weightKg)} kg" + (cap?.let { " · capped at ${com.medicalaid.app.ui.formatNumber(it)} ${w.unit}" } ?: ""),
+                style = Theme.type.caption, color = if (cap != null && hi >= cap) c.caution else c.textTertiary,
+            )
+        }
+        if (d.note != null) Text(d.note, style = Theme.type.caption, color = c.textSecondary, modifier = Modifier.padding(top = 2.dp))
     }
 }
 
